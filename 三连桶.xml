@@ -176,15 +176,15 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="d47e62a1-9817-4f44-bcc9-953f3fbe5e2e" Name="说明" Enabled="false">
+      <Folder Id="d47e62a1-9817-4f44-bcc9-953f3fbe5e2e" Name="说明" Enabled="true">
         <Folders />
         <Triggers>
-          <Trigger Enabled="false" Name="第一次使用时，双击本条触发器，在游戏内输入下列文本" Id="e35a7aaa-7b0a-459f-8f33-3726c1942941" RegularExpression="/e init job">
+          <Trigger Enabled="true" Name="第一次使用时，双击本条触发器，在游戏内输入下列文本" Id="e35a7aaa-7b0a-459f-8f33-3726c1942941" RegularExpression="/e init job">
             <Actions />
             <Condition Enabled="false" Grouping="Or" />
             <Conditions />
           </Trigger>
-          <Trigger Enabled="false" Name="本触发器需要用户支持鲶鱼精邮差插件" Id="62f8340d-d1bf-49e0-9709-662058b3fc62" RegularExpression="">
+          <Trigger Enabled="true" Name="本触发器需要用户支持鲶鱼精邮差插件" Id="62f8340d-d1bf-49e0-9709-662058b3fc62" RegularExpression="">
             <Actions />
             <Condition Enabled="false" Grouping="Or" />
             <Conditions />
