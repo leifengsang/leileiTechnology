@@ -9,57 +9,75 @@
             <Actions>
               <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_DRK" VariableExpression="1" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_WAR" VariableExpression="2" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_GNB" VariableExpression="3" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_PLD" VariableExpression="4" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="5" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_MNK" VariableExpression="5" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="6" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_SAM" VariableExpression="6" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="7" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_DRG" VariableExpression="7" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="8" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_NIN" VariableExpression="8" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="9" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_BLM" VariableExpression="9" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="10" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_RDM" VariableExpression="10" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="11" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_SMN" VariableExpression="11" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="12" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_DNC" VariableExpression="12" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="13" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_BRD" VariableExpression="13" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="14" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_MCH" VariableExpression="14" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="15" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_AST" VariableExpression="15" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="16" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_SCH" VariableExpression="16" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="17" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_WHM" VariableExpression="17" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="获得小队列表" Id="34046412-3423-4195-8831-d1675f6c836d" RegularExpression="^.{15}00:0038:order:(?&lt;name&gt;.+?):(?&lt;order&gt;[1-8])">
             <Actions>
@@ -73,6 +91,7 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="三连桶标点准备——大怒震触发" Id="f1b70d2f-bc3c-4da1-a29b-34f073f5fdae" RegularExpression="14:2B67">
             <Actions>
@@ -94,6 +113,7 @@
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="三连桶标记" Id="1f7edbe0-047c-4dd6-81a3-94bc20da6d5e" RegularExpression="^.{15}15:.{8}:.*?:2B6[BC]:.*?:.{8}:(?&lt;playerName&gt;.*?):">
             <Actions>
@@ -135,8 +155,9 @@
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${evar:mark_flag}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual" />
             </Condition>
+            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Sequential="True" Name="进本自动获取小队列表" Id="15e0ec74-479a-443f-a4cb-916367337b68" RegularExpression="^.{15}00:0839:[“&quot;](究极神兵绝境战)[”&quot;](任务开始)[。.]">
+          <Trigger Enabled="true" Sequential="True" Name="进本自动获取小队列表" Id="15e0ec74-479a-443f-a4cb-916367337b68" RegularExpression="^.{15}00:0839:[“「]?(究极神兵绝境战|絕アルテマウェポン破壞作戰|The Weapon's Refrain \(Ultimate\))[”」]?(の攻略を開始した。|任务开始。| has begun.)$">
             <Actions>
               <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;1&gt;:1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
