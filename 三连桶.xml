@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport Version="1">
-  <ExportedFolder Id="9204e539-3579-4aa3-b529-399110a65c39" Name="三连桶" Enabled="true">
+  <ExportedFolder Id="9204e539-3579-4aa3-b529-399110a65c39" Name="三连桶" Enabled="false">
     <Folders>
       <Folder Id="e1f8756f-ad63-4307-ad3a-d57e298f468d" Name="tts" Enabled="true">
         <Folders />
@@ -9,111 +9,85 @@
             <Actions>
               <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_DRK" VariableExpression="1" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_WAR" VariableExpression="2" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_GNB" VariableExpression="3" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_PLD" VariableExpression="4" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="5" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_MNK" VariableExpression="5" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="6" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_SAM" VariableExpression="6" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="7" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_DRG" VariableExpression="7" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="8" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_NIN" VariableExpression="8" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="9" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_BLM" VariableExpression="9" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="10" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_RDM" VariableExpression="10" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="11" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_SMN" VariableExpression="11" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="12" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_DNC" VariableExpression="12" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="13" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_BRD" VariableExpression="13" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="14" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_MCH" VariableExpression="14" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="15" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_AST" VariableExpression="15" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="16" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_SCH" VariableExpression="16" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="17" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="job_order_WHM" VariableExpression="17" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="获得小队列表" Id="34046412-3423-4195-8831-d1675f6c836d" RegularExpression="^.{15}00:0038:order:(?&lt;name&gt;.+?):(?&lt;order&gt;[1-8])">
             <Actions>
               <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="party_order_${name}" VariableExpression="${order}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e [debug]${order}号：${name}" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback" ExecutionDelayExpression="1000">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="三连桶标点准备——大怒震触发" Id="f1b70d2f-bc3c-4da1-a29b-34f073f5fdae" RegularExpression="14:2B67">
             <Actions>
               <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="mark_flag" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e [debug]開始監聽，設置標量{mark_flag}" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableName="mark_flag" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" ExecutionDelayExpression="15000">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e [debug]結束監聽，銷毀標量{mark_flag}" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="三连桶标记" Id="1f7edbe0-047c-4dd6-81a3-94bc20da6d5e" RegularExpression="^.{15}15:.{8}:.*?:2B6[BC]:.*?:.{8}:(?&lt;playerName&gt;.*?):">
             <Actions>
@@ -121,79 +95,62 @@
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${_ffxivparty[1].worldid}" ExpressionTypeL="Numeric" ExpressionR="${_ffxivparty[${playerName}].worldid}" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                 </Condition>
-                <Conditions />
               </Action>
               <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="var_name_${playerName}" VariableExpression="party_order_${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${evar:same_world_${playerName}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                 </Condition>
-                <Conditions />
               </Action>
               <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="var_name_${playerName}" VariableExpression="party_order_${playerName}${_ffxivparty[${playerName}].worldname}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${evar:same_world_${playerName}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="StringEqualNocase" />
                 </Condition>
-                <Conditions />
               </Action>
               <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:var_name_${playerName}}}&gt;" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" ExecutionDelayExpression="${numeric:${pvar:job_order_${_ffxivparty[${playerName}].job}}*20}">
                 <Condition Enabled="false" Grouping="And" />
-                <Conditions />
               </Action>
               <Action OrderNumber="5" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e [debug]石牢点名：${playerName},delay:${numeric:${pvar:job_order_${_ffxivparty[${playerName}].job}}*20}ms" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="6" LogLevel="-1" MouseX="" MouseY="" VariableName="same_world_${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="7" LogLevel="-1" MouseX="" MouseY="" VariableName="var_name_${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${evar:mark_flag}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="进本自动获取小队列表" Id="15e0ec74-479a-443f-a4cb-916367337b68" RegularExpression="^.{15}00:0839:[“「]?(究极神兵绝境战|絕アルテマウェポン破壞作戰|The Weapon's Refrain \(Ultimate\))[”」]?(の攻略を開始した。|任务开始。| has begun.)$">
             <Actions>
               <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;1&gt;:1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;2&gt;:2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;3&gt;:3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;4&gt;:4" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="5" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;5&gt;:5" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="6" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;6&gt;:6" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="7" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;7&gt;:7" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="8" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;8&gt;:8" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
@@ -203,9 +160,12 @@
           <Trigger Enabled="true" Name="第一次使用时，双击本条触发器，在游戏内输入下列文本" Id="e35a7aaa-7b0a-459f-8f33-3726c1942941" RegularExpression="/e init job">
             <Actions />
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="本触发器需要用户支持鲶鱼精邮差插件" Id="62f8340d-d1bf-49e0-9709-662058b3fc62" RegularExpression="">
+            <Actions />
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Name="若进本后才开的科技，双击本条触发器，手动调用以下宏" Id="e27ad5f1-2033-4c7c-ba13-6c3abce9290c" RegularExpression="/e get order:&lt;1&gt;:1 复制8份，改成1-8 建议做成宏">
             <Actions />
             <Condition Enabled="false" Grouping="Or" />
             <Conditions />
