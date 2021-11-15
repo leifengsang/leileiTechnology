@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport Version="1">
-  <ExportedFolder Id="9204e539-3579-4aa3-b529-399110a65c39" Name="三连桶" Enabled="false">
+  <ExportedFolder Id="9204e539-3579-4aa3-b529-399110a65c39" Name="【雷雷科技】绝神兵宇宙超级无敌爆炸完美究极传奇酷炫变态神仙版三连桶科技" Enabled="true">
     <Folders>
       <Folder Id="e1f8756f-ad63-4307-ad3a-d57e298f468d" Name="tts" Enabled="true">
         <Folders />
@@ -74,54 +74,59 @@
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="三连桶标点准备——大怒震触发" Id="f1b70d2f-bc3c-4da1-a29b-34f073f5fdae" RegularExpression="14:2B67">
             <Actions>
-              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="mark_flag" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="EnableTrigger" TriggerId="1f7edbe0-047c-4dd6-81a3-94bc20da6d5e" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
-              <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e [debug]開始監聽，設置標量{mark_flag}" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
+              <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="DisableTrigger" TriggerId="1f7edbe0-047c-4dd6-81a3-94bc20da6d5e" ActionType="Trigger" ExecutionDelayExpression="15000">
                 <Condition Enabled="false" Grouping="Or" />
-              </Action>
-              <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableName="mark_flag" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" ExecutionDelayExpression="15000">
-                <Condition Enabled="false" Grouping="Or" />
-              </Action>
-              <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e [debug]結束監聽，銷毀標量{mark_flag}" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
-                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
           </Trigger>
-          <Trigger Enabled="true" Sequential="True" Name="三连桶标记" Id="1f7edbe0-047c-4dd6-81a3-94bc20da6d5e" RegularExpression="^.{15}15:.{8}:.*?:2B6[BC]:.*?:.{8}:(?&lt;playerName&gt;.*?):">
+          <Trigger Enabled="false" Sequential="True" Name="三连桶标记" Id="1f7edbe0-047c-4dd6-81a3-94bc20da6d5e" RegularExpression="^.{15}15:.{8}:.*?:2B6[BC]:.*?:.{8}:(?&lt;playerName&gt;.*?):">
             <Actions>
               <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetNumeric" VariableName="same_world_${playerName}" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${_ffxivparty[1].worldid}" ExpressionTypeL="Numeric" ExpressionR="${_ffxivparty[${playerName}].worldid}" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                 </Condition>
+                <Conditions />
               </Action>
               <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="var_name_${playerName}" VariableExpression="party_order_${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${evar:same_world_${playerName}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                 </Condition>
+                <Conditions />
               </Action>
               <Action OrderNumber="3" LogLevel="-1" MouseX="" MouseY="" VariableOp="SetString" VariableName="var_name_${playerName}" VariableExpression="party_order_${playerName}${_ffxivparty[${playerName}].worldname}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="true" Grouping="And">
                   <ConditionSingle Enabled="true" ExpressionL="${evar:same_world_${playerName}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="StringEqualNocase" />
                 </Condition>
+                <Conditions />
               </Action>
               <Action OrderNumber="4" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:var_name_${playerName}}}&gt;" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" ExecutionDelayExpression="${numeric:${pvar:job_order_${_ffxivparty[${playerName}].job}}*20}">
                 <Condition Enabled="false" Grouping="And" />
+                <Conditions />
               </Action>
               <Action OrderNumber="5" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e [debug]石牢点名：${playerName},delay:${numeric:${pvar:job_order_${_ffxivparty[${playerName}].job}}*20}ms" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
-              <Action OrderNumber="6" LogLevel="-1" MouseX="" MouseY="" VariableName="same_world_${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+              <Action OrderNumber="6" LogMessageText="[debug]石牢点名：${playerName},delay:${numeric:${pvar:job_order_${_ffxivparty[${playerName}].job}}*20}ms" LogLevel="Info" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="LogMessage">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
-              <Action OrderNumber="7" LogLevel="-1" MouseX="" MouseY="" VariableName="var_name_${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+              <Action OrderNumber="7" LogLevel="-1" MouseX="" MouseY="" VariableName="same_world_${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="8" LogLevel="-1" MouseX="" MouseY="" VariableName="var_name_${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
             </Actions>
-            <Condition Enabled="true" Grouping="Or">
-              <ConditionSingle Enabled="true" ExpressionL="${evar:mark_flag}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual" />
-            </Condition>
+            <Condition Enabled="true" Grouping="Or" />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="进本自动获取小队列表" Id="15e0ec74-479a-443f-a4cb-916367337b68" RegularExpression="^.{15}00:0839:[“「]?(究极神兵绝境战|絕アルテマウェポン破壞作戰|The Weapon's Refrain \(Ultimate\))[”」]?(の攻略を開始した。|任务开始。| has begun.)$">
             <Actions>
@@ -168,7 +173,6 @@
           <Trigger Enabled="true" Name="若进本后才开的科技，双击本条触发器，手动调用以下宏" Id="e27ad5f1-2033-4c7c-ba13-6c3abce9290c" RegularExpression="/e get order:&lt;1&gt;:1 复制8份，改成1-8 建议做成宏">
             <Actions />
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
