@@ -76,11 +76,9 @@
             <Actions>
               <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="EnableTrigger" TriggerId="1f7edbe0-047c-4dd6-81a3-94bc20da6d5e" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="DisableTrigger" TriggerId="1f7edbe0-047c-4dd6-81a3-94bc20da6d5e" ActionType="Trigger" ExecutionDelayExpression="15000">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
@@ -113,7 +111,7 @@
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
-              <Action OrderNumber="6" LogMessageText="[debug]石牢点名：${playerName},delay:${numeric:${pvar:job_order_${_ffxivparty[${playerName}].job}}*20}ms" LogLevel="Info" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="LogMessage">
+              <Action OrderNumber="6" LogMessageText="[debug]石牢点名：${playerName},delay:${numeric:${pvar:job_order_${_ffxivparty[${playerName}].job}}*20}ms,job:${_ffxivparty[${playerName}].job},执行命令：/mk attack &lt;${var:${var:var_name_${playerName}}}&gt;" LogLevel="Info" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="LogMessage">
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
