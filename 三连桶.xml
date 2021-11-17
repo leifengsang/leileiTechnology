@@ -106,7 +106,7 @@
             </Actions>
             <Condition Enabled="true" Grouping="Or" />
           </Trigger>
-          <Trigger Enabled="true" Sequential="True" Name="进本自动获取小队列表（进本20秒后获取，给_ffxivparty加载时间）" Id="15e0ec74-479a-443f-a4cb-916367337b68" RegularExpression="^.{15}00:0839:[“「]?(.+?|究极神兵绝境战|絕アルテマウェポン破壞作戰|The Weapon's Refrain \(Ultimate\))[”」]?(の攻略を開始した。|任务开始。| has begun.)$">
+          <Trigger Enabled="true" Sequential="True" Name="进本自动获取小队列表（进本20秒后获取，给_ffxivparty加载时间）" Id="15e0ec74-479a-443f-a4cb-916367337b68" RegularExpression="^.{15}00:0839:[“「]?(究极神兵绝境战|絕アルテマウェポン破壞作戰|The Weapon's Refrain \(Ultimate\))[”」]?(の攻略を開始した。|任务开始。| has begun.)$">
             <Actions>
               <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;1&gt;:1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" ExecutionDelayExpression="20000">
                 <Condition Enabled="false" Grouping="Or" />
