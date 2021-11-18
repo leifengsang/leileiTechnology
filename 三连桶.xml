@@ -223,7 +223,7 @@
       <Folder Id="6efaa3bf-179a-4c7d-b75d-7f472764c944" Name="说明" Enabled="false">
         <Folders />
         <Triggers>
-          <Trigger Enabled="true" Name="第一次使用时，双击本条触发器，在游戏内输入下列文本" Id="aa0a251b-4ad5-4d8b-82f7-86f36e20cad0" RegularExpression="/e init job">
+          <Trigger Enabled="true" Name="若想要改变职能顺位，双击《初始化职业》触发器，手动更改job_order_[职业]的值，值越高顺位越低" Id="aa0a251b-4ad5-4d8b-82f7-86f36e20cad0" RegularExpression="">
             <Actions />
             <Condition Enabled="false" Grouping="Or" />
           </Trigger>
@@ -231,8 +231,13 @@
             <Actions />
             <Condition Enabled="false" Grouping="Or" />
           </Trigger>
-          <Trigger Enabled="true" Name="若进本后才开的科技，双击本条触发器，手动调用以下宏" Id="ae671415-2967-4b7d-af1b-f586249d06cb" RegularExpression="/e get order:&lt;1&gt;:1 复制8份，改成1-8 建议做成宏">
-            <Actions />
+          <Trigger Enabled="true" Name="若进本后才开的科技，右键本触发器，选择执行即可" Id="ae671415-2967-4b7d-af1b-f586249d06cb" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="8e08af70-724d-45a3-9b41-5026000e63fe" TriggerForce="regexp" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
             <Condition Enabled="false" Grouping="Or" />
           </Trigger>
         </Triggers>
