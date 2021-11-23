@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <TriggernometryExport Version="1">
-  <ExportedFolder Id="cf9cbdcc-b4a7-46ba-bb12-3bd87c6f7e19" Name="倒数" Enabled="false">
+  <ExportedFolder Id="cf9cbdcc-b4a7-46ba-bb12-3bd87c6f7e19" Name="倒数" Enabled="true">
     <Folders />
     <Triggers>
       <Trigger Enabled="true" Name="倒计时" Id="a20cc4d1-6772-4086-9465-00d32c3c31f8" RegularExpression="^.{15}00:(0139|00b9):(距离战斗开始还有|戦闘開始まで)(?&lt;time&gt;\d{1,2})秒！">
@@ -12,7 +12,7 @@
         </Actions>
         <Condition Enabled="false" Grouping="Or" />
       </Trigger>
-      <Trigger Enabled="true" Name="取消倒计时" Id="b26f6f7c-64ec-4c44-ae17-0ca602c4f424" RegularExpression="^.{15}00:0139|00b9:.+?取消了战斗开始倒计时。">
+      <Trigger Enabled="true" Name="取消倒计时" Id="b26f6f7c-64ec-4c44-ae17-0ca602c4f424" RegularExpression="^.{15}00:(0139|00b9):.+?取消了战斗开始倒计时。">
         <Actions>
           <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" TextAuraOp="DeactivateAura" TextAuraFontSize="9" TextAuraName="TimeCD" TextAuraFontName="宋体" ActionType="TextAura">
             <Condition Enabled="false" Grouping="Or" />
