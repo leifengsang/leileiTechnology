@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <TriggernometryExport Version="1">
-  <ExportedFolder Id="cf9cbdcc-b4a7-46ba-bb12-3bd87c6f7e19" Name="倒数" Enabled="true">
+  <ExportedFolder Id="cf9cbdcc-b4a7-46ba-bb12-3bd87c6f7e19" Name="倒数" Enabled="false">
     <Folders />
     <Triggers>
-      <Trigger Enabled="true" Name="倒计时" Id="a20cc4d1-6772-4086-9465-00d32c3c31f8" RegularExpression="^.{15}00:(0139|00b9):距离战斗开始还有(?&lt;time&gt;\d{1,2})秒！">
+      <Trigger Enabled="true" Name="倒计时" Id="a20cc4d1-6772-4086-9465-00d32c3c31f8" RegularExpression="^.{15}00:(0139|00b9):(距离战斗开始还有|戦闘開始まで)(?&lt;time&gt;\d{1,2})秒！">
         <Actions>
           <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="42" TextAuraForeground="Yellow" TextAuraOutline="Red" TextAuraName="TimeCD" TextAuraExpression="${numeric:${time}-${_since}}" TextAuraXIniExpression="1000" TextAuraYIniExpression="680" TextAuraWIniExpression="253" TextAuraHIniExpression="64" TextAuraOIniExpression="100" TextAuraTTLTickExpression="${time}-${_since}-6" TextAuraUseOutline="True" TextAuraFontName="宋体" ActionType="TextAura">
             <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Action>
         </Actions>
         <Condition Enabled="false" Grouping="Or" />
