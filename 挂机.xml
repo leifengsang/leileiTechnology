@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="3b5c36b4-519b-4055-ae26-42432c3dc5f4" Name="【雷雷科技】检测挂机" Enabled="true">
+    <Folders />
+    <Triggers>
+      <Trigger Enabled="true" Name="跳一下" Id="8f58a3b4-7c0e-4ae6-91ad-a960e320aa4b" RegularExpression="^.{15}ChatLog 00:0039::(一定時間操作が行われなかったため、離席状態になりました。|Due to extended inactivity,you will be disconnected from the server.)">
+        <Actions>
+          <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="32" KeyPressWindow="FINAL FANTASY XIV" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress" ExecutionDelayExpression="5000">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
