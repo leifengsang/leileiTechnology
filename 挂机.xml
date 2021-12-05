@@ -3,13 +3,66 @@
   <ExportedFolder Id="3b5c36b4-519b-4055-ae26-42432c3dc5f4" Name="【雷雷科技】检测挂机" Enabled="true">
     <Folders />
     <Triggers>
-      <Trigger Enabled="true" Name="跳一下" Id="8f58a3b4-7c0e-4ae6-91ad-a960e320aa4b" RegularExpression="^.{15}ChatLog 00:0039::(一定時間操作が行われなかったため、離席状態になりました。|Due to extended inactivity,you will be disconnected from the server.)">
+      <Trigger Enabled="true" Sequential="True" Name="无限循环" Id="5866a2eb-77f7-4b8e-acf5-c349951b0317" RegularExpression="">
         <Actions>
-          <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="32" KeyPressWindow="FINAL FANTASY XIV" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress" ExecutionDelayExpression="5000">
+          <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="65" KeyPressWindow="FINAL FANTASY XIV" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress" ExecutionDelayExpression="1000">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="68" KeyPressWindow="FINAL FANTASY XIV" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress" ExecutionDelayExpression="500">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="3" KeypressType="WindowMessage" KeyPressCode="83" KeyPressWindow="FINAL FANTASY XIV" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress" ExecutionDelayExpression="500">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="4" KeypressType="WindowMessage" KeyPressCode="87" KeyPressWindow="FINAL FANTASY XIV" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress" ExecutionDelayExpression="500">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="5" KeypressType="WindowMessage" KeyPressCode="32" KeyPressWindow="FINAL FANTASY XIV" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress" ExecutionDelayExpression="500">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="6" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5866a2eb-77f7-4b8e-acf5-c349951b0317" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="300000">
             <Condition Enabled="false" Grouping="Or" />
             <Conditions />
           </Action>
         </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="false" Name="停止挂机" Id="aba8f9c4-c0bc-4015-8dd2-aed55dd4d15a" RegularExpression="">
+        <Actions>
+          <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="CancelTrigger" TriggerId="5866a2eb-77f7-4b8e-acf5-c349951b0317" ActionType="Trigger">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="停止挂机" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="false" Name="开始挂机" Id="323e9c79-bc65-4a3f-8f8e-e71cfe662322" RegularExpression="">
+        <Actions>
+          <Action OrderNumber="1" LogLevel="-1" MouseX="" MouseY="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5866a2eb-77f7-4b8e-acf5-c349951b0317" TriggerForce="regexp,conditions" ActionType="Trigger">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="2" LogLevel="-1" MouseX="" MouseY="" UseTTSTextExpression="开始挂机" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="false" Name="右键【开始挂机】【停止挂机】执行即可" Id="f4a764ae-f32f-481d-80d3-a7cfa96c5f8e" RegularExpression="">
+        <Actions />
         <Condition Enabled="false" Grouping="Or" />
         <Conditions />
       </Trigger>
