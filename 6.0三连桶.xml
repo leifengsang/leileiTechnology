@@ -1,0 +1,251 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="3e18b28c-8afb-40da-9863-2b096068aa74" Name="【雷雷科技】【ver6.0】绝神兵宇宙超级无敌爆炸完美究极传奇酷炫变态神仙版三连桶科技" Enabled="true">
+    <Folders>
+      <Folder Id="82b1ba84-da62-459c-bfb3-76d12f1335a8" Name="tts" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="初始化职业" Id="058dec20-8e14-4d78-b452-2fcbb06b7481" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="job_order_DRK" VariableExpression="1" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="job_order_WAR" VariableExpression="2" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="job_order_GNB" VariableExpression="3" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="job_order_PLD" VariableExpression="4" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="job_order_MNK" VariableExpression="5" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="6" VariableOp="SetNumeric" VariableName="job_order_SAM" VariableExpression="6" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="7" VariableOp="SetNumeric" VariableName="job_order_DRG" VariableExpression="7" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="8" VariableOp="SetNumeric" VariableName="job_order_NIN" VariableExpression="8" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="9" VariableOp="SetNumeric" VariableName="job_order_RPR" VariableExpression="9" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="10" VariableOp="SetNumeric" VariableName="job_order_BLM" VariableExpression="10" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="11" VariableOp="SetNumeric" VariableName="job_order_RDM" VariableExpression="11" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="12" VariableOp="SetNumeric" VariableName="job_order_SMN" VariableExpression="12" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="13" VariableOp="SetNumeric" VariableName="job_order_DNC" VariableExpression="13" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="14" VariableOp="SetNumeric" VariableName="job_order_BRD" VariableExpression="14" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="15" VariableOp="SetNumeric" VariableName="job_order_MCH" VariableExpression="15" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="16" VariableOp="SetNumeric" VariableName="job_order_AST" VariableExpression="16" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="17" VariableOp="SetNumeric" VariableName="job_order_SCH" VariableExpression="17" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="18" VariableOp="SetNumeric" VariableName="job_order_WHM" VariableExpression="18" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="19" VariableOp="SetNumeric" VariableName="job_order_SGE" VariableExpression="19" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Name="获得小队列表" Id="cfab2b17-b054-4762-8332-37a40b8770b8" RegularExpression="00:0038::order:(?&lt;name&gt;.+?):(?&lt;order&gt;[1-8])">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="party_order_${name}" VariableExpression="${order}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="b1aed92b-8c69-4e13-952b-d4acc58e17c5" TriggerText="make_var_${order}" ActionType="Trigger" ExecutionDelayExpression="1000">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Sequential="True" Name="大怒震" Id="2b6d1fae-c871-4e24-ad82-7ddc0e6a5e14" RegularExpression="StartsCasting 14:.{8}:.*?:2B67">
+            <Actions>
+              <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="EnableTrigger" TriggerId="335783d6-4c81-4165-a75f-ad1cb5daa923" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="DisableTrigger" TriggerId="335783d6-4c81-4165-a75f-ad1cb5daa923" ActionType="Trigger" ExecutionDelayExpression="15000">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="false" Sequential="True" Name="三连桶标记" Id="335783d6-4c81-4165-a75f-ad1cb5daa923" RegularExpression="15:.{8}:.*?:2B6[BC]:.*?:.{8}:(?&lt;playerName&gt;.*?):">
+            <Actions>
+              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:${var:real_name_${playerName}}}&gt;" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" ExecutionDelayExpression="${numeric:${pvar:job_order_${_ffxivparty[${playerName}].job}}*20}">
+                <Condition Enabled="false" Grouping="And" />
+              </Action>
+              <Action OrderNumber="2" LogMessageText="[debug]石牢点名：${playerName},delay:${numeric:${pvar:job_order_${_ffxivparty[${playerName}].job}}*20}ms,job:${_ffxivparty[${playerName}].job},执行命令：/mk attack &lt;${var:${var:real_name_${playerName}}}&gt;" LogLevel="Info" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="LogMessage">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Sequential="True" Name="进本自动获取小队列表" Id="8e08af70-724d-45a3-9b41-5026000e63fe" RegularExpression="00:0839::[“「]?(究极神兵绝境战|絶アルテマウェポン破壊作戦|The Weapon's Refrain \(Ultimate\))[”」]?(の攻略を開始した。|任务开始。| has begun\.)$">
+            <Actions>
+              <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="058dec20-8e14-4d78-b452-2fcbb06b7481" TriggerForce="regexp" ActionType="Trigger">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${epvar:job_order_${_ffxivplayer.job}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+                </Condition>
+                <Conditions />
+              </Action>
+              <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5960fc4e-a631-4d4f-83ec-ad1a269b4756" TriggerText="pre_query_1" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5960fc4e-a631-4d4f-83ec-ad1a269b4756" TriggerText="pre_query_2" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5960fc4e-a631-4d4f-83ec-ad1a269b4756" TriggerText="pre_query_3" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5960fc4e-a631-4d4f-83ec-ad1a269b4756" TriggerText="pre_query_4" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="6" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5960fc4e-a631-4d4f-83ec-ad1a269b4756" TriggerText="pre_query_5" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="7" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5960fc4e-a631-4d4f-83ec-ad1a269b4756" TriggerText="pre_query_6" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="8" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5960fc4e-a631-4d4f-83ec-ad1a269b4756" TriggerText="pre_query_7" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="9" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5960fc4e-a631-4d4f-83ec-ad1a269b4756" TriggerText="pre_query_8" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="10" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;1&gt;:1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="cfab2b17-b054-4762-8332-37a40b8770b8" ActionType="NamedCallback" ExecutionDelayExpression="5000">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="11" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;2&gt;:2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="cfab2b17-b054-4762-8332-37a40b8770b8" TriggerText="order:&lt;2&gt;:2" ActionType="NamedCallback">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="12" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;3&gt;:3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="cfab2b17-b054-4762-8332-37a40b8770b8" TriggerText="order:&lt;2&gt;:2" ActionType="NamedCallback">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="13" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;4&gt;:4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="cfab2b17-b054-4762-8332-37a40b8770b8" TriggerText="order:&lt;2&gt;:2" ActionType="NamedCallback">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="14" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;5&gt;:5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="cfab2b17-b054-4762-8332-37a40b8770b8" TriggerText="order:&lt;2&gt;:2" ActionType="NamedCallback">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="15" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;6&gt;:6" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="cfab2b17-b054-4762-8332-37a40b8770b8" TriggerText="order:&lt;2&gt;:2" ActionType="NamedCallback">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="16" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;7&gt;:7" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="cfab2b17-b054-4762-8332-37a40b8770b8" TriggerText="order:&lt;2&gt;:2" ActionType="NamedCallback">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="17" NamedCallbackName="command" NamedCallbackParam="/e order:&lt;8&gt;:8" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="cfab2b17-b054-4762-8332-37a40b8770b8" TriggerText="order:&lt;2&gt;:2" ActionType="NamedCallback">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Sequential="True" Name="拼接队员名称（带服务器）" Id="b1aed92b-8c69-4e13-952b-d4acc58e17c5" RegularExpression="make_var_(?&lt;order&gt;\d)">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="SetString" VariableName="playerName_${order}" VariableExpression="${_ffxivparty[${order}].name}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="same_world_${var:playerName_${order}}" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${_ffxivparty[${_ffxivplayer}].worldid}" ExpressionTypeL="Numeric" ExpressionR="${_ffxivparty[${var:playerName_${order}}].worldid}" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" VariableOp="SetString" VariableName="real_name_${var:playerName_${order}}" VariableExpression="party_order_${var:playerName_${order}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${evar:same_world_${var:playerName_${order}}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" VariableOp="SetString" VariableName="real_name_${var:playerName_${order}}" VariableExpression="party_order_${var:playerName_${order}}${_ffxivparty[${var:playerName_${order}}].worldname}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${evar:same_world_${var:playerName_${order}}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="5" LogMessageText="[debug]real_name:${var:real_name_${var:playerName_${order}}},order:${order}" LogLevel="Info" NamedCallbackName="command" NamedCallbackParam="/e " TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="LogMessage">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="6" VariableName="same_world_${var:playerName_${order}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="7" VariableName="playerName_${order}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Sequential="True" Name="怀疑ffxivparty是懒加载，且存在一定问题，尝试在进本后先query一次" Id="5960fc4e-a631-4d4f-83ec-ad1a269b4756" RegularExpression="pre_query_(?&lt;order&gt;\d)$">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="SetString" VariableName="pre_query_name_${order}" VariableExpression="${_ffxivparty[${order}].name}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" VariableName="pre_query_name_${order}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="6efaa3bf-179a-4c7d-b75d-7f472764c944" Name="说明" Enabled="false">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="若想要改变职能顺位，双击《初始化职业》触发器，手动更改job_order_[职业]的值，值越高顺位越低。修改完后，右键本触发器，选择执行" Id="aa0a251b-4ad5-4d8b-82f7-86f36e20cad0" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="058dec20-8e14-4d78-b452-2fcbb06b7481" TriggerForce="regexp" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Name="本触发器需要用户支持鲶鱼精邮差插件" Id="ef488188-4599-49b1-9589-97e8f04ec369" RegularExpression="">
+            <Actions />
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Name="若进本后才开的科技，右键本触发器，选择执行即可" Id="ae671415-2967-4b7d-af1b-f586249d06cb" RegularExpression="">
+            <Actions>
+              <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="8e08af70-724d-45a3-9b41-5026000e63fe" TriggerForce="regexp" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+        </Triggers>
+      </Folder>
+    </Folders>
+    <Triggers />
+  </ExportedFolder>
+</TriggernometryExport>
