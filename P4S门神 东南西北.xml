@@ -23,7 +23,7 @@
         </Condition>
         <Conditions />
       </Action>
-      <Action OrderNumber="4" UseTTSTextExpression="去D点" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+      <Action OrderNumber="4" UseTTSTextExpression="去倒点" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
         <Condition Enabled="true" Grouping="Or">
           <ConditionSingle Enabled="true" ExpressionL="${id}" ExpressionTypeL="String" ExpressionR="6A05" ExpressionTypeR="String" ConditionType="StringEqualCase" />
           <ConditionSingle Enabled="true" ExpressionL="${id}" ExpressionTypeL="String" ExpressionR="6A00" ExpressionTypeR="String" ConditionType="StringEqualCase" />
@@ -34,6 +34,5 @@
     <Condition Enabled="false" Grouping="Or">
       <ConditionSingle Enabled="true" ExpressionL="${dir}" ExpressionTypeL="String" ExpressionR="N" ExpressionTypeR="String" ConditionType="StringEqualCase" />
     </Condition>
-    <Conditions />
   </ExportedTrigger>
 </TriggernometryExport>
