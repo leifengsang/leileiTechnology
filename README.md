@@ -10,6 +10,6 @@
 
 * 下载Triggermometry
 * 右键远程触发器-添加-仓库
-* 仓库名称任意，地址填对应触发器的Row，如：https://raw.githubusercontent.com/leifengsang/leileiTechnology/main/6.0%E4%B8%89%E8%BF%9E%E6%A1%B6.xml（需要梯子）
+* 仓库名称任意，地址填对应触发器的Row（打开链接需要梯子），如：https://raw.githubusercontent.com/leifengsang/leileiTechnology/main/6.0%E4%B8%89%E8%BF%9E%E6%A1%B6.xml
 * 添加后，右键触发器-更新
 
