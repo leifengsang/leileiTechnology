@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="19af0492-3c13-487e-8410-137ac2818997" Name="【雷雷科技】终极之战" Enabled="true">
+    <Folders />
+    <Triggers>
+      <Trigger Enabled="true" Name="去中间" Id="49fc534c-e3ad-4860-8a7c-060da6410b20" RegularExpression="^.{14} .+? 14:.+?:.+?:7020:">
+        <Actions>
+          <Action OrderNumber="1" UseTTSTextExpression="去中间" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="去两边" Id="8c08f1c6-a2dc-4fed-9e5d-f2a6c44fe7fb" RegularExpression="^.{14} .+? 14:.+?:.+?:7022:">
+        <Actions>
+          <Action OrderNumber="1" UseTTSTextExpression="去两边" UseTTSExclusive="False" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
