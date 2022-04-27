@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="5629b17c-76c6-44f1-98b8-1adcbb6495be" Name="【雷雷科技】绝龙诗战争" Enabled="true">
+    <Folders>
+      <Folder Id="ed8198bb-5927-4d7f-82c8-3d2beb3f07a9" Name="P1" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="月环" Id="b4aa035c-88e2-4ef4-afca-be5b4bf21d37" RegularExpression="^.{14} .+? 14:.+?:.+?:62DA:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="月环月环" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="钢铁" Id="58c80c5c-49e5-4332-8b93-48ec10864403" RegularExpression="^.{14} .+? 14:.+?:.+?:62DB:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="钢铁钢铁" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="84eab34d-67bd-4afe-9e15-24a7dc55ee6b" Name="P2" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="旋风" Id="d81014d5-a03a-474e-853b-2f39c84deb65" RegularExpression="^.{14} .+? 14:.+?:.+?:63C8:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="准备旋风" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="2" UseTTSTextExpression="旋风旋风" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="2000">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="731dbcbf-3114-4992-b16d-12cb4c8cda48" Name="通用" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="钢铁信念（防击退）" Id="7d9bed47-5615-40d4-88f4-194fadf6646c" RegularExpression="^.{14} .+? 14:.+?:.+?:62DC:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="防击退" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+    </Folders>
+    <Triggers />
+  </ExportedFolder>
+</TriggernometryExport>
