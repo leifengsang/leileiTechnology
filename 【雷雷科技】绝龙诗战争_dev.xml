@@ -86,6 +86,58 @@
                     </Condition>
                     <Conditions />
                   </Action>
+                  <Action OrderNumber="5" ListVariableOp="Remove" NamedCallbackName="command" NamedCallbackParam="/e [debug] p2_act1_pos1_disable" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_1" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" Description="标点:13&#xD;&#xA;对应方位：西北、东南">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_x}" ExpressionTypeL="String" ExpressionR="100.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_y}" ExpressionTypeL="String" ExpressionR="77.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_x}" ExpressionTypeL="String" ExpressionR="116.26" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_y}" ExpressionTypeL="String" ExpressionR="116.26" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      </ConditionGroup>
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="6" ListVariableOp="Remove" NamedCallbackName="command" NamedCallbackParam="/e [debug] p2_act1_pos2_disable" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_2" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" Description="标点:24&#xD;&#xA;对应方位：东北、西南">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_x}" ExpressionTypeL="String" ExpressionR="116.26" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_y}" ExpressionTypeL="String" ExpressionR="83.74" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_x}" ExpressionTypeL="String" ExpressionR="83.74" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_y}" ExpressionTypeL="String" ExpressionR="116.26" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      </ConditionGroup>
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="7" ListVariableOp="Remove" NamedCallbackName="command" NamedCallbackParam="/e [debug] p2_act1_pos3_disable" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_3" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" Description="标点:AC&#xD;&#xA;对应方位：北、南">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_x}" ExpressionTypeL="String" ExpressionR="83.74" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_y}" ExpressionTypeL="String" ExpressionR="77.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_x}" ExpressionTypeL="String" ExpressionR="100.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_y}" ExpressionTypeL="String" ExpressionR="123.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      </ConditionGroup>
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="8" ListVariableOp="Remove" NamedCallbackName="command" NamedCallbackParam="/e [debug] p2_act1_pos4_disable" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_4" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" Description="标点:BD&#xD;&#xA;对应方位：东、西">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_x}" ExpressionTypeL="String" ExpressionR="123.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_y}" ExpressionTypeL="String" ExpressionR="100.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      </ConditionGroup>
+                      <ConditionGroup Enabled="true" Grouping="And">
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_x}" ExpressionTypeL="String" ExpressionR="77.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                        <ConditionSingle Enabled="true" ExpressionL="${var:pos_y}" ExpressionTypeL="String" ExpressionR="100.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      </ConditionGroup>
+                    </Condition>
+                    <Conditions />
+                  </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
@@ -108,7 +160,11 @@
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
-                  <Action OrderNumber="5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5eac0fbd-fdf5-4067-a554-45738ca63897" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="10000">
+                  <Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/e [debug] p2_act1_inited" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="6" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="5eac0fbd-fdf5-4067-a554-45738ca63897" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="10000">
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
