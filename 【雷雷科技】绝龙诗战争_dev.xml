@@ -220,6 +220,68 @@
                 <Condition Enabled="true" Grouping="Or" />
                 <Conditions />
               </Trigger>
+              <Trigger Enabled="true" Name="骑神出现位置" Id="823fe4fe-41b7-464d-8e0e-1b08c7df8896" RegularExpression="^.{14} .+? 14:.+?:.+?:63CE:.+?:.+?:.+?:.+?:(?&lt;pos_x&gt;.+?):(?&lt;pos_y&gt;.+?):">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="1点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_x}" ExpressionTypeL="String" ExpressionR="100.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="String" ExpressionR="77.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" UseTTSTextExpression="2点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_x}" ExpressionTypeL="String" ExpressionR="116.26" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="String" ExpressionR="83.74" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="3" UseTTSTextExpression="3点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_x}" ExpressionTypeL="String" ExpressionR="116.26" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="String" ExpressionR="116.26" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="4" UseTTSTextExpression="4点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_x}" ExpressionTypeL="String" ExpressionR="83.74" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="String" ExpressionR="116.26" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="5" UseTTSTextExpression="A点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_x}" ExpressionTypeL="String" ExpressionR="83.74" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="String" ExpressionR="83.74" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="6" UseTTSTextExpression="boy点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_x}" ExpressionTypeL="String" ExpressionR="123.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="String" ExpressionR="100.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="7" UseTTSTextExpression="C点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_x}" ExpressionTypeL="String" ExpressionR="100.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="String" ExpressionR="123.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="8" UseTTSTextExpression="倒点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_x}" ExpressionTypeL="String" ExpressionR="77.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="String" ExpressionR="100.00" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Trigger>
             </Triggers>
           </Folder>
         </Folders>
@@ -258,6 +320,21 @@
       <Folder Id="3383b4c2-89c4-4a06-b19e-1a8ef41f4a6b" Name="初始化相关" Enabled="true">
         <Folders />
         <Triggers />
+      </Folder>
+      <Folder Id="03235573-878e-480f-b87e-077e3c8e9991" Name="P3" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="先钢铁再月环" Id="d301db97-2090-4140-9e0e-f68cd6edfbbd" RegularExpression="">
+            <Actions />
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="先月环再钢铁" Id="f1fcd9a7-f412-406a-8f59-5f46c12411d4" RegularExpression="">
+            <Actions />
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
       </Folder>
     </Folders>
     <Triggers />
