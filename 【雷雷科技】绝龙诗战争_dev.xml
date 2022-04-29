@@ -9,17 +9,21 @@
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="月环月环" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Name="钢铁" Id="89af6f34-0a6e-406f-a3a5-f741b54c3cc0" RegularExpression="^.{14} .+? 14:.+?:.+?:62DB:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="钢铁钢铁" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
@@ -138,8 +142,19 @@
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
+                  <Action OrderNumber="10" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_count" VariableExpression="${numeric:${var:jls_p2_act1_pos_count}} + 1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="11" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="16763444-e3fe-4879-bfcc-bf722da9b2a7" TriggerForce="regexp" ActionType="Trigger">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:jls_p2_act1_pos_count}" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="String" ConditionType="NumericEqual" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Trigger>
               <Trigger Enabled="true" Sequential="True" Name="蒼天の陣：雷槍 初始化" Id="a6687970-3742-4c5c-9df3-41ec263e54b4" RegularExpression="^.{14} .+? 14:.+?:.+?:63D3:">
                 <Actions>
@@ -159,20 +174,21 @@
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
-                  <Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/e [debug] p2_act1_inited" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
+                  <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_count" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
-                  <Action OrderNumber="6" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="16763444-e3fe-4879-bfcc-bf722da9b2a7" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="11500">
+                  <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/e [debug] p2_act1_inited" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Trigger>
               <Trigger Enabled="true" Sequential="True" Name="播报安全点" Id="16763444-e3fe-4879-bfcc-bf722da9b2a7" RegularExpression="">
                 <Actions>
-                  <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e [debug] tts started with params:[${var:jls_p2_act1_pos_1}，${var:jls_p2_act1_pos_2}，${var:jls_p2_act1_pos_3}，${var:jls_p2_act1_pos_4}]" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
+                  <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e [debug] tts started with params:[${var:jls_p2_act1_pos_1}，${var:jls_p2_act1_pos_2}，${var:jls_p2_act1_pos_3}，${var:jls_p2_act1_pos_4}]" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
@@ -202,6 +218,7 @@
                   </Action>
                 </Actions>
                 <Condition Enabled="true" Grouping="Or" />
+                <Conditions />
               </Trigger>
               <Trigger Enabled="false" Sequential="True" Name="记录百雷危险点（找到bug前）" Id="c029a9ac-026a-45a3-adea-19f19cb54ebe" RegularExpression="^.{14} .+? 14:.+?:.+?:63D4:.+?:.+?:.+?:.+?:(?&lt;pos_x&gt;.+?):(?&lt;pos_y&gt;.+?):">
                 <Actions>
@@ -325,12 +342,15 @@
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="准备旋风" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
               <Action OrderNumber="2" UseTTSTextExpression="旋风旋风" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="2000">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
@@ -341,9 +361,11 @@
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="防击退" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
