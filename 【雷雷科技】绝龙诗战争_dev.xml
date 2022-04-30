@@ -311,6 +311,41 @@
               </Trigger>
             </Triggers>
           </Folder>
+          <Folder Id="fcc6ed5d-76ca-4e2d-aad5-ab8f52280204" Name="二运" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Name="陨石点名" Id="f717aa98-9d20-41a3-a3d7-d4a533e09522" RegularExpression="^.{14} .+? 1A:.+?:.+?:23.00:.+?:.+?:(?&lt;playerName&gt;.+?):">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="陨石点名${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Trigger>
+              <Trigger Enabled="true" Name="二刀" Id="79813e09-4c4c-47bc-ba2d-623653c4011c" RegularExpression="^.{14} .+? 1B:.+?:.(?&lt;playerName&gt;.+?):0000:0000:0042">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="二刀${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Trigger>
+              <Trigger Enabled="true" Name="一刀" Id="2f947b22-923f-49d5-90fc-90381a3ee029" RegularExpression="^.{14} .+? 1B:.+?:.(?&lt;playerName&gt;.+?):0000:0000:0041">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="一刀${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Trigger>
+            </Triggers>
+          </Folder>
         </Folders>
         <Triggers>
           <Trigger Enabled="true" Name="旋风" Id="f2e3b64e-3923-4eb9-8d72-cff3fb1027ce" RegularExpression="^.{14} .+? 14:.+?:.+?:63C8:">
