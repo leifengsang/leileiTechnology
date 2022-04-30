@@ -140,25 +140,31 @@
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
               </Trigger>
-              <Trigger Enabled="true" Sequential="True" Name="蒼天の陣：雷槍 初始化" Id="a6687970-3742-4c5c-9df3-41ec263e54b4" RegularExpression="^.{14} .+? 14:.+?:.+?:63D3:">
+              <Trigger Enabled="true" Sequential="True" Name="初始化" Id="a6687970-3742-4c5c-9df3-41ec263e54b4" RegularExpression="^.{14} .+? 14:.+?:.+?:63D3:">
                 <Actions>
                   <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_1" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
                   <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_2" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
                   <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_3" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
                   <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_4" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
                   <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="jls_p2_act1_pos_count" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
                   <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/e [debug] p2_act1_inited" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
@@ -167,31 +173,26 @@
                 <Actions>
                   <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e [debug] tts started with params:[${var:jls_p2_act1_pos_1}，${var:jls_p2_act1_pos_2}，${var:jls_p2_act1_pos_3}，${var:jls_p2_act1_pos_4}] and count:${var:jls_p2_act1_pos_count}" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="2" UseTTSTextExpression="一三一三" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${var:jls_p2_act1_pos_1}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="3" UseTTSTextExpression="二四二四" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${var:jls_p2_act1_pos_2}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="4" UseTTSTextExpression="ACAC" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${var:jls_p2_act1_pos_3}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="5" UseTTSTextExpression="BDBD" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${var:jls_p2_act1_pos_4}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                     </Condition>
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="true" Grouping="Or" />
@@ -209,7 +210,6 @@
                         <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="Numeric" ExpressionR="83.79" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                       </ConditionGroup>
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="2" UseTTSTextExpression="2点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="And">
@@ -222,7 +222,6 @@
                         <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="Numeric" ExpressionR="83.79" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                       </ConditionGroup>
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="3" UseTTSTextExpression="3点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="And">
@@ -235,7 +234,6 @@
                         <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="Numeric" ExpressionR="116.31" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                       </ConditionGroup>
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="4" UseTTSTextExpression="4点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="And">
@@ -248,7 +246,6 @@
                         <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="Numeric" ExpressionR="116.31" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                       </ConditionGroup>
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="5" UseTTSTextExpression="A点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="And">
@@ -261,7 +258,6 @@
                         <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="Numeric" ExpressionR="77.05" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                       </ConditionGroup>
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="6" UseTTSTextExpression="boy点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="And">
@@ -274,7 +270,6 @@
                         <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="Numeric" ExpressionR="100.05" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                       </ConditionGroup>
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="7" UseTTSTextExpression="C点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="And">
@@ -287,7 +282,6 @@
                         <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="Numeric" ExpressionR="123.05" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                       </ConditionGroup>
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="8" UseTTSTextExpression="倒点骑神" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="And">
@@ -300,11 +294,9 @@
                         <ConditionSingle Enabled="true" ExpressionL="${pos_y}" ExpressionTypeL="Numeric" ExpressionR="100.05" ExpressionTypeR="Numeric" ConditionType="NumericLessEqual" />
                       </ConditionGroup>
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="9" NamedCallbackName="command" NamedCallbackParam="/e [debug] x:${pos_x}, y:${pos_y}" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
@@ -318,31 +310,25 @@
                 <Actions>
                   <Action OrderNumber="1" UseTTSTextExpression="陨石点名${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Trigger>
               <Trigger Enabled="true" Name="二刀" Id="79813e09-4c4c-47bc-ba2d-623653c4011c" RegularExpression="^.{14} .+? 1B:.+?:.(?&lt;playerName&gt;.+?):0000:0000:0042">
                 <Actions>
                   <Action OrderNumber="1" UseTTSTextExpression="二刀${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Trigger>
               <Trigger Enabled="true" Name="一刀" Id="2f947b22-923f-49d5-90fc-90381a3ee029" RegularExpression="^.{14} .+? 1B:.+?:.(?&lt;playerName&gt;.+?):0000:0000:0041">
                 <Actions>
                   <Action OrderNumber="1" UseTTSTextExpression="一刀${playerName}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Trigger>
             </Triggers>
           </Folder>
@@ -379,35 +365,181 @@
         <Triggers />
       </Folder>
       <Folder Id="03235573-878e-480f-b87e-077e3c8e9991" Name="P3" Enabled="true">
-        <Folders />
+        <Folders>
+          <Folder Id="11d81e53-5d0b-400f-bce9-30afba4a001a" Name="一运" Enabled="true">
+            <Folders>
+              <Folder Id="1339936e-7675-4d20-98e1-1c3dd8220f07" Name="播报" Enabled="true">
+                <Folders />
+                <Triggers>
+                  <Trigger Enabled="true" Name="三号踩一塔" Id="34a053d2-dec9-4053-8f9d-906c30134495" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="去踩一塔" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="13000">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Name="二号放塔" Id="7f096660-bfd8-4503-951e-022167a99206" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="去放塔" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="18000">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Name="一号放塔" Id="f348068a-5d5f-4929-9af6-d5001fd185b9" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="去放塔" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="5000">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Name="三号放塔" Id="e67a98a5-d328-4cc5-be0a-2b34bed36165" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="去放塔" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="29000">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Name="二号踩三塔" Id="4a9762fe-2a36-406b-a6e1-df3ae79c3bbf" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="去踩三塔" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="35000">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Name="左右一号踩二塔" Id="4c3f518c-d4c6-4018-a3d3-b1c8f2f1bf84" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="左右一号去踩二塔" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="25000">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Name="中一号踩三塔" Id="91e0e16c-b80a-43de-863f-025997b5cb56" RegularExpression="">
+                    <Actions>
+                      <Action OrderNumber="1" UseTTSTextExpression="中间一号去踩三塔" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="35000">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
+            <Triggers>
+              <Trigger Enabled="true" Sequential="True" Name="麻将二号" Id="5a08856f-f39a-484f-92e4-8cec3ae569d9" RegularExpression="^.{14} .+? 1A:BBD:.+?:.+?:.+?::.+?:(?&lt;playerName&gt;.+?):">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="二号二号" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7f096660-bfd8-4503-951e-022167a99206" TriggerForce="regexp,conditions" ActionType="Trigger">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="4a9762fe-2a36-406b-a6e1-df3ae79c3bbf" TriggerForce="regexp,conditions" ActionType="Trigger">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${playerName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+                <Conditions />
+              </Trigger>
+              <Trigger Enabled="true" Name="先钢铁再月环" Id="d301db97-2090-4140-9e0e-f68cd6edfbbd" RegularExpression="^.{14} .+? 14:.+?:.+?:6712:">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="先钢铁再月环" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+              <Trigger Enabled="true" Name="先月环再钢铁" Id="f1fcd9a7-f412-406a-8f59-5f46c12411d4" RegularExpression="^.{14} .+? 14:.+?:.+?:6713:">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="先月环再钢铁" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+              <Trigger Enabled="true" Sequential="True" Name="麻将三号" Id="82af068d-71d8-403d-b3e6-9c9196596c5c" RegularExpression="^.{14} .+? 1A:BBE:.+?:.+?:.+?::.+?:(?&lt;playerName&gt;.+?):">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="三号三号" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" UseTTSTextExpression="三号三号" VariableOp="SetNumeric" VariableName="jls_p3_act1_marker" VariableExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="34a053d2-dec9-4053-8f9d-906c30134495" TriggerForce="regexp,conditions" ActionType="Trigger">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="e67a98a5-d328-4cc5-be0a-2b34bed36165" TriggerForce="regexp,conditions" ActionType="Trigger">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${playerName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+                <Conditions />
+              </Trigger>
+              <Trigger Enabled="true" Sequential="True" Name="麻将一号" Id="c9091335-495a-48ca-9b67-2909564f6eaf" RegularExpression="^.{14} .+? 1A:BBC:.+?:.+?:.+?::.+?:(?&lt;playerName&gt;.+?):">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="一号一号" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="f348068a-5d5f-4929-9af6-d5001fd185b9" TriggerForce="regexp,conditions" ActionType="Trigger">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="4c3f518c-d4c6-4018-a3d3-b1c8f2f1bf84" TriggerForce="regexp,conditions" ActionType="Trigger">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="91e0e16c-b80a-43de-863f-025997b5cb56" TriggerForce="regexp,conditions" ActionType="Trigger">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${playerName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+                <Conditions />
+              </Trigger>
+            </Triggers>
+          </Folder>
+        </Folders>
         <Triggers>
-          <Trigger Enabled="true" Name="先钢铁再月环" Id="d301db97-2090-4140-9e0e-f68cd6edfbbd" RegularExpression="^.{14} .+? 14:.+?:.+?:6712:">
-            <Actions>
-              <Action OrderNumber="1" UseTTSTextExpression="先钢铁再月环" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
-                <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
-              </Action>
-            </Actions>
-            <Condition Enabled="false" Grouping="Or" />
-          </Trigger>
-          <Trigger Enabled="true" Name="先月环再钢铁" Id="f1fcd9a7-f412-406a-8f59-5f46c12411d4" RegularExpression="^.{14} .+? 14:.+?:.+?:6713:">
-            <Actions>
-              <Action OrderNumber="1" UseTTSTextExpression="先月环再钢铁" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
-                <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
-              </Action>
-            </Actions>
-            <Condition Enabled="false" Grouping="Or" />
-          </Trigger>
           <Trigger Enabled="true" Name="远离正面" Id="43ec97fc-e99b-4ad6-8930-a53e20d072f7" RegularExpression="^.{14} .+? 14:.+?:.+?:670[BC]:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="远离正面" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
