@@ -361,37 +361,30 @@
                 <Actions>
                   <Action OrderNumber="1" VariableOp="SetString" VariableName="playerName_${order}" VariableExpression="${_ffxivparty[${order}].name}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="same_world_${var:playerName_${order}}" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="true" Grouping="And">
                       <ConditionSingle Enabled="true" ExpressionL="${_ffxivparty[${_ffxivplayer}].worldid}" ExpressionTypeL="Numeric" ExpressionR="${_ffxivparty[${var:playerName_${order}}].worldid}" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="3" VariableOp="SetString" VariableName="server_name_${var:playerName_${order}}" VariableExpression="${var:playerName_${order}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="true" Grouping="And">
                       <ConditionSingle Enabled="true" ExpressionL="${evar:same_world_${var:playerName_${order}}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="4" VariableOp="SetString" VariableName="server_name_${var:playerName_${order}}" VariableExpression="${var:playerName_${order}}${_ffxivparty[${var:playerName_${order}}].worldname}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="true" Grouping="And">
                       <ConditionSingle Enabled="true" ExpressionL="${evar:same_world_${var:playerName_${order}}}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="StringEqualNocase" />
                     </Condition>
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="5" VariableOp="SetString" VariableName="real_name_${var:server_name_${var:playerName_${order}}}" VariableExpression="${var:playerName_${order}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="6" VariableName="same_world_${var:playerName_${order}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                   <Action OrderNumber="7" VariableName="playerName_${order}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
@@ -416,58 +409,58 @@
                 <Triggers>
                   <Trigger Enabled="true" Sequential="True" Name="左边1/3死宣，右边最后一个非死宣去左边" Id="20c9ec1c-788d-4d0a-bb07-a666dd192faa" RegularExpression="">
                     <Actions>
-                      <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:5:0" ActionType="Trigger">
+                      <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:5:0" ActionType="Trigger" ExecutionDelayExpression="10">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
-                      <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:4:0" ActionType="Trigger">
+                      <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:4:0" ActionType="Trigger" ExecutionDelayExpression="10">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
-                      <Action OrderNumber="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:3:0" ActionType="Trigger">
+                      <Action OrderNumber="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:3:0" ActionType="Trigger" ExecutionDelayExpression="10">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
-                      <Action OrderNumber="4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:2:0" ActionType="Trigger">
+                      <Action OrderNumber="4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:2:0" ActionType="Trigger" ExecutionDelayExpression="10">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
-                      <Action OrderNumber="5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:1:0" ActionType="Trigger">
+                      <Action OrderNumber="5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:1:0" ActionType="Trigger" ExecutionDelayExpression="10">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="6" LogMessageText="[debug]左边奇数死宣" LogLevel="Info" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="LogMessage">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${var:jls_p5_act2_left_death_count}%2" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${var:jls_p5_act2_left_death_count}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${var:jls_p5_act2_left_death_count}" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                     </Condition>
                   </Trigger>
-                  <Trigger Enabled="true" Sequential="True" Name="记录死宣" Id="5f323d84-4d48-433d-8a2f-8911d6883ac8" RegularExpression="^.{14} (?:\w+ )1A:B11:.+?:(?&lt;second&gt;[^:]*):[0-9A-F]{8}:.+?:(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;name&gt;[^:]*):">
+                  <Trigger Enabled="true" Sequential="True" Name="记录死宣" Id="5f323d84-4d48-433d-8a2f-8911d6883ac8" RegularExpression="^.{14} (?:\w+ )1A:BA0:.+?:(?&lt;second&gt;[^:]*):[0-9A-F]{8}:.+?:(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;name&gt;[^:]*):">
                     <Actions>
                       <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="jls_p5_act2_left_death_count" VariableExpression="${var:jls_p5_act2_left_death_count}+1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${lvar:jls_p5_act2_left_list.indexof(${name})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
                         </Condition>
-                        <Conditions />
                       </Action>
                       <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="jls_p5_act2_death_count" VariableExpression="${var:jls_p5_act2_death_count}+1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                         <Condition Enabled="false" Grouping="Or" />
-                        <Conditions />
                       </Action>
                       <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="jls_p5_act2_death_target_${name}" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                         <Condition Enabled="false" Grouping="Or" />
-                        <Conditions />
                       </Action>
                       <Action OrderNumber="4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="c0b02c47-39df-4000-8601-e018b8979596" TriggerForce="regexp" ActionType="Trigger">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${var:jls_p5_act2_death_count}" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                         </Condition>
-                        <Conditions />
                       </Action>
                       <Action OrderNumber="5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="20c9ec1c-788d-4d0a-bb07-a666dd192faa" TriggerForce="regexp" ActionType="Trigger">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${var:jls_p5_act2_death_count}" ExpressionTypeL="Numeric" ExpressionR="4" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                         </Condition>
-                        <Conditions />
                       </Action>
                     </Actions>
                     <Condition Enabled="false" Grouping="Or" />
@@ -491,7 +484,6 @@
                     <Actions>
                       <Action OrderNumber="1" ListVariableOp="Push" ListVariableName="jls_p5_act2_left_list" ListVariableExpression="${var:real_name_${name}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
                         <Condition Enabled="false" Grouping="Or" />
-                        <Conditions />
                       </Action>
                     </Actions>
                     <Condition Enabled="false" Grouping="Or" />
@@ -500,7 +492,6 @@
                     <Actions>
                       <Action OrderNumber="1" ListVariableOp="Insert" ListVariableName="jls_p5_act2_right_list" ListVariableExpression="${var:real_name_${name}}" ListVariableIndex="${order}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
                         <Condition Enabled="false" Grouping="Or" />
-                        <Conditions />
                       </Action>
                     </Actions>
                     <Condition Enabled="false" Grouping="Or" />
@@ -509,57 +500,59 @@
                     <Actions>
                       <Action OrderNumber="1" VariableOp="SetString" VariableName="temp_name_${index}" VariableExpression="${lvar:jls_p5_act2_right_list[${index}]}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                         <Condition Enabled="false" Grouping="Or" />
-                        <Conditions />
                       </Action>
                       <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/mk circle &lt;${var:party_order_${var:server_name_${var:temp_name_${index}}}}&gt;" VariableOp="SetNumeric" VariableName="jls_p5_act2_marked" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${evar:jls_p5_act2_death_target_${var:temp_name_${index}}}" ExpressionTypeL="Numeric" ExpressionR="${value}" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                         </Condition>
-                        <Conditions />
                       </Action>
                       <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="jls_p5_act2_marked" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                         <Condition Enabled="true" Grouping="Or">
                           <ConditionSingle Enabled="true" ExpressionL="${evar:jls_p5_act2_death_target_${var:temp_name_${index}}}" ExpressionTypeL="Numeric" ExpressionR="${value}" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                         </Condition>
-                        <Conditions />
                       </Action>
                       <Action OrderNumber="4" VariableName="temp_name_${index}" VariableExpression="${lvar:jls_p5_act2_right_list[${index}]}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                         <Condition Enabled="false" Grouping="Or" />
-                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="d9478198-6240-4540-9c22-c7868c0b1bbd" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="5000">
+                        <Condition Enabled="false" Grouping="Or" />
                       </Action>
                     </Actions>
                     <Condition Enabled="true" Grouping="And">
                       <ConditionSingle Enabled="true" ExpressionL="${var:jls_p5_act2_marked}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                     </Condition>
-                    <Conditions />
                   </Trigger>
                   <Trigger Enabled="true" Sequential="True" Name="左边0/2死宣，右边最后一个死宣去左边" Id="c0b02c47-39df-4000-8601-e018b8979596" RegularExpression="">
                     <Actions>
-                      <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:5:1" ActionType="Trigger">
+                      <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:5:1" ActionType="Trigger" ExecutionDelayExpression="10">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
-                      <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:4:1" ActionType="Trigger">
+                      <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:4:1" ActionType="Trigger" ExecutionDelayExpression="10">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
-                      <Action OrderNumber="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:3:1" ActionType="Trigger">
+                      <Action OrderNumber="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:3:1" ActionType="Trigger" ExecutionDelayExpression="10">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
-                      <Action OrderNumber="4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:2:1" ActionType="Trigger">
+                      <Action OrderNumber="4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:2:1" ActionType="Trigger" ExecutionDelayExpression="10">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
-                      <Action OrderNumber="5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:1:1" ActionType="Trigger">
+                      <Action OrderNumber="5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="58e2b964-60d9-4180-bdb5-d62f61cf4408" TriggerText="jls_p5_act2_check_death:1:1" ActionType="Trigger" ExecutionDelayExpression="10">
+                        <Condition Enabled="false" Grouping="Or" />
+                        <Conditions />
+                      </Action>
+                      <Action OrderNumber="6" LogMessageText="[debug]左边偶数死宣" LogLevel="Info" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="LogMessage">
                         <Condition Enabled="false" Grouping="Or" />
                         <Conditions />
                       </Action>
                     </Actions>
                     <Condition Enabled="true" Grouping="Or">
-                      <ConditionSingle Enabled="true" ExpressionL="${var:jls_p5_act2_left_death_count}%2" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${var:jls_p5_act2_left_death_count}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                      <ConditionSingle Enabled="true" ExpressionL="${var:jls_p5_act2_left_death_count}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
                     </Condition>
-                    <Conditions />
                   </Trigger>
                 </Triggers>
               </Folder>
@@ -569,7 +562,6 @@
                 <Actions>
                   <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/mk stop &lt;${var:party_order_${var:server_name_${playerName}}}&gt;" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
@@ -580,18 +572,18 @@
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
-                  <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="d9478198-6240-4540-9c22-c7868c0b1bbd" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="${numeric:${second}-5}*1000">
+                  <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="d9478198-6240-4540-9c22-c7868c0b1bbd" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="${numeric:${second}-3}*1000">
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
-                  <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/mk circle &lt;${var:party_order_${var:server_name_${playerName}}}&gt;" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" ExecutionDelayExpression="${numeric:${second}-5}*1000">
+                  <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/mk circle &lt;${var:party_order_${var:server_name_${playerName}}}&gt;" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" ExecutionDelayExpression="${numeric:${second}-3}*1000">
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
               </Trigger>
-              <Trigger Enabled="true" Name="P6 双人分摊" Id="3d38a6fc-03c7-4f38-afd2-1aee7b593e89" RegularExpression="^.{14} (?:\w+ )1A:AC7:.+?:(?&lt;second&gt;[^:]*):[0-9A-F]{8}::(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;playerName&gt;[^:]*):">
+              <Trigger Enabled="true" Name="P6 光（分摊标记）" Id="3d38a6fc-03c7-4f38-afd2-1aee7b593e89" RegularExpression="^.{14} (?:\w+ )1A:AC7:.+?:(?&lt;second&gt;[^:]*):[0-9A-F]{8}::(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;playerName&gt;[^:]*):">
                 <Actions>
                   <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/mk bind &lt;${var:party_order_${var:server_name_${playerName}}}&gt;" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                     <Condition Enabled="false" Grouping="Or" />
@@ -600,7 +592,7 @@
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
               </Trigger>
-              <Trigger Enabled="true" Name="P6 分散" Id="3a532817-c099-470e-8f92-b799dad4f846" RegularExpression="^.{14} (?:\w+ )1A:AC6:.+?:(?&lt;second&gt;[^:]*):[0-9A-F]{8}::(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;playerName&gt;[^:]*):">
+              <Trigger Enabled="true" Name="P6 暗（分散标记）" Id="3a532817-c099-470e-8f92-b799dad4f846" RegularExpression="^.{14} (?:\w+ )1A:AC6:.+?:(?&lt;second&gt;[^:]*):[0-9A-F]{8}::(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;playerName&gt;[^:]*):">
                 <Actions>
                   <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/mk attack &lt;${var:party_order_${var:server_name_${playerName}}}&gt;" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                     <Condition Enabled="false" Grouping="Or" />
@@ -645,6 +637,18 @@
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+              <Trigger Enabled="true" Name="P6 无点名（去找分摊）" Id="26206fdf-1833-4b51-b28f-673effb3a6d8" RegularExpression="jls_p6_check_mark:(?&lt;name&gt;.+)$">
+                <Actions>
+                  <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/mk stop &lt;${var:party_order_${var:server_name_${name}}}&gt;" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${evar:jls_p6_marked_${name}}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+                <Conditions />
               </Trigger>
             </Triggers>
           </Folder>
@@ -943,8 +947,13 @@
             <Triggers>
               <Trigger Enabled="true" Sequential="True" Name="光标记" Id="36db27cf-fdc9-4fb2-b62f-87a9863070e7" RegularExpression="^.{14} (?:\w+ )1A:AC7:.+?:(?&lt;second&gt;[^:]*):[0-9A-F]{8}::(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;name&gt;[^:]*):" PrevActionsRefire="Deny" MutexToCapture="p6_dark_mark" Description="原地 AC3&#xD;&#xA;正对boss AC4&#xD;&#xA;背对boss AC5">
                 <Actions>
-                  <Action OrderNumber="1" UseTTSTextExpression="分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="${numeric:${second}-5}*1000">
+                  <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="jls_p6_marked_${name}" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" UseTTSTextExpression="分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="${numeric:${second}-5}*1000">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="true" Grouping="Or">
@@ -953,8 +962,13 @@
               </Trigger>
               <Trigger Enabled="true" Sequential="True" Name="暗标记" Id="5129bb67-d8c4-4fd7-b55a-420a729533c1" RegularExpression="^.{14} (?:\w+ )1A:AC6:.+?:(?&lt;second&gt;[^:]*):[0-9A-F]{8}::(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;name&gt;[^:]*):" PrevActionsRefire="Deny" MutexToCapture="p6_dark_mark" Description="原地 AC3&#xD;&#xA;正对boss AC4&#xD;&#xA;背对boss AC5">
                 <Actions>
-                  <Action OrderNumber="1" UseTTSTextExpression="分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="${numeric:${second}-5}*1000">
+                  <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="jls_p6_marked_${name}" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="2" UseTTSTextExpression="分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="${numeric:${second}-5}*1000">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="true" Grouping="Or">
@@ -965,11 +979,59 @@
                 <Actions>
                   <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="p6_count" VariableExpression="${var:p6_count}+1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
-                  <Action OrderNumber="2" UseTTSTextExpression="去找分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="17000">
+                  <Action OrderNumber="2" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="26206fdf-1833-4b51-b28f-673effb3a6d8" TriggerText="jls_p6_check_mark:${_ffxivparty[1].name}" ActionType="Trigger" ExecutionDelayExpression="1000">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="26206fdf-1833-4b51-b28f-673effb3a6d8" TriggerText="jls_p6_check_mark:${_ffxivparty[2].name}" ActionType="Trigger">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${var:p6_count}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                     </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="4" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="26206fdf-1833-4b51-b28f-673effb3a6d8" TriggerText="jls_p6_check_mark:${_ffxivparty[3].name}" ActionType="Trigger">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:p6_count}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="5" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="26206fdf-1833-4b51-b28f-673effb3a6d8" TriggerText="jls_p6_check_mark:${_ffxivparty[4].name}" ActionType="Trigger">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:p6_count}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="6" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="26206fdf-1833-4b51-b28f-673effb3a6d8" TriggerText="jls_p6_check_mark:${_ffxivparty[5].name}" ActionType="Trigger">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:p6_count}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="7" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="26206fdf-1833-4b51-b28f-673effb3a6d8" TriggerText="jls_p6_check_mark:${_ffxivparty[6].name}" ActionType="Trigger">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:p6_count}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="8" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="26206fdf-1833-4b51-b28f-673effb3a6d8" TriggerText="jls_p6_check_mark:${_ffxivparty[7].name}" ActionType="Trigger">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:p6_count}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="9" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="26206fdf-1833-4b51-b28f-673effb3a6d8" TriggerText="jls_p6_check_mark:${_ffxivparty[8].name}" ActionType="Trigger">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:p6_count}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                    <Conditions />
+                  </Action>
+                  <Action OrderNumber="10" UseTTSTextExpression="去找分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="16000">
+                    <Condition Enabled="true" Grouping="Or">
+                      <ConditionSingle Enabled="true" ExpressionL="${var:p6_count}" ExpressionTypeL="String" ExpressionR="6" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                    </Condition>
+                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="true" Grouping="Not">
@@ -1050,6 +1112,14 @@
             <Conditions />
           </Action>
           <Action OrderNumber="12" VariableOp="UnsetRegex" VariableName="jls_p5_act2_death_target" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="13" VariableOp="SetNumeric" VariableName="p6_count" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="14" VariableOp="UnsetRegex" VariableName="jls_p6_marked_" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
             <Condition Enabled="false" Grouping="Or" />
             <Conditions />
           </Action>
