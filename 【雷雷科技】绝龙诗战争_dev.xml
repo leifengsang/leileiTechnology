@@ -267,10 +267,17 @@
       <Folder Id="6daafb51-1038-4130-8e33-3cb21fac2242" Name="通用" Enabled="true">
         <Folders />
         <Triggers>
-          <Trigger Enabled="true" Name="钢铁信念（防击退）" Id="a2809d8a-afe4-4650-98c8-ba7fe6755be0" RegularExpression="^.{14} .+? 14:.+?:.+?:62DC:">
+          <Trigger Enabled="true" Sequential="True" Name="钢铁信念（防击退）" Id="a2809d8a-afe4-4650-98c8-ba7fe6755be0" RegularExpression="^.{14} .+? 14:.+?:.+?:62DC:">
             <Actions>
-              <Action OrderNumber="1" UseTTSTextExpression="防击退" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+              <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="jls_faith_unmoving_count" VariableExpression="${var:jls_faith_unmoving_count}+1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="2" UseTTSTextExpression="防击退" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:jls_faith_unmoving_count}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
@@ -1143,11 +1150,7 @@
       </Trigger>
       <Trigger Enabled="true" Name="倒数时初始化，确保由倒数开怪，仅初始化指定动作前前面没有标志性动作的相关参数" Id="28f56e36-f477-4b79-9e93-7e731a6cec13" RegularExpression="00:(00B9|0[12]39)::(距离战斗开始还有|戦闘開始まで)(?&lt;time&gt;\d{1,2})秒！">
         <Actions>
-          <Action OrderNumber="1" TextAuraFontSize="42" TextAuraForeground="Yellow" TextAuraOutline="Red" TextAuraName="TimeCD" TextAuraExpression="${numeric:${time}-${_since}}" TextAuraXIniExpression="1000" TextAuraYIniExpression="680" TextAuraWIniExpression="253" TextAuraHIniExpression="64" TextAuraOIniExpression="100" TextAuraTTLTickExpression="${time}-${_since}-6" TextAuraUseOutline="True" TextAuraFontName="宋体" ActionType="TextAura">
-            <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
-          </Action>
-          <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e end" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="jls_faith_unmoving_count" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
             <Condition Enabled="false" Grouping="Or" />
             <Conditions />
           </Action>
