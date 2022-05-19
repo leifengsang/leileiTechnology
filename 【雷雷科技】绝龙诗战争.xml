@@ -1142,16 +1142,7 @@
         <Condition Enabled="false" Grouping="Or" />
       </Trigger>
       <Trigger Enabled="true" Name="倒数时初始化，确保由倒数开怪，仅初始化指定动作前前面没有标志性动作的相关参数" Id="28f56e36-f477-4b79-9e93-7e731a6cec13" RegularExpression="00:(00B9|0[12]39)::(距离战斗开始还有|戦闘開始まで)(?&lt;time&gt;\d{1,2})秒！">
-        <Actions>
-          <Action OrderNumber="1" TextAuraFontSize="42" TextAuraForeground="Yellow" TextAuraOutline="Red" TextAuraName="TimeCD" TextAuraExpression="${numeric:${time}-${_since}}" TextAuraXIniExpression="1000" TextAuraYIniExpression="680" TextAuraWIniExpression="253" TextAuraHIniExpression="64" TextAuraOIniExpression="100" TextAuraTTLTickExpression="${time}-${_since}-6" TextAuraUseOutline="True" TextAuraFontName="宋体" ActionType="TextAura">
-            <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
-          </Action>
-          <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e end" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
-            <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
-          </Action>
-        </Actions>
+        <Actions />
         <Condition Enabled="false" Grouping="Or" />
         <Conditions />
       </Trigger>
