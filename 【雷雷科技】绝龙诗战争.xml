@@ -267,10 +267,15 @@
       <Folder Id="6daafb51-1038-4130-8e33-3cb21fac2242" Name="通用" Enabled="true">
         <Folders />
         <Triggers>
-          <Trigger Enabled="true" Name="钢铁信念（防击退）" Id="a2809d8a-afe4-4650-98c8-ba7fe6755be0" RegularExpression="^.{14} .+? 14:.+?:.+?:62DC:">
+          <Trigger Enabled="true" Sequential="True" Name="钢铁信念（防击退）" Id="a2809d8a-afe4-4650-98c8-ba7fe6755be0" RegularExpression="^.{14} .+? 14:.+?:.+?:62DC:">
             <Actions>
-              <Action OrderNumber="1" UseTTSTextExpression="防击退" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+              <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="jls_faith_unmoving_count" VariableExpression="${var:jls_faith_unmoving_count}+1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                 <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" UseTTSTextExpression="防击退" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${var:jls_faith_unmoving_count}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
@@ -545,7 +550,6 @@
                   <Trigger Enabled="true" Name="进本需要设置宏，双击查看描述" Id="924b4045-ec17-41e0-b03b-461f8053e541" RegularExpression="" Description="/e left_list:&lt;x&gt;&#xD;&#xA;&#xD;/e left_list:&lt;x&gt;&#xD;&#xA;&#xD;/e left_list:&lt;x&gt;&#xD;&#xA;&#xD;/e right_list:&lt;x&gt;:1&#xD;&#xD;&#xA;/e right_list:&lt;x&gt;:2&#xD;&#xA;&#xD;/e right_list:&lt;x&gt;:3&#xD;&#xA;&#xD;/e right_list:&lt;x&gt;:4&#xD;&#xA;&#xD;/e right_list:&lt;x&gt;:5&#xD;&#xA;&#xD;&#xA;//x为1-8，具体为小队列表中的顺序&#xD;&#xA;//left_list后的三个人为左边队伍组，顺序任意&#xD;&#xA;//right_list后的五个人按照1-5的顺序，从前往后设置&#xD;&#xA;//此宏需要在副本初始化完成后使用，即聊天栏出现order:{name}:[1-8]后使用">
                     <Actions />
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Trigger>
                 </Triggers>
               </Folder>
@@ -989,7 +993,6 @@
                 <Actions>
                   <Action OrderNumber="1" UseTTSTextExpression="去中间去中间" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
@@ -998,7 +1001,6 @@
                 <Actions>
                   <Action OrderNumber="1" UseTTSTextExpression="去两边去两边" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
@@ -1064,6 +1066,27 @@
               </Trigger>
             </Triggers>
           </Folder>
+          <Folder Id="c1aec2a6-f517-4173-9bf4-3066df52e4f9" Name="记录双龙id" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Name="记录邪龙id" Id="f6c3a0d5-d8f5-48cd-a208-e6f7d0c51738" RegularExpression="^.{14} .+? 14:(?&lt;id&gt;.+?):.+?:6D32:">
+                <Actions>
+                  <Action OrderNumber="1" VariableOp="SetString" VariableName="jls_nidhogg_id" VariableExpression="${id}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+              <Trigger Enabled="true" Name="记录圣龙id" Id="b6a436fc-f637-4a77-9bfc-8f77f558b58d" RegularExpression="^.{14} .+? 14:(?&lt;id&gt;.+?):.+?:6D35:">
+                <Actions>
+                  <Action OrderNumber="1" VariableOp="SetString" VariableName="jls_hreasvelgr_id" VariableExpression="${id}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+            </Triggers>
+          </Folder>
         </Folders>
         <Triggers>
           <Trigger Enabled="true" Name="传毒" Id="633c68fb-1e73-49b4-99eb-f7863ec1822a" RegularExpression="^.{14} (?:\w+ )1A:B50:.+?:(?&lt;second&gt;[^:]*):[0-9A-F]{8}:.+?:(?&lt;pid&gt;1[0-9A-F]{7}):(?&lt;name&gt;[^:]*):" Description="原地 AC3&#xD;&#xA;正对boss AC4&#xD;&#xA;背对boss AC5">
@@ -1083,6 +1106,36 @@
             <Condition Enabled="false" Grouping="Or" />
           </Trigger>
         </Triggers>
+      </Folder>
+      <Folder Id="df7f169c-89e7-4aa0-9ebb-fe1e0d425d2b" Name="P7" Enabled="true">
+        <Folders>
+          <Folder Id="2fcdd292-84f5-48b2-85f1-1b81e8759ed7" Name="钢铁月环" Enabled="true">
+            <Folders />
+            <Triggers>
+              <Trigger Enabled="true" Name="月环" Id="2dcf22a0-7ba4-4063-93e5-a533f74f5122" RegularExpression="(?&lt;timestamp&gt;^.{14}) StatusAdd (?&lt;type&gt;1A):808:(?&lt;effect&gt;(?:(?:[^:]|: )*?)):(?&lt;duration&gt;(?:[^:]*)):(?&lt;sourceId&gt;(?:[^:]*)):(?&lt;source&gt;(?:[^:]*)):(?&lt;targetId&gt;(?:[^:]*)):(?&lt;target&gt;(?:[^:]*)):12B:">
+                <Actions>
+                  <Action OrderNumber="1" PlaySpeechMyself="True" UseTTSTextExpression="月环月环" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="2000">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Trigger>
+              <Trigger Enabled="true" Name="钢铁" Id="01c4d6ee-9f33-4f8a-bbb5-42a123d0d24a" RegularExpression="(?&lt;timestamp&gt;^.{14}) StatusAdd (?&lt;type&gt;1A):808:(?&lt;effect&gt;(?:(?:[^:]|: )*?)):(?&lt;duration&gt;(?:[^:]*)):(?&lt;sourceId&gt;(?:[^:]*)):(?&lt;source&gt;(?:[^:]*)):(?&lt;targetId&gt;(?:[^:]*)):(?&lt;target&gt;(?:[^:]*)):12A:">
+                <Actions>
+                  <Action OrderNumber="1" PlaySpeechMyself="True" UseTTSTextExpression="钢铁钢铁" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="2000">
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Trigger>
+            </Triggers>
+          </Folder>
+        </Folders>
+        <Triggers />
       </Folder>
     </Folders>
     <Triggers>
@@ -1142,9 +1195,12 @@
         <Condition Enabled="false" Grouping="Or" />
       </Trigger>
       <Trigger Enabled="true" Name="倒数时初始化，确保由倒数开怪，仅初始化指定动作前前面没有标志性动作的相关参数" Id="28f56e36-f477-4b79-9e93-7e731a6cec13" RegularExpression="00:(00B9|0[12]39)::(距离战斗开始还有|戦闘開始まで)(?&lt;time&gt;\d{1,2})秒！">
-        <Actions />
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="jls_faith_unmoving_count" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
         <Condition Enabled="false" Grouping="Or" />
-        <Conditions />
       </Trigger>
     </Triggers>
   </ExportedFolder>
