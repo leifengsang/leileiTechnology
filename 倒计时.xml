@@ -3,9 +3,13 @@
   <ExportedFolder Id="cf9cbdcc-b4a7-46ba-bb12-3bd87c6f7e19" Name="【雷雷科技】倒计时" Enabled="true">
     <Folders />
     <Triggers>
-      <Trigger Enabled="true" Name="倒计时" Id="a20cc4d1-6772-4086-9465-00d32c3c31f8" RegularExpression="00:(00B9|0139)::(距离战斗开始还有|戦闘開始まで)(?&lt;time&gt;\d{1,2})秒！">
+      <Trigger Enabled="true" Name="倒计时" Id="a20cc4d1-6772-4086-9465-00d32c3c31f8" RegularExpression="00:(00B9|0[12]39)::(距离战斗开始还有|戦闘開始まで|Battle commencing in )(?&lt;time&gt;\d{1,2})(秒| seconds)[！!]">
         <Actions>
           <Action OrderNumber="1" TextAuraFontSize="42" TextAuraForeground="Yellow" TextAuraOutline="Red" TextAuraName="TimeCD" TextAuraExpression="${numeric:${time}-${_since}}" TextAuraXIniExpression="1000" TextAuraYIniExpression="680" TextAuraWIniExpression="253" TextAuraHIniExpression="64" TextAuraOIniExpression="100" TextAuraTTLTickExpression="${time}-${_since}-6" TextAuraUseOutline="True" TextAuraFontName="宋体" ActionType="TextAura">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+          <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e end" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
             <Condition Enabled="false" Grouping="Or" />
             <Conditions />
           </Action>
@@ -16,11 +20,9 @@
         <Actions>
           <Action OrderNumber="1" TextAuraOp="DeactivateAura" TextAuraFontSize="9" TextAuraName="TimeCD" TextAuraFontName="宋体" ActionType="TextAura">
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Action>
           <Action OrderNumber="2" LogMessageText="[debug] ${_event}" LogLevel="Warning" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="LogMessage">
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Action>
         </Actions>
         <Condition Enabled="false" Grouping="Or" />
