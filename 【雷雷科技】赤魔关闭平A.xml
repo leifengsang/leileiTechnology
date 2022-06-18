@@ -9,169 +9,141 @@
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="飞刺" Id="d90cd107-4d88-4630-b8b7-7cc61180dcd8" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D5D:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="六分" Id="63465991-31f9-4c3e-95dc-60d782a126dc" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D5F:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="短兵" Id="a0db1b56-750b-4dee-b8f4-486395659604" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D52:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="魔划圆斩" Id="ff98ac8b-6ccc-40d1-96c6-9828476f15e0" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D6A:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="魔连攻" Id="30d9c3f5-0714-40fa-abed-262289c6cf14" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D69:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="魔交击斩" Id="bbb84893-6875-40ee-b5eb-d8fc8cc83149" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D68:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="魔回刺" Id="e2d06c3d-80f5-4b29-add4-ec52120ad264" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D67:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="魔续斩" Id="8e209bf2-b122-4fb6-a3dd-deba55699832" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):4090:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="划圆斩" Id="c52e93bb-1c17-4212-9e85-da9b771bb673" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D59:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="回刺" Id="1e8c6990-6583-418e-9c41-c74dd404c9d9" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D50:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="续斩" Id="a99b905b-6c9e-45bd-98e6-7d576474a0d2" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):4091:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="连攻" Id="ca5a3768-3ac4-4118-abe2-88b942b296ea" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D5C:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
           <Trigger Enabled="true" Sequential="True" Name="交击斩" Id="1b6e5204-bbf5-42fc-a0e0-44b07ddf7d2f" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):1D58:">
             <Actions>
               <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7fdbf031-c781-4805-8744-176bfda6aecc" TriggerForce="regexp,conditions" ActionType="Trigger">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Trigger>
         </Triggers>
       </Folder>
@@ -183,23 +155,23 @@
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${code}" ExpressionTypeL="String" ExpressionR="CN" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
             </Condition>
-            <Conditions />
           </Action>
           <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e 自动攻击初始化成功，code:${pvar:auto_attack_code}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Action>
         </Actions>
         <Condition Enabled="false" Grouping="Or" />
-        <Conditions />
       </Trigger>
       <Trigger Enabled="true" Sequential="True" Name="关闭平A" Id="7fdbf031-c781-4805-8744-176bfda6aecc" RegularExpression="">
         <Actions>
           <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="${pvar:auto_attack_code}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback" ExecutionDelayExpression="100">
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Action>
         </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="本科及需要鲶鱼精支持" Id="ee1223fb-6db3-40e8-b1dc-1de622b5b9fe" RegularExpression="">
+        <Actions />
         <Condition Enabled="false" Grouping="Or" />
         <Conditions />
       </Trigger>
