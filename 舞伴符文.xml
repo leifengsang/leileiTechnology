@@ -1,27 +1,30 @@
 <?xml version="1.0"?>
 <TriggernometryExport Version="1">
-  <ExportedFolder Id="fb4a6565-e7f7-4c59-adfb-f2c478fbb62c" Name="【雷雷科技】舞伴符文" Enabled="true">
+  <ExportedFolder Id="55d70c6b-36ae-4af2-a1ee-5ecc0b9f3b1d" Name="【雷雷科技】舞伴符文" Enabled="true">
     <Folders />
     <Triggers>
-      <Trigger Enabled="true" Sequential="True" Name="给舞伴" Id="41dcbb25-190a-4265-99b7-706d949828f6" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):3E86:.+?:.+?:(?&lt;playerName&gt;.+?):">
+      <Trigger Enabled="true" Sequential="True" Name="给舞伴" Id="460f0748-519a-48e2-9ef6-47a9cf0820c1" RegularExpression="^.{14} .+? 15:.+?:(?&lt;selfName&gt;.+?):3E86:.+?:.+?:(?&lt;playerName&gt;.+?):">
         <Actions>
-          <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="33ccb758-4463-442c-bb4c-15df634f6cbe" TriggerForce="regexp" ActionType="Trigger">
+          <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="9e7f3c5c-e13f-485e-8716-6103864541fb" TriggerForce="regexp" ActionType="Trigger">
             <Condition Enabled="true" Grouping="Or">
               <ConditionSingle Enabled="true" ExpressionL="${epvar:job_simple_name_${_ffxivparty[${playerName}].job}}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
             </Condition>
+            <Conditions />
           </Action>
           <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 谁敢向我挑衅，我将终结他的生命！《国一${pvar:job_simple_name_${_ffxivparty[${playerName}].job}}5%伤害》符文已配！" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
-            <Condition Enabled="true" Grouping="Or">
-              <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
-            </Condition>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Action>
           <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/e [debug]value:${epvar:job_simple_name_${_ffxivparty[${playerName}].job}},job:${_ffxivparty[${playerName}].job}" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
             <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
           </Action>
         </Actions>
-        <Condition Enabled="false" Grouping="Or" />
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="${selfName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+        </Condition>
       </Trigger>
-      <Trigger Enabled="true" Name="初始化职业缩写" Id="33ccb758-4463-442c-bb4c-15df634f6cbe" RegularExpression="">
+      <Trigger Enabled="true" Name="初始化职业缩写" Id="9e7f3c5c-e13f-485e-8716-6103864541fb" RegularExpression="">
         <Actions>
           <Action OrderNumber="1" VariableOp="SetString" VariableName="job_simple_name_DRK" VariableExpression="暗" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
             <Condition Enabled="false" Grouping="Or" />
