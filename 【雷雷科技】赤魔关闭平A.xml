@@ -170,7 +170,7 @@
         </Actions>
         <Condition Enabled="false" Grouping="Or" />
       </Trigger>
-      <Trigger Enabled="true" Name="本科及需要鲶鱼精支持" Id="ee1223fb-6db3-40e8-b1dc-1de622b5b9fe" RegularExpression="">
+      <Trigger Enabled="true" Name="本科技需要鲶鱼精支持" Id="ee1223fb-6db3-40e8-b1dc-1de622b5b9fe" RegularExpression="">
         <Actions />
         <Condition Enabled="false" Grouping="Or" />
         <Conditions />
