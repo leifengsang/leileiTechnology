@@ -463,15 +463,15 @@
                     </Condition>
                     <Conditions />
                   </Action>
-                  <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="__playerOrder_${var:playerName_${order}}" VariableExpression="${var:party_order_${var:server_name_${playerName_${order}}}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                  <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="__playerOrder_${var:playerName_${order}}" VariableExpression="${var:party_order_${var:server_name_${var:playerName_${order}}}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
-                  <Action OrderNumber="6" VariableOp="SetNumeric" VariableName="__playerName_${order}" VariableExpression="${playerName_${order}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                  <Action OrderNumber="6" VariableOp="SetString" VariableName="__playerName_${order}" VariableExpression="${var:playerName_${order}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
-                  <Action OrderNumber="7" VariableName="${var:party_order_${var:server_name_${playerName_${order}}}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                  <Action OrderNumber="7" VariableName="party_order_${var:server_name_${playerName_${order}}}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
                     <Condition Enabled="false" Grouping="Or" />
                     <Conditions />
                   </Action>
