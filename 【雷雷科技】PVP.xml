@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="8b5c07f1-a475-4931-acff-591574a300d4" Name="【雷雷科技】PVP" Enabled="true">
+    <Folders />
+    <Triggers>
+      <Trigger Enabled="true" Sequential="True" Name="龙骑-LB上天" Id="c210c7b4-d392-4e60-ba02-0146f64bc73e" RegularExpression="^.{14} .+? 1A:C6C:.+?:.+?:.+?:(?&lt;playerName&gt;.+?):">
+        <Actions>
+          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e " UseTTSTextExpression="龙骑上天" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="${_ffxivparty[${playerName}].name}" ExpressionTypeL="String" ExpressionR="${playerName}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+        </Condition>
+      </Trigger>
+      <Trigger Enabled="true" Sequential="True" Name="武士-开地天" Id="95295fb3-3718-4347-820e-2deec91d13e9" RegularExpression="^.{14} .+? 15:.+?:(?&lt;playerName&gt;.+?):735D:">
+        <Actions>
+          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e " UseTTSTextExpression="小心弟天" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="${_ffxivparty[${playerName}].name}" ExpressionTypeL="String" ExpressionR="${playerName}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+        </Condition>
+      </Trigger>
+      <Trigger Enabled="true" Sequential="True" Name="武士-地天结束" Id="9b471cd3-b603-4340-917b-b99c8ba0ae2c" RegularExpression="^.{14} .+? 1E:4D8:.+?:.+?:.+?:(?&lt;playerName&gt;.+?):">
+        <Actions>
+          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e " UseTTSTextExpression="弟天结束" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="${_ffxivparty[${playerName}].name}" ExpressionTypeL="String" ExpressionR="${playerName}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+        </Condition>
+      </Trigger>
+      <Trigger Enabled="true" Sequential="True" Name="机工-被狙击" Id="440b9592-3681-4331-9acc-5e0813a664e8" RegularExpression="^.{14} .+? 15:.+?:(?&lt;playerName&gt;.+?):72E7:.+?:.+?:(?&lt;targetName&gt;.+?):">
+        <Actions>
+          <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e " UseTTSTextExpression="被狙击了" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="And">
+          <ConditionSingle Enabled="true" ExpressionL="${_ffxivparty[${playerName}].name}" ExpressionTypeL="String" ExpressionR="${playerName}" ExpressionTypeR="String" ConditionType="StringNotEqualNocase" />
+          <ConditionSingle Enabled="true" ExpressionL="${targetName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+        </Condition>
+        <Conditions />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
