@@ -5,7 +5,7 @@
       <Folder Id="751fc032-84a1-4709-a164-6d14320b679d" Name="门神" Enabled="true">
         <Folders />
         <Triggers>
-          <Trigger Enabled="true" Name="八方分散" Id="79329b1e-a786-4690-9066-8f8127926c04" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「スプレッドヴァイパー」を唱えた。">
+          <Trigger Enabled="true" Name="八方分散" Id="79329b1e-a786-4690-9066-8f8127926c04" RegularExpression="^.{14} .+? 14:.+?:.+?:791F:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="八方分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
@@ -15,37 +15,13 @@
             <Condition Enabled="false" Grouping="Or" />
             <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="延迟分摊" Id="5300e01c-a1e7-42db-9941-0d803173989a" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「テトラフレア・コンシーヴ」を唱えた。">
-            <Actions>
-              <Action OrderNumber="1" UseTTSTextExpression="分摊分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
-                <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
-              </Action>
-              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分攤" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
-                <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
-              </Action>
-            </Actions>
-            <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
-          </Trigger>
-          <Trigger Enabled="true" Name="延迟分散" Id="3db1dac7-5902-48f8-8d32-16fa0f92592c" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「オクタフレア・コンシーヴ」を唱えた。">
+          <Trigger Enabled="true" Name="延迟分散" Id="3db1dac7-5902-48f8-8d32-16fa0f92592c" RegularExpression="^.{14} .+? 14:.+?:.+?:7914:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="分散分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
               <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
-                <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
-              </Action>
-            </Actions>
-            <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
-          </Trigger>
-          <Trigger Enabled="true" Name="分散" Id="1e304868-a9ca-412b-aa15-1a38223b29ce" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「オクタフレア」を唱えた。">
-            <Actions>
-              <Action OrderNumber="1" UseTTSTextExpression="分散分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
@@ -77,7 +53,7 @@
             <Condition Enabled="false" Grouping="Or" />
             <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="分摊" Id="807345a5-e3c5-4d87-99e0-1ff7e877979d" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「テトラフレア」を唱えた。">
+          <Trigger Enabled="true" Name="分摊" Id="807345a5-e3c5-4d87-99e0-1ff7e877979d" RegularExpression="^.{14} .+? 14:.+?:.+?:791E:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="分摊分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
@@ -120,6 +96,30 @@
           <Trigger Enabled="true" Name="钢铁" Id="92165b38-7e5c-4a5c-bd77-89c804b14e25" RegularExpression="^.{14} .+? 14:.+?:.+?:7A05:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="钢铁远离" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="分散" Id="1dd1c733-0803-4842-b517-3aaa44590027" RegularExpression="^.{14} .+? 14:.+?:.+?:791D:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="分散分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="延迟分摊" Id="c65ce71a-c42d-4f2a-9eea-73912a4bc8d8" RegularExpression="^.{14} .+? 14:.+?:.+?:7915:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="分摊分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分攤" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
