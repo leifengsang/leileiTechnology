@@ -5,18 +5,122 @@
       <Folder Id="751fc032-84a1-4709-a164-6d14320b679d" Name="门神" Enabled="true">
         <Folders />
         <Triggers>
-          <Trigger Enabled="true" Name="辣翅辣尾" Id="587d4c7a-371f-492d-8925-61d38109f572" RegularExpression=".{15} .+? 14:.+?:.+?:(?&lt;code&gt;791[01]):">
+          <Trigger Enabled="true" Name="八方分散" Id="79329b1e-a786-4690-9066-8f8127926c04" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「スプレッドヴァイパー」を唱えた。">
             <Actions>
-              <Action OrderNumber="1" UseTTSTextExpression="去中间" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${code}" ExpressionTypeL="Numeric" ExpressionR="7910" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+              <Action OrderNumber="1" UseTTSTextExpression="八方分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="延迟分摊" Id="5300e01c-a1e7-42db-9941-0d803173989a" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「テトラフレア・コンシーヴ」を唱えた。">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="分摊分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分攤" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="延迟分散" Id="3db1dac7-5902-48f8-8d32-16fa0f92592c" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「オクタフレア・コンシーヴ」を唱えた。">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="分散分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="分散" Id="1e304868-a9ca-412b-aa15-1a38223b29ce" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「オクタフレア」を唱えた。">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="分散分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="去两边" Id="7cecce44-3141-496b-9a2d-d276cc97f107" RegularExpression="^.{14} .+? 14:.+?:.+?:7910:" PeriodRefire="Deny" RefirePeriodExpression="100">
+            <Actions>
+              <Action OrderNumber="1" PlaySpeechMyself="True" UseTTSTextExpression="去两边" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                 </Condition>
                 <Conditions />
               </Action>
-              <Action OrderNumber="2" UseTTSTextExpression="去两边" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
-                <Condition Enabled="true" Grouping="Or">
-                  <ConditionSingle Enabled="true" ExpressionL="${code}" ExpressionTypeL="Numeric" ExpressionR="7911" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="去中间" Id="fcee3f2b-7eb8-474e-be69-90425cb481ec" RegularExpression="^.{14} .+? 14:.+?:.+?:7911:" PeriodRefire="Deny" RefirePeriodExpression="100">
+            <Actions>
+              <Action OrderNumber="1" PlaySpeechMyself="True" UseTTSTextExpression="去中间" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                 </Condition>
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="分摊" Id="807345a5-e3c5-4d87-99e0-1ff7e877979d" RegularExpression="^.{14} .+? 00:282B::ヘファイストスは「テトラフレア」を唱えた。">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="分摊分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="4人分摊" Id="71601de2-ca77-43d2-a10a-f73ae92557ac" RegularExpression="^.{14} .+? 14:.+?:.+?:7917:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="4人分摊" UseTTSExclusive="False" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="2人分摊" Id="d10a81d5-f51f-4295-94aa-cad19732d2fb" RegularExpression="^.{14} .+? 14:.+?:.+?:7916:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="2人分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="击退" Id="6eeb8734-7158-40f1-8e7c-3ce5b56e2693" RegularExpression="^.{14} .+? 14:.+?:.+?:7A04:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="击退击退" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="钢铁" Id="92165b38-7e5c-4a5c-bd77-89c804b14e25" RegularExpression="^.{14} .+? 14:.+?:.+?:7A05:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="钢铁远离" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
             </Actions>
