@@ -21,7 +21,7 @@
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
-              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
+              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分散" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
@@ -119,7 +119,7 @@
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
-              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分攤" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
+              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分攤" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
                 <Conditions />
               </Action>
