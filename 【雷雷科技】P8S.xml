@@ -1,131 +1,128 @@
 <?xml version="1.0"?>
 <TriggernometryExport Version="1">
-  <ExportedFolder Id="468150b3-4179-4f1e-ab37-3322488807bb" Name="【雷雷科技】P8S" Enabled="true">
+  <ExportedFolder Id="dc3f5b45-ec93-487f-93e7-e3a390f69fc5" Name="【雷雷科技】P8S" Enabled="true">
     <Folders>
-      <Folder Id="751fc032-84a1-4709-a164-6d14320b679d" Name="门神" Enabled="true">
+      <Folder Id="67525005-07c0-4578-9fe6-31bb8498cbd1" Name="门神" Enabled="true">
         <Folders />
         <Triggers>
-          <Trigger Enabled="true" Name="八方分散" Id="79329b1e-a786-4690-9066-8f8127926c04" RegularExpression="^.{14} .+? 14:.+?:.+?:791F:">
+          <Trigger Enabled="true" Name="八方分散" Id="4d693be5-e74b-4eb2-9fc3-03c8590dac12" RegularExpression="^.{14} .+? 14:.+?:.+?:791F:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="八方分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="延迟分散" Id="3db1dac7-5902-48f8-8d32-16fa0f92592c" RegularExpression="^.{14} .+? 14:.+?:.+?:7914:">
+          <Trigger Enabled="true" Name="延迟分散" Id="7b03edad-53f4-417b-ac55-ad7656d28b33" RegularExpression="^.{14} .+? 14:.+?:.+?:7914:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="分散分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分散" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="去两边" Id="7cecce44-3141-496b-9a2d-d276cc97f107" RegularExpression="^.{14} .+? 14:.+?:.+?:7910:" PeriodRefire="Deny" RefirePeriodExpression="100">
+          <Trigger Enabled="true" Name="去两边" Id="e1d77921-9402-4c7a-8576-15af52cf9b67" RegularExpression="^.{14} .+? 14:.+?:.+?:7910:" PeriodRefire="Deny" RefirePeriodExpression="100">
             <Actions>
               <Action OrderNumber="1" PlaySpeechMyself="True" UseTTSTextExpression="去两边" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                 </Condition>
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="去中间" Id="fcee3f2b-7eb8-474e-be69-90425cb481ec" RegularExpression="^.{14} .+? 14:.+?:.+?:7911:" PeriodRefire="Deny" RefirePeriodExpression="100">
+          <Trigger Enabled="true" Name="去中间" Id="a8d33a3c-83c6-462e-860f-bb75ba7f236c" RegularExpression="^.{14} .+? 14:.+?:.+?:7911:" PeriodRefire="Deny" RefirePeriodExpression="100">
             <Actions>
               <Action OrderNumber="1" PlaySpeechMyself="True" UseTTSTextExpression="去中间" UseTTSRateExpression="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or">
                   <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
                 </Condition>
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="分摊" Id="807345a5-e3c5-4d87-99e0-1ff7e877979d" RegularExpression="^.{14} .+? 14:.+?:.+?:791E:">
+          <Trigger Enabled="true" Name="分摊" Id="7841b716-1ba3-4066-b1fa-55c7ed555cf1" RegularExpression="^.{14} .+? 14:.+?:.+?:791E:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="分摊分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="4人分摊" Id="71601de2-ca77-43d2-a10a-f73ae92557ac" RegularExpression="^.{14} .+? 14:.+?:.+?:7917:">
+          <Trigger Enabled="true" Name="4人分摊" Id="43d74d0b-50fc-4584-8835-668e94cd1e78" RegularExpression="^.{14} .+? 14:.+?:.+?:7917:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="4人分摊" UseTTSExclusive="False" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="2人分摊" Id="d10a81d5-f51f-4295-94aa-cad19732d2fb" RegularExpression="^.{14} .+? 14:.+?:.+?:7916:">
+          <Trigger Enabled="true" Name="2人分摊" Id="02921859-cee9-4a34-96cd-383939ddb126" RegularExpression="^.{14} .+? 14:.+?:.+?:7916:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="2人分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="击退" Id="6eeb8734-7158-40f1-8e7c-3ce5b56e2693" RegularExpression="^.{14} .+? 14:.+?:.+?:7A04:">
+          <Trigger Enabled="true" Name="击退" Id="405e383b-527d-481f-adc2-2c962618f5db" RegularExpression="^.{14} .+? 14:.+?:.+?:7A04:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="击退击退" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="钢铁" Id="92165b38-7e5c-4a5c-bd77-89c804b14e25" RegularExpression="^.{14} .+? 14:.+?:.+?:7A05:">
+          <Trigger Enabled="true" Name="钢铁" Id="ae45f9e6-a54d-4536-b117-865e3be39058" RegularExpression="^.{14} .+? 14:.+?:.+?:7A05:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="钢铁远离" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="分散" Id="1dd1c733-0803-4842-b517-3aaa44590027" RegularExpression="^.{14} .+? 14:.+?:.+?:791D:">
+          <Trigger Enabled="true" Name="分散" Id="1784e3f1-ec3f-4bad-ab4f-f2fa28e0a1ec" RegularExpression="^.{14} .+? 14:.+?:.+?:791D:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="分散分散" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
           </Trigger>
-          <Trigger Enabled="true" Name="延迟分摊" Id="c65ce71a-c42d-4f2a-9eea-73912a4bc8d8" RegularExpression="^.{14} .+? 14:.+?:.+?:7915:">
+          <Trigger Enabled="true" Name="延迟分摊" Id="d0677279-f0f1-4b30-b041-5ed934cb9c18" RegularExpression="^.{14} .+? 14:.+?:.+?:7915:">
             <Actions>
               <Action OrderNumber="1" UseTTSTextExpression="分摊分摊" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
               <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/p 延遲分攤" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="NamedCallback">
                 <Condition Enabled="false" Grouping="Or" />
-                <Conditions />
               </Action>
             </Actions>
             <Condition Enabled="false" Grouping="Or" />
-            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="725dcf2c-4bb2-4ad7-a58f-6c397d3c8852" Name="本体" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="左右刀-去右边" Id="5e0fe1ba-810e-4218-aa62-3ed34a359b46" RegularExpression="^.{14} .+? 14:.+?:.+?:79D7:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="去右鞭" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Name="左右刀-去左边" Id="b93feb1f-ed75-4db4-8c5e-9e902bb8ca88" RegularExpression="^.{14} .+? 14:.+?:.+?:79D8:">
+            <Actions>
+              <Action OrderNumber="1" UseTTSTextExpression="去左鞭" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
           </Trigger>
         </Triggers>
       </Folder>
