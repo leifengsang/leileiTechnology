@@ -445,10 +445,11 @@
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
               </Trigger>
-              <Trigger Enabled="true" Sequential="True" Name="进本自动获取小队列表（C/J端）" Id="6319a1e1-f1c9-40df-a5b2-c6efd89e41e2" RegularExpression="00:0839::[“「]?(绝龙诗中文名字|絶竜詩戦争)[”」]?(の攻略を開始した。|任务开始。)$">
+              <Trigger Enabled="true" Sequential="True" Name="进本自动获取小队列表（C/J端）" Id="6319a1e1-f1c9-40df-a5b2-c6efd89e41e2" RegularExpression="00:0839::[“「]?(幻想龙诗绝境战|絶竜詩戦争)[”」]?(の攻略を開始した。|任务开始。)$">
                 <Actions>
                   <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="4ed371fd-6d43-4a9d-be01-97b118ec38b4" TriggerText="__init_stop" ActionType="Trigger">
                     <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
@@ -468,7 +469,7 @@
           </Folder>
           <Folder Id="6c7f4ec9-d25b-4ddb-9e09-4e1c771c61c5" Name="标点触发器（队内一个人开就行）" Enabled="true">
             <Folders>
-              <Folder Id="8f8e1664-10a9-4c71-a535-9a84f1ef6a2a" Name="xxxfy团死宣35分组（非本团不勾选）" Enabled="true">
+              <Folder Id="8f8e1664-10a9-4c71-a535-9a84f1ef6a2a" Name="xxxfy团死宣35分组（非本团不勾选）" Enabled="false">
                 <Folders />
                 <Triggers>
                   <Trigger Enabled="true" Sequential="True" Name="左边1/3死宣，右边最后一个非死宣去左边" Id="20c9ec1c-788d-4d0a-bb07-a666dd192faa" RegularExpression="">
