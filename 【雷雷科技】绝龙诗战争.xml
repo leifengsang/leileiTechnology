@@ -282,7 +282,7 @@
           </Trigger>
         </Triggers>
       </Folder>
-      <Folder Id="3383b4c2-89c4-4a06-b19e-1a8ef41f4a6b" Name="标点相关，需要支持鲶鱼精邮差，没有需求禁用即可" Enabled="false">
+      <Folder Id="3383b4c2-89c4-4a06-b19e-1a8ef41f4a6b" Name="标点相关，需要支持鲶鱼精邮差，没有需求禁用即可" Enabled="true">
         <Folders>
           <Folder Id="a1bf2184-3684-4c0c-98cf-4df3f1a87313" Name="标点初始化" Enabled="true">
             <Folders />
@@ -449,7 +449,6 @@
                 <Actions>
                   <Action OrderNumber="1" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="4ed371fd-6d43-4a9d-be01-97b118ec38b4" TriggerText="__init_stop" ActionType="Trigger">
                     <Condition Enabled="false" Grouping="Or" />
-                    <Conditions />
                   </Action>
                 </Actions>
                 <Condition Enabled="false" Grouping="Or" />
@@ -897,6 +896,143 @@
               </Trigger>
             </Triggers>
           </Folder>
+          <Folder Id="58c3e1ef-e10c-430a-9bae-2b62fe3a64ba" Name="八人塔" Enabled="false">
+            <Folders>
+              <Folder Id="3bd4cecb-5979-4692-a6b6-2077abc49b74" Name="记录塔" Enabled="true">
+                <Folders />
+                <Triggers>
+                  <Trigger Enabled="true" Name="右下塔" Id="e9459fa6-b42d-4b75-aa2d-2d3f37bcf8ab" RegularExpression="^.{14} (?:\w+ )14:(?&lt;tid&gt;.{8}):[^:]*:671(?&lt;type&gt;[789A]):">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="1" ListVariableIndex="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="2" ListVariableIndex="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="3" ListVariableIndex="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="4" ListVariableIndex="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="A" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${tid}].x}" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${tid}].y}" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="右上塔" Id="eb5c38e3-0bcc-4199-b71b-28059989e2dd" RegularExpression="^.{14} (?:\w+ )14:(?&lt;tid&gt;.{8}):[^:]*:671(?&lt;type&gt;[789A]):">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="1" ListVariableIndex="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="2" ListVariableIndex="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="3" ListVariableIndex="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="4" ListVariableIndex="2" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="A" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${tid}].x}" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${tid}].y}" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="左下塔" Id="10a0f266-f166-4bac-ae0b-4f5d55d545ee" RegularExpression="^.{14} (?:\w+ )14:(?&lt;tid&gt;.{8}):[^:]*:671(?&lt;type&gt;[789A]):">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="1" ListVariableIndex="4" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="2" ListVariableIndex="4" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="3" ListVariableIndex="4" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="4" ListVariableIndex="4" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="A" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${tid}].x}" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${tid}].y}" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    </Condition>
+                  </Trigger>
+                  <Trigger Enabled="true" Name="左上塔" Id="a975c57a-ba07-4bce-9652-95d0d770ecdf" RegularExpression="^.{14} (?:\w+ )14:(?&lt;tid&gt;.{8}):[^:]*:671(?&lt;type&gt;[789A]):">
+                    <Actions>
+                      <Action OrderNumber="1" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="1" ListVariableIndex="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="7" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="2" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="2" ListVariableIndex="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="8" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="3" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="3" ListVariableIndex="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="9" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                      <Action OrderNumber="4" ListVariableOp="Set" ListVariableName="p3_tower" ListVariableExpression="4" ListVariableIndex="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ListVariable">
+                        <Condition Enabled="true" Grouping="Or">
+                          <ConditionSingle Enabled="true" ExpressionL="${type}" ExpressionTypeL="String" ExpressionR="A" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                        </Condition>
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="true" Grouping="And">
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${tid}].x}" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                      <ConditionSingle Enabled="true" ExpressionL="${_ffxiventity[${tid}].y}" ExpressionTypeL="Numeric" ExpressionR="100" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    </Condition>
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
+            <Triggers>
+              <Trigger Enabled="true" Name="播报塔" Id="4f47a2d6-1dd1-4f2d-8a8f-bd4661c752a1" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:671[789A]:" PeriodRefire="Deny" RefirePeriodExpression="1000" Description="1">
+                <Actions>
+                  <Action OrderNumber="1" UseTTSTextExpression="${var:Souma_Team_Role}" TextAuraAlignment="TopCenter" TextAuraEffect="Bold" TextAuraFontSize="26.25" TextAuraForeground="White" TextAuraOutline="Fuchsia" TextAuraName="tower_1" TextAuraExpression="${lvar:p3_tower[1]}         ${lvar:p3_tower[2]}" TextAuraXIniExpression="1100" TextAuraYIniExpression="290" TextAuraWIniExpression="400" TextAuraHIniExpression="200" TextAuraOIniExpression="100" TextAuraTTLTickExpression="7*1000-${_sincems}" TextAuraUseOutline="True" TextAuraFontName="微软雅黑" ActionType="TextAura" ExecutionDelayExpression="200" Asynchronous="False">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                  <Action OrderNumber="2" UseTTSTextExpression="${var:Souma_Team_Role}" TextAuraEffect="Bold" TextAuraFontSize="26.25" TextAuraForeground="White" TextAuraOutline="Fuchsia" TextAuraName="tower_2" TextAuraExpression="${lvar:p3_tower[4]}         ${lvar:p3_tower[3]}" TextAuraXIniExpression="1100" TextAuraYIniExpression="290" TextAuraWIniExpression="400" TextAuraHIniExpression="200" TextAuraOIniExpression="100" TextAuraTTLTickExpression="7*1000-${_sincems}" TextAuraUseOutline="True" TextAuraFontName="微软雅黑" ActionType="TextAura" Asynchronous="False">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                  <Action OrderNumber="3" UseTTSTextExpression="${lvar:p3_tower[1]} ${lvar:p3_tower[2]} ${lvar:p3_tower[3]} ${lvar:p3_tower[4]}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Trigger>
+            </Triggers>
+          </Folder>
         </Folders>
         <Triggers>
           <Trigger Enabled="true" Name="远离正面" Id="43ec97fc-e99b-4ad6-8930-a53e20d072f7" RegularExpression="^.{14} .+? 14:.+?:.+?:670[BC]:">
@@ -1179,22 +1315,22 @@
                   <Action OrderNumber="1" PlaySpeechMyself="True" UseTTSRateExpression="3" VariableOp="SetNumeric" VariableName="p7_wise" VariableExpression="${numeric:(${var:p7_2_x}-${var:p7_1_x})*(${var:p7_3_y}-${var:p7_1_y})-(${var:p7_2_y}-${var:p7_1_y})*(${var:p7_3_x}-${var:p7_1_x})}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" ExecutionDelayExpression="50">
                     <Condition Enabled="false" Grouping="Or" />
                   </Action>
-                  <Action OrderNumber="2" PlaySpeechMyself="True" UseTTSTextExpression="逆时针" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="902e3504-b9ca-4d78-93b9-05369c444d2c" TriggerText="Tip_Subtitle:顺时针:5:0:0:main" ActionType="UseTTS" ExecutionDelayExpression="50">
+                  <Action OrderNumber="2" PlaySpeechMyself="True" UseTTSTextExpression="右右右" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="50">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${var:p7_wise}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
                     </Condition>
                   </Action>
-                  <Action OrderNumber="3" PlaySpeechMyself="True" UseTTSTextExpression="顺时针" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="902e3504-b9ca-4d78-93b9-05369c444d2c" TriggerText="Tip_Subtitle:顺时针:5:0:0:main" ActionType="UseTTS">
+                  <Action OrderNumber="3" PlaySpeechMyself="True" UseTTSTextExpression="左左左" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${var:p7_wise}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
                     </Condition>
                   </Action>
-                  <Action OrderNumber="4" PlaySpeechMyself="True" UseTTSTextExpression="逆时针" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="902e3504-b9ca-4d78-93b9-05369c444d2c" TriggerText="Tip_Subtitle:顺时针:5:0:0:main" ActionType="UseTTS" ExecutionDelayExpression="7000">
+                  <Action OrderNumber="4" PlaySpeechMyself="True" UseTTSTextExpression="右右右" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS" ExecutionDelayExpression="7000">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${var:p7_wise}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
                     </Condition>
                   </Action>
-                  <Action OrderNumber="5" PlaySpeechMyself="True" UseTTSTextExpression="顺时针" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="902e3504-b9ca-4d78-93b9-05369c444d2c" TriggerText="Tip_Subtitle:顺时针:5:0:0:main" ActionType="UseTTS">
+                  <Action OrderNumber="5" PlaySpeechMyself="True" UseTTSTextExpression="左左左" UseTTSRateExpression="3" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
                     <Condition Enabled="true" Grouping="Or">
                       <ConditionSingle Enabled="true" ExpressionL="${var:p7_wise}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
                     </Condition>
