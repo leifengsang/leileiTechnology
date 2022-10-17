@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="88ab1267-1401-4a3a-95d3-224ba724bae1" Name="自动录制" Enabled="true">
+    <Folders />
+    <Triggers>
+      <Trigger Enabled="true" Name="结束录制while倒数取消（updated by L.F.）" Id="f27c5918-a4d9-44ec-8088-4305580f44fd" RegularExpression="00:(00B9|0139)::(.+?取消了战斗开始倒计时。|.+?により、戦闘開始カウントがキャンセルされました。|Countdown canceled by .+?.)">
+        <Actions>
+          <Action OrderNumber="1" OBSControlType="StopRecording" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ObsControl">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="false" Name="需下载websocket插件" Id="4060e6b9-827c-456b-9ac2-a43674a1d0b3" RegularExpression="" Description="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1">
+        <Actions>
+          <Action OrderNumber="1" KeyPressExpression="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1" MessageBoxText="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1" UseTTSTextExpression="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1" TextAuraFontSize="9" TextAuraName="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1" TextAuraFontName="宋体" ActionType="MessageBox">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="开始录制（倒计时开始）" Id="3dde9f20-bedd-40a8-aa39-91c8fce44d76" RegularExpression="Battle commencing in|距离战斗开始还有|戦闘開始まで">
+        <Actions>
+          <Action OrderNumber="1" OBSControlType="StartRecording" TextAuraFontSize="9" TextAuraForeground="Red" TextAuraExpression="test" TextAuraXIniExpression="1000" TextAuraYIniExpression="1000" TextAuraFontName="宋体" ActionType="ObsControl">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="false" Name="开始录制（倒计时结束）" Id="78772ad9-c931-428e-99e4-049c72936324" RegularExpression="战斗开始|戦闘開始|Engage!">
+        <Actions>
+          <Action OrderNumber="1" OBSControlType="StartRecording" TextAuraFontSize="9" TextAuraForeground="Red" TextAuraExpression="test" TextAuraXIniExpression="1000" TextAuraYIniExpression="1000" TextAuraFontName="宋体" ActionType="ObsControl">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="结束录制" Id="f08e75d1-4114-446b-aede-ba08cf40c94f" RegularExpression="^.{14} (?:\w+ )21:.{8}:40000010|任务结束了。|has ended\.|の攻略を終了した。">
+        <Actions>
+          <Action OrderNumber="1" OBSControlType="StopRecording" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="ObsControl">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>

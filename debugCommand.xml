@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedTrigger Enabled="true" Name="debug command" Id="3cceb934-f29f-4993-ba6a-58324fbd105c" RegularExpression="__command:(?&lt;command&gt;.+)$">
+    <Actions>
+      <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e [debug]${command}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="NamedCallback">
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Action>
+    </Actions>
+    <Condition Enabled="false" Grouping="Or" />
+    <Conditions />
+  </ExportedTrigger>
+</TriggernometryExport>

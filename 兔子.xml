@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedTrigger Enabled="true" Name="搓兔子" Id="a5dbd16d-b354-4346-810d-01b538735bf0" RegularExpression="发动了“通灵之术”">
+    <Actions>
+      <Action OrderNumber="1" UseTTSTextExpression="有人搓兔子啦" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+        <Condition Enabled="false" Grouping="Or" />
+      </Action>
+    </Actions>
+    <Condition Enabled="false" Grouping="Or" />
+  </ExportedTrigger>
+</TriggernometryExport>
