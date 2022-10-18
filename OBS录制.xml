@@ -11,14 +11,6 @@
         </Actions>
         <Condition Enabled="false" Grouping="Or" />
       </Trigger>
-      <Trigger Enabled="false" Name="需下载websocket插件" Id="4060e6b9-827c-456b-9ac2-a43674a1d0b3" RegularExpression="" Description="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1">
-        <Actions>
-          <Action OrderNumber="1" KeyPressExpression="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1" MessageBoxText="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1" UseTTSTextExpression="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1" TextAuraFontSize="9" TextAuraName="https://github.com/obsproject/obs-websocket/releases/tag/4.9.1" TextAuraFontName="宋体" ActionType="MessageBox">
-            <Condition Enabled="false" Grouping="Or" />
-          </Action>
-        </Actions>
-        <Condition Enabled="false" Grouping="Or" />
-      </Trigger>
       <Trigger Enabled="true" Name="开始录制（倒计时开始）" Id="3dde9f20-bedd-40a8-aa39-91c8fce44d76" RegularExpression="Battle commencing in|距离战斗开始还有|戦闘開始まで">
         <Actions>
           <Action OrderNumber="1" OBSControlType="StartRecording" TextAuraFontSize="9" TextAuraForeground="Red" TextAuraExpression="test" TextAuraXIniExpression="1000" TextAuraYIniExpression="1000" TextAuraFontName="宋体" ActionType="ObsControl">
@@ -42,6 +34,11 @@
           </Action>
         </Actions>
         <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="建议使用obs28版本以上自带的websocket，设置端口4444" Id="693fc5d9-6ce9-4b7a-b0c1-6687ae54cb33" RegularExpression="">
+        <Actions />
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
       </Trigger>
     </Triggers>
   </ExportedFolder>
