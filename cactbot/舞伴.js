@@ -1,7 +1,3 @@
-console.log("=======================================")
-console.log("leilei world 1st dnc trigger running")
-console.log("=======================================")
-
 const isRaidEmulator = location.href.includes("raidemulator.html");
 function doTextCommand(text) {
     if (text === undefined) console.trace(`text为空`);
