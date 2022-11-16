@@ -55,7 +55,7 @@ Options.Triggers.push({
                 return matches.source === data.me;
             },
             run: (data, matches) => {
-                doTextCommand("/p 谁敢向我挑衅，我将终结他的生命！《国一" + getJobShortName(data.party.details.find((p) => p.name === matches.target).job) + "5%伤害》符文已配！")
+                doTextCommand("/p 谁敢向我挑衅，我将终结他的生命！" + matches.target + "《国一" + getJobShortName(data.party.details.find((p) => p.name === matches.target).job) + "5%伤害》符文已配！")
             }
         }
     ]
