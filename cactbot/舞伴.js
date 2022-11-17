@@ -36,7 +36,7 @@ const jobs = {
     36: { full: "青魔法师", single: "青" },
     37: { full: "绝枪战士", single: "枪" },
     38: { full: "舞者", single: "舞" },
-    39: { full: "钐镰客", single: "钐" },
+    39: { full: "钐镰客", single: "镰" },
     40: { full: "贤者", single: "贤" },
 };
 
