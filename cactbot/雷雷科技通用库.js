@@ -10,6 +10,83 @@
  *  该值会被保存，重启ACT并不会丢失此设置。
  */
 
+// data:
+// currentHP: 42054
+// displayLang: "cn"
+// inCombat: false
+// job: "DNC"
+// lang: "cn"
+// me: "雷锋桑"
+// options: {ParserLanguage: 'cn', ShortLocale: 'cn', DisplayLanguage: 'cn', TextAlertsEnabled: true, SoundAlertsEnabled: true, …}
+// parserLang: "cn"
+// party: PartyTracker
+// allianceIds_: (2) ['104956BF', '1039A842']
+// allianceNames_: (2) ['铃荧', '雷锋桑']
+// details: Array(2)
+// 0:
+// id: "104956BF"
+// inParty: true
+// job: 35
+// level: 75
+// name: "铃荧"
+// worldId: 1169
+// [[Prototype]]: Object
+// 1: {id: '1039A842', name: '雷锋桑', worldId: 1177, job: 38, level: 90, …}
+// length: 2
+// [[Prototype]]: Array(0)
+// idToName_: {104956BF: '铃荧', 1039A842: '雷锋桑'}
+// nameToRole_: {铃荧: 'dps', 雷锋桑: 'dps'}
+// partyIds_: (2) ['104956BF', '1039A842']
+// partyNames_: (2) ['铃荧', '雷锋桑']
+// roleToPartyNames_:
+// crafter: []
+// dps: (2) ['铃荧', '雷锋桑']
+// gatherer: []
+// healer: []
+// none: []
+// tank: []
+// [[Prototype]]: Object
+// allianceNames: (...)
+// dpsNames: (...)
+// healerNames: (...)
+// partyIds: (...)
+// partyNames: (...)
+// tankNames: (...)
+// [[Prototype]]: Object
+// role: "dps"
+// [[Prototype]]: Object
+
+//matches
+// ability: "闭式舞姿"
+// currentHp: "42054"
+// currentMp: "10000"
+// damage: "7200000"
+// flags: "E"
+// heading: "-2.48"
+// id: "3E86"
+// maxHp: "42054"
+// maxMp: "10000"
+// sequence: "0005F8FD"
+// source: "雷锋桑"
+// sourceId: "1039A842"
+// target: "铃荧"
+// targetCount: "1"
+// targetCurrentHp: "18534"
+// targetCurrentMp: "10000"
+// targetHeading: "0.87"
+// targetId: "104956BF"
+// targetIndex: "0"
+// targetMaxHp: "18534"
+// targetMaxMp: "10000"
+// targetX: "38.93"
+// targetY: "44.21"
+// targetZ: "1.34"
+// timestamp: "2022-12-12T23:30:57.4650000+08:00"
+// type: "21"
+// x: "41.86"
+// y: "47.97"
+// z: "0.85"
+
 const isRaidEmulator = location.href.includes("raidemulator.html");
 const jobConvert = {
     "PLD": "19",
