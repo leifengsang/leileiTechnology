@@ -16,7 +16,11 @@ Options.Triggers.push({
         {
             id: "leilei 三连桶石牢点名",
             netRegex: NetRegexes.ability({ id: "2B6[BC]" }),
-            condition: (data, matches) => {
+            condition: (data, matches, output) => {
+                if (output.enable !== "true") {
+                    return false;
+                }
+
                 //大怒震后的前三个石牢点名为三连桶点名
                 return data.markList.length < 3;
             },
@@ -44,7 +48,10 @@ Options.Triggers.push({
                     data.leileiData.leileiFL.mark(data.markList[1].id, data.leileiData.targetMakers.attack2);
                     data.leileiData.leileiFL.mark(data.markList[2].id, data.leileiData.targetMakers.attack3);
                 }
-            }
+            },
+            outputStrings: {
+                enable: true
+            },
         },
     ]
 })
