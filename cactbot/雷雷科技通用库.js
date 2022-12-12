@@ -251,7 +251,7 @@ function createMyParty(party) {
     if (newLen >= oldLen && newLen > 0) {
         clearTimeout(partyUpdateTimer);
         partyUpdateTimer = setTimeout(() => {
-            doTextCommand("/e 当前规则：" + sort.map((v) => getJobShortName(v)).join(""));
+            doTextCommand("/e 当前规则：" + sort.map((v) => jobs[v].single).join(""));
         }, 2000);
     }
 }
