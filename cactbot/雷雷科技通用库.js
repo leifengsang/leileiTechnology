@@ -218,19 +218,15 @@ function createMyParty(party) {
     if (sort === null || sort === undefined || !sort.includes) {
         doTextCommand("/e 读取sort默认值");
         sort = [
-            "21", //战
-            "37", //枪
-            "32", //暗
-            "19", //骑
-            "24", //白
-            "33", //占
-            "40", //贤
-            "28", //学
             "20", //僧
             "22", //龙
             "30", //忍
             "34", //侍
             "39", //钐
+            "21", //战
+            "37", //枪
+            "32", //暗
+            "19", //骑
             "23", //诗
             "31", //机
             "38", //舞
@@ -238,6 +234,10 @@ function createMyParty(party) {
             "27", //召
             "35", //赤
             "36", //青
+            "40", //贤
+            "28", //学
+            "33", //占
+            "24", //白
         ];
     }
     const oldLen = Number(leileiData.myParty.length);
