@@ -196,9 +196,6 @@ function getJobNameByName(data, name, type = "simple") {
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
-    /**
-     * 盲猜这个是为了方便国际服打E端的玩家快速修改禁止标记
-     */
     targetMakers: {
         攻击1: "attack1", // 0
         攻击2: "attack2", // 1
