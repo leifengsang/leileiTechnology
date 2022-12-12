@@ -197,20 +197,20 @@ let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
     targetMakers: {
-        攻击1: "attack1", // 0
-        攻击2: "attack2", // 1
-        攻击3: "attack3", // 2
-        攻击4: "attack4", // 3
-        攻击5: "attack5", // 4
-        止步1: "bind1", // 5
-        止步2: "bind2", // 6
-        止步3: "bind3", // 7
-        禁止1: "stop1", // 8
-        禁止2: "stop2", // 9
-        正方: "square", // 10
-        圆圈: "circle", // 11
-        十字: "cross", // 12
-        三角: "triangle", // 13
+        attack1: "attack1", // 0
+        attack2: "attack2", // 1
+        attack3: "attack3", // 2
+        attack4: "attack4", // 3
+        attack5: "attack5", // 4
+        bind1: "bind1", // 5
+        bind2: "bind2", // 6
+        bind3: "bind3", // 7
+        stop1: "stop1", // 8
+        stop2: "stop2", // 9
+        square: "square", // 10
+        circle: "circle", // 11
+        cross: "cross", // 12
+        triangle: "triangle", // 13
     },
 };
 let partyUpdateTimer;
