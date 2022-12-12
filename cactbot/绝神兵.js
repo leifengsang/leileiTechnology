@@ -10,7 +10,7 @@ Options.Triggers.push({
             netRegex: NetRegexes.startsUsing({ id: "2B67" }),
             run: (data) => {
                 data.markList = []; //初始化石牢点名列表
-                data.leileiData.leileiFL.clearMark();
+                data.leileiFL.clearMark();
             }
         },
         {
@@ -44,9 +44,9 @@ Options.Triggers.push({
                         return compareFunction(a) - compareFunction(b);
                     });
 
-                    data.leileiData.leileiFL.mark(data.markList[0].id, data.leileiData.targetMakers.attack1);
-                    data.leileiData.leileiFL.mark(data.markList[1].id, data.leileiData.targetMakers.attack2);
-                    data.leileiData.leileiFL.mark(data.markList[2].id, data.leileiData.targetMakers.attack3);
+                    data.leileiFL.mark(data.markList[0].id, data.leileiData.targetMakers.attack1);
+                    data.leileiFL.mark(data.markList[1].id, data.leileiData.targetMakers.attack2);
+                    data.leileiFL.mark(data.markList[2].id, data.leileiData.targetMakers.attack3);
                 }
             },
             outputStrings: {
