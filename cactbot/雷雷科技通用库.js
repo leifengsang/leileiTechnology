@@ -270,6 +270,10 @@ function getJobNameByName(data, name, type = "simple") {
     return jobs?.[data.party.details.find((v) => v.name === name)?.job]?.[type] ?? "";
 }
 
+function getJobPriority(job) {
+    return sort?.indexOf(job);
+}
+
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
@@ -345,6 +349,7 @@ Options.Triggers.push({
                 mark,
                 doTextCommand,
                 clearMark,
+                getJobPriority,
             },
             leileiData,
         };
