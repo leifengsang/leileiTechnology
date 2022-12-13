@@ -271,7 +271,7 @@ function getJobNameByName(data, name, type = "simple") {
 }
 
 function getJobPriority(job) {
-    return sort?.indexOf(job);
+    return sort?.indexOf(job.toString());
 }
 
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
@@ -350,6 +350,7 @@ Options.Triggers.push({
                 doTextCommand,
                 clearMark,
                 getJobPriority,
+                createMyParty,
             },
             leileiData,
         };
