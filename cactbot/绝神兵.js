@@ -4,12 +4,16 @@
 
 Options.Triggers.push({
     zoneId: ZoneId.TheWeaponsRefrainUltimate,
+    initData: () => {
+        return {
+            markList: [], //石牢点名列表
+        }
+    },
     triggers: [
         {
             id: "leilei 大怒震",
             netRegex: NetRegexes.startsUsing({ id: "2B67" }),
             run: (data) => {
-                data.markList = []; //初始化石牢点名列表
                 data.leileiFL.clearMark();
             }
         },
@@ -17,7 +21,6 @@ Options.Triggers.push({
             id: "leilei 三连桶石牢点名",
             netRegex: NetRegexes.ability({ id: "2B6[BC]" }),
             condition: (data, matches) => {
-
                 //大怒震后的前三个石牢点名为三连桶点名
                 return data.markList.length < 3;
             },
