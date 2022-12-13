@@ -350,7 +350,6 @@ Options.Triggers.push({
                 doTextCommand,
                 clearMark,
                 getJobPriority,
-                createMyParty,
             },
             leileiData,
         };
