@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="be253294-908b-4ff2-a70e-ff65b29e9625" Name="【雷雷科技】P6S" Enabled="true">
+    <Folders />
+    <Triggers>
+      <Trigger Enabled="true" Name="鸳鸯锅倒数播报" Id="a56dc4f5-0db1-4345-89f4-c45567925ae6" RegularExpression="^.{14} .+? 1A:CF9:.+?:(?&lt;second&gt;.+?)\.00:.+?:.+?:(?&lt;playerName&gt;.+?):">
+        <Actions>
+          <Action OrderNumber="1" UseTTSTextExpression="${second}秒" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="${playerName}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+        </Condition>
+      </Trigger>
+      <Trigger Enabled="true" Name="前后左右刀-先左右" Id="51738226-1741-4702-84d6-476e663b206e" RegularExpression="^.{14} .+? 14:.+?:.+?:7883:">
+        <Actions>
+          <Action OrderNumber="1" UseTTSTextExpression="去前后" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="前后左右刀-先前后" Id="9c1f5003-0ed2-406f-8b5f-289b235ed3f0" RegularExpression="^.{14} .+? 14:.+?:.+?:7881:">
+        <Actions>
+          <Action OrderNumber="1" UseTTSTextExpression="去左右" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="UseTTS">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
