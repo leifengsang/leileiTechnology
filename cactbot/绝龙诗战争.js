@@ -9,6 +9,7 @@ Options.Triggers.push({
             markCount: 0,
             blackList: [],
             whiteList: [],
+            nullList: [],
         }
     },
     triggers: [
@@ -16,18 +17,18 @@ Options.Triggers.push({
             id: "leilei 黑白点名",
             netRegex: NetRegexes.gainsEffect({ effectId: "AC[67]" }),
             run: (data, matches, output) => {
-                if (matches.id === "AC6") {
+                if (matches.effectId === "AC6") {
                     data.blackList.push(matches.targetId);
                 } else {
-                    data.whileList.push(matches.targetId);
+                    data.whiteList.push(matches.targetId);
                 }
 
                 data.markCount++;
-                if (output.标点 === "true" && data.markCount == 6) {
+                if (output.标点() === "true" && data.markCount == 6) {
                     data.leileiFL.clearMark();
 
-                    let nullList = data.party.details.filter((v) => {
-                        return !(data.blackList.includes(v.id) || data.whileList.includes(v.id));
+                    data.nullList = data.party.details.filter((v) => {
+                        return !(data.blackList.includes(v.id) || data.whiteList.includes(v.id));
                     });
                     data.leileiFL.mark(data.blackList[0], data.leileiData.targetMakers.attack1);
                     data.leileiFL.mark(data.blackList[1], data.leileiData.targetMakers.attack2);
@@ -37,8 +38,8 @@ Options.Triggers.push({
                     data.leileiFL.mark(data.whiteList[0], data.leileiData.targetMakers.bind1);
                     data.leileiFL.mark(data.whiteList[1], data.leileiData.targetMakers.bind2);
 
-                    data.leileiFL.mark(nullList[0], data.leileiData.targetMakers.stop1);
-                    data.leileiFL.mark(nullList[1], data.leileiData.targetMakers.stop2);
+                    data.leileiFL.mark(data.nullList[0].id, data.leileiData.targetMakers.stop1);
+                    data.leileiFL.mark(data.nullList[1].id, data.leileiData.targetMakers.stop2);
                 }
             },
             outputStrings: {
