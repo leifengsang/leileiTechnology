@@ -14,16 +14,16 @@ Options.Triggers.push({
     triggers: [
         {
             id: "leilei 黑白点名",
-            netRegex: netRegex.gainsEffect({ id: "AC[67]" }),
-            run: (data, matches) => {
-                if (data.id === "AC6") {
-                    data.blackList.push(data.targetId);
+            netRegex: NetRegexes.gainsEffect({ effectId: "AC[67]" }),
+            run: (data, matches, output) => {
+                if (matches.id === "AC6") {
+                    data.blackList.push(matches.targetId);
                 } else {
-                    data.whileList.push(data.targetId);
+                    data.whileList.push(matches.targetId);
                 }
 
                 data.markCount++;
-                if (data.markCount == 6) {
+                if (output.标点 === "true" && data.markCount == 6) {
                     data.leileiFL.clearMark();
 
                     let nullList = data.party.details.filter((v) => {
@@ -41,6 +41,9 @@ Options.Triggers.push({
                     data.leileiFL.mark(nullList[1], data.leileiData.targetMakers.stop2);
                 }
             },
+            outputStrings: {
+                标点: "true",
+            }
         }
     ],
 })
