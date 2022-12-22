@@ -14,7 +14,7 @@ Options.Triggers.push({
     },
     triggers: [
         {
-            id: "leilei 黑白点名",
+            id: "leilei P6十字火标点",
             netRegex: NetRegexes.gainsEffect({ effectId: "AC[67]" }),
             run: (data, matches, output) => {
                 if (matches.effectId === "AC6") {
