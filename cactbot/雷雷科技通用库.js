@@ -274,6 +274,18 @@ function getJobPriority(job) {
     return sort?.indexOf(job.toString());
 }
 
+function getRoleByName(data, name) {
+    if (data === undefined) console.trace(`data为空`);
+    if (name === undefined) console.trace(`name为空`);
+    return data.party.nameToRole_[name];
+}
+
+function getRoleById(data, hexId){
+    if (data === undefined) console.trace(`data为空`);
+    if (hexId === undefined) console.trace(`hexId为空`);
+    return getRoleByName(data, getNameByHexId(data, hexId));
+}
+
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
@@ -350,6 +362,8 @@ Options.Triggers.push({
                 doTextCommand,
                 clearMark,
                 getJobPriority,
+                getRoleByName,
+                getRoleById,
             },
             leileiData,
         };
