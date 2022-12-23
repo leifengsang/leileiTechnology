@@ -27,9 +27,21 @@ Options.Triggers.push({
                 if (output.标点() === "true" && data.markCount == 6) {
                     data.leileiFL.clearMark();
 
-                    data.nullList = data.party.details.filter((v) => {
-                        return !(data.blackList.includes(v.id) || data.whiteList.includes(v.id));
+                    data.nullList = data.party.partyIds_.filter((a) => {
+                        const findFunction = (b) => {
+                            return a == b;
+                        }
+
+                        return !(data.whiteList.find(findFunction) || data.blackList.find(findFunction));
                     });
+
+                    const sortFunction = (a, b) => {
+                        return data.leileiFL.getRoleById(data, a) === "tank" ? 1 : -1;
+                    };
+                    data.blackList.sort(sortFunction);
+                    data.whiteList.sort(sortFunction);
+                    data.nullList.sort(sortFunction);
+
                     data.leileiFL.mark(data.blackList[0], data.leileiData.targetMakers.attack1);
                     data.leileiFL.mark(data.blackList[1], data.leileiData.targetMakers.attack2);
                     data.leileiFL.mark(data.blackList[2], data.leileiData.targetMakers.attack3);
@@ -38,8 +50,8 @@ Options.Triggers.push({
                     data.leileiFL.mark(data.whiteList[0], data.leileiData.targetMakers.bind1);
                     data.leileiFL.mark(data.whiteList[1], data.leileiData.targetMakers.bind2);
 
-                    data.leileiFL.mark(data.nullList[0].id, data.leileiData.targetMakers.stop1);
-                    data.leileiFL.mark(data.nullList[1].id, data.leileiData.targetMakers.stop2);
+                    data.leileiFL.mark(data.nullList[0], data.leileiData.targetMakers.stop1);
+                    data.leileiFL.mark(data.nullList[1], data.leileiData.targetMakers.stop2);
                 }
             },
             outputStrings: {
