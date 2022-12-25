@@ -10,6 +10,7 @@ Options.Triggers.push({
             blackList: [],
             whiteList: [],
             nullList: [],
+            P5ThunderList: [],
         }
     },
     triggers: [
@@ -52,6 +53,21 @@ Options.Triggers.push({
 
                     data.leileiFL.mark(data.nullList[0], data.leileiData.targetMakers.stop1);
                     data.leileiFL.mark(data.nullList[1], data.leileiData.targetMakers.stop2);
+                }
+            },
+            outputStrings: {
+                标点: "true",
+            }
+        }, {
+            id: "leilei P5一运雷点名",
+            netRegex: NetRegexes.gainsEffect({ effectId: "B11" }),
+            run: (data, matches, output) => {
+                data.P5ThunderList.push(matches.targetId);
+                if (data.P5ThunderList.length == 2) {
+                    data.leileiFL.clearMark();
+
+                    data.leileiFL.mark(data.P5ThunderList[0], data.leileiData.targetMakers.stop1);
+                    data.leileiFL.mark(data.P5ThunderList[1], data.leileiData.targetMakers.stop2);
                 }
             },
             outputStrings: {
