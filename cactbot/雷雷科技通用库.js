@@ -309,7 +309,7 @@ const leileiData = {
 let partyUpdateTimer;
 function createMyParty(party) {
     if (sort === null || sort === undefined || !sort.includes) {
-        doTextCommand("/e 读取sort默认值");
+        doTextCommand("/e get default sort rule");
         sort = [
             "20", //僧
             "22", //龙
@@ -337,14 +337,14 @@ function createMyParty(party) {
     const newLen = Number(party.filter((v) => v.inParty).length);
     leileiData.myParty = party
         .filter((v) => {
-            if (!sort.includes(v.job.toString())) doTextCommand(`/e 无法识别：name:${v.name} job:${v.job}`);
+            if (!sort.includes(v.job.toString())) doTextCommand(`/e get sort rule failed. name:${v.name} job:${v.job}`);
             return v.inParty && sort.includes(v.job.toString());
         })
         .sort((a, b) => sort.indexOf(a.job.toString()) - sort.indexOf(b.job.toString()));
     if (newLen >= oldLen && newLen > 0) {
         clearTimeout(partyUpdateTimer);
         partyUpdateTimer = setTimeout(() => {
-            doTextCommand("/e current rule:" + sort.map((v) => jobs[v].code).join("/"));
+            doTextCommand("/e current sort rule:" + sort.map((v) => jobs[v].code).join("/"));
         }, 2000);
     }
 }
