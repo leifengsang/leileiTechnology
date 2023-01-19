@@ -167,35 +167,35 @@ const jobConvert = {
 };
 const regex = /\s*rp\s*set\s*(?<text>.+)\s*/;
 const jobs = {
-    1: { full: "剑术师", single: "剑", simple: "剑术" },
-    2: { full: "格斗家", single: "格", simple: "格斗" },
-    3: { full: "斧术师", single: "斧", simple: "斧术" },
-    4: { full: "枪术师", single: "矛", simple: "枪术" },
-    5: { full: "弓箭手", single: "弓", simple: "弓箭" },
-    6: { full: "幻术师", single: "幻", simple: "幻术" },
-    7: { full: "咒术师", single: "咒", simple: "咒术" },
-    19: { full: "骑士", single: "骑", simple: "骑士" },
-    20: { full: "武僧", single: "僧", simple: "武僧" },
-    21: { full: "战士", single: "战", simple: "战士" },
-    22: { full: "龙骑士", single: "龙", simple: "龙骑" },
-    23: { full: "吟游诗人", single: "诗", simple: "诗人" },
-    24: { full: "白魔法师", single: "白", simple: "白魔" },
-    25: { full: "黑魔法师", single: "黑", simple: "黑魔" },
-    26: { full: "秘术师", single: "秘", simple: "秘术" },
-    27: { full: "召唤师", single: "召", simple: "召唤" },
-    28: { full: "学者", single: "学", simple: "学者" },
-    29: { full: "双剑师", single: "双", simple: "双剑" },
-    30: { full: "忍者", single: "忍", simple: "忍者" },
-    31: { full: "机工士", single: "机", simple: "机工" },
-    32: { full: "暗黑骑士", single: "暗", simple: "DK" },
-    33: { full: "占星术士", single: "占", simple: "占星" },
-    34: { full: "武士", single: "侍", simple: "武士" },
-    35: { full: "赤魔法师", single: "赤", simple: "赤魔" },
-    36: { full: "青魔法师", single: "青", simple: "青魔" },
-    37: { full: "绝枪战士", single: "枪", simple: "枪刃" },
-    38: { full: "舞者", single: "舞", simple: "舞者" },
-    39: { full: "钐镰客", single: "镰", simple: "镰刀" },
-    40: { full: "贤者", single: "贤", simple: "贤者" },
+    1: { full: "剑术师", single: "剑", simple: "剑术", code: "" },
+    2: { full: "格斗家", single: "格", simple: "格斗", code: "" },
+    3: { full: "斧术师", single: "斧", simple: "斧术", code: "" },
+    4: { full: "枪术师", single: "矛", simple: "枪术", code: "" },
+    5: { full: "弓箭手", single: "弓", simple: "弓箭", code: "" },
+    6: { full: "幻术师", single: "幻", simple: "幻术", code: "" },
+    7: { full: "咒术师", single: "咒", simple: "咒术", code: "" },
+    19: { full: "骑士", single: "骑", simple: "骑士", code: "PLD" },
+    20: { full: "武僧", single: "僧", simple: "武僧", code: "MNK" },
+    21: { full: "战士", single: "战", simple: "战士", code: "WAR" },
+    22: { full: "龙骑士", single: "龙", simple: "龙骑", code: "DRG" },
+    23: { full: "吟游诗人", single: "诗", simple: "诗人", code: "BRD" },
+    24: { full: "白魔法师", single: "白", simple: "白魔", code: "WHM" },
+    25: { full: "黑魔法师", single: "黑", simple: "黑魔", code: "BLM" },
+    26: { full: "秘术师", single: "秘", simple: "秘术", code: "" },
+    27: { full: "召唤师", single: "召", simple: "召唤", code: "SMN" },
+    28: { full: "学者", single: "学", simple: "学者", code: "SCH" },
+    29: { full: "双剑师", single: "双", simple: "双剑", code: "" },
+    30: { full: "忍者", single: "忍", simple: "忍者", code: "NIN" },
+    31: { full: "机工士", single: "机", simple: "机工", code: "MCH" },
+    32: { full: "暗黑骑士", single: "暗", simple: "DK", code: "DRK" },
+    33: { full: "占星术士", single: "占", simple: "占星", code: "AST" },
+    34: { full: "武士", single: "侍", simple: "武士", code: "SAM" },
+    35: { full: "赤魔法师", single: "赤", simple: "赤魔", code: "RDM" },
+    36: { full: "青魔法师", single: "青", simple: "青魔", code: "" },
+    37: { full: "绝枪战士", single: "枪", simple: "枪刃", code: "GNB" },
+    38: { full: "舞者", single: "舞", simple: "舞者", code: "DNC" },
+    39: { full: "钐镰客", single: "镰", simple: "镰刀", code: "RPR" },
+    40: { full: "贤者", single: "贤", simple: "贤者", code: "SGE" },
 };
 
 function doTextCommand(text) {
@@ -280,7 +280,7 @@ function getRoleByName(data, name) {
     return data.party.nameToRole_[name];
 }
 
-function getRoleById(data, hexId){
+function getRoleById(data, hexId) {
     if (data === undefined) console.trace(`data为空`);
     if (hexId === undefined) console.trace(`hexId为空`);
     return getRoleByName(data, getNameByHexId(data, hexId));
@@ -344,7 +344,7 @@ function createMyParty(party) {
     if (newLen >= oldLen && newLen > 0) {
         clearTimeout(partyUpdateTimer);
         partyUpdateTimer = setTimeout(() => {
-            doTextCommand("/e 当前规则：" + sort.map((v) => jobs[v].single).join(""));
+            doTextCommand("/e current rule:" + sort.map((v) => jobs[v].code).join("/"));
         }, 2000);
     }
 }
