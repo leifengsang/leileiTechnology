@@ -197,6 +197,15 @@ const jobs = {
     39: { full: "钐镰客", single: "镰", simple: "镰刀", code: "RPR" },
     40: { full: "贤者", single: "贤", simple: "贤者", code: "SGE" },
 };
+const tCall = ["MT", "ST", "T3", "T4", "T5", "T6", "T7", "T8"];
+const hCall = ["H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8"];
+const dCall = ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"];
+
+const role = {
+    tank: [1, 3, 19, 21, 32, 37],
+    healer: [6, 24, 28, 33, 40],
+    dps: [2, 4, 5, 7, 20, 22, 23, 25, 26, 27, 29, 30, 31, 34, 35, 36, 38, 39],
+};
 
 function doTextCommand(text) {
     if (text === undefined) console.trace(`text为空`);
@@ -286,6 +295,24 @@ function getRoleById(data, hexId) {
     return getRoleByName(data, getNameByHexId(data, hexId));
 }
 
+function getRpByName(data, name) {
+    if (!(data && name)) console.trace(`getRpByName缺少参数`);
+    if (soumaData.myParty.length === 0) createMyParty(data.party.details);
+    return soumaData.myParty.find((v) => v.name === name)?.myRP;
+}
+
+function getRpByHexId(data, hexId) {
+    if (!(data && hexId)) console.trace(`getRpByHexId缺少参数`);
+    return getRpByName(data, getNameByHexId(data, hexId));
+}
+
+function getNameByRp(data, rp) {
+    if (!(data && rp)) console.trace(`getNameByRp缺少参数`);
+    if (soumaData.myParty.length === 0) createMyParty(data.party.details);
+    return soumaData.myParty.find((v) => v.myRP === rp)?.name;
+}
+
+
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
@@ -311,26 +338,26 @@ function createMyParty(party) {
     if (sort === null || sort === undefined || !sort.includes) {
         doTextCommand("/e get default sort rule");
         sort = [
+            "34", //侍
             "20", //僧
+            "39", //钐
             "22", //龙
             "30", //忍
-            "34", //侍
-            "39", //钐
-            "21", //战
-            "37", //枪
             "32", //暗
+            "37", //枪
+            "21", //战
             "19", //骑
             "23", //诗
             "31", //机
             "38", //舞
             "25", //黑
-            "27", //召
             "35", //赤
+            "27", //召
             "36", //青
-            "40", //贤
-            "28", //学
-            "33", //占
             "24", //白
+            "33", //占
+            "28", //学
+            "40", //贤
         ];
     }
     const oldLen = Number(leileiData.myParty.length);
@@ -341,10 +368,24 @@ function createMyParty(party) {
             return v.inParty && sort.includes(v.job.toString());
         })
         .sort((a, b) => sort.indexOf(a.job.toString()) - sort.indexOf(b.job.toString()));
+
+    let t = 0;
+    let h = 0;
+    let d = 0;
+    leileiData.myParty.forEach((v) => {
+        if (role.tank.includes(Number(v.job))) v.myRP = tCall[t++];
+        else if (role.healer.includes(Number(v.job))) v.myRP = hCall[h++];
+        else if (role.dps.includes(Number(v.job))) v.myRP = dCall[d++];
+        else v.myRP = "unknown";
+    });
+
     if (newLen >= oldLen && newLen > 0) {
         clearTimeout(partyUpdateTimer);
         partyUpdateTimer = setTimeout(() => {
             doTextCommand("/e current sort rule:" + sort.map((v) => jobs[v].code).join("/"));
+            doQueueActions(leileiData.myParty.map((v) => {
+                return { c: "DoTextCommand", p: `/e ${v.myRP} ${jobs[v.job].code} ${v.name}`, d: 10 };
+            }));
         }, 2000);
     }
 }
@@ -364,6 +405,9 @@ Options.Triggers.push({
                 getJobPriority,
                 getRoleByName,
                 getRoleById,
+                getRpByName,
+                getRpByHexId,
+                getNameByRp
             },
             leileiData,
         };
@@ -378,7 +422,7 @@ Options.Triggers.push({
                     .groups.text.split(/[\\/|-]/)
                     .map((v) => jobConvert[v]);
                 localStorage.setItem("leileiCustomData", JSON.stringify({ sort }));
-                doTextCommand("/e 已设置" + "<se.9>");
+                doTextCommand("/e 已設置" + "<se.9>");
                 createMyParty(data.party.details);
             },
         },
