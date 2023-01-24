@@ -13,6 +13,7 @@ Options.Triggers.push({
             p1_2_mahjongGroupDic: { 1: [], 2: [], 3: [], 4: [] },
             p1_2_mahjongCount: 0,
             p1_2_myMahjongGroup: 0,
+            p2_programPT_TTS_Dic: { "M": "", "F": "" },
         }
     },
     triggers: [
@@ -169,6 +170,59 @@ Options.Triggers.push({
             },
             outputStrings: {
                 content: "同组是${rp}"
+            }
+        },
+        {
+            id: "leilei p2 一运男人读条",
+            //7B25 月环
+            //7B26 钢铁
+            netRegex: NetRegexes.startsUsing({ id: ["7B25", "7B26"] }),
+            tts: (data, matches, output) => {
+                //一运后半有5个男人钢铁，不要干扰
+                if (data.p2_programPT_TTS_Dic["M"] !== "") {
+                    return;
+                }
+
+                let content = "";
+                if (matches.id === "7B25") {
+                    content = output.月环();
+                } else {
+                    content = output.钢铁();
+                }
+                data.p2_programPT_TTS_Dic["M"] = content;
+
+                if (data.p2_programPT_TTS_Dic["M"] === "" || data.p2_programPT_TTS_Dic["F"] === "") {
+                    return;
+                }
+                return data.p2_programPT_TTS_Dic["M"] + data.p2_programPT_TTS_Dic["F"];
+            },
+            outputStrings: {
+                钢铁: "远离",
+                月环: "靠近"
+            }
+        },
+        {
+            id: "leilei p2 一运女人读条",
+            //7B2A 辣翅
+            //7B2D 辣尾
+            netRegex: NetRegexes.startsUsing({ id: ["7B2A", "7B2D"] }),
+            tts: (data, matches, output) => {
+                let content = "";
+                if (matches.id === "7B2A") {
+                    content = output.辣翅();
+                } else {
+                    content = output.辣尾();
+                }
+                data.p2_programPT_TTS_Dic["F"] = content;
+
+                if (data.p2_programPT_TTS_Dic["M"] === "" || data.p2_programPT_TTS_Dic["F"] === "") {
+                    return;
+                }
+                return data.p2_programPT_TTS_Dic["M"] + data.p2_programPT_TTS_Dic["F"];
+            },
+            outputStrings: {
+                辣翅: "去中间",
+                辣尾: "去两边"
             }
         },
     ]
