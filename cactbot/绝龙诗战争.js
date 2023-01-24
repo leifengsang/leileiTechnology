@@ -58,7 +58,8 @@ Options.Triggers.push({
             outputStrings: {
                 标点: "true",
             }
-        }, {
+        },
+        {
             id: "leilei P5一运雷点名",
             netRegex: NetRegexes.gainsEffect({ effectId: "B11" }),
             run: (data, matches, output) => {
