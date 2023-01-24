@@ -169,7 +169,7 @@ Options.Triggers.push({
                 return output.content({ rp: data.leileiFL.getRpByName(data, targetName) });
             },
             outputStrings: {
-                content: "同组是${rp}"
+                content: "麻将同组是${rp}"
             }
         },
         {
