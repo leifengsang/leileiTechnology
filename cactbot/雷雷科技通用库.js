@@ -258,24 +258,28 @@ function clearMark() {
 function getNameByHexId(data, hexId) {
     if (data === undefined) console.trace(`data为空`);
     if (hexId === undefined) console.trace(`hexId为空`);
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
     return data.party.idToName_[hexId.toUpperCase()];
 }
 
 function getHexIdByName(data, name) {
     if (data === undefined) console.trace(`data为空`);
     if (name === undefined) console.trace(`name为空`);
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
     return data.party.details.find((v) => v.name === name).id;
 }
 
 function getJobNameByHexId(data, hexId, type = "simple") {
     if (data === undefined) console.trace(`data为空`);
     if (hexId === undefined) console.trace(`hexId为空`);
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
     return jobs?.[data.party.details.find((v) => v.name === getNameByHexId(data, hexId))?.job]?.[type] ?? "";
 }
 
 function getJobNameByName(data, name, type = "simple") {
     if (data === undefined) console.trace(`data为空`);
     if (name === undefined) console.trace(`name为空`);
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
     return jobs?.[data.party.details.find((v) => v.name === name)?.job]?.[type] ?? "";
 }
 
@@ -286,19 +290,21 @@ function getJobPriority(job) {
 function getRoleByName(data, name) {
     if (data === undefined) console.trace(`data为空`);
     if (name === undefined) console.trace(`name为空`);
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
     return data.party.nameToRole_[name];
 }
 
 function getRoleById(data, hexId) {
     if (data === undefined) console.trace(`data为空`);
     if (hexId === undefined) console.trace(`hexId为空`);
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
     return getRoleByName(data, getNameByHexId(data, hexId));
 }
 
 function getRpByName(data, name) {
     if (!(data && name)) console.trace(`getRpByName缺少参数`);
-    if (soumaData.myParty.length === 0) createMyParty(data.party.details);
-    return soumaData.myParty.find((v) => v.name === name)?.myRP;
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    return leileiData.myParty.find((v) => v.name === name)?.myRP;
 }
 
 function getRpByHexId(data, hexId) {
@@ -308,10 +314,9 @@ function getRpByHexId(data, hexId) {
 
 function getNameByRp(data, rp) {
     if (!(data && rp)) console.trace(`getNameByRp缺少参数`);
-    if (soumaData.myParty.length === 0) createMyParty(data.party.details);
-    return soumaData.myParty.find((v) => v.myRP === rp)?.name;
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    return leileiData.myParty.find((v) => v.myRP === rp)?.name;
 }
-
 
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
