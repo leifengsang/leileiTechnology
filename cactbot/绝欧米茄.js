@@ -30,6 +30,8 @@ Options.Triggers.push({
             p2_programPT_markReverse: false,
             p2_programPT_markCount: 0,
             p2_programPT_groupDic: { "circle": [], "triangle": [], "square": [], "x": [] },
+            p2_finalAnalysismarkCount: 0,
+            p2_finalAnalysisGroupDic: { "stack": [], "spread": [] },
         }
     },
     triggers: [
@@ -284,7 +286,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p2 头顶标记标点",
+            id: "leilei TOP p2 头顶标记",
             netRegex: NetRegexes.headMarker({}),
             run: (data, matches, output) => {
                 if (output.是否标记() !== "true") {
@@ -325,7 +327,7 @@ Options.Triggers.push({
                 }
 
                 //正序优先级：圆圈 叉 方块 三角
-                let rpRuleList = output.优先级().split("/");
+                const rpRuleList = output.优先级().split("/");
                 for (const key in data.p2_programPT_groupDic) {
                     let list = data.p2_programPT_groupDic[key];
                     list.sort((a, b) => {
@@ -361,6 +363,64 @@ Options.Triggers.push({
                 data.leileiFL.mark(lowGroup[3], data.leileiData.targetMakers.attack5);
             },
             outputStrings: {
+                优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
+                是否标记: "false"
+            }
+        },
+        {
+            id: "leilei TOP p2 final analysis 头顶标记",
+            // netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
+            run: (data, matches, output) => {
+                if (output.是否标记() !== "true") {
+                    return;
+                }
+                //TODO
+
+                data.p2_finalAnalysismarkCount++;
+                if (data.p2_finalAnalysismarkCount != 6) {
+                    return;
+                }
+
+                const rpRuleList = output.优先级().split("/");
+                for (const key in data.p2_finalAnalysisGroupDic) {
+                    let list = data.p2_finalAnalysisGroupDic[key];
+                    list.sort((a, b) => {
+                        return rpRuleList.indexOf(a) - rpRuleList.indexOf(b);
+                    })
+                }
+
+                data.leileiFL.clearMark();
+                //分散 攻击1234
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][0]),
+                    data.leileiData.targetMakers.attack1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][1]),
+                    data.leileiData.targetMakers.attack2);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][2]),
+                    data.leileiData.targetMakers.attack3);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][3]),
+                    data.leileiData.targetMakers.attack4);
+
+                //分摊 锁链12
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][0]),
+                    data.leileiData.targetMakers.bind1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][1]),
+                    data.leileiData.targetMakers.bind2);
+
+                //无标记 一起分摊 静止12
+                let nothingGroup = [];
+                for (let i = 0; i < rpRuleList.length; i++) {
+                    let rp = rpRuleList[i];
+                    if (!data.p2_finalAnalysisGroupDic["stack"].includes(rp) && !data.p2_finalAnalysisGroupDic["spread"].includes(rp)) {
+                        nothingGroup.push(rp);
+                    }
+                }
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[0]),
+                    data.leileiData.targetMakers.stop1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[1]),
+                    data.leileiData.targetMakers.stop2);
+            },
+            outputStrings: {
+                打法视频: "BV1jT411y7Xi",
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
                 是否标记: "false"
             }
