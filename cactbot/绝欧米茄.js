@@ -194,10 +194,14 @@ Options.Triggers.push({
             //7B26 钢铁
             netRegex: NetRegexes.startsUsing({ id: ["7B25", "7B26"] }),
             tts: (data, matches, output) => {
-                //一运后半有5个男人钢铁，不要干扰
-                if (data.p2_programPT_TTS_Dic["M"] !== "") {
-                    return;
-                }
+                // //一运后半有5个男人钢铁，不要干扰
+                // if (data.p2_programPT_TTS_Dic["M"] !== "") {
+                //     //干掉之前的标记
+                //     if (output.取消一运标记() === "true") {
+                //         data.leileiFL.clearMark();
+                //     }
+                //     return;
+                // }
 
                 let content = "";
                 if (matches.id === "7B25") {
@@ -214,7 +218,8 @@ Options.Triggers.push({
             },
             outputStrings: {
                 钢铁: "远离",
-                月环: "靠近"
+                月环: "靠近",
+                取消一运标记: "false"
             }
         },
         {
@@ -327,6 +332,7 @@ Options.Triggers.push({
                     lowGroup.reverse();
                 }
 
+                data.leileiFL.clearMark();
                 data.leileiFL.mark(highGroup[0], data.leileiData.targetMakers.attack1);
                 data.leileiFL.mark(highGroup[1], data.leileiData.targetMakers.attack2);
                 data.leileiFL.mark(highGroup[2], data.leileiData.targetMakers.attack3);
