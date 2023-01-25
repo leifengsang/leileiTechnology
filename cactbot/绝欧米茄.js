@@ -267,6 +267,23 @@ Options.Triggers.push({
             }
         },
         {
+            id: "leilei TOP p2 一运击退分摊前远近线提醒",
+            //D63 靠近
+            //D64 远离
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 15,
+            tts: (data, matches, output) => {
+                return matches.effectId === "D64" ? output.远线() : output.近线();
+            },
+            outputStrings: {
+                远线: "远离远离",
+                近线: "靠近靠近"
+            }
+        },
+        {
             id: "leilei TOP p2 头顶标记标点",
             netRegex: NetRegexes.headMarker({}),
             run: (data, matches, output) => {
