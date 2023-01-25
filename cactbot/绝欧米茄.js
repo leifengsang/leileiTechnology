@@ -10,6 +10,7 @@ const headMarker = {
     programPTTriangle: "01A1",
     programPTSquare: "01A2",
     programPTX: "01A3",
+    programLBFlame: "015A", //P2二运核爆
 }
 
 const firstDecimalMarker = parseInt("0017", 16);
@@ -33,6 +34,7 @@ Options.Triggers.push({
             p2_programPT_groupDic: { "circle": [], "triangle": [], "square": [], "x": [] },
             p2_finalAnalysismarkCount: 0,
             p2_finalAnalysisGroupDic: { "stack": [], "spread": [] },
+            p2_programLB_ignoreStackList: [],
         }
     },
     triggers: [
@@ -437,6 +439,42 @@ Options.Triggers.push({
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
                 是否标记: "false"
             }
+        },
+        {
+            id: "leilei TOP p2 二运分摊提醒",
+            netRegex: NetRegexes.ability({ id: "7B28" }),
+            delaySeconds: 15,
+            tts: (data, matches, output) => {
+                //被投盾的人不分摊
+                if (matches.target === data.me && !data.p2_programLB_ignoreStackList.includes(data.me)) {
+                    //如果不是核爆的人被投盾了，提醒一下快跑
+                    return output.被投盾();
+                }
+
+                //核爆的三个人不分摊
+                if (data.p2_programLB_ignoreStackList.includes(data.me)) {
+                    return;
+                }
+
+                return output.分摊();
+            },
+            outputStrings: {
+                分摊: "去分摊",
+                被投盾: "远离M"
+            }
+        },
+        {
+            id: "leilei TOP p2 二运核爆",
+            netRegex: NetRegexes.headMarker({}),
+            run: (data, matches) => {
+                const id = getHeadmarkerId(data, matches);
+                if (id !== headMarker.programLBFlame) {
+                    return;
+                }
+
+                //点核爆的三个人不分摊
+                data.p2_programLB_ignoreStackList.push(matches.target);
+            },
         },
     ]
 })
