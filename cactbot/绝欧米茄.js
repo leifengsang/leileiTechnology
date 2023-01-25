@@ -196,14 +196,14 @@ Options.Triggers.push({
             //7B26 钢铁
             netRegex: NetRegexes.startsUsing({ id: ["7B25", "7B26"] }),
             tts: (data, matches, output) => {
-                // //一运后半有5个男人钢铁，不要干扰
-                // if (data.p2_programPT_TTS_Dic["M"] !== "") {
-                //     //干掉之前的标记
-                //     if (output.取消一运标记() === "true") {
-                //         data.leileiFL.clearMark();
-                //     }
-                //     return;
-                // }
+                //一运后半有5个男人钢铁，不要干扰
+                if (data.p2_programPT_TTS_Dic["M"] !== "") {
+                    //干掉之前的标记
+                    if (output.取消一运标记() === "true") {
+                        data.leileiFL.clearMark();
+                    }
+                    return;
+                }
 
                 let content = "";
                 if (matches.id === "7B25") {
