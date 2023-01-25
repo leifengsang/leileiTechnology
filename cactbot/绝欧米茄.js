@@ -335,17 +335,18 @@ Options.Triggers.push({
                     })
                 }
 
+                const psRuleList = output.ps顺序().split("/");
                 let highGroup = [
-                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic["circle"][0]),
-                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic["x"][0]),
-                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic["square"][0]),
-                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic["triangle"][0]),
+                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[0]][0]),
+                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[1]][0]),
+                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[2]][0]),
+                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[3]][0]),
                 ];
                 let lowGroup = [
-                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic["circle"][1]),
-                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic["x"][1]),
-                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic["square"][1]),
-                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic["triangle"][1]),
+                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[0]][1]),
+                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[1]][1]),
+                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[2]][1]),
+                    data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[3]][1]),
                 ];
                 if (data.p2_programPT_markReverse) {
                     lowGroup.reverse();
@@ -363,6 +364,7 @@ Options.Triggers.push({
                 data.leileiFL.mark(lowGroup[3], data.leileiData.targetMakers.attack5);
             },
             outputStrings: {
+                ps顺序: "circle/x/square/triangle",
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
                 是否标记: "false"
             }
