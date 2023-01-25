@@ -286,7 +286,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p2 头顶标记",
+            id: "leilei TOP p2 一运头顶标记",
             netRegex: NetRegexes.headMarker({}),
             run: (data, matches, output) => {
                 if (output.是否标记() !== "true") {
