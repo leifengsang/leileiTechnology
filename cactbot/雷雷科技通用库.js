@@ -318,6 +318,13 @@ function getNameByRp(data, rp) {
     return leileiData.myParty.find((v) => v.myRP === rp)?.name;
 }
 
+function getHexIdByRp(data, rp) {
+    if (data === undefined) console.trace(`data为空`);
+    if (rp === undefined) console.trace(`rp为空`);
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    return data.party.partyIds_[data.party.partyNames_.indexOf(getNameByRp(data, rp))];
+}
+
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
@@ -412,7 +419,8 @@ Options.Triggers.push({
                 getRoleById,
                 getRpByName,
                 getRpByHexId,
-                getNameByRp
+                getNameByRp,
+                getHexIdByRp,
             },
             leileiData,
         };
