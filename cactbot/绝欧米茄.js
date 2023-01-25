@@ -224,30 +224,30 @@ Options.Triggers.push({
                 取消一运标记: "false"
             }
         },
-        {
-            id: "leilei TOP p2 一运女人读条",
-            //7B2A 辣翅
-            //7B2D 辣尾
-            netRegex: NetRegexes.startsUsing({ id: ["7B2A", "7B2D"] }),
-            tts: (data, matches, output) => {
-                let content = "";
-                if (matches.id === "7B2A") {
-                    content = output.辣翅();
-                } else {
-                    content = output.辣尾();
-                }
-                data.p2_programPT_TTS_Dic["F"] = content;
+        // {
+        //     id: "leilei TOP p2 一运女人读条",
+        //     //7B2A 辣翅
+        //     //7B2D 辣尾
+        //     netRegex: NetRegexes.startsUsing({ id: ["7B2A", "7B2D"] }),
+        //     tts: (data, matches, output) => {
+        //         let content = "";
+        //         if (matches.id === "7B2A") {
+        //             content = output.辣翅();
+        //         } else {
+        //             content = output.辣尾();
+        //         }
+        //         data.p2_programPT_TTS_Dic["F"] = content;
 
-                if (data.p2_programPT_TTS_Dic["M"] === "" || data.p2_programPT_TTS_Dic["F"] === "") {
-                    return;
-                }
-                return data.p2_programPT_TTS_Dic["M"] + data.p2_programPT_TTS_Dic["F"];
-            },
-            outputStrings: {
-                辣翅: "去中间",
-                辣尾: "去两边"
-            }
-        },
+        //         if (data.p2_programPT_TTS_Dic["M"] === "" || data.p2_programPT_TTS_Dic["F"] === "") {
+        //             return;
+        //         }
+        //         return data.p2_programPT_TTS_Dic["M"] + data.p2_programPT_TTS_Dic["F"];
+        //     },
+        //     outputStrings: {
+        //         辣翅: "去中间",
+        //         辣尾: "去两边"
+        //     }
+        // },
         {
             id: "leilei TOP Headmarker Tracker",
             netRegex: NetRegexes.headMarker({}),
