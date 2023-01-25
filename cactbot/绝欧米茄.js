@@ -29,6 +29,7 @@ Options.Triggers.push({
             p2_programPT_TTS_Dic: { "M": "", "F": "" },
             p2_programPT_markReverse: false,
             p2_programPT_markCount: 0,
+            p2_programPT_markCleared: false,
             p2_programPT_groupDic: { "circle": [], "triangle": [], "square": [], "x": [] },
             p2_finalAnalysismarkCount: 0,
             p2_finalAnalysisGroupDic: { "stack": [], "spread": [] },
@@ -200,7 +201,10 @@ Options.Triggers.push({
                 if (data.p2_programPT_TTS_Dic["M"] !== "") {
                     //干掉之前的标记
                     if (output.取消一运标记() === "true") {
-                        data.leileiFL.clearMark();
+                        if (!data.p2_programPT_markCleared) {
+                            data.p2_programPT_markCleared = true;
+                            data.leileiFL.clearMark();
+                        }
                     }
                     return;
                 }
@@ -371,12 +375,19 @@ Options.Triggers.push({
         },
         {
             id: "leilei TOP p2 final analysis 头顶标记",
-            // netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
+            //D61 分散
+            //D62 分摊
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D61", "D62"] }),
             run: (data, matches, output) => {
                 if (output.是否标记() !== "true") {
                     return;
                 }
-                //TODO
+
+                if (matches.effectId === "D62") {
+                    data.p2_finalAnalysisGroupDic["stack"].push(data.leileiFL.getRpByHexId(data, matches.targetId));
+                } else {
+                    data.p2_finalAnalysisGroupDic["spread"].push(data.leileiFL.getRpByHexId(data, matches.targetId));
+                }
 
                 data.p2_finalAnalysismarkCount++;
                 if (data.p2_finalAnalysismarkCount != 6) {
