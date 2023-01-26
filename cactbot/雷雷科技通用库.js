@@ -166,6 +166,7 @@ const jobConvert = {
     "贤者": "40",
 };
 const regex = /\s*rp\s*set\s*(?<text>.+)\s*/;
+const regex2 = /\s*rp\s*manual\s*set\s*(?<rp>.+?)[:：]\s*(?<player>.+)/;
 const jobs = {
     1: { full: "剑术师", single: "剑", simple: "剑术", code: "" },
     2: { full: "格斗家", single: "格", simple: "格斗", code: "" },
@@ -206,6 +207,20 @@ const role = {
     healer: [6, 24, 28, 33, 40],
     dps: [2, 4, 5, 7, 20, 22, 23, 25, 26, 27, 29, 30, 31, 34, 35, 36, 38, 39],
 };
+
+function setRP(tarName, tarRP) {
+    const tar = leileiData.myParty.find((v) => v.name === tarName);
+    const repeat = leileiData.myParty.find((v) => v.myRP === tarRP);
+    if (!tar) doTextCommand(`/e 未找到${tarName} <se.11>`);
+    else {
+        if (repeat && repeat.name !== tar.name) {
+            repeat.myRP = tar.myRP;
+            doTextCommand(`/e 由于位置冲突,${repeat.name}自動改為${repeat.myRP}`);
+        }
+        tar.myRP = tarRP;
+        doTextCommand(`/e 已設置${tarName}為${tarRP}`);
+    }
+}
 
 function doTextCommand(text) {
     if (text === undefined) console.trace(`text为空`);
@@ -437,6 +452,14 @@ Options.Triggers.push({
                 localStorage.setItem("leileiCustomData", JSON.stringify({ sort }));
                 doTextCommand("/e 已設置" + "<se.9>");
                 createMyParty(data.party.details);
+            },
+        },
+        {
+            id: "leilei 通用职能位置设置 手动默语宏修正",
+            netRegex: NetRegexes.echo({ line: regex2, capture: true }),
+            run: (_data, matches) => {
+                const r = matches.line.match(regex2);
+                setRP(r.groups.player.trim(), r.groups.rp.toUpperCase());
             },
         },
     ],
