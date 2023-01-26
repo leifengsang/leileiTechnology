@@ -1,8 +1,11 @@
 # 通用库（都是从souma那边搬的）
 
 * 通用职能位置设置
-  * 默认顺序：SAM/MNK/RPR/DRG/NIN/DRK/GNB/WAR/PLD/BRD/MCH/DNC/BLM/RDM/SMN//WHM/AST/SCH/SGE
-  * 更改顺序方式：/e rp set SAM/MNK/RPR/DRG/NIN/DRK/GNB/WAR/PLD/BRD/MCH/DNC/BLM/RDM/SMN//WHM/AST/SCH/SGE
+  * 默认优先级：SAM/MNK/RPR/DRG/NIN/DRK/GNB/WAR/PLD/BRD/MCH/DNC/BLM/RDM/SMN/WHM/AST/SCH/SGE
+  * 更改顺序方式：/e rp set SAM/MNK/RPR/DRG/NIN/DRK/GNB/WAR/PLD/BRD/MCH/DNC/BLM/RDM/SMN/WHM/AST/SCH/SGE
+* 通用职能位置设置 手动默语宏修正
+  * 在不改变优先级的前提下修改职能位置
+  * 更改职能位置方式：/e rp manual set ${职能位置}:${玩家全称}（如：/e rp manual set D1:Libearated Flame）
 
 # 绝欧米茄
 
