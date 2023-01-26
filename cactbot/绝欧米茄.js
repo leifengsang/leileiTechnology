@@ -443,7 +443,6 @@ Options.Triggers.push({
         {
             id: "leilei TOP p2 二运分摊提醒",
             netRegex: NetRegexes.ability({ id: "7B28" }),
-            delaySeconds: 15,
             tts: (data, matches, output) => {
                 //被投盾的人不分摊
                 if (matches.target === data.me && !data.p2_programLB_ignoreStackList.includes(data.me)) {
