@@ -35,6 +35,10 @@ Options.Triggers.push({
             p2_finalAnalysismarkCount: 0,
             p2_finalAnalysisGroupDic: { "stack": [], "spread": [] },
             p2_programLB_ignoreStackList: [],
+            p3_helloWorldBuffCount: 0,
+            p3_helloWorldBuffDic: { "red": [], "blue": [], "dna": [], "share": [], "circle": [] },
+            p3_helloWorldCircleColor: "",
+            p3_helloWorldShareColor: "",
         }
     },
     triggers: [
@@ -474,6 +478,190 @@ Options.Triggers.push({
                 //点核爆的三个人不分摊
                 data.p2_programLB_ignoreStackList.push(matches.target);
             },
+        },
+        {
+            id: "leilei TOP p3 hello world buff处理",
+            //DC4 分摊
+            //DC5 大圈
+            //DC6 红毒
+            //DC7 蓝DNA
+            //D65 蓝毒
+            netRegex: NetRegexes.gainsEffect({ effectId: ["DC4", "DC5", "DC6", "DC7", "D65"] }),
+            condition: (data) => {
+                return data.p3_helloWorldBuffCount < 10;
+            },
+            run: (data, matches, output) => {
+                data.p3_helloWorldBuffCount++;
+                let key;
+                switch (matches.effectId) {
+                    case "DC4":
+                        key = "share";
+                        break;
+                    case "DC5":
+                        key = "circle";
+                        break;
+                    case "DC6":
+                        key = "red";
+                        break;
+                    case "DC7":
+                        key = "dna";
+                        break;
+                    case "D65":
+                        key = "blue";
+                        break;
+                    default:
+                        break;
+                }
+                data.p3_helloWorldBuffDic[key].push(matches.target);
+
+                if (data.p3_helloWorldBuffCount != 10) {
+                    return;
+                }
+
+                let circlePlayer = data.p3_helloWorldBuffDic["circle"][0];
+                data.p3_helloWorldCircleColor = data.p3_helloWorldBuffDic["red"].includes(circlePlayer) ? output.红色() : output.蓝色();
+                data.p3_helloWorldShareColor = data.p3_helloWorldCircleColor === output.红色() ? output.蓝色() : output.红色();
+            },
+            outputStrings: {
+                红色: "红",
+                蓝色: "蓝",
+            }
+        },
+        {
+            id: "leilei TOP p3 hello world 第一轮",
+            //DC4 分摊
+            //DC5 大圈
+            //DC6 红毒
+            //DC7 蓝DNA
+            //D65 蓝毒
+            netRegex: NetRegexes.gainsEffect({ effectId: ["DC4", "DC5", "DC6", "DC7", "D65"] }),
+            condition: (data) => {
+                return data.p3_helloWorldBuffCount == 9;
+            },
+            delaySeconds: 1,
+            tts: (data, matches, output) => {
+                if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
+                    //初始分摊
+                    return output.放分摊({ color: data.p3_helloWorldShareColor });
+                } else if (data.p3_helloWorldBuffDic["circle"].includes(data.me)) {
+                    //初始大圈
+                    return output.放大圈({ color: data.p3_helloWorldCircleColor });
+                } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
+                    //初始蓝毒 第一轮吃大圈
+                    return output.吃大圈({ color: data.p3_helloWorldCircleColor });
+                } else {
+                    //初始无点名 第一轮吃分摊
+                    return output.吃分摊({ color: data.p3_helloWorldShareColor });
+                }
+            },
+            outputStrings: {
+                放大圈: "去${color}色放大圈",
+                放分摊: "去${color}色放分摊",
+                吃大圈: "去${color}色两边吃大圈",
+                吃分摊: "去${color}色中间吃分摊",
+            }
+        },
+        {
+            id: "leilei TOP p3 hello world 第二轮",
+            //DC4 分摊
+            //DC5 大圈
+            //DC6 红毒
+            //DC7 蓝DNA
+            //D65 蓝毒
+            netRegex: NetRegexes.gainsEffect({ effectId: ["DC4", "DC5", "DC6", "DC7", "D65"] }),
+            condition: (data) => {
+                return data.p3_helloWorldBuffCount == 9;
+            },
+            delaySeconds: 22,
+            tts: (data, matches, output) => {
+                if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
+                    //初始分摊 第二轮吃大圈
+                    return output.吃大圈({ color: data.p3_helloWorldCircleColor });
+                } else if (data.p3_helloWorldBuffDic["circle"].includes(data.me)) {
+                    //初始大圈 第二轮吃分摊
+                    return output.吃分摊({ color: data.p3_helloWorldShareColor });
+                } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
+                    //初始蓝毒 第二轮放大圈
+                    return output.放大圈({ color: data.p3_helloWorldCircleColor });
+                } else {
+                    //初始无点名 第二轮放分摊
+                    return output.放分摊({ color: data.p3_helloWorldShareColor });
+                }
+            },
+            outputStrings: {
+                放大圈: "去${color}色放大圈",
+                放分摊: "去${color}色放分摊",
+                吃大圈: "去${color}色两边吃大圈",
+                吃分摊: "去${color}色中间吃分摊",
+            }
+        },
+        {
+            id: "leilei TOP p3 hello world 第三轮",
+            //DC4 分摊
+            //DC5 大圈
+            //DC6 红毒
+            //DC7 蓝DNA
+            //D65 蓝毒
+            netRegex: NetRegexes.gainsEffect({ effectId: ["DC4", "DC5", "DC6", "DC7", "D65"] }),
+            condition: (data) => {
+                return data.p3_helloWorldBuffCount == 9;
+            },
+            delaySeconds: 43,
+            tts: (data, matches, output) => {
+                if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
+                    //初始分摊 第三轮放大圈
+                    return output.放大圈({ color: data.p3_helloWorldCircleColor });
+                } else if (data.p3_helloWorldBuffDic["circle"].includes(data.me)) {
+                    //初始大圈 第三轮放分摊
+                    return output.放分摊({ color: data.p3_helloWorldShareColor });
+                } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
+                    //初始蓝毒 第三轮吃分摊
+                    return output.吃分摊({ color: data.p3_helloWorldShareColor });
+                } else {
+                    //初始无点名 第三轮吃大圈
+                    return output.吃大圈({ color: data.p3_helloWorldCircleColor });
+                }
+            },
+            outputStrings: {
+                放大圈: "去${color}色放大圈",
+                放分摊: "去${color}色放分摊",
+                吃大圈: "去${color}色两边吃大圈",
+                吃分摊: "去${color}色中间吃分摊",
+            }
+        },
+        {
+            id: "leilei TOP p3 hello world 第四轮",
+            //DC4 分摊
+            //DC5 大圈
+            //DC6 红毒
+            //DC7 蓝DNA
+            //D65 蓝毒
+            netRegex: NetRegexes.gainsEffect({ effectId: ["DC4", "DC5", "DC6", "DC7", "D65"] }),
+            condition: (data) => {
+                return data.p3_helloWorldBuffCount == 9;
+            },
+            delaySeconds: 64,
+            tts: (data, matches, output) => {
+                if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
+                    //初始分摊 第四轮吃分摊
+                    return output.吃分摊({ color: data.p3_helloWorldShareColor });
+                } else if (data.p3_helloWorldBuffDic["circle"].includes(data.me)) {
+                    //初始大圈 第四轮去分摊后面最远距离直接拉断
+                    return output.特殊处理的近线({ color: data.p3_helloWorldShareColor });
+                } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
+                    //初始蓝毒 第四轮放分摊
+                    return output.放分摊({ color: data.p3_helloWorldShareColor });
+                } else {
+                    //初始无点名 第四轮放大圈
+                    return output.放大圈({ color: data.p3_helloWorldCircleColor });
+                }
+            },
+            outputStrings: {
+                放大圈: "去${color}色放大圈",
+                放分摊: "去${color}色放分摊",
+                特殊处理的近线: "去${color}色中间后面最远距离拉断近线",
+                吃分摊: "去${color}色中间吃分摊",
+            }
         },
     ]
 })
