@@ -547,7 +547,7 @@ Options.Triggers.push({
                     //初始大圈
                     return output.放大圈({ color: data.p3_helloWorldCircleColor });
                 } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
-                    //初始蓝毒 第一轮吃大圈
+                    //初始dna 第一轮吃大圈
                     return output.吃大圈({ color: data.p3_helloWorldCircleColor });
                 } else {
                     //初始无点名 第一轮吃分摊
@@ -581,7 +581,7 @@ Options.Triggers.push({
                     //初始大圈 第二轮吃分摊
                     return output.吃分摊({ color: data.p3_helloWorldShareColor });
                 } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
-                    //初始蓝毒 第二轮放大圈
+                    //初始dna 第二轮放大圈
                     return output.放大圈({ color: data.p3_helloWorldCircleColor });
                 } else {
                     //初始无点名 第二轮放分摊
@@ -615,7 +615,7 @@ Options.Triggers.push({
                     //初始大圈 第三轮放分摊
                     return output.放分摊({ color: data.p3_helloWorldShareColor });
                 } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
-                    //初始蓝毒 第三轮吃分摊
+                    //初始dna 第三轮吃分摊
                     return output.吃分摊({ color: data.p3_helloWorldShareColor });
                 } else {
                     //初始无点名 第三轮吃大圈
@@ -649,7 +649,7 @@ Options.Triggers.push({
                     //初始大圈 第四轮去分摊后面最远距离直接拉断
                     return output.特殊处理的近线({ color: data.p3_helloWorldShareColor });
                 } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
-                    //初始蓝毒 第四轮放分摊
+                    //初始dna 第四轮放分摊
                     return output.放分摊({ color: data.p3_helloWorldShareColor });
                 } else {
                     //初始无点名 第四轮放大圈
