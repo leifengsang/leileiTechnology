@@ -17,5 +17,6 @@
 
 * cactbot相关使用方式略
 * 所有js文件均需要搭配*雷雷科技通用库.js*使用
+* 所有播报采用**TTS**方式播报，需在cactbot config（cactbot设置）中将raidboss的**默认触发器提示输出模式**设置为**文本显示与TTS**
 * 建议搭配鲶鱼精邮差使用
   * 下载链接 https://github.com/Natsukage/PostNamazu/releases
