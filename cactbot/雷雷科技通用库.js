@@ -340,6 +340,11 @@ function getHexIdByRp(data, rp) {
     return data.party.partyIds_[data.party.partyNames_.indexOf(getNameByRp(data, rp))];
 }
 
+function isRanged(rp) {
+    if (rp === undefined) console.trace(`rp为空`);
+    return ["H1", "H2", "D3", "D4"].includes(rp);
+}
+
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
@@ -436,6 +441,7 @@ Options.Triggers.push({
                 getRpByHexId,
                 getNameByRp,
                 getHexIdByRp,
+                isRanged,
             },
             leileiData,
         };
