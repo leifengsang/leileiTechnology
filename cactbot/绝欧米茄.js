@@ -24,6 +24,9 @@ Options.Triggers.push({
     initData: () => {
         return {
             mahjongPhase: 0,
+            p1_1_mahjongGroupDic: { 1: [], 2: [], 3: [], 4: [] },
+            p1_1_mahjongCount: 0,
+            p1_1_myMahjongGroup: 0,
             p1_2_mahjongGroupDic: { 1: [], 2: [], 3: [], 4: [] },
             p1_2_mahjongCount: 0,
             p1_2_myMahjongGroup: 0,
@@ -39,6 +42,7 @@ Options.Triggers.push({
             p3_helloWorldBuffDic: { "red": [], "blue": [], "dna": [], "share": [], "circle": [] },
             p3_helloWorldCircleColor: "",
             p3_helloWorldShareColor: "",
+            p3_waveCannonList: [],
         }
     },
     triggers: [
@@ -64,7 +68,7 @@ Options.Triggers.push({
                 //拉线顺序：3-4-1-2
                 switch (matches.effectId) {
                     case "BBE":
-                        delay = 0;
+                        delay = 2;
                         break;
                     case "D7B":
                         delay = 14;
@@ -102,7 +106,7 @@ Options.Triggers.push({
                 //踩塔顺序：1-2-3-4
                 switch (matches.effectId) {
                     case "BBC":
-                        delay = 0;
+                        delay = 2;
                         break;
                     case "BBD":
                         delay = 14;
@@ -123,6 +127,53 @@ Options.Triggers.push({
             },
             outputStrings: {
                 content: "去踩塔"
+            }
+        },
+        {
+            id: "leilei TOP p1 麻将分组",
+            //BBC 1号
+            //BBD 2号
+            //BBE 3号
+            //D7B 4号
+            netRegex: NetRegexes.gainsEffect({ effectId: ["BBC", "BBD", "BBE", "D7B"] }),
+            condition: (data, matches) => {
+                return data.mahjongPhase === MAHJONG_PHASE_P1_1;
+            },
+            tts: (data, matches, output) => {
+                data.p1_1_mahjongCount++;
+                let mahjongGroup = 0;
+                switch (matches.effectId) {
+                    case "BBC":
+                        mahjongGroup = 1;
+                        break;
+                    case "BBD":
+                        mahjongGroup = 2;
+                        break;
+                    case "BBE":
+                        mahjongGroup = 3;
+                        break;
+                    case "D7B":
+                        mahjongGroup = 4;
+                        break;
+                    default:
+                        break;
+                }
+                data.p1_1_mahjongGroupDic[mahjongGroup].push(matches.target);
+                if (matches.target === data.me) {
+                    data.p1_1_myMahjongGroup = mahjongGroup;
+                }
+
+                if (data.p1_1_mahjongCount != 8) {
+                    return;
+                }
+                return output.content({
+                    rp: data.leileiFL.getRpByName(data, data.p1_1_mahjongGroupDic[data.p1_1_myMahjongGroup].find((v) => {
+                        return v !== data.me;
+                    }))
+                });
+            },
+            outputStrings: {
+                content: "${rp}"
             }
         },
         {
@@ -194,7 +245,7 @@ Options.Triggers.push({
                 return output.content({ rp: data.leileiFL.getRpByName(data, targetName) });
             },
             outputStrings: {
-                content: "麻将同组是${rp}"
+                content: "${rp}"
             }
         },
         {
@@ -336,7 +387,6 @@ Options.Triggers.push({
                     return;
                 }
 
-                //正序优先级：圆圈 叉 方块 三角
                 const rpRuleList = output.优先级().split("/");
                 for (const key in data.p2_programPT_groupDic) {
                     let list = data.p2_programPT_groupDic[key];
@@ -485,18 +535,6 @@ Options.Triggers.push({
                 //点核爆的三个人不分摊
                 data.p2_programLB_ignoreStackList.push(matches.target);
             },
-        },
-        {
-            id: "leilei TOP p3 hello world 清除2.5标记",
-            netRegex: NetRegexes.startsUsing({ id: "7B55" }),
-            run: (data, matches, output) => {
-                if (output.取消标记() === "true") {
-                    data.leileiFL.clearMark();
-                }
-            },
-            outputStrings: {
-                取消标记: "false"
-            }
         },
         {
             id: "leilei TOP p3 hello world buff处理",
@@ -680,6 +718,100 @@ Options.Triggers.push({
                 放分摊: "去${color}色放分摊",
                 特殊处理的近线: "去${color}色中间后面近战最远距离拉断近线",
                 吃分摊: "去${color}色中间吃分摊",
+            }
+        },
+        {
+            id: "leilei TOP p3 hello world 清除2.5标记",
+            netRegex: NetRegexes.startsUsing({ id: "7B55" }),
+            run: (data, matches, output) => {
+                if (output.取消标记() === "true") {
+                    data.leileiFL.clearMark();
+                }
+            },
+            outputStrings: {
+                取消标记: "false"
+            }
+        },
+        {
+            id: "leilei TOP p3 小电视屏幕 屏幕点名",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D7C", "D7D"] }),
+            run: (data, matches) => {
+                data.p3_waveCannonList.push(data.leileiFL.getRpByHexId(data, matches.targetId));
+            }
+        },
+        {
+            id: "leilei TOP p3 小电视屏幕头顶标记",
+            //7B6B 右屏幕
+            //7B6C 左屏幕
+            netRegex: NetRegexes.startsUsing({ id: ["7B6B", "7B6C"] }),
+            run: (data, matches, output) => {
+                if (output.是否标记() !== "true") {
+                    return;
+                }
+
+                let currentRPRuleList = output.优先级().split("/");
+                let originalRPRuleList = output.优先级().split("/");
+                if (matches.id === "7B6B") {
+                    //右屏幕
+                    if (output.右屏幕是否逆反优先级() === "true") {
+                        currentRPRuleList.reverse();
+                    }
+                } else {
+                    //左屏幕
+                    if (output.左屏幕是否逆反优先级() === "true") {
+                        currentRPRuleList.reverse();
+                    }
+                }
+
+
+                data.p3_waveCannonList.sort((a, b) => {
+                    return currentRPRuleList.indexOf(a) - currentRPRuleList.indexOf(b);
+                });
+
+                let otherList = data.party.partyIds_.filter((v) => {
+                    return !data.p3_waveCannonList.includes(data.leileiFL.getRpByHexId(data, v));
+                }).map((v) => {
+                    return data.leileiFL.getRpByHexId(data, v);
+                });
+
+                let finalList = [];
+                if (output.五号位是否一定选择最高正序优先级的远程() === "true") {
+                    otherList.sort((a, b) => {
+                        return originalRPRuleList.indexOf(a) - originalRPRuleList.indexOf(b);
+                    });
+                    const ranged = otherList.find((v) => {
+                        return data.leileiFL.isRanged(v);
+                    });
+                    finalList.push(ranged);
+                    otherList = otherList.filter((v) => {
+                        return v !== ranged;
+                    });
+                }
+
+                otherList.sort((a, b) => {
+                    return currentRPRuleList.indexOf(a) - currentRPRuleList.indexOf(b);
+                });
+                finalList = otherList.concat(finalList);
+
+                data.leileiFL.clearMark();
+                //点小电视 锁链123
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[0]), data.leileiData.targetMakers.bind1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[1]), data.leileiData.targetMakers.bind2);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[2]), data.leileiData.targetMakers.bind3);
+
+                //其他玩家 攻击12345
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[0]), data.leileiData.targetMakers.attack1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[1]), data.leileiData.targetMakers.attack2);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[2]), data.leileiData.targetMakers.attack3);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[3]), data.leileiData.targetMakers.attack4);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[4]), data.leileiData.targetMakers.attack5);
+            },
+            outputStrings: {
+                优先级: "H2/H1/D4/D3/D2/D1/ST/MT",
+                左屏幕是否逆反优先级: "false",
+                右屏幕是否逆反优先级: "false",
+                五号位是否一定选择最高正序优先级的远程: "true",
+                是否标记: "false"
             }
         },
     ]
