@@ -460,7 +460,7 @@ Options.Triggers.push({
                 }
 
                 //核爆的三个人不分摊
-                if (data.p2_programLB_ignoreStackList.includes(data.me)) {
+                if (output.核爆逃课() !== "true" && data.p2_programLB_ignoreStackList.includes(data.me)) {
                     return;
                 }
 
@@ -469,7 +469,8 @@ Options.Triggers.push({
             outputStrings: {
                 分摊: "去分摊",
                 被投盾: "远离M",
-                小队频道提示音: "true"
+                小队频道提示音: "true",
+                核爆逃课: "false"
             }
         },
         {
@@ -484,6 +485,18 @@ Options.Triggers.push({
                 //点核爆的三个人不分摊
                 data.p2_programLB_ignoreStackList.push(matches.target);
             },
+        },
+        {
+            id: "leilei TOP p3 hello world 清除2.5标记",
+            netRegex: NetRegexes.startsUsing({ id: "7B55" }),
+            run: (data, matches, output) => {
+                if (output.取消标记() === "true") {
+                    data.leileiFL.clearMark();
+                }
+            },
+            outputStrings: {
+                取消标记: "false"
+            }
         },
         {
             id: "leilei TOP p3 hello world buff处理",
