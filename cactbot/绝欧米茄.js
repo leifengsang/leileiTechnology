@@ -448,6 +448,11 @@ Options.Triggers.push({
             id: "leilei TOP p2 二运分摊提醒",
             netRegex: NetRegexes.ability({ id: "7B28" }),
             tts: (data, matches, output) => {
+                //小队频道提示音
+                if (output.小队频道提示音() === "true") {
+                    data.leileiFL.doTextCommand("/p 分攤<se.4>");
+                }
+
                 //被投盾的人不分摊
                 if (matches.target === data.me && !data.p2_programLB_ignoreStackList.includes(data.me)) {
                     //如果不是核爆的人被投盾了，提醒一下快跑
@@ -463,7 +468,8 @@ Options.Triggers.push({
             },
             outputStrings: {
                 分摊: "去分摊",
-                被投盾: "远离M"
+                被投盾: "远离M",
+                小队频道提示音: "true"
             }
         },
         {
