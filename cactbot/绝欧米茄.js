@@ -329,6 +329,23 @@ Options.Triggers.push({
                 data.p2_programPT_markReverse = matches.effectId === "D64";
             }
         },
+        // {
+        //     id: "leilei TOP p2 一运大眼前远近线提醒",
+        //     //D63 靠近
+        //     //D64 远离
+        //     netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
+        //     condition: (data, matches) => {
+        //         return matches.target === data.me;
+        //     },
+        //     delaySeconds: 8,
+        //     tts: (data, matches, output) => {
+        //         return matches.effectId === "D64" ? output.远线() : output.近线();
+        //     },
+        //     outputStrings: {
+        //         远线: "远离远离",
+        //         近线: "靠近靠近"
+        //     }
+        // },
         {
             id: "leilei TOP p2 一运击退分摊前远近线提醒",
             //D63 靠近
@@ -812,6 +829,22 @@ Options.Triggers.push({
                 右屏幕是否逆反优先级: "false",
                 五号位是否一定选择最高正序优先级的远程: "true",
                 是否标记: "false"
+            }
+        },
+        {
+            id: "leilei TOP p3 清除小电视屏幕头顶标记",
+            //7B6B 右屏幕
+            //7B6C 左屏幕
+            netRegex: NetRegexes.startsUsing({ id: ["7B6B", "7B6C"] }),
+            delaySeconds: 20,
+            run: (data, matches, output) => {
+                if (output.取消标记() !== "true") {
+                    return;
+                }
+                data.leileiFL.clearMark();
+            },
+            outputStrings: {
+                取消标记: "false"
             }
         },
     ]
