@@ -10,6 +10,7 @@ const headMarker = {
     programPTTriangle: "01A1",
     programPTSquare: "01A2",
     programPTX: "01A3",
+    programPTStack: "0064",
     programLBFlame: "015A", //P2二运核爆
 }
 
@@ -35,6 +36,9 @@ Options.Triggers.push({
             p2_programPT_markCount: 0,
             p2_programPT_markCleared: false,
             p2_programPT_groupDic: { "circle": [], "triangle": [], "square": [], "x": [] },
+            p2_programPT_hightGroup: [],
+            p2_programPT_lowGroup: [],
+            p2_programPT_stackGroup: [],
             p2_finalAnalysismarkCount: 0,
             p2_finalAnalysisGroupDic: { "stack": [], "spread": [] },
             p2_programLB_ignoreStackList: [],
@@ -257,7 +261,7 @@ Options.Triggers.push({
                 //一运后半有5个男人钢铁，不要干扰
                 if (data.p2_programPT_TTS_Dic["M"] !== "") {
                     //干掉之前的标记
-                    if (output.取消一运标记() === "true") {
+                    if (output.取消标记() === "true") {
                         if (!data.p2_programPT_markCleared) {
                             data.p2_programPT_markCleared = true;
                             data.leileiFL.clearMark();
@@ -282,7 +286,7 @@ Options.Triggers.push({
             outputStrings: {
                 钢铁: "远离",
                 月环: "靠近",
-                取消一运标记: "false"
+                取消标记: "false"
             }
         },
         // {
@@ -329,23 +333,23 @@ Options.Triggers.push({
                 data.p2_programPT_markReverse = matches.effectId === "D64";
             }
         },
-        // {
-        //     id: "leilei TOP p2 一运大眼前远近线提醒",
-        //     //D63 靠近
-        //     //D64 远离
-        //     netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
-        //     condition: (data, matches) => {
-        //         return matches.target === data.me;
-        //     },
-        //     delaySeconds: 8,
-        //     tts: (data, matches, output) => {
-        //         return matches.effectId === "D64" ? output.远线() : output.近线();
-        //     },
-        //     outputStrings: {
-        //         远线: "远离远离",
-        //         近线: "靠近靠近"
-        //     }
-        // },
+        {
+            id: "leilei TOP p2 一运大眼前远近线提醒",
+            //D63 靠近
+            //D64 远离
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 8,
+            tts: (data, matches, output) => {
+                return matches.effectId === "D64" ? output.远线() : output.近线();
+            },
+            outputStrings: {
+                远线: "远离远离",
+                近线: "靠近靠近"
+            }
+        },
         {
             id: "leilei TOP p2 一运击退分摊前远近线提醒",
             //D63 靠近
@@ -413,36 +417,77 @@ Options.Triggers.push({
                 }
 
                 const psRuleList = output.ps顺序().split("/");
-                let highGroup = [
+                data.p2_programPT_hightGroup = [
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[0]][0]),
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[1]][0]),
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[2]][0]),
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[3]][0]),
                 ];
-                let lowGroup = [
+                data.p2_programPT_lowGroup = [
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[0]][1]),
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[1]][1]),
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[2]][1]),
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[3]][1]),
                 ];
                 if (data.p2_programPT_markReverse) {
-                    lowGroup.reverse();
+                    data.p2_programPT_lowGroup.reverse();
                 }
 
                 data.leileiFL.clearMark();
-                data.leileiFL.mark(highGroup[0], data.leileiData.targetMakers.attack1);
-                data.leileiFL.mark(highGroup[1], data.leileiData.targetMakers.attack2);
-                data.leileiFL.mark(highGroup[2], data.leileiData.targetMakers.attack3);
-                data.leileiFL.mark(highGroup[3], data.leileiData.targetMakers.attack4);
+                data.leileiFL.mark(data.p2_programPT_hightGroup[0], data.leileiData.targetMakers.attack1);
+                data.leileiFL.mark(data.p2_programPT_hightGroup[1], data.leileiData.targetMakers.attack2);
+                data.leileiFL.mark(data.p2_programPT_hightGroup[2], data.leileiData.targetMakers.attack3);
+                data.leileiFL.mark(data.p2_programPT_hightGroup[3], data.leileiData.targetMakers.attack4);
 
-                data.leileiFL.mark(lowGroup[0], data.leileiData.targetMakers.bind1);
-                data.leileiFL.mark(lowGroup[1], data.leileiData.targetMakers.bind2);
-                data.leileiFL.mark(lowGroup[2], data.leileiData.targetMakers.bind3);
-                data.leileiFL.mark(lowGroup[3], data.leileiData.targetMakers.attack5);
+                data.leileiFL.mark(data.p2_programPT_lowGroup[0], data.leileiData.targetMakers.bind1);
+                data.leileiFL.mark(data.p2_programPT_lowGroup[1], data.leileiData.targetMakers.bind2);
+                data.leileiFL.mark(data.p2_programPT_lowGroup[2], data.leileiData.targetMakers.bind3);
+                data.leileiFL.mark(data.p2_programPT_lowGroup[3], data.leileiData.targetMakers.attack5);
             },
             outputStrings: {
                 ps顺序: "circle/x/square/triangle",
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
+                是否标记: "false"
+            }
+        },
+        {
+            id: "leilei TOP p2 一运分摊换位 头顶标记",
+            netRegex: NetRegexes.headMarker({}),
+            run: (data, matches, output) => {
+                if (output.是否标记() !== "true") {
+                    return;
+                }
+
+                const id = getHeadmarkerId(data, matches);
+                if (id !== headMarker.programPTStack) {
+                    return;
+                }
+
+                data.p2_programPT_stackGroup.push(matches.targetId);
+                if (data.p2_programPT_stackGroup.length < 2) {
+                    return;
+                }
+
+                let inHighList1 = data.p2_programPT_hightGroup.indexOf(data.p2_programPT_stackGroup[0]) >= 0;
+                let inHighList2 = data.p2_programPT_hightGroup.indexOf(data.p2_programPT_stackGroup[1]) >= 0;
+                
+                data.leileiFL.clearMark();
+                //不同组，不用换位
+                if (inHighList1 != inHighList2) {
+                    return;
+                }
+
+                const group = inHighList1 ? data.p2_programPT_hightGroup : data.p2_programPT_lowGroup;
+                const pairGroup = inHighList1 ? data.p2_programPT_lowGroup : data.p2_programPT_highGroup;
+                const compareValue = group.indexOf(data.p2_programPT_stackGroup[0]) - group.indexOf(data.p2_programPT_stackGroup[1]);
+                const targetId = compareValue < 0 ? data.p2_programPT_stackGroup[1] : data.p2_programPT_stackGroup[0];
+                const index = group.indexOf(targetId);
+                const pairId = pairGroup[data.p2_programPT_markReverse ? 3 - index : index];
+                
+                data.leileiFL.mark(targetId, data.leileiData.targetMakers.bind1);
+                data.leileiFL.mark(pairId, data.leileiData.targetMakers.bind2);
+            },
+            outputStrings: {
                 是否标记: "false"
             }
         },
