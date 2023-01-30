@@ -15,7 +15,7 @@
 
 ## cactbot 使用方式
 
-* cactbot相关使用方式见[cactbot][https://github.com/quisquous/cactbot]
+* cactbot相关使用方式见[cactbot](https://github.com/quisquous/cactbot)
 * 所有js文件均需要搭配*雷雷科技通用库.js*使用
 * 所有播报采用**TTS**方式播报，需在cactbot config（cactbot设置）中将raidboss的**默认触发器提示输出模式**设置为**文本显示与TTS**
-* 建议搭配[鲶鱼精邮差][https://github.com/Natsukage/PostNamazu/releases]使用
+* 建议搭配[鲶鱼精邮差](https://github.com/Natsukage/PostNamazu/releases)使用
