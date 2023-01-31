@@ -455,22 +455,6 @@ Options.Triggers.push({
         {
             id: "leilei TOP p2 一运分摊换位 头顶标记",
             netRegex: NetRegexes.headMarker({}),
-            preRun: (data, matches, output) => {
-                if (output.是否标记() !== "true") {
-                    return;
-                }
-
-                const id = getHeadmarkerId(data, matches);
-                if (id !== headMarker.programPTStack) {
-                    return;
-                }
-
-                if (data.p2_programPT_stackGroup.length < 1) {
-                    return;
-                }
-
-                data.leileiFL.clearMark();
-            },
             run: (data, matches, output) => {
                 if (output.是否标记() !== "true") {
                     return;
@@ -500,7 +484,8 @@ Options.Triggers.push({
                 const targetId = compareValue < 0 ? data.p2_programPT_stackGroup[1] : data.p2_programPT_stackGroup[0];
                 const index = group.indexOf(targetId);
                 const pairId = pairGroup[data.p2_programPT_markReverse ? 3 - index : index];
-
+                
+                data.leileiFL.clearMark();
                 setTimeout(() => {
                     data.leileiFL.mark(targetId, data.leileiData.targetMakers.bind1);
                     data.leileiFL.mark(pairId, data.leileiData.targetMakers.bind2);
