@@ -36,7 +36,7 @@ Options.Triggers.push({
             p2_programPT_markCount: 0,
             p2_programPT_markCleared: false,
             p2_programPT_groupDic: { "circle": [], "triangle": [], "square": [], "x": [] },
-            p2_programPT_hightGroup: [],
+            p2_programPT_highGroup: [],
             p2_programPT_lowGroup: [],
             p2_programPT_stackGroup: [],
             p2_finalAnalysismarkCount: 0,
@@ -417,7 +417,7 @@ Options.Triggers.push({
                 }
 
                 const psRuleList = output.ps顺序().split("/");
-                data.p2_programPT_hightGroup = [
+                data.p2_programPT_highGroup = [
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[0]][0]),
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[1]][0]),
                     data.leileiFL.getHexIdByRp(data, data.p2_programPT_groupDic[psRuleList[2]][0]),
@@ -434,15 +434,17 @@ Options.Triggers.push({
                 }
 
                 data.leileiFL.clearMark();
-                data.leileiFL.mark(data.p2_programPT_hightGroup[0], data.leileiData.targetMakers.attack1);
-                data.leileiFL.mark(data.p2_programPT_hightGroup[1], data.leileiData.targetMakers.attack2);
-                data.leileiFL.mark(data.p2_programPT_hightGroup[2], data.leileiData.targetMakers.attack3);
-                data.leileiFL.mark(data.p2_programPT_hightGroup[3], data.leileiData.targetMakers.attack4);
+                setTimeout(() => {
+                    data.leileiFL.mark(data.p2_programPT_highGroup[0], data.leileiData.targetMakers.attack1);
+                    data.leileiFL.mark(data.p2_programPT_highGroup[1], data.leileiData.targetMakers.attack2);
+                    data.leileiFL.mark(data.p2_programPT_highGroup[2], data.leileiData.targetMakers.attack3);
+                    data.leileiFL.mark(data.p2_programPT_highGroup[3], data.leileiData.targetMakers.attack4);
 
-                data.leileiFL.mark(data.p2_programPT_lowGroup[0], data.leileiData.targetMakers.bind1);
-                data.leileiFL.mark(data.p2_programPT_lowGroup[1], data.leileiData.targetMakers.bind2);
-                data.leileiFL.mark(data.p2_programPT_lowGroup[2], data.leileiData.targetMakers.bind3);
-                data.leileiFL.mark(data.p2_programPT_lowGroup[3], data.leileiData.targetMakers.attack5);
+                    data.leileiFL.mark(data.p2_programPT_lowGroup[0], data.leileiData.targetMakers.bind1);
+                    data.leileiFL.mark(data.p2_programPT_lowGroup[1], data.leileiData.targetMakers.bind2);
+                    data.leileiFL.mark(data.p2_programPT_lowGroup[2], data.leileiData.targetMakers.bind3);
+                    data.leileiFL.mark(data.p2_programPT_lowGroup[3], data.leileiData.targetMakers.attack5);
+                }, 100);
             },
             outputStrings: {
                 ps顺序: "circle/x/square/triangle",
@@ -453,6 +455,22 @@ Options.Triggers.push({
         {
             id: "leilei TOP p2 一运分摊换位 头顶标记",
             netRegex: NetRegexes.headMarker({}),
+            preRun: (data, matches, output) => {
+                if (output.是否标记() !== "true") {
+                    return;
+                }
+
+                const id = getHeadmarkerId(data, matches);
+                if (id !== headMarker.programPTStack) {
+                    return;
+                }
+
+                if (data.p2_programPT_stackGroup.length < 1) {
+                    return;
+                }
+
+                data.leileiFL.clearMark();
+            },
             run: (data, matches, output) => {
                 if (output.是否标记() !== "true") {
                     return;
@@ -468,24 +486,25 @@ Options.Triggers.push({
                     return;
                 }
 
-                let inHighList1 = data.p2_programPT_hightGroup.indexOf(data.p2_programPT_stackGroup[0]) >= 0;
-                let inHighList2 = data.p2_programPT_hightGroup.indexOf(data.p2_programPT_stackGroup[1]) >= 0;
-                
-                data.leileiFL.clearMark();
+                let inHighList1 = data.p2_programPT_highGroup.indexOf(data.p2_programPT_stackGroup[0]) >= 0;
+                let inHighList2 = data.p2_programPT_highGroup.indexOf(data.p2_programPT_stackGroup[1]) >= 0;
+
                 //不同组，不用换位
                 if (inHighList1 != inHighList2) {
                     return;
                 }
 
-                const group = inHighList1 ? data.p2_programPT_hightGroup : data.p2_programPT_lowGroup;
+                const group = inHighList1 ? data.p2_programPT_highGroup : data.p2_programPT_lowGroup;
                 const pairGroup = inHighList1 ? data.p2_programPT_lowGroup : data.p2_programPT_highGroup;
                 const compareValue = group.indexOf(data.p2_programPT_stackGroup[0]) - group.indexOf(data.p2_programPT_stackGroup[1]);
                 const targetId = compareValue < 0 ? data.p2_programPT_stackGroup[1] : data.p2_programPT_stackGroup[0];
                 const index = group.indexOf(targetId);
                 const pairId = pairGroup[data.p2_programPT_markReverse ? 3 - index : index];
-                
-                data.leileiFL.mark(targetId, data.leileiData.targetMakers.bind1);
-                data.leileiFL.mark(pairId, data.leileiData.targetMakers.bind2);
+
+                setTimeout(() => {
+                    data.leileiFL.mark(targetId, data.leileiData.targetMakers.bind1);
+                    data.leileiFL.mark(pairId, data.leileiData.targetMakers.bind2);
+                }, 100);
             },
             outputStrings: {
                 是否标记: "false"
@@ -521,23 +540,7 @@ Options.Triggers.push({
                 }
 
                 data.leileiFL.clearMark();
-                //分散 攻击1234
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][0]),
-                    data.leileiData.targetMakers.attack1);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][1]),
-                    data.leileiData.targetMakers.attack2);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][2]),
-                    data.leileiData.targetMakers.attack3);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][3]),
-                    data.leileiData.targetMakers.attack4);
 
-                //分摊 锁链12
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][0]),
-                    data.leileiData.targetMakers.bind1);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][1]),
-                    data.leileiData.targetMakers.bind2);
-
-                //无标记 一起分摊 静止12
                 let nothingGroup = [];
                 for (let i = 0; i < rpRuleList.length; i++) {
                     let rp = rpRuleList[i];
@@ -545,10 +548,30 @@ Options.Triggers.push({
                         nothingGroup.push(rp);
                     }
                 }
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[0]),
-                    data.leileiData.targetMakers.stop1);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[1]),
-                    data.leileiData.targetMakers.stop2);
+
+                setTimeout(() => {
+                    //分散 攻击1234
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][0]),
+                        data.leileiData.targetMakers.attack1);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][1]),
+                        data.leileiData.targetMakers.attack2);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][2]),
+                        data.leileiData.targetMakers.attack3);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][3]),
+                        data.leileiData.targetMakers.attack4);
+
+                    //分摊 锁链12
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][0]),
+                        data.leileiData.targetMakers.bind1);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][1]),
+                        data.leileiData.targetMakers.bind2);
+
+                    //无标记 一起分摊 静止12
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[0]),
+                        data.leileiData.targetMakers.stop1);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[1]),
+                        data.leileiData.targetMakers.stop2);
+                }, 100);
             },
             outputStrings: {
                 打法视频: "BV1jT411y7Xi",
@@ -559,6 +582,7 @@ Options.Triggers.push({
         {
             id: "leilei TOP p2 二运分摊提醒",
             netRegex: NetRegexes.ability({ id: "7B28" }),
+            suppressSeconds: 1,
             tts: (data, matches, output) => {
                 //小队频道提示音
                 if (output.小队频道提示音() === "true") {
@@ -856,17 +880,19 @@ Options.Triggers.push({
                 finalList = otherList.concat(finalList);
 
                 data.leileiFL.clearMark();
-                //点小电视 锁链123
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[0]), data.leileiData.targetMakers.bind1);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[1]), data.leileiData.targetMakers.bind2);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[2]), data.leileiData.targetMakers.bind3);
+                setTimeout(() => {
+                    //点小电视 锁链123
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[0]), data.leileiData.targetMakers.bind1);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[1]), data.leileiData.targetMakers.bind2);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[2]), data.leileiData.targetMakers.bind3);
 
-                //其他玩家 攻击12345
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[0]), data.leileiData.targetMakers.attack1);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[1]), data.leileiData.targetMakers.attack2);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[2]), data.leileiData.targetMakers.attack3);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[3]), data.leileiData.targetMakers.attack4);
-                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[4]), data.leileiData.targetMakers.attack5);
+                    //其他玩家 攻击12345
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[0]), data.leileiData.targetMakers.attack1);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[1]), data.leileiData.targetMakers.attack2);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[2]), data.leileiData.targetMakers.attack3);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[3]), data.leileiData.targetMakers.attack4);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[4]), data.leileiData.targetMakers.attack5);
+                }, 100);
             },
             outputStrings: {
                 优先级: "H2/H1/D4/D3/D2/D1/ST/MT",
