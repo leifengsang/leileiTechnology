@@ -317,18 +317,22 @@ function getRoleById(data, hexId) {
 }
 
 function getRpByName(data, name) {
-    if (!(data && name)) console.trace(`getRpByName缺少参数`);
+    if (data === undefined) console.trace(`data为空`);
+    if (name === undefined) console.trace(`name为空`);
     if (leileiData.myParty.length === 0) createMyParty(data.party.details);
     return leileiData.myParty.find((v) => v.name === name)?.myRP;
 }
 
 function getRpByHexId(data, hexId) {
-    if (!(data && hexId)) console.trace(`getRpByHexId缺少参数`);
+    if (data === undefined) console.trace(`data为空`);
+    if (hexId === undefined) console.trace(`hexId为空`);
+    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
     return getRpByName(data, getNameByHexId(data, hexId));
 }
 
 function getNameByRp(data, rp) {
-    if (!(data && rp)) console.trace(`getNameByRp缺少参数`);
+    if (data === undefined) console.trace(`data为空`);
+    if (rp === undefined) console.trace(`rp为空`);
     if (leileiData.myParty.length === 0) createMyParty(data.party.details);
     return leileiData.myParty.find((v) => v.myRP === rp)?.name;
 }
