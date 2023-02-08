@@ -19,11 +19,11 @@ const PHASE_DYNAMIS = 5; //p5
 const PHASE_ALPHA_OMEGA = 6; //p6
 
 /**
- * P6运动会阶段
+ * P5运动会阶段
  */
 const DYNAMIS_PHASE_DELTA = 1; //一运
 const DYNAMIS_PHASE_SIGMA = 2; //二运
-const DYNAMIS_PHASE_ALPHA = 3; //三运
+const DYNAMIS_PHASE_OMEGA = 3; //三运
 
 const headMarker = {
     programPTCircle: "01A0",
@@ -70,8 +70,13 @@ Options.Triggers.push({
             p3_helloWorldCircleColor: "",
             p3_helloWorldShareColor: "",
             p3_waveCannonList: [],
+            p5_markEnable: false,
             p5_dynamisPhase: 0,
             p5_dynamisCountDic: {},
+            p5_deltaHWGroup: [],
+            p5_deltaNearGroup: [],
+            p5_deltaFarGroup: [],
+            p5_tetherCount: 0,
             p5_sigmaHWGroup: [],
             p5_sigmaGroupDic: { "circle": [], "triangle": [], "square": [], "x": [] },
             p5_sigmaMarkCount: 0,
@@ -393,7 +398,7 @@ Options.Triggers.push({
             //D64 远离
             netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
             condition: (data, matches) => {
-                return matches.target === data.me;
+                return data.omegaPhase == PHASE_OMEGA_MF && matches.target === data.me;
             },
             delaySeconds: 8,
             tts: (data, matches, output) => {
@@ -410,7 +415,7 @@ Options.Triggers.push({
             //D64 远离
             netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
             condition: (data, matches) => {
-                return matches.target === data.me;
+                return data.omegaPhase == PHASE_OMEGA_MF && matches.target === data.me;
             },
             delaySeconds: 15,
             tts: (data, matches, output) => {
@@ -987,8 +992,8 @@ Options.Triggers.push({
         },
         {
             id: "leilei TOP 控制P5阶段",
-            netRegex: NetRegexes.startsUsing({ id: ["7B88", "8014"] }),
-            run: (data, matches) => {
+            netRegex: NetRegexes.startsUsing({ id: ["7B88", "8014", "8015"] }),
+            run: (data, matches, output) => {
                 switch (matches.id) {
                     case "7B88":
                         data.p5_dynamisPhase = DYNAMIS_PHASE_DELTA;
@@ -996,10 +1001,23 @@ Options.Triggers.push({
                     case "8014":
                         data.p5_dynamisPhase = DYNAMIS_PHASE_SIGMA;
                         break;
+                    case "8015":
+                        data.p5_dynamisPhase = DYNAMIS_PHASE_OMEGA;
+                        break;
                     default:
                         break;
                 }
                 console.log("dynamisPhase", data.p5_dynamisPhase);
+
+                data.p5_markEnable = output.p5标记总开关() === "true";
+
+                if (data.p5_markEnable) {
+                    data.leileiFL.clearMark();
+                }
+            },
+            infoText: "",
+            outputStrings: {
+                p5标记总开关: "false"
             }
         },
         {
@@ -1012,7 +1030,92 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p5二运 靠近远离",
+            id: "leilei TOP p5一运 hw远近buff",
+            //D72 近
+            //D73 远
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D72", "D73"] }),
+            condition: (data) => {
+                return data.p5_dynamisPhase == DYNAMIS_PHASE_DELTA;
+            },
+            preRun: (data, matches) => {
+                data.p5_deltaHWGroup.push(matches.targetId);
+            },
+            run: (data, matches) => {
+                if (!data.p5_markEnable) {
+                    return;
+                }
+
+                let markType;
+                if (matches.effectId === "D72") {
+                    markType = data.leileiData.targetMakers.bind2;
+                } else {
+                    markType = data.leileiData.targetMakers.bind1;
+                }
+
+                data.leileiFL.mark(matches.targetId, markType);
+
+                if (data.p5_deltaHWGroup.length < 2) {
+                    return;
+                }
+
+                //处理另外两个无hwbuff的远线
+                const list = data.p5_deltaFarGroup.filter((v) => {
+                    return !data.p5_deltaHWGroup.includes(v);
+                });
+
+                data.leileiFL.mark(list[0], data.leileiData.targetMakers.circle);
+                data.leileiFL.mark(list[1], data.leileiData.targetMakers.cross);
+            }
+        },
+        {
+            id: "leilei TOP p5一运 远近线",
+            //D70 近
+            //DB0 远
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D70", "DB0"] }),
+            condition: (data) => {
+                return data.p5_dynamisPhase == DYNAMIS_PHASE_DELTA;
+            },
+            run: (data, matches) => {
+                if (matches.effectId === "D70") {
+                    data.p5_deltaNearGroup.push(matches.targetId);
+                } else {
+                    data.p5_deltaFarGroup.push(matches.targetId);
+                }
+            }
+        },
+        {
+            id: "leilei TOP p5一运 连线",
+            netRegex: NetRegexes.tether({}),
+            condition: (data) => {
+                return data.p5_dynamisPhase == DYNAMIS_PHASE_DELTA && data.p5_tetherCount < 4;
+            },
+            preRun: (data) => {
+                data.p5_tetherCount++;
+            },
+            run: (data, matches) => {
+                if (!data.p5_markEnable) {
+                    return;
+                }
+
+                if (data.p5_deltaNearGroup.includes(matches.sourceId)) {
+                    //近线组
+                    let markType1;
+                    let markType2;
+                    if (data.p5_deltaNearGroup.length > 2) {
+                        markType1 = data.leileiData.targetMakers.attack3;
+                        markType2 = data.leileiData.targetMakers.attack4;
+                    } else {
+                        markType1 = data.leileiData.targetMakers.attack1;
+                        markType2 = data.leileiData.targetMakers.attack2;
+                    }
+
+                    data.leileiFL.mark(matches.sourceId, markType1);
+                    data.leileiFL.mark(matches.targetId, markType2);
+                }
+            }
+        },
+        {
+            id: "leilei TOP p5二运 hw远近buff",
             netRegex: NetRegexes.gainsEffect({ effectId: ["D72", "D73"] }),
             condition: (data) => {
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA;
@@ -1021,108 +1124,107 @@ Options.Triggers.push({
                 data.p5_sigmaHWGroup.push(matches.targetId);
             }
         },
-        {
-            id: "leilei TOP p5二运 索尼头顶标记",
-            netRegex: NetRegexes.headMarker({}),
-            condition: (data) => {
-                return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA;
-            },
-            preRun: (data, matches) => {
-                const id = getHeadmarkerId(data, matches);
-                const headMarkers = [
-                    headMarker.programPTCircle,
-                    headMarker.programPTTriangle,
-                    headMarker.programPTSquare,
-                    headMarker.programPTX,
-                ]
-                if (!headMarkers.includes(id)) {
-                    return;
-                }
+        // {
+        //     id: "leilei TOP p5二运 索尼头顶标记",
+        //     netRegex: NetRegexes.headMarker({}),
+        //     condition: (data) => {
+        //         return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA;
+        //     },
+        //     preRun: (data, matches) => {
+        //         const id = getHeadmarkerId(data, matches);
+        //         const headMarkers = [
+        //             headMarker.programPTCircle,
+        //             headMarker.programPTTriangle,
+        //             headMarker.programPTSquare,
+        //             headMarker.programPTX,
+        //         ]
+        //         if (!headMarkers.includes(id)) {
+        //             return;
+        //         }
 
-                let psType = "";
-                switch (id) {
-                    case headMarker.programPTCircle:
-                        psType = "circle";
-                        break;
-                    case headMarker.programPTTriangle:
-                        psType = "triangle";
-                        break;
-                    case headMarker.programPTSquare:
-                        psType = "square";
-                        break;
-                    case headMarker.programPTX:
-                        psType = "x";
-                        break;
-                    default:
-                        break;
-                }
-                data.p5_sigmaGroupDic[psType].push(data.leileiFL.getRpByHexId(data, matches.targetId));
-                data.p5_sigmaMarkCount++;
-                if (data.p5_sigmaMarkCount != 8) {
-                    return;
-                }
-            },
-            run: (data, matches, output) => {
-                if (output.是否标记() !== "true") {
-                    return;
-                }
+        //         let psType = "";
+        //         switch (id) {
+        //             case headMarker.programPTCircle:
+        //                 psType = "circle";
+        //                 break;
+        //             case headMarker.programPTTriangle:
+        //                 psType = "triangle";
+        //                 break;
+        //             case headMarker.programPTSquare:
+        //                 psType = "square";
+        //                 break;
+        //             case headMarker.programPTX:
+        //                 psType = "x";
+        //                 break;
+        //             default:
+        //                 break;
+        //         }
+        //         data.p5_sigmaGroupDic[psType].push(data.leileiFL.getRpByHexId(data, matches.targetId));
+        //         data.p5_sigmaMarkCount++;
+        //         if (data.p5_sigmaMarkCount != 8) {
+        //             return;
+        //         }
+        //     },
+        //     run: (data, matches, output) => {
+        //         if (output.是否标记() !== "true") {
+        //             return;
+        //         }
 
-                const id = getHeadmarkerId(data, matches);
-                const headMarkers = [
-                    headMarker.programPTCircle,
-                    headMarker.programPTTriangle,
-                    headMarker.programPTSquare,
-                    headMarker.programPTX,
-                ]
-                if (!headMarkers.includes(id)) {
-                    return;
-                }
+        //         const id = getHeadmarkerId(data, matches);
+        //         const headMarkers = [
+        //             headMarker.programPTCircle,
+        //             headMarker.programPTTriangle,
+        //             headMarker.programPTSquare,
+        //             headMarker.programPTX,
+        //         ]
+        //         if (!headMarkers.includes(id)) {
+        //             return;
+        //         }
 
-                if (data.p5_sigmaMarkCount != 8) {
-                    return;
-                }
+        //         if (data.p5_sigmaMarkCount != 8) {
+        //             return;
+        //         }
 
-                const rpRuleList = output.优先级().split("/");
-                for (const key in data.p5_sigmaGroupDic) {
-                    let list = data.p5_sigmaGroupDic[key];
-                    list.sort((a, b) => {
-                        return rpRuleList.indexOf(a) - rpRuleList.indexOf(b);
-                    });
-                }
+        //         const rpRuleList = output.优先级().split("/");
+        //         for (const key in data.p5_sigmaGroupDic) {
+        //             let list = data.p5_sigmaGroupDic[key];
+        //             list.sort((a, b) => {
+        //                 return rpRuleList.indexOf(a) - rpRuleList.indexOf(b);
+        //             });
+        //         }
 
-                const psRuleList = output.ps顺序().split("/");
-                let highGroup = [
-                    data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[0]][0]),
-                    data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[1]][0]),
-                    data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[2]][0]),
-                    data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[3]][0]),
-                ];
-                let lowGroup = [
-                    data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[0]][1]),
-                    data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[1]][1]),
-                    data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[2]][1]),
-                    data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[3]][1]),
-                ];
+        //         const psRuleList = output.ps顺序().split("/");
+        //         let highGroup = [
+        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[0]][0]),
+        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[1]][0]),
+        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[2]][0]),
+        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[3]][0]),
+        //         ];
+        //         let lowGroup = [
+        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[0]][1]),
+        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[1]][1]),
+        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[2]][1]),
+        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[3]][1]),
+        //         ];
 
-                data.leileiFL.clearMark();
-                setTimeout(() => {
-                    data.leileiFL.mark(highGroup[0], data.leileiData.targetMakers.attack1);
-                    data.leileiFL.mark(highGroup[1], data.leileiData.targetMakers.attack2);
-                    data.leileiFL.mark(highGroup[2], data.leileiData.targetMakers.attack3);
-                    data.leileiFL.mark(highGroup[3], data.leileiData.targetMakers.attack4);
+        //         setTimeout(() => {
+        //             data.leileiFL.mark(highGroup[0], data.leileiData.targetMakers.attack1);
+        //             data.leileiFL.mark(highGroup[1], data.leileiData.targetMakers.attack2);
+        //             data.leileiFL.mark(highGroup[2], data.leileiData.targetMakers.attack3);
+        //             data.leileiFL.mark(highGroup[3], data.leileiData.targetMakers.attack4);
 
-                    data.leileiFL.mark(lowGroup[0], data.leileiData.targetMakers.bind1);
-                    data.leileiFL.mark(lowGroup[1], data.leileiData.targetMakers.bind2);
-                    data.leileiFL.mark(lowGroup[2], data.leileiData.targetMakers.bind3);
-                    data.leileiFL.mark(lowGroup[3], data.leileiData.targetMakers.attack5);
-                }, 100);
-            },
-            outputStrings: {
-                ps顺序: "circle/x/triangle/square",
-                优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
-                是否标记: "false"
-            }
-        },
+        //             data.leileiFL.mark(lowGroup[0], data.leileiData.targetMakers.bind1);
+        //             data.leileiFL.mark(lowGroup[1], data.leileiData.targetMakers.bind2);
+        //             data.leileiFL.mark(lowGroup[2], data.leileiData.targetMakers.bind3);
+        //             data.leileiFL.mark(lowGroup[3], data.leileiData.targetMakers.attack5);
+        //         }, 100);
+        //     },
+        //     outputStrings: {
+        //         ps顺序: "circle/x/triangle/square",
+        //         优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
+        //         是否标记: "false"
+        //     }
+        // },
         // {
         //     id: "leilei TOP p5二运 踩塔时切换为后半标记",
         //     //TODO 等一个日志
