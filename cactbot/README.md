@@ -19,7 +19,7 @@
   * 播报提示出去单吃红点名
   * 播报相同麻将组的玩家职能位置
 
-### P2
+## P2
 
 * 一运（programPT）
   * 索尼头顶标记（触发器id：leilei TOP p2 一运头顶标记）
@@ -40,7 +40,7 @@
   * 默认职能位置优先级：H1/MT/ST/D1/D2/D3/D4/H2，可通过配置**优先级**更改
   * 使用方式：见视频
 
-### P3
+## P3
 
 * hello world
   * 读条的时候，清除头顶标记（触发器id：leilei TOP p3 hello world 清除2.5标记）
@@ -60,7 +60,7 @@
   * 读条20秒后，清除头顶标记（触发器id：leilei TOP p3 清除小电视屏幕头顶标记）
     * 默认关闭，需要配置**取消标记**为true开启
 
-### P5（目前只完成一运）
+## P5（目前只完成一运）
 
 * P5标记完全复刻[本攻略](https://docs.qq.com/sheet/DWXNqQllwZXlsZlFB?tab=4nxvlv)
 
