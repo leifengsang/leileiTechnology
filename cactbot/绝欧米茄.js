@@ -717,8 +717,8 @@ Options.Triggers.push({
                     });
                 } else {
                     target = data.party.partyNames_.find((v) => {
-                        if (v !== data.me) {
-                            return true;
+                        if (v === data.me) {
+                            return false;
                         }
 
                         for (const key in data.p3_helloWorldBuffDic) {
