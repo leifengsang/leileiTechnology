@@ -63,6 +63,6 @@
 ## P5（目前只完成一运）
 
 * P5标记完全复刻[本攻略](https://docs.qq.com/sheet/DWXNqQllwZXlsZlFB?tab=4nxvlv)
-
-* 默认关闭，需要配置**p5标记总开关**为true开启（触发器id：leilei TOP 控制P5阶段）
+* 标记默认关闭，需要配置**p5标记总开关**为true开启（触发器id：leilei TOP 控制P5阶段）
+* tts默认关闭，需要配置**p5tts总开关**为true开启（触发器id：leilei TOP 控制P5阶段）
 

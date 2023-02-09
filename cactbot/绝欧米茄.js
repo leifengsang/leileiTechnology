@@ -71,6 +71,7 @@ Options.Triggers.push({
             p3_helloWorldShareColor: "",
             p3_waveCannonList: [],
             p5_markEnable: false,
+            p5_ttsEnable: false,
             p5_dynamisPhase: 0,
             p5_dynamisCountDic: {},
             p5_deltaHWGroup: [],
@@ -1016,6 +1017,7 @@ Options.Triggers.push({
                 console.log("dynamisPhase", data.p5_dynamisPhase);
 
                 data.p5_markEnable = output.p5标记总开关() === "true";
+                data.p5_ttsEnable = output.p5tts总开关() === "true";
 
                 if (data.p5_markEnable) {
                     data.leileiFL.clearMark();
@@ -1023,7 +1025,8 @@ Options.Triggers.push({
             },
             infoText: "",
             outputStrings: {
-                p5标记总开关: "false"
+                p5标记总开关: "false",
+                p5tts总开关: "false",
             }
         },
         {
@@ -1222,6 +1225,27 @@ Options.Triggers.push({
             },
             outputStrings: {
                 ps顺序: "circle/x/triangle/square",
+            }
+        },
+        {
+            id: "leilei TOP p5二运 踩塔播报",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D80"] }),
+            delaySeconds: 4,
+            condition: (data, matches) => {
+                return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
+            },
+            tts: (data, matches, output) => {
+                return output[`${data.p5_sigmaPSMarkerDic[data.leileiFL.getHexIdByName(data, data.me)]}`];
+            },
+            outputStrings: {
+                attack1: "逆1",
+                attack2: "逆2",
+                attack3: "逆3",
+                attack4: "逆1双人塔",
+                bind1: "顺1",
+                bind2: "顺2",
+                bind3: "顺3",
+                attack5: "顺1双人塔",
             }
         },
         // {
