@@ -39,9 +39,9 @@ Options.Triggers.push({
                         return data.leileiFL.getJobPriority(a.job) - data.leileiFL.getJobPriority(b.job);
                     });
 
-                    data.leileiFL.mark(data.markList[0].id, data.leileiData.targetMakers.attack1);
-                    data.leileiFL.mark(data.markList[1].id, data.leileiData.targetMakers.attack2);
-                    data.leileiFL.mark(data.markList[2].id, data.leileiData.targetMakers.attack3);
+                    data.leileiFL.mark(data.markList[0].id, data.leileiData.targetMarkers.attack1);
+                    data.leileiFL.mark(data.markList[1].id, data.leileiData.targetMarkers.attack2);
+                    data.leileiFL.mark(data.markList[2].id, data.leileiData.targetMarkers.attack3);
                 }
             },
         },

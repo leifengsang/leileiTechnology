@@ -352,7 +352,7 @@ function isRanged(rp) {
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
-    targetMakers: {
+    targetMarkers: {
         attack1: "attack1", // 0
         attack2: "attack2", // 1
         attack3: "attack3", // 2

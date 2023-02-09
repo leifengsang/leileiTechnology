@@ -43,16 +43,16 @@ Options.Triggers.push({
                     data.whiteList.sort(sortFunction);
                     data.nullList.sort(sortFunction);
 
-                    data.leileiFL.mark(data.blackList[0], data.leileiData.targetMakers.attack1);
-                    data.leileiFL.mark(data.blackList[1], data.leileiData.targetMakers.attack2);
-                    data.leileiFL.mark(data.blackList[2], data.leileiData.targetMakers.attack3);
-                    data.leileiFL.mark(data.blackList[3], data.leileiData.targetMakers.attack4);
+                    data.leileiFL.mark(data.blackList[0], data.leileiData.targetMarkers.attack1);
+                    data.leileiFL.mark(data.blackList[1], data.leileiData.targetMarkers.attack2);
+                    data.leileiFL.mark(data.blackList[2], data.leileiData.targetMarkers.attack3);
+                    data.leileiFL.mark(data.blackList[3], data.leileiData.targetMarkers.attack4);
 
-                    data.leileiFL.mark(data.whiteList[0], data.leileiData.targetMakers.bind1);
-                    data.leileiFL.mark(data.whiteList[1], data.leileiData.targetMakers.bind2);
+                    data.leileiFL.mark(data.whiteList[0], data.leileiData.targetMarkers.bind1);
+                    data.leileiFL.mark(data.whiteList[1], data.leileiData.targetMarkers.bind2);
 
-                    data.leileiFL.mark(data.nullList[0], data.leileiData.targetMakers.stop1);
-                    data.leileiFL.mark(data.nullList[1], data.leileiData.targetMakers.stop2);
+                    data.leileiFL.mark(data.nullList[0], data.leileiData.targetMarkers.stop1);
+                    data.leileiFL.mark(data.nullList[1], data.leileiData.targetMarkers.stop2);
                 }
             },
             outputStrings: {
@@ -67,8 +67,8 @@ Options.Triggers.push({
                 if (data.P5ThunderList.length == 2) {
                     data.leileiFL.clearMark();
 
-                    data.leileiFL.mark(data.P5ThunderList[0], data.leileiData.targetMakers.stop1);
-                    data.leileiFL.mark(data.P5ThunderList[1], data.leileiData.targetMakers.stop2);
+                    data.leileiFL.mark(data.P5ThunderList[0], data.leileiData.targetMarkers.stop1);
+                    data.leileiFL.mark(data.P5ThunderList[1], data.leileiData.targetMarkers.stop2);
                 }
             },
             outputStrings: {

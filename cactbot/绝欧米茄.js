@@ -26,10 +26,10 @@ const DYNAMIS_PHASE_SIGMA = 2; //二运
 const DYNAMIS_PHASE_OMEGA = 3; //三运
 
 const headMarker = {
-    programPTCircle: "01A0",
-    programPTTriangle: "01A1",
-    programPTSquare: "01A2",
-    programPTX: "01A3",
+    circle: "01A0",
+    triangle: "01A1",
+    square: "01A2",
+    cross: "01A3",
     programPTStack: "0064",
     programLBFlame: "015A", //P2二运核爆
     dynamisSigmaCannon: "00F4", //P5二运激光炮
@@ -57,7 +57,7 @@ Options.Triggers.push({
             p2_programPT_markReverse: false,
             p2_programPT_markCount: 0,
             p2_programPT_markCleared: false,
-            p2_programPT_groupDic: { "circle": [], "triangle": [], "square": [], "x": [] },
+            p2_programPT_groupDic: { "circle": [], "triangle": [], "square": [], "cross": [] },
             p2_programPT_highGroup: [],
             p2_programPT_lowGroup: [],
             p2_programPT_stackGroup: [],
@@ -78,7 +78,8 @@ Options.Triggers.push({
             p5_deltaFarGroup: [],
             p5_tetherCount: 0,
             p5_sigmaHWGroup: [],
-            p5_sigmaGroupDic: { "circle": [], "triangle": [], "square": [], "x": [] },
+            p5_sigmaGroupDic: { "circle": [], "triangle": [], "square": [], "cross": [] },
+            p5_sigmaPSMarkerDic: {},
             p5_sigmaMarkCount: 0,
         }
     },
@@ -435,10 +436,10 @@ Options.Triggers.push({
             preRun: (data, matches) => {
                 const id = getHeadmarkerId(data, matches);
                 const headMarkers = [
-                    headMarker.programPTCircle,
-                    headMarker.programPTTriangle,
-                    headMarker.programPTSquare,
-                    headMarker.programPTX,
+                    headMarker.circle,
+                    headMarker.triangle,
+                    headMarker.square,
+                    headMarker.cross,
                 ]
                 if (!headMarkers.includes(id)) {
                     return;
@@ -446,17 +447,17 @@ Options.Triggers.push({
 
                 let psType = "";
                 switch (id) {
-                    case headMarker.programPTCircle:
+                    case headMarker.circle:
                         psType = "circle";
                         break;
-                    case headMarker.programPTTriangle:
+                    case headMarker.triangle:
                         psType = "triangle";
                         break;
-                    case headMarker.programPTSquare:
+                    case headMarker.square:
                         psType = "square";
                         break;
-                    case headMarker.programPTX:
-                        psType = "x";
+                    case headMarker.cross:
+                        psType = "cross";
                         break;
                     default:
                         break;
@@ -474,10 +475,10 @@ Options.Triggers.push({
 
                 const id = getHeadmarkerId(data, matches);
                 const headMarkers = [
-                    headMarker.programPTCircle,
-                    headMarker.programPTTriangle,
-                    headMarker.programPTSquare,
-                    headMarker.programPTX,
+                    headMarker.circle,
+                    headMarker.triangle,
+                    headMarker.square,
+                    headMarker.cross,
                 ]
                 if (!headMarkers.includes(id)) {
                     return;
@@ -514,15 +515,15 @@ Options.Triggers.push({
 
                 data.leileiFL.clearMark();
                 setTimeout(() => {
-                    data.leileiFL.mark(data.p2_programPT_highGroup[0], data.leileiData.targetMakers.attack1);
-                    data.leileiFL.mark(data.p2_programPT_highGroup[1], data.leileiData.targetMakers.attack2);
-                    data.leileiFL.mark(data.p2_programPT_highGroup[2], data.leileiData.targetMakers.attack3);
-                    data.leileiFL.mark(data.p2_programPT_highGroup[3], data.leileiData.targetMakers.attack4);
+                    data.leileiFL.mark(data.p2_programPT_highGroup[0], data.leileiData.targetMarkers.attack1);
+                    data.leileiFL.mark(data.p2_programPT_highGroup[1], data.leileiData.targetMarkers.attack2);
+                    data.leileiFL.mark(data.p2_programPT_highGroup[2], data.leileiData.targetMarkers.attack3);
+                    data.leileiFL.mark(data.p2_programPT_highGroup[3], data.leileiData.targetMarkers.attack4);
 
-                    data.leileiFL.mark(data.p2_programPT_lowGroup[0], data.leileiData.targetMakers.bind1);
-                    data.leileiFL.mark(data.p2_programPT_lowGroup[1], data.leileiData.targetMakers.bind2);
-                    data.leileiFL.mark(data.p2_programPT_lowGroup[2], data.leileiData.targetMakers.bind3);
-                    data.leileiFL.mark(data.p2_programPT_lowGroup[3], data.leileiData.targetMakers.attack5);
+                    data.leileiFL.mark(data.p2_programPT_lowGroup[0], data.leileiData.targetMarkers.bind1);
+                    data.leileiFL.mark(data.p2_programPT_lowGroup[1], data.leileiData.targetMarkers.bind2);
+                    data.leileiFL.mark(data.p2_programPT_lowGroup[2], data.leileiData.targetMarkers.bind3);
+                    data.leileiFL.mark(data.p2_programPT_lowGroup[3], data.leileiData.targetMarkers.attack5);
                 }, 100);
             },
             outputStrings: {
@@ -573,25 +574,25 @@ Options.Triggers.push({
                 setTimeout(() => {
                     //分散 攻击1234
                     data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][0]),
-                        data.leileiData.targetMakers.attack1);
+                        data.leileiData.targetMarkers.attack1);
                     data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][1]),
-                        data.leileiData.targetMakers.attack2);
+                        data.leileiData.targetMarkers.attack2);
                     data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][2]),
-                        data.leileiData.targetMakers.attack3);
+                        data.leileiData.targetMarkers.attack3);
                     data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][3]),
-                        data.leileiData.targetMakers.attack4);
+                        data.leileiData.targetMarkers.attack4);
 
                     //分摊 锁链12
                     data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][0]),
-                        data.leileiData.targetMakers.bind1);
+                        data.leileiData.targetMarkers.bind1);
                     data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][1]),
-                        data.leileiData.targetMakers.bind2);
+                        data.leileiData.targetMarkers.bind2);
 
                     //无标记 一起分摊 静止12
                     data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[0]),
-                        data.leileiData.targetMakers.stop1);
+                        data.leileiData.targetMarkers.stop1);
                     data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[1]),
-                        data.leileiData.targetMakers.stop2);
+                        data.leileiData.targetMarkers.stop2);
                 }, 100);
             },
             outputStrings: {
@@ -959,16 +960,16 @@ Options.Triggers.push({
                 data.leileiFL.clearMark();
                 setTimeout(() => {
                     //点小电视 锁链123
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[0]), data.leileiData.targetMakers.bind1);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[1]), data.leileiData.targetMakers.bind2);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[2]), data.leileiData.targetMakers.bind3);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[0]), data.leileiData.targetMarkers.bind1);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[1]), data.leileiData.targetMarkers.bind2);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[2]), data.leileiData.targetMarkers.bind3);
 
                     //其他玩家 攻击12345
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[0]), data.leileiData.targetMakers.attack1);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[1]), data.leileiData.targetMakers.attack2);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[2]), data.leileiData.targetMakers.attack3);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[3]), data.leileiData.targetMakers.attack4);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[4]), data.leileiData.targetMakers.attack5);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[0]), data.leileiData.targetMarkers.attack1);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[1]), data.leileiData.targetMarkers.attack2);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[2]), data.leileiData.targetMarkers.attack3);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[3]), data.leileiData.targetMarkers.attack4);
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[4]), data.leileiData.targetMarkers.attack5);
                 }, 100);
             },
             outputStrings: {
@@ -1052,9 +1053,9 @@ Options.Triggers.push({
 
                 let markType;
                 if (matches.effectId === "D72") {
-                    markType = data.leileiData.targetMakers.bind2;
+                    markType = data.leileiData.targetMarkers.stop2;
                 } else {
-                    markType = data.leileiData.targetMakers.bind1;
+                    markType = data.leileiData.targetMarkers.stop1;
                 }
 
                 data.leileiFL.mark(matches.targetId, markType);
@@ -1068,8 +1069,8 @@ Options.Triggers.push({
                     return !data.p5_deltaHWGroup.includes(v);
                 });
 
-                data.leileiFL.mark(list[0], data.leileiData.targetMakers.circle);
-                data.leileiFL.mark(list[1], data.leileiData.targetMakers.cross);
+                data.leileiFL.mark(list[0], data.leileiData.targetMarkers.circle);
+                data.leileiFL.mark(list[1], data.leileiData.targetMarkers.cross);
             }
         },
         {
@@ -1107,11 +1108,11 @@ Options.Triggers.push({
                     let markType1;
                     let markType2;
                     if (data.p5_deltaNearGroup.length > 2) {
-                        markType1 = data.leileiData.targetMakers.attack3;
-                        markType2 = data.leileiData.targetMakers.attack4;
+                        markType1 = data.leileiData.targetMarkers.attack3;
+                        markType2 = data.leileiData.targetMarkers.attack4;
                     } else {
-                        markType1 = data.leileiData.targetMakers.attack1;
-                        markType2 = data.leileiData.targetMakers.attack2;
+                        markType1 = data.leileiData.targetMarkers.attack1;
+                        markType2 = data.leileiData.targetMarkers.attack2;
                     }
 
                     data.leileiFL.mark(matches.sourceId, markType1);
@@ -1129,107 +1130,100 @@ Options.Triggers.push({
                 data.p5_sigmaHWGroup.push(matches.targetId);
             }
         },
-        // {
-        //     id: "leilei TOP p5二运 索尼头顶标记",
-        //     netRegex: NetRegexes.headMarker({}),
-        //     condition: (data) => {
-        //         return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA;
-        //     },
-        //     preRun: (data, matches) => {
-        //         const id = getHeadmarkerId(data, matches);
-        //         const headMarkers = [
-        //             headMarker.programPTCircle,
-        //             headMarker.programPTTriangle,
-        //             headMarker.programPTSquare,
-        //             headMarker.programPTX,
-        //         ]
-        //         if (!headMarkers.includes(id)) {
-        //             return;
-        //         }
+        {
+            id: "leilei TOP p5二运 索尼头顶标记",
+            netRegex: NetRegexes.headMarker({}),
+            condition: (data) => {
+                return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA;
+            },
+            preRun: (data, matches) => {
+                const id = getHeadmarkerId(data, matches);
+                const headMarkers = [
+                    headMarker.circle,
+                    headMarker.triangle,
+                    headMarker.square,
+                    headMarker.cross,
+                ]
+                if (!headMarkers.includes(id)) {
+                    return;
+                }
 
-        //         let psType = "";
-        //         switch (id) {
-        //             case headMarker.programPTCircle:
-        //                 psType = "circle";
-        //                 break;
-        //             case headMarker.programPTTriangle:
-        //                 psType = "triangle";
-        //                 break;
-        //             case headMarker.programPTSquare:
-        //                 psType = "square";
-        //                 break;
-        //             case headMarker.programPTX:
-        //                 psType = "x";
-        //                 break;
-        //             default:
-        //                 break;
-        //         }
-        //         data.p5_sigmaGroupDic[psType].push(data.leileiFL.getRpByHexId(data, matches.targetId));
-        //         data.p5_sigmaMarkCount++;
-        //         if (data.p5_sigmaMarkCount != 8) {
-        //             return;
-        //         }
-        //     },
-        //     run: (data, matches, output) => {
-        //         if (output.是否标记() !== "true") {
-        //             return;
-        //         }
+                let psType = "";
+                switch (id) {
+                    case headMarker.circle:
+                        psType = "circle";
+                        break;
+                    case headMarker.triangle:
+                        psType = "triangle";
+                        break;
+                    case headMarker.square:
+                        psType = "square";
+                        break;
+                    case headMarker.cross:
+                        psType = "cross";
+                        break;
+                    default:
+                        break;
+                }
+                data.p5_sigmaGroupDic[psType].push(matches.targetId);
+                data.p5_sigmaMarkCount++;
+                if (data.p5_sigmaMarkCount != 8) {
+                    return;
+                }
+            },
+            run: (data, matches, output) => {
+                if (!data.p5_markEnable) {
+                    return;
+                }
 
-        //         const id = getHeadmarkerId(data, matches);
-        //         const headMarkers = [
-        //             headMarker.programPTCircle,
-        //             headMarker.programPTTriangle,
-        //             headMarker.programPTSquare,
-        //             headMarker.programPTX,
-        //         ]
-        //         if (!headMarkers.includes(id)) {
-        //             return;
-        //         }
+                const id = getHeadmarkerId(data, matches);
+                const headMarkers = [
+                    headMarker.circle,
+                    headMarker.triangle,
+                    headMarker.square,
+                    headMarker.cross,
+                ]
+                if (!headMarkers.includes(id)) {
+                    return;
+                }
 
-        //         if (data.p5_sigmaMarkCount != 8) {
-        //             return;
-        //         }
+                if (data.p5_sigmaMarkCount != 8) {
+                    return;
+                }
 
-        //         const rpRuleList = output.优先级().split("/");
-        //         for (const key in data.p5_sigmaGroupDic) {
-        //             let list = data.p5_sigmaGroupDic[key];
-        //             list.sort((a, b) => {
-        //                 return rpRuleList.indexOf(a) - rpRuleList.indexOf(b);
-        //             });
-        //         }
+                /**
+                 * 3215
+                 * 4①②③
+                 */
+                const psRuleList = output.ps顺序().split("/");
+                //左1
+                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[0]][0], data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[0]][1], data.leileiData.targetMarkers.attack4);
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[0]][0]] = data.leileiData.targetMarkers.attack3;
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[0]][1]] = data.leileiData.targetMarkers.attack4;
 
-        //         const psRuleList = output.ps顺序().split("/");
-        //         let highGroup = [
-        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[0]][0]),
-        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[1]][0]),
-        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[2]][0]),
-        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[3]][0]),
-        //         ];
-        //         let lowGroup = [
-        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[0]][1]),
-        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[1]][1]),
-        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[2]][1]),
-        //             data.leileiFL.getHexIdByRp(data, data.p5_sigmaGroupDic[psRuleList[3]][1]),
-        //         ];
+                //左2
+                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[1]][0], data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[1]][1], data.leileiData.targetMarkers.bind1);
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[1]][0]] = data.leileiData.targetMarkers.attack2;
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[1]][1]] = data.leileiData.targetMarkers.bind1;
 
-        //         setTimeout(() => {
-        //             data.leileiFL.mark(highGroup[0], data.leileiData.targetMakers.attack1);
-        //             data.leileiFL.mark(highGroup[1], data.leileiData.targetMakers.attack2);
-        //             data.leileiFL.mark(highGroup[2], data.leileiData.targetMakers.attack3);
-        //             data.leileiFL.mark(highGroup[3], data.leileiData.targetMakers.attack4);
+                //右2
+                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[2]][0], data.leileiData.targetMarkers.attack1);
+                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[2]][1], data.leileiData.targetMarkers.bind2);
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[2]][0]] = data.leileiData.targetMarkers.attack1;
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[2]][1]] = data.leileiData.targetMarkers.bind2;
 
-        //             data.leileiFL.mark(lowGroup[0], data.leileiData.targetMakers.bind1);
-        //             data.leileiFL.mark(lowGroup[1], data.leileiData.targetMakers.bind2);
-        //             data.leileiFL.mark(lowGroup[2], data.leileiData.targetMakers.bind3);
-        //             data.leileiFL.mark(lowGroup[3], data.leileiData.targetMakers.attack5);
-        //         }, 100);
-        //     },
-        //     outputStrings: {
-        //         ps顺序: "circle/x/triangle/square",
-        //         优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
-        //         是否标记: "false"
-        //     }
-        // },
+                //右1
+                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[3]][0], data.leileiData.targetMarkers.attack5);
+                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[3]][1], data.leileiData.targetMarkers.bind3);
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][0]] = data.leileiData.targetMarkers.attack5;
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][1]] = data.leileiData.targetMarkers.bind3;
+            },
+            outputStrings: {
+                ps顺序: "circle/x/triangle/square",
+            }
+        },
         // {
         //     id: "leilei TOP p5二运 踩塔时切换为后半标记",
         //     //TODO 等一个日志
@@ -1253,10 +1247,10 @@ Options.Triggers.push({
 
         //         data.leileiFL.clearMark();
         //         setTimeout(() => {
-        //             data.leileiFL.mark(list[0], data.leileiData.targetMakers.attack1);
-        //             data.leileiFL.mark(list[1], data.leileiData.targetMakers.attack2);
-        //             data.leileiFL.mark(list[2], data.leileiData.targetMakers.attack3);
-        //             data.leileiFL.mark(list[3], data.leileiData.targetMakers.attack4);
+        //             data.leileiFL.mark(list[0], data.leileiData.targetMarkers.attack1);
+        //             data.leileiFL.mark(list[1], data.leileiData.targetMarkers.attack2);
+        //             data.leileiFL.mark(list[2], data.leileiData.targetMarkers.attack3);
+        //             data.leileiFL.mark(list[3], data.leileiData.targetMarkers.attack4);
         //         }, 100);
         //     },
         //     outputStrings: {
