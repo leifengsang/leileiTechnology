@@ -7,6 +7,7 @@
  */
 const MAHJONG_PHASE_P1_1 = 1; //P1 拉线踩塔
 const MAHJONG_PHASE_P1_2 = 2; //P1 全能之主
+const MAHJONG_PHASE_P5_DELTA = 3; //P5 三运
 
 /**
  * 战斗阶段
@@ -78,7 +79,8 @@ Options.Triggers.push({
             p5_deltaNearGroup: [],
             p5_deltaFarGroup: [],
             p5_tetherCount: 0,
-            p5_sigmaHWGroup: [],
+            p5_sigmaHWNear: "",
+            p5_sigmaHWFar: "",
             p5_sigmaGroupDic: { "circle": [], "triangle": [], "square": [], "cross": [] },
             p5_sigmaPSMarkerDic: {},
             p5_sigmaMarkCount: 0,
@@ -115,7 +117,7 @@ Options.Triggers.push({
             id: "leilei TOP p1 循环编译",
             netRegex: NetRegexes.startsUsing({ id: "7B03" }),
             run: (data) => {
-                data.mahjongPhase++;
+                data.mahjongPhase = MAHJONG_PHASE_P1_1;
             }
         },
         {
@@ -245,7 +247,7 @@ Options.Triggers.push({
             id: "leilei TOP p1 全能之主",
             netRegex: NetRegexes.startsUsing({ id: "7B0B" }),
             run: (data) => {
-                data.mahjongPhase++;
+                data.mahjongPhase = MAHJONG_PHASE_P1_2;
             }
         },
         {
@@ -1010,6 +1012,7 @@ Options.Triggers.push({
                         break;
                     case "8015":
                         data.p5_dynamisPhase = DYNAMIS_PHASE_OMEGA;
+                        data.mahjongPhase = MAHJONG_PHASE_P5_DELTA;
                         break;
                     default:
                         break;
@@ -1130,7 +1133,11 @@ Options.Triggers.push({
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA;
             },
             run: (data, matches) => {
-                data.p5_sigmaHWGroup.push(matches.targetId);
+                if (matches.effectId === "D72") {
+                    data.p5_sigmaHWNear = matches.targetId;
+                } else {
+                    data.p5_sigmaHWFar = matches.targetId;
+                }
             }
         },
         {
@@ -1235,6 +1242,9 @@ Options.Triggers.push({
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
             },
             tts: (data, matches, output) => {
+                if (!data.p5_ttsEnable) {
+                    return;
+                }
                 return output[`${data.p5_sigmaPSMarkerDic[data.leileiFL.getHexIdByName(data, data.me)]}`];
             },
             outputStrings: {
@@ -1248,39 +1258,65 @@ Options.Triggers.push({
                 attack5: "顺1双人塔",
             }
         },
-        // {
-        //     id: "leilei TOP p5二运 踩塔时切换为后半标记",
-        //     //TODO 等一个日志
-        //     // netRegex: NetRegexes.headMarker({}),
-        //     run: (data, matches, output) => {
-        //         if (output.是否标记() !== "true") {
-        //             return;
-        //         }
+        {
+            id: "leilei TOP p5二运 踩塔前取消头顶标记",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D80"] }),
+            delaySeconds: 14,
+            condition: (data, matches) => {
+                return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
+            },
+            run: (data, matches, output) => {
+                if (!data.p5_markEnable) {
+                    return;
+                }
 
-        //         //持有一层潜能量且没有远近buff
-        //         let list = data.party.partyIds_.filter((v) => {
-        //             return data.p5_dynamisCountDic[v] == 1;
-        //         }).filter((v) => {
-        //             return !data.p5_sigmaHWGroup.includes(v);
-        //         });
+                data.leileiFL.clearMark();
+            },
+        },
+        {
+            id: "leilei TOP p5二运 踩塔时切换为后半标记",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D80"] }),
+            delaySeconds: 16,
+            condition: (data, matches) => {
+                return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
+            },
+            run: (data, matches, output) => {
+                if (!data.p5_markEnable) {
+                    return;
+                }
 
-        //         const rpRuleList = output.优先级().split("/");
-        //         list.sort((a, b) => {
-        //             return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
-        //         });
+                let markedList = [data.p5_sigmaHWNear, data.p5_sigmaHWFar];
+                //远近buff
+                data.leileiFL.mark(data.p5_sigmaHWFar, data.leileiData.targetMarkers.stop1);
+                data.leileiFL.mark(data.p5_sigmaHWNear, data.leileiData.targetMarkers.stop2);
 
-        //         data.leileiFL.clearMark();
-        //         setTimeout(() => {
-        //             data.leileiFL.mark(list[0], data.leileiData.targetMarkers.attack1);
-        //             data.leileiFL.mark(list[1], data.leileiData.targetMarkers.attack2);
-        //             data.leileiFL.mark(list[2], data.leileiData.targetMarkers.attack3);
-        //             data.leileiFL.mark(list[3], data.leileiData.targetMarkers.attack4);
-        //         }, 100);
-        //     },
-        //     outputStrings: {
-        //         优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
-        //         是否标记: "false"
-        //     }
-        // },
+                //持有一层潜能量且没有远近buff
+                let list = data.party.partyIds_.filter((v) => {
+                    return data.p5_dynamisCountDic[v] == 1;
+                }).filter((v) => {
+                    return v != data.p5_sigmaHWNear && v != data.p5_sigmaHWFar;
+                });
+
+                const rpRuleList = output.优先级().split("/");
+                list.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+
+                data.leileiFL.mark(list[0], data.leileiData.targetMarkers.circle);
+                data.leileiFL.mark(list[1], data.leileiData.targetMarkers.cross);
+
+                markedList.push(list[0], list[1]);
+                let otherList = data.party.partyIds_.filter((v) => {
+                    return !markedList.includes(v);
+                });
+                data.leileiFL.mark(otherList[0], data.leileiData.targetMarkers.attack1);
+                data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(otherList[2], data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(otherList[3], data.leileiData.targetMarkers.attack4);
+            },
+            outputStrings: {
+                优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
+            }
+        },
     ]
 })
