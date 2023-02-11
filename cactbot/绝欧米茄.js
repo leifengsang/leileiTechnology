@@ -530,7 +530,7 @@ Options.Triggers.push({
                 }, 100);
             },
             outputStrings: {
-                ps顺序: "circle/x/triangle/square",
+                ps顺序: "circle/cross/triangle/square",
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
                 是否标记: "false"
             }
@@ -1231,7 +1231,7 @@ Options.Triggers.push({
                 data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][1]] = data.leileiData.targetMarkers.bind3;
             },
             outputStrings: {
-                ps顺序: "circle/x/triangle/square",
+                ps顺序: "circle/cross/triangle/square",
             }
         },
         {
