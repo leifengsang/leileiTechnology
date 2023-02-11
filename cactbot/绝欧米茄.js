@@ -706,25 +706,20 @@ Options.Triggers.push({
             },
             delaySeconds: 1,
             tts: (data, matches, output) => {
-                console.log(data.p3_helloWorldBuffDic);
                 let target;
                 if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
-                    console.log("share");
                     target = data.p3_helloWorldBuffDic["share"].find((v) => {
                         return v !== data.me;
                     });
                 } else if (data.p3_helloWorldBuffDic["circle"].includes(data.me)) {
-                    console.log("circle");
                     target = data.p3_helloWorldBuffDic["circle"].find((v) => {
                         return v !== data.me;
                     });
                 } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
-                    console.log("dna");
                     target = data.p3_helloWorldBuffDic["dna"].find((v) => {
                         return v !== data.me;
                     });
                 } else {
-                    console.log("other");
                     target = data.party.partyNames_.find((v) => {
                         if (v === data.me) {
                             return false;
