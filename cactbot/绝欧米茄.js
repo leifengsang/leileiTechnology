@@ -7,7 +7,7 @@
  */
 const MAHJONG_PHASE_P1_1 = 1; //P1 拉线踩塔
 const MAHJONG_PHASE_P1_2 = 2; //P1 全能之主
-const MAHJONG_PHASE_P5_DELTA = 3; //P5 三运
+const MAHJONG_PHASE_P5_OMEGA = 3; //P5 三运
 
 /**
  * 战斗阶段
@@ -1012,7 +1012,7 @@ Options.Triggers.push({
                         break;
                     case "8015":
                         data.p5_dynamisPhase = DYNAMIS_PHASE_OMEGA;
-                        data.mahjongPhase = MAHJONG_PHASE_P5_DELTA;
+                        data.mahjongPhase = MAHJONG_PHASE_P5_OMEGA;
                         break;
                     default:
                         break;
