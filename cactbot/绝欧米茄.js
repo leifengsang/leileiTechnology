@@ -84,6 +84,8 @@ Options.Triggers.push({
             p5_sigmaGroupDic: { "circle": [], "triangle": [], "square": [], "cross": [] },
             p5_sigmaPSMarkerDic: {},
             p5_sigmaMarkCount: 0,
+            p5_omegaMahjongDic: { 1: [], 2: [] },
+            p5_omegaHWDic: { "far": [], "near": [] },
         }
     },
     triggers: [
@@ -1308,6 +1310,94 @@ Options.Triggers.push({
                 data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.attack2);
                 data.leileiFL.mark(otherList[2], data.leileiData.targetMarkers.attack3);
                 data.leileiFL.mark(otherList[3], data.leileiData.targetMarkers.attack4);
+            },
+            outputStrings: {
+                优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
+            }
+        },
+        {
+            id: "leilei TOP p5三运 麻将",
+            //BBC 1号
+            //BBD 2号
+            netRegex: NetRegexes.gainsEffect({ effectId: ["BBC", "BBD"] }),
+            condition: (data, matches) => {
+                return data.mahjongPhase === MAHJONG_PHASE_P5_OMEGA;
+            },
+            run: (data, matches) => {
+                let number;
+                if (matches.effectId === "BBC") {
+                    number = 1;
+                } else {
+                    number = 2;
+                }
+                data.p5_omegaMahjongDic[number].push(matches.targetId);
+            },
+        },
+        {
+            id: "leilei TOP p5三运 hw远近buff",
+            //D72 近
+            //D73 远
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D72", "D73"] }),
+            condition: (data) => {
+                return data.p5_dynamisPhase == DYNAMIS_PHASE_OMEGA;
+            },
+            run: (data, matches) => {
+                let key;
+                if (matches.effectId == "D72") {
+                    key = "near";
+                } else {
+                    key = "far";
+                }
+                data.p5_omegaHWDic[key].push(matches.targetId);
+            }
+        },
+        {
+            id: "leilei TOP P5三运 前半头顶标记",
+            netRegex: NetRegexes.startsUsing({ id: "8015" }),
+            delaySeconds: 28,
+            run: (data, matches, output) => {
+                if (!data.p5_markEnable) {
+                    return;
+                }
+
+                let far = data.p5_omegaHWDic["far"].find((v) => {
+                    return data.p5_omegaMahjongDic[1].includes(v);
+                });
+                let near = data.p5_omegaHWDic["near"].find((v) => {
+                    return data.p5_omegaMahjongDic[1].includes(v);
+                });
+                //远近buff
+                data.leileiFL.mark(far, data.leileiData.targetMarkers.stop1);
+                data.leileiFL.mark(near, data.leileiData.targetMarkers.stop2);
+
+
+                const rpRuleList = output.优先级().split("/");
+                //没有第一轮远近buff
+                let list = data.party.partyIds_.filter((v) => {
+                    return v != near && v != far;
+                }).sort((a, b) => {
+                    //2层buff优先
+                    if (data.p5_dynamisCountDic[a] != data.p5_dynamisCountDic[b]) {
+                        return data.p5_dynamisCountDic[a] == 2 ? -1 : 1;
+                    }
+
+                    //有2号麻将的优先
+                    if (data.p5_omegaMahjongDic[2].includes(a) != data.p5_omegaMahjongDic[2].includes(b)) {
+                        return data.p5_omegaMahjongDic[2].includes(a) ? -1 : 1;
+                    }
+
+                    //按照优先级排序
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+
+                //小电视圆圈十字
+                data.leileiFL.mark(list[0], data.leileiData.targetMarkers.circle);
+                data.leileiFL.mark(list[1], data.leileiData.targetMarkers.cross);
+                //剩下1234
+                data.leileiFL.mark(list[2], data.leileiData.targetMarkers.attack1);
+                data.leileiFL.mark(list[3], data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(list[4], data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(list[5], data.leileiData.targetMarkers.attack4);
             },
             outputStrings: {
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
