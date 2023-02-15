@@ -1034,7 +1034,7 @@ Options.Triggers.push({
             netRegex: NetRegexes.gainsEffect({ effectId: ["D74"] }),
             run: (data, matches) => {
                 //更新潜能量层数
-                let count = data.p5_dynamisCountDic[matches.targetId] ?? 0 + 1;
+                let count = (data.p5_dynamisCountDic[matches.targetId] ?? 0) + 1;
                 data.p5_dynamisCountDic[matches.targetId] = count;
             }
         },
@@ -1143,7 +1143,7 @@ Options.Triggers.push({
             condition: (data) => {
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA;
             },
-            preRun: (data, matches) => {
+            preRun: (data, matches, output) => {
                 const id = getHeadmarkerId(data, matches);
                 const headMarkers = [
                     headMarker.circle,
@@ -1177,6 +1177,27 @@ Options.Triggers.push({
                 if (data.p5_sigmaMarkCount != 8) {
                     return;
                 }
+
+                /**
+                 * 3215
+                 * 4①②③
+                 */
+                const psRuleList = output.ps顺序().split("/");
+                //左1
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[0]][0]] = data.leileiData.targetMarkers.attack3;
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[0]][1]] = data.leileiData.targetMarkers.attack4;
+
+                //左2
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[1]][0]] = data.leileiData.targetMarkers.attack2;
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[1]][1]] = data.leileiData.targetMarkers.bind1;
+
+                //右2
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[2]][0]] = data.leileiData.targetMarkers.attack1;
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[2]][1]] = data.leileiData.targetMarkers.bind2;
+
+                //右1
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][0]] = data.leileiData.targetMarkers.attack5;
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][1]] = data.leileiData.targetMarkers.bind3;
             },
             run: (data, matches, output) => {
                 if (!data.p5_markEnable) {
@@ -1198,34 +1219,9 @@ Options.Triggers.push({
                     return;
                 }
 
-                /**
-                 * 3215
-                 * 4①②③
-                 */
-                const psRuleList = output.ps顺序().split("/");
-                //左1
-                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[0]][0], data.leileiData.targetMarkers.attack3);
-                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[0]][1], data.leileiData.targetMarkers.attack4);
-                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[0]][0]] = data.leileiData.targetMarkers.attack3;
-                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[0]][1]] = data.leileiData.targetMarkers.attack4;
-
-                //左2
-                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[1]][0], data.leileiData.targetMarkers.attack2);
-                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[1]][1], data.leileiData.targetMarkers.bind1);
-                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[1]][0]] = data.leileiData.targetMarkers.attack2;
-                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[1]][1]] = data.leileiData.targetMarkers.bind1;
-
-                //右2
-                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[2]][0], data.leileiData.targetMarkers.attack1);
-                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[2]][1], data.leileiData.targetMarkers.bind2);
-                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[2]][0]] = data.leileiData.targetMarkers.attack1;
-                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[2]][1]] = data.leileiData.targetMarkers.bind2;
-
-                //右1
-                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[3]][0], data.leileiData.targetMarkers.attack5);
-                data.leileiFL.mark(data.p5_sigmaGroupDic[psRuleList[3]][1], data.leileiData.targetMarkers.bind3);
-                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][0]] = data.leileiData.targetMarkers.attack5;
-                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][1]] = data.leileiData.targetMarkers.bind3;
+                data.party.partyIds_.forEach(e => {
+                    data.leileiFL.mark(e, data.p5_sigmaPSMarkerDic[e]);
+                });
             },
             outputStrings: {
                 ps顺序: "circle/cross/triangle/square",
@@ -1242,7 +1238,7 @@ Options.Triggers.push({
                 if (!data.p5_ttsEnable) {
                     return;
                 }
-                return output[`${data.p5_sigmaPSMarkerDic[data.leileiFL.getHexIdByName(data, data.me)]}`];
+                return output[`${data.p5_sigmaPSMarkerDic[data.leileiFL.getHexIdByName(data, data.me)]}`]();
             },
             outputStrings: {
                 attack1: "逆1",
@@ -1370,7 +1366,6 @@ Options.Triggers.push({
                 data.leileiFL.mark(far, data.leileiData.targetMarkers.stop1);
                 data.leileiFL.mark(near, data.leileiData.targetMarkers.stop2);
 
-
                 const rpRuleList = output.优先级().split("/");
                 //没有第一轮远近buff
                 let list = data.party.partyIds_.filter((v) => {
@@ -1401,6 +1396,61 @@ Options.Triggers.push({
             },
             outputStrings: {
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
+            }
+        },
+        {
+            id: "leilei TOP P5三运 清除前半头顶标记",
+            netRegex: NetRegexes.startsUsing({ id: "8015" }),
+            delaySeconds: 40,
+            run: (data, matches, output) => {
+                if (!data.p5_markEnable) {
+                    return;
+                }
+
+                data.leileiFL.clearMark();
+            },
+        },
+        {
+            id: "leilei TOP P5三运 后半头顶标记",
+            netRegex: NetRegexes.startsUsing({ id: "8015" }),
+            delaySeconds: 45,
+            run: (data, matches, output) => {
+                if (!data.p5_markEnable) {
+                    return;
+                }
+
+                let fullList = data.party.partyIds_.filter((v) => {
+                    return data.p5_dynamisCountDic[v] == 3;
+                });
+                //3层潜能量接线 圆圈十字
+                data.leileiFL.mark(fullList[0], data.leileiData.targetMarkers.circle);
+                data.leileiFL.mark(fullList[1], data.leileiData.targetMarkers.cross);
+
+                let far = data.p5_omegaHWDic["far"].find((v) => {
+                    return data.p5_omegaMahjongDic[2].includes(v);
+                });
+                let near = data.p5_omegaHWDic["near"].find((v) => {
+                    return data.p5_omegaMahjongDic[2].includes(v);
+                });
+                //远近buff 禁止12
+                data.leileiFL.mark(far, data.leileiData.targetMarkers.stop1);
+                data.leileiFL.mark(near, data.leileiData.targetMarkers.stop2);
+
+                //其他四个闲人
+                const rpRuleList = output.优先级().split("/");
+                let otherList = data.party.partyIds_.filter((v) => {
+                    return !fullList.includes(v) && v != far && v != near;
+                }).sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+                data.leileiFL.mark(otherList[0], data.leileiData.targetMarkers.attack1);
+                data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(otherList[2], data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(otherList[3], data.leileiData.targetMarkers.attack4);
+            },
+            outputStrings: {
+                优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
+                注: "优先级高=>低=攻击1324 务必保证双T优先级最高，避免带易伤吃后续平A"
             }
         },
     ]

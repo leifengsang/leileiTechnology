@@ -24,7 +24,7 @@
 * 一运（programPT）
   * 索尼头顶标记（触发器id：leilei TOP p2 一运头顶标记）
     * 默认关闭，需要配置**是否标记**为true
-    * 默认索尼顺序：circle/cross/square/triangle，可通过配置**ps顺序**更改
+    * 默认索尼顺序：circle/cross/triangle/square，可通过配置**ps顺序**更改
     * 默认职能位置优先级：H1/MT/ST/D1/D2/D3/D4/H2，可通过配置**优先级**更改
     * 使用方式：以眼睛为12点，攻击1234去左边从上往下依次排队，锁链123、攻击5去右边从上往下依次排队
   * 击退分摊前，提醒远近线
@@ -60,9 +60,21 @@
   * 读条20秒后，清除头顶标记（触发器id：leilei TOP p3 清除小电视屏幕头顶标记）
     * 默认关闭，需要配置**取消标记**为true开启
 
-## P5（目前只完成一运）
+## P5
 
 * P5标记完全复刻[本攻略](https://docs.qq.com/sheet/DWXNqQllwZXlsZlFB?tab=4nxvlv)
 * 标记默认关闭，需要配置**p5标记总开关**为true开启（触发器id：leilei TOP 控制P5阶段）
 * tts默认关闭，需要配置**p5tts总开关**为true开启（触发器id：leilei TOP 控制P5阶段）
+* 二运
+  * 默认索尼顺序：circle/cross/triangle/square，可通过配置**ps顺序**更改（触发器id：leilei TOP p5二运 索尼头顶标记）
+  * 默认职能位置优先级：H1/MT/ST/D1/D2/D3/D4/H2，可通过配置**优先级**更改（触发器id：leilei TOP p5二运 踩塔时切换为后半标记）
+  * 踩塔击退前，播报要去的塔
+
+* 三运
+  * 第一轮传递
+    * 默认职能位置优先级：H1/MT/ST/D1/D2/D3/D4/H2，可通过配置**优先级**更改（触发器id：leilei TOP P5三运 前半头顶标记）
+
+  * 第二轮传递
+    * 默认职能位置优先级：MT/ST/H1/H2/D1/D2/D3/D4，可通过配置**优先级**更改（触发器id：leilei TOP P5三运 后半头顶标记）
+    * 优先级高=>低=攻击1324 务必保证双T优先级最高，避免带易伤吃后续平A
 
