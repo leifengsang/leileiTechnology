@@ -71,8 +71,10 @@ Options.Triggers.push({
             p3_helloWorldCircleColor: "",
             p3_helloWorldShareColor: "",
             p3_waveCannonList: [],
-            p5_markEnable: false,
-            p5_ttsEnable: false,
+            p5_deltaMarkEnable: false,
+            p5_sigmaMarkEnable: false,
+            p5_omegaMarkEnable: false,
+            p5_sigma_TTS_enable: false,
             p5_dynamisPhase: 0,
             p5_dynamisCountDic: {},
             p5_deltaHWGroup: [],
@@ -1000,33 +1002,42 @@ Options.Triggers.push({
             id: "leilei TOP 控制P5阶段",
             netRegex: NetRegexes.startsUsing({ id: ["7B88", "8014", "8015"] }),
             run: (data, matches, output) => {
+                data.p5_deltaMarkEnable = output.p5一运是否标记() === "true";
+                data.p5_sigmaMarkEnable = output.p5二运是否标记() === "true";
+                data.p5_omegaMarkEnable = output.p5三运是否标记() === "true";
+                data.p5_sigma_TTS_enable = output.p5二运tts() === "true";
+
                 switch (matches.id) {
                     case "7B88":
                         data.p5_dynamisPhase = DYNAMIS_PHASE_DELTA;
+                        if (data.p5_deltaMarkEnable) {
+                            data.leileiFL.clearMark();
+                        }
                         break;
                     case "8014":
                         data.p5_dynamisPhase = DYNAMIS_PHASE_SIGMA;
+                        if (data.p5_sigmaMarkEnable) {
+                            data.leileiFL.clearMark();
+                        }
                         break;
                     case "8015":
                         data.p5_dynamisPhase = DYNAMIS_PHASE_OMEGA;
                         data.mahjongPhase = MAHJONG_PHASE_P5_OMEGA;
+                        if (data.p5_omegaMarkEnable) {
+                            data.leileiFL.clearMark();
+                        }
                         break;
                     default:
                         break;
                 }
                 console.log("dynamisPhase", data.p5_dynamisPhase);
-
-                data.p5_markEnable = output.p5标记总开关() === "true";
-                data.p5_ttsEnable = output.p5tts总开关() === "true";
-
-                if (data.p5_markEnable) {
-                    data.leileiFL.clearMark();
-                }
             },
             infoText: "",
             outputStrings: {
-                p5标记总开关: "false",
-                p5tts总开关: "false",
+                p5一运是否标记: "false",
+                p5二运是否标记: "false",
+                p5二运tts: "false",
+                p5三运是否标记: "false",
             }
         },
         {
@@ -1050,7 +1061,7 @@ Options.Triggers.push({
                 data.p5_deltaHWGroup.push(matches.targetId);
             },
             run: (data, matches) => {
-                if (!data.p5_markEnable) {
+                if (!data.p5_deltaMarkEnable) {
                     return;
                 }
 
@@ -1102,7 +1113,7 @@ Options.Triggers.push({
                 data.p5_tetherCount++;
             },
             run: (data, matches) => {
-                if (!data.p5_markEnable) {
+                if (!data.p5_deltaMarkEnable) {
                     return;
                 }
 
@@ -1200,7 +1211,7 @@ Options.Triggers.push({
                 data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][1]] = data.leileiData.targetMarkers.bind3;
             },
             run: (data, matches, output) => {
-                if (!data.p5_markEnable) {
+                if (!data.p5_sigmaMarkEnable) {
                     return;
                 }
 
@@ -1235,7 +1246,7 @@ Options.Triggers.push({
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
             },
             tts: (data, matches, output) => {
-                if (!data.p5_ttsEnable) {
+                if (!data.p5_sigma_TTS_enable) {
                     return;
                 }
                 return output[`${data.p5_sigmaPSMarkerDic[data.leileiFL.getHexIdByName(data, data.me)]}`]();
@@ -1259,7 +1270,7 @@ Options.Triggers.push({
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
             },
             run: (data, matches, output) => {
-                if (!data.p5_markEnable) {
+                if (!data.p5_sigmaMarkEnable) {
                     return;
                 }
 
@@ -1274,7 +1285,7 @@ Options.Triggers.push({
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
             },
             run: (data, matches, output) => {
-                if (!data.p5_markEnable) {
+                if (!data.p5_sigmaMarkEnable) {
                     return;
                 }
 
@@ -1352,7 +1363,7 @@ Options.Triggers.push({
             netRegex: NetRegexes.startsUsing({ id: "8015" }),
             delaySeconds: 28,
             run: (data, matches, output) => {
-                if (!data.p5_markEnable) {
+                if (!data.p5_omegaMarkEnable) {
                     return;
                 }
 
@@ -1403,7 +1414,7 @@ Options.Triggers.push({
             netRegex: NetRegexes.startsUsing({ id: "8015" }),
             delaySeconds: 40,
             run: (data, matches, output) => {
-                if (!data.p5_markEnable) {
+                if (!data.p5_omegaMarkEnable) {
                     return;
                 }
 
@@ -1415,7 +1426,7 @@ Options.Triggers.push({
             netRegex: NetRegexes.startsUsing({ id: "8015" }),
             delaySeconds: 45,
             run: (data, matches, output) => {
-                if (!data.p5_markEnable) {
+                if (!data.p5_omegaMarkEnable) {
                     return;
                 }
 
