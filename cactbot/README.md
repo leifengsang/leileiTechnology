@@ -63,8 +63,8 @@
 ## P5
 
 * P5标记完全复刻[本攻略](https://docs.qq.com/sheet/DWXNqQllwZXlsZlFB?tab=4nxvlv)
-* 标记默认关闭，需要配置**p5标记总开关**为true开启（触发器id：leilei TOP 控制P5阶段）
-* tts默认关闭，需要配置**p5tts总开关**为true开启（触发器id：leilei TOP 控制P5阶段）
+* 标记默认关闭，需要配置**p5一/二/三运是否标记**为true开启（触发器id：leilei TOP 控制P5阶段）
+* tts默认关闭，需要配置**p5二运tts**为true开启（触发器id：leilei TOP 控制P5阶段）
 * 二运
   * 默认索尼顺序：circle/cross/triangle/square，可通过配置**ps顺序**更改（触发器id：leilei TOP p5二运 索尼头顶标记）
   * 默认职能位置优先级：H1/MT/ST/D1/D2/D3/D4/H2，可通过配置**优先级**更改（触发器id：leilei TOP p5二运 踩塔时切换为后半标记）
