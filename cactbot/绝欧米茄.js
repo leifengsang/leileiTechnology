@@ -1232,6 +1232,7 @@ Options.Triggers.push({
 
                 data.party.partyIds_.forEach(e => {
                     data.leileiFL.mark(e, data.p5_sigmaPSMarkerDic[e]);
+                    console.log(e, data.leileiFL.getNameByHexId(data, e), data.p5_sigmaPSMarkerDic[e]);
                 });
             },
             outputStrings: {
@@ -1290,6 +1291,8 @@ Options.Triggers.push({
                 }
 
                 let markedList = [data.p5_sigmaHWNear, data.p5_sigmaHWFar];
+                console.log(data.p5_sigmaHWFar, data.leileiFL.getNameByHexId(data, data.p5_sigmaHWFar), data.leileiData.targetMarkers.stop1);
+                console.log(data.p5_sigmaHWNear, data.leileiFL.getNameByHexId(data, data.p5_sigmaHWNear), data.leileiData.targetMarkers.stop2);
                 //远近buff
                 data.leileiFL.mark(data.p5_sigmaHWFar, data.leileiData.targetMarkers.stop1);
                 data.leileiFL.mark(data.p5_sigmaHWNear, data.leileiData.targetMarkers.stop2);
@@ -1306,6 +1309,8 @@ Options.Triggers.push({
                     return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
                 });
 
+                console.log(list[0], data.leileiFL.getNameByHexId(data, list[0]), data.leileiData.targetMarkers.circle);
+                console.log(list[1], data.leileiFL.getNameByHexId(data, list[1]), data.leileiData.targetMarkers.cross);
                 data.leileiFL.mark(list[0], data.leileiData.targetMarkers.circle);
                 data.leileiFL.mark(list[1], data.leileiData.targetMarkers.cross);
 
@@ -1313,13 +1318,17 @@ Options.Triggers.push({
                 let otherList = data.party.partyIds_.filter((v) => {
                     return !markedList.includes(v);
                 });
+                console.log(otherList[0], data.leileiFL.getNameByHexId(data, otherList[0]), data.leileiData.targetMarkers.attack1);
+                console.log(otherList[1], data.leileiFL.getNameByHexId(data, otherList[1]), data.leileiData.targetMarkers.attack2);
+                console.log(otherList[2], data.leileiFL.getNameByHexId(data, otherList[2]), data.leileiData.targetMarkers.attack3);
+                console.log(otherList[3], data.leileiFL.getNameByHexId(data, otherList[3]), data.leileiData.targetMarkers.attack4);
                 data.leileiFL.mark(otherList[0], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.attack2);
                 data.leileiFL.mark(otherList[2], data.leileiData.targetMarkers.attack3);
                 data.leileiFL.mark(otherList[3], data.leileiData.targetMarkers.attack4);
             },
             outputStrings: {
-                优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
+                优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
             }
         },
         {
@@ -1374,6 +1383,8 @@ Options.Triggers.push({
                     return data.p5_omegaMahjongDic[1].includes(v);
                 });
                 //远近buff
+                console.log(far, data.leileiFL.getNameByHexId(data, far), data.leileiData.targetMarkers.stop1);
+                console.log(near, data.leileiFL.getNameByHexId(data, near), data.leileiData.targetMarkers.stop2);
                 data.leileiFL.mark(far, data.leileiData.targetMarkers.stop1);
                 data.leileiFL.mark(near, data.leileiData.targetMarkers.stop2);
 
@@ -1397,9 +1408,15 @@ Options.Triggers.push({
                 });
 
                 //小电视圆圈十字
+                console.log(list[0], data.leileiFL.getNameByHexId(data, list[0]), data.leileiData.targetMarkers.circle);
+                console.log(list[1], data.leileiFL.getNameByHexId(data, list[1]), data.leileiData.targetMarkers.cross);
                 data.leileiFL.mark(list[0], data.leileiData.targetMarkers.circle);
                 data.leileiFL.mark(list[1], data.leileiData.targetMarkers.cross);
                 //剩下1234
+                console.log(list[2], data.leileiFL.getNameByHexId(data, list[2]), data.leileiData.targetMarkers.attack1);
+                console.log(list[3], data.leileiFL.getNameByHexId(data, list[3]), data.leileiData.targetMarkers.attack2);
+                console.log(list[4], data.leileiFL.getNameByHexId(data, list[4]), data.leileiData.targetMarkers.attack3);
+                console.log(list[5], data.leileiFL.getNameByHexId(data, list[5]), data.leileiData.targetMarkers.attack4);
                 data.leileiFL.mark(list[2], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(list[3], data.leileiData.targetMarkers.attack2);
                 data.leileiFL.mark(list[4], data.leileiData.targetMarkers.attack3);
@@ -1434,6 +1451,8 @@ Options.Triggers.push({
                     return data.p5_dynamisCountDic[v] == 3;
                 });
                 //3层潜能量接线 圆圈十字
+                console.log(fullList[0], data.leileiFL.getNameByHexId(data, fullList[0]), data.leileiData.targetMarkers.circle);
+                console.log(fullList[1], data.leileiFL.getNameByHexId(data, fullList[1]), data.leileiData.targetMarkers.cross);
                 data.leileiFL.mark(fullList[0], data.leileiData.targetMarkers.circle);
                 data.leileiFL.mark(fullList[1], data.leileiData.targetMarkers.cross);
 
@@ -1444,6 +1463,8 @@ Options.Triggers.push({
                     return data.p5_omegaMahjongDic[2].includes(v);
                 });
                 //远近buff 禁止12
+                console.log(far, data.leileiFL.getNameByHexId(data, far), data.leileiData.targetMarkers.stop1);
+                console.log(near, data.leileiFL.getNameByHexId(data, near), data.leileiData.targetMarkers.stop2);
                 data.leileiFL.mark(far, data.leileiData.targetMarkers.stop1);
                 data.leileiFL.mark(near, data.leileiData.targetMarkers.stop2);
 
@@ -1454,6 +1475,10 @@ Options.Triggers.push({
                 }).sort((a, b) => {
                     return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
                 });
+                console.log(otherList[0], data.leileiFL.getNameByHexId(data, otherList[0]), data.leileiData.targetMarkers.attack1);
+                console.log(otherList[1], data.leileiFL.getNameByHexId(data, otherList[1]), data.leileiData.targetMarkers.attack2);
+                console.log(otherList[2], data.leileiFL.getNameByHexId(data, otherList[2]), data.leileiData.targetMarkers.attack3);
+                console.log(otherList[3], data.leileiFL.getNameByHexId(data, otherList[3]), data.leileiData.targetMarkers.attack4);
                 data.leileiFL.mark(otherList[0], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.attack3);
                 data.leileiFL.mark(otherList[2], data.leileiData.targetMarkers.attack2);
