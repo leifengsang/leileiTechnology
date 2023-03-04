@@ -276,20 +276,20 @@ let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
     targetMarkers: {
-        attack1: "attack1", // 0
-        attack2: "attack2", // 1
-        attack3: "attack3", // 2
-        attack4: "attack4", // 3
-        attack5: "attack5", // 4
-        bind1: "bind1", // 5
-        bind2: "bind2", // 6
-        bind3: "bind3", // 7
-        stop1: "stop1", // 8
-        stop2: "stop2", // 9
-        square: "square", // 10
-        circle: "circle", // 11
-        cross: "cross", // 12
-        triangle: "triangle", // 13
+        attack1: "attack1", // 1
+        attack2: "attack2", // 2
+        attack3: "attack3", // 3
+        attack4: "attack4", // 4
+        attack5: "attack5", // 5
+        bind1: "bind1", // 6
+        bind2: "bind2", // 7
+        bind3: "bind3", // 8
+        stop1: "stop1", // 9
+        stop2: "stop2", // 10
+        square: "square", // 11
+        circle: "circle", // 12
+        cross: "cross", // 13
+        triangle: "triangle", // 14
     },
 };
 let partyUpdateTimer;
