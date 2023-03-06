@@ -320,7 +320,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p2 一运男人读条",
+            id: "leilei TOP p2一运男人读条",
             //7B25 月环
             //7B26 钢铁
             netRegex: NetRegexes.startsUsing({ id: ["7B25", "7B26"] }),
@@ -357,7 +357,7 @@ Options.Triggers.push({
             }
         },
         // {
-        //     id: "leilei TOP p2 一运女人读条",
+        //     id: "leilei TOP p2一运女人读条",
         //     //7B2A 辣翅
         //     //7B2D 辣尾
         //     netRegex: NetRegexes.startsUsing({ id: ["7B2A", "7B2D"] }),
@@ -401,7 +401,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p2 一运大眼前远近线提醒",
+            id: "leilei TOP P2一运大眼前远近线提醒",
             //D63 靠近
             //D64 远离
             netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
@@ -418,7 +418,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p2 一运击退分摊前远近线提醒",
+            id: "leilei TOP P2一运击退分摊前远近线提醒",
             //D63 靠近
             //D64 远离
             netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
@@ -435,7 +435,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p2 一运头顶标记",
+            id: "leilei TOP P2一运头顶标记",
             netRegex: NetRegexes.headMarker({}),
             condition: (data) => {
                 return data.omegaPhase == PHASE_OMEGA_MF;
@@ -520,22 +520,21 @@ Options.Triggers.push({
                     data.p2_programPT_lowGroup.reverse();
                 }
 
-                data.leileiFL.clearMark();
-                setTimeout(() => {
-                    data.leileiFL.mark(data.p2_programPT_highGroup[0], data.leileiData.targetMarkers.attack1);
-                    data.leileiFL.mark(data.p2_programPT_highGroup[1], data.leileiData.targetMarkers.attack2);
-                    data.leileiFL.mark(data.p2_programPT_highGroup[2], data.leileiData.targetMarkers.attack3);
-                    data.leileiFL.mark(data.p2_programPT_highGroup[3], data.leileiData.targetMarkers.attack4);
+                data.leileiFL.mark(data.p2_programPT_highGroup[0], data.leileiData.targetMarkers.attack1);
+                data.leileiFL.mark(data.p2_programPT_highGroup[1], data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(data.p2_programPT_highGroup[2], data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(data.p2_programPT_highGroup[3], data.leileiData.targetMarkers.attack4);
 
-                    data.leileiFL.mark(data.p2_programPT_lowGroup[0], data.leileiData.targetMarkers.bind1);
-                    data.leileiFL.mark(data.p2_programPT_lowGroup[1], data.leileiData.targetMarkers.bind2);
-                    data.leileiFL.mark(data.p2_programPT_lowGroup[2], data.leileiData.targetMarkers.bind3);
-                    data.leileiFL.mark(data.p2_programPT_lowGroup[3], data.leileiData.targetMarkers.attack5);
-                }, 100);
+                data.leileiFL.mark(data.p2_programPT_lowGroup[0], data.leileiData.targetMarkers.bind1);
+                data.leileiFL.mark(data.p2_programPT_lowGroup[1], data.leileiData.targetMarkers.bind2);
+                data.leileiFL.mark(data.p2_programPT_lowGroup[2], data.leileiData.targetMarkers.bind3);
+                let rightBottomMarker = output.是否用十字代替攻击5() === "true" ? data.leileiData.targetMarkers.cross : data.leileiData.targetMarkers.attack5;
+                data.leileiFL.mark(data.p2_programPT_lowGroup[3], rightBottomMarker);
             },
             outputStrings: {
                 ps顺序: "circle/cross/triangle/square",
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
+                是否用十字代替攻击5: "false",
                 是否标记: "false"
             }
         },
@@ -578,29 +577,27 @@ Options.Triggers.push({
                     }
                 }
 
-                setTimeout(() => {
-                    //分散 攻击1234
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][0]),
-                        data.leileiData.targetMarkers.attack1);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][1]),
-                        data.leileiData.targetMarkers.attack2);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][2]),
-                        data.leileiData.targetMarkers.attack3);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][3]),
-                        data.leileiData.targetMarkers.attack4);
+                //分散 攻击1234
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][0]),
+                    data.leileiData.targetMarkers.attack1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][1]),
+                    data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][2]),
+                    data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["spread"][3]),
+                    data.leileiData.targetMarkers.attack4);
 
-                    //分摊 锁链12
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][0]),
-                        data.leileiData.targetMarkers.bind1);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][1]),
-                        data.leileiData.targetMarkers.bind2);
+                //分摊 锁链12
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][0]),
+                    data.leileiData.targetMarkers.bind1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p2_finalAnalysisGroupDic["stack"][1]),
+                    data.leileiData.targetMarkers.bind2);
 
-                    //无标记 一起分摊 静止12
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[0]),
-                        data.leileiData.targetMarkers.stop1);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[1]),
-                        data.leileiData.targetMarkers.stop2);
-                }, 100);
+                //无标记 一起分摊 静止12
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[0]),
+                    data.leileiData.targetMarkers.stop1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, nothingGroup[1]),
+                    data.leileiData.targetMarkers.stop2);
             },
             outputStrings: {
                 打法视频: "BV1jT411y7Xi",
@@ -959,20 +956,17 @@ Options.Triggers.push({
                 });
                 finalList = otherList.concat(finalList);
 
-                data.leileiFL.clearMark();
-                setTimeout(() => {
-                    //点小电视 锁链123
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[0]), data.leileiData.targetMarkers.bind1);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[1]), data.leileiData.targetMarkers.bind2);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[2]), data.leileiData.targetMarkers.bind3);
+                //点小电视 锁链123
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[0]), data.leileiData.targetMarkers.bind1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[1]), data.leileiData.targetMarkers.bind2);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[2]), data.leileiData.targetMarkers.bind3);
 
-                    //其他玩家 攻击12345
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[0]), data.leileiData.targetMarkers.attack1);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[1]), data.leileiData.targetMarkers.attack2);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[2]), data.leileiData.targetMarkers.attack3);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[3]), data.leileiData.targetMarkers.attack4);
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[4]), data.leileiData.targetMarkers.attack5);
-                }, 100);
+                //其他玩家 攻击12345
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[0]), data.leileiData.targetMarkers.attack1);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[1]), data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[2]), data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[3]), data.leileiData.targetMarkers.attack4);
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, finalList[4]), data.leileiData.targetMarkers.attack5);
             },
             outputStrings: {
                 优先级: "H2/H1/D4/D3/D2/D1/ST/MT",
@@ -1045,8 +1039,7 @@ Options.Triggers.push({
             netRegex: NetRegexes.gainsEffect({ effectId: ["D74"] }),
             run: (data, matches) => {
                 //更新潜能量层数
-                let count = (data.p5_dynamisCountDic[matches.targetId] ?? 0) + 1;
-                data.p5_dynamisCountDic[matches.targetId] = count;
+                data.p5_dynamisCountDic[matches.targetId] = parseInt(matches.count);
             }
         },
         {
@@ -1135,6 +1128,23 @@ Options.Triggers.push({
             }
         },
         {
+            id: "leilei TOP p5二运远近线提醒",
+            //D63 靠近
+            //D64 远离
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
+            condition: (data, matches) => {
+                return data.omegaPhase == PHASE_DYNAMIS && matches.target === data.me;
+            },
+            delaySeconds: 10,
+            tts: (data, matches, output) => {
+                return matches.effectId === "D64" ? output.远线() : output.近线();
+            },
+            outputStrings: {
+                远线: "远离远离",
+                近线: "靠近靠近"
+            }
+        },
+        {
             id: "leilei TOP p5二运 hw远近buff",
             netRegex: NetRegexes.gainsEffect({ effectId: ["D72", "D73"] }),
             condition: (data) => {
@@ -1207,7 +1217,8 @@ Options.Triggers.push({
                 data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[2]][1]] = data.leileiData.targetMarkers.bind2;
 
                 //右1
-                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][0]] = data.leileiData.targetMarkers.attack5;
+                let rightTopMarker = output.是否用十字代替攻击5() === "true" ? data.leileiData.targetMarkers.cross : data.leileiData.targetMarkers.attack5;
+                data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][0]] = rightTopMarker;
                 data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][1]] = data.leileiData.targetMarkers.bind3;
             },
             run: (data, matches, output) => {
@@ -1232,17 +1243,17 @@ Options.Triggers.push({
 
                 data.party.partyIds_.forEach(e => {
                     data.leileiFL.mark(e, data.p5_sigmaPSMarkerDic[e]);
-                    console.log(e, data.leileiFL.getNameByHexId(data, e), data.p5_sigmaPSMarkerDic[e]);
                 });
             },
             outputStrings: {
                 ps顺序: "circle/cross/triangle/square",
+                是否用十字代替攻击5: "false"
             }
         },
         {
             id: "leilei TOP p5二运 踩塔播报",
             netRegex: NetRegexes.gainsEffect({ effectId: ["D80"] }),
-            delaySeconds: 4,
+            delaySeconds: 5,
             condition: (data, matches) => {
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
             },
@@ -1261,12 +1272,13 @@ Options.Triggers.push({
                 bind2: "顺2",
                 bind3: "顺3",
                 attack5: "顺1双人塔",
+                cross: "顺1双人塔",
             }
         },
         {
             id: "leilei TOP p5二运 踩塔前取消头顶标记",
             netRegex: NetRegexes.gainsEffect({ effectId: ["D80"] }),
-            delaySeconds: 14,
+            delaySeconds: 13,
             condition: (data, matches) => {
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
             },
@@ -1291,8 +1303,6 @@ Options.Triggers.push({
                 }
 
                 let markedList = [data.p5_sigmaHWNear, data.p5_sigmaHWFar];
-                console.log(data.p5_sigmaHWFar, data.leileiFL.getNameByHexId(data, data.p5_sigmaHWFar), data.leileiData.targetMarkers.stop1);
-                console.log(data.p5_sigmaHWNear, data.leileiFL.getNameByHexId(data, data.p5_sigmaHWNear), data.leileiData.targetMarkers.stop2);
                 //远近buff
                 data.leileiFL.mark(data.p5_sigmaHWFar, data.leileiData.targetMarkers.stop1);
                 data.leileiFL.mark(data.p5_sigmaHWNear, data.leileiData.targetMarkers.stop2);
@@ -1309,8 +1319,6 @@ Options.Triggers.push({
                     return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
                 });
 
-                console.log(list[0], data.leileiFL.getNameByHexId(data, list[0]), data.leileiData.targetMarkers.circle);
-                console.log(list[1], data.leileiFL.getNameByHexId(data, list[1]), data.leileiData.targetMarkers.cross);
                 data.leileiFL.mark(list[0], data.leileiData.targetMarkers.circle);
                 data.leileiFL.mark(list[1], data.leileiData.targetMarkers.cross);
 
@@ -1318,10 +1326,6 @@ Options.Triggers.push({
                 let otherList = data.party.partyIds_.filter((v) => {
                     return !markedList.includes(v);
                 });
-                console.log(otherList[0], data.leileiFL.getNameByHexId(data, otherList[0]), data.leileiData.targetMarkers.attack1);
-                console.log(otherList[1], data.leileiFL.getNameByHexId(data, otherList[1]), data.leileiData.targetMarkers.attack2);
-                console.log(otherList[2], data.leileiFL.getNameByHexId(data, otherList[2]), data.leileiData.targetMarkers.attack3);
-                console.log(otherList[3], data.leileiFL.getNameByHexId(data, otherList[3]), data.leileiData.targetMarkers.attack4);
                 data.leileiFL.mark(otherList[0], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.attack2);
                 data.leileiFL.mark(otherList[2], data.leileiData.targetMarkers.attack3);
@@ -1383,8 +1387,6 @@ Options.Triggers.push({
                     return data.p5_omegaMahjongDic[1].includes(v);
                 });
                 //远近buff
-                console.log(far, data.leileiFL.getNameByHexId(data, far), data.leileiData.targetMarkers.stop1);
-                console.log(near, data.leileiFL.getNameByHexId(data, near), data.leileiData.targetMarkers.stop2);
                 data.leileiFL.mark(far, data.leileiData.targetMarkers.stop1);
                 data.leileiFL.mark(near, data.leileiData.targetMarkers.stop2);
 
@@ -1408,15 +1410,9 @@ Options.Triggers.push({
                 });
 
                 //小电视圆圈十字
-                console.log(list[0], data.leileiFL.getNameByHexId(data, list[0]), data.leileiData.targetMarkers.circle);
-                console.log(list[1], data.leileiFL.getNameByHexId(data, list[1]), data.leileiData.targetMarkers.cross);
                 data.leileiFL.mark(list[0], data.leileiData.targetMarkers.circle);
                 data.leileiFL.mark(list[1], data.leileiData.targetMarkers.cross);
                 //剩下1234
-                console.log(list[2], data.leileiFL.getNameByHexId(data, list[2]), data.leileiData.targetMarkers.attack1);
-                console.log(list[3], data.leileiFL.getNameByHexId(data, list[3]), data.leileiData.targetMarkers.attack2);
-                console.log(list[4], data.leileiFL.getNameByHexId(data, list[4]), data.leileiData.targetMarkers.attack3);
-                console.log(list[5], data.leileiFL.getNameByHexId(data, list[5]), data.leileiData.targetMarkers.attack4);
                 data.leileiFL.mark(list[2], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(list[3], data.leileiData.targetMarkers.attack2);
                 data.leileiFL.mark(list[4], data.leileiData.targetMarkers.attack3);
@@ -1451,8 +1447,6 @@ Options.Triggers.push({
                     return data.p5_dynamisCountDic[v] == 3;
                 });
                 //3层潜能量接线 圆圈十字
-                console.log(fullList[0], data.leileiFL.getNameByHexId(data, fullList[0]), data.leileiData.targetMarkers.circle);
-                console.log(fullList[1], data.leileiFL.getNameByHexId(data, fullList[1]), data.leileiData.targetMarkers.cross);
                 data.leileiFL.mark(fullList[0], data.leileiData.targetMarkers.circle);
                 data.leileiFL.mark(fullList[1], data.leileiData.targetMarkers.cross);
 
@@ -1463,8 +1457,6 @@ Options.Triggers.push({
                     return data.p5_omegaMahjongDic[2].includes(v);
                 });
                 //远近buff 禁止12
-                console.log(far, data.leileiFL.getNameByHexId(data, far), data.leileiData.targetMarkers.stop1);
-                console.log(near, data.leileiFL.getNameByHexId(data, near), data.leileiData.targetMarkers.stop2);
                 data.leileiFL.mark(far, data.leileiData.targetMarkers.stop1);
                 data.leileiFL.mark(near, data.leileiData.targetMarkers.stop2);
 
@@ -1475,10 +1467,6 @@ Options.Triggers.push({
                 }).sort((a, b) => {
                     return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
                 });
-                console.log(otherList[0], data.leileiFL.getNameByHexId(data, otherList[0]), data.leileiData.targetMarkers.attack1);
-                console.log(otherList[1], data.leileiFL.getNameByHexId(data, otherList[1]), data.leileiData.targetMarkers.attack2);
-                console.log(otherList[2], data.leileiFL.getNameByHexId(data, otherList[2]), data.leileiData.targetMarkers.attack3);
-                console.log(otherList[3], data.leileiFL.getNameByHexId(data, otherList[3]), data.leileiData.targetMarkers.attack4);
                 data.leileiFL.mark(otherList[0], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.attack3);
                 data.leileiFL.mark(otherList[2], data.leileiData.targetMarkers.attack2);
