@@ -1387,19 +1387,6 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP P5三运 清除带饼标记",
-            netRegex: NetRegexes.startsUsing({ id: "8015" }),
-            delaySeconds: 25,
-            run: (data, matches, output) => {
-                if (output.取消标记() === "true") {
-                    data.leileiFL.clearMark();
-                }
-            },
-            outputStrings: {
-                取消标记: "false"
-            }
-        },
-        {
             id: "leilei TOP P5三运 前半头顶标记",
             netRegex: NetRegexes.startsUsing({ id: "8015" }),
             delaySeconds: 28,
