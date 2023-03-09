@@ -1271,8 +1271,8 @@ Options.Triggers.push({
                 bind1: "顺1",
                 bind2: "顺2",
                 bind3: "顺3",
-                attack5: "顺1双人塔",
-                cross: "顺1双人塔",
+                attack5: "顺伊双人塔",
+                cross: "顺伊双人塔",
             }
         },
         {
