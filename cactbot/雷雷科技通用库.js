@@ -272,6 +272,15 @@ function isRanged(rp) {
     return ["H1", "H2", "D3", "D4"].includes(rp);
 }
 
+function isRPExists(data, rp) {
+    data.partyIds_.forEach((v) => {
+        if (rp === getRpByHexId(v)) {
+            return true;
+        }
+    });
+    return false;
+}
+
 let sort = JSON.parse(localStorage.getItem("leileiCustomData"))?.sort;
 const leileiData = {
     myParty: [],
@@ -369,6 +378,7 @@ Options.Triggers.push({
                 getNameByRp,
                 getHexIdByRp,
                 isRanged,
+                isRPExists,
             },
             leileiData,
         };
