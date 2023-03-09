@@ -1372,6 +1372,34 @@ Options.Triggers.push({
             }
         },
         {
+            id: "leilei TOP P5三运 上饼",
+            netRegex: NetRegexes.startsUsing({ id: "8015" }),
+            delaySeconds: 3,
+            run: (data, matches, output) => {
+                let rp = output.带饼职能();
+                if (data.leileiFL.isRPExists(data, rp)) {
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, rp), data.leileiData.targetMarkers.triangle);
+                }
+            },
+            outputStrings: {
+                带饼职能: "",
+                注: "不填就不上三角"
+            }
+        },
+        {
+            id: "leilei TOP P5三运 清除带饼标记",
+            netRegex: NetRegexes.startsUsing({ id: "8015" }),
+            delaySeconds: 25,
+            run: (data, matches, output) => {
+                if (output.取消标记() === "true") {
+                    data.leileiFL.clearMark();
+                }
+            },
+            outputStrings: {
+                取消标记: "false"
+            }
+        },
+        {
             id: "leilei TOP P5三运 前半头顶标记",
             netRegex: NetRegexes.startsUsing({ id: "8015" }),
             delaySeconds: 28,
