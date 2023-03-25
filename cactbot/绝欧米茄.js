@@ -1492,5 +1492,19 @@ Options.Triggers.push({
                 注: "优先级高=>低=攻击1324 务必保证双T优先级最高，避免带易伤吃后续平A"
             }
         },
+        {
+            id: "leilei TOP P5狂暴读条 取消标记",
+            netRegex: NetRegexes.startsUsing({ id: "7B34" }),
+            run: (data, matches, output) => {
+                if (output.取消标记() !== "true") {
+                    return;
+                }
+
+                data.leileiFL.clearMark();
+            },
+            outputStrings: {
+                取消标记: "false"
+            }
+        },
     ]
 })
