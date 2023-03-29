@@ -1494,7 +1494,7 @@ Options.Triggers.push({
         },
         {
             id: "leilei TOP P5狂暴读条 取消标记",
-            netRegex: NetRegexes.startsUsing({ id: "7B34" }),
+            netRegex: NetRegexes.startsUsing({ id: "7B87" }),
             run: (data, matches, output) => {
                 if (output.取消标记() !== "true") {
                     return;
