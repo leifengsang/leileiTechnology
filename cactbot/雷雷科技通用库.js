@@ -274,7 +274,7 @@ function isRanged(rp) {
 
 function isRPExists(data, rp) {
     data.party.partyIds_.forEach((v) => {
-        if (rp === getRpByHexId(v)) {
+        if (rp === getRpByHexId(data, v)) {
             return true;
         }
     });
