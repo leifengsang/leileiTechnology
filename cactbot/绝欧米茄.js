@@ -58,6 +58,7 @@ Options.Triggers.push({
             p2_programPT_markReverse: false,
             p2_programPT_markCount: 0,
             p2_programPT_markCleared: false,
+            p2_programPT_marked: false,
             p2_programPT_groupDic: { "circle": [], "triangle": [], "square": [], "cross": [] },
             p2_programPT_highGroup: [],
             p2_programPT_lowGroup: [],
@@ -320,126 +321,12 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p2一运男人读条",
-            //7B25 月环
-            //7B26 钢铁
-            netRegex: NetRegexes.startsUsing({ id: ["7B25", "7B26"] }),
-            tts: (data, matches, output) => {
-                //一运后半有5个男人钢铁，不要干扰
-                if (data.p2_programPT_TTS_Dic["M"] !== "") {
-                    //干掉之前的标记
-                    if (output.取消标记() === "true") {
-                        if (!data.p2_programPT_markCleared) {
-                            data.p2_programPT_markCleared = true;
-                            data.leileiFL.clearMark();
-                        }
-                    }
-                    return;
-                }
-
-                let content = "";
-                if (matches.id === "7B25") {
-                    content = output.月环();
-                } else {
-                    content = output.钢铁();
-                }
-                data.p2_programPT_TTS_Dic["M"] = content;
-
-                if (data.p2_programPT_TTS_Dic["M"] === "" || data.p2_programPT_TTS_Dic["F"] === "") {
-                    return;
-                }
-                return data.p2_programPT_TTS_Dic["M"] + data.p2_programPT_TTS_Dic["F"];
-            },
-            outputStrings: {
-                钢铁: "远离",
-                月环: "靠近",
-                取消标记: "false"
-            }
-        },
-        // {
-        //     id: "leilei TOP p2一运女人读条",
-        //     //7B2A 辣翅
-        //     //7B2D 辣尾
-        //     netRegex: NetRegexes.startsUsing({ id: ["7B2A", "7B2D"] }),
-        //     tts: (data, matches, output) => {
-        //         let content = "";
-        //         if (matches.id === "7B2A") {
-        //             content = output.辣翅();
-        //         } else {
-        //             content = output.辣尾();
-        //         }
-        //         data.p2_programPT_TTS_Dic["F"] = content;
-
-        //         if (data.p2_programPT_TTS_Dic["M"] === "" || data.p2_programPT_TTS_Dic["F"] === "") {
-        //             return;
-        //         }
-        //         return data.p2_programPT_TTS_Dic["M"] + data.p2_programPT_TTS_Dic["F"];
-        //     },
-        //     outputStrings: {
-        //         辣翅: "去中间",
-        //         辣尾: "去两边"
-        //     }
-        // },
-        {
-            id: "leilei TOP Headmarker Tracker",
-            netRegex: NetRegexes.headMarker({}),
-            condition: (data) => undefined === data.leileiDecOffset,
-            run: (data, matches) => {
-                getHeadmarkerId(data, matches);
-            },
-        },
-        {
-            id: "leilei TOP p2 靠近远离",
-            //D63 靠近
-            //D64 远离
-            netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
-            condition: (data, matches) => {
-                return matches.target === data.me;
-            },
-            run: (data, matches) => {
-                data.p2_programPT_markReverse = matches.effectId === "D64";
-            }
-        },
-        {
-            id: "leilei TOP P2一运大眼前远近线提醒",
-            //D63 靠近
-            //D64 远离
-            netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
-            condition: (data, matches) => {
-                return data.omegaPhase == PHASE_OMEGA_MF && matches.target === data.me;
-            },
-            delaySeconds: 8,
-            tts: (data, matches, output) => {
-                return matches.effectId === "D64" ? output.远线() : output.近线();
-            },
-            outputStrings: {
-                远线: "远离远离",
-                近线: "靠近靠近"
-            }
-        },
-        {
-            id: "leilei TOP P2一运击退分摊前远近线提醒",
-            //D63 靠近
-            //D64 远离
-            netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
-            condition: (data, matches) => {
-                return data.omegaPhase == PHASE_OMEGA_MF && matches.target === data.me;
-            },
-            delaySeconds: 15,
-            tts: (data, matches, output) => {
-                return matches.effectId === "D64" ? output.远线() : output.近线();
-            },
-            outputStrings: {
-                远线: "远离远离",
-                近线: "靠近靠近"
-            }
-        },
-        {
             id: "leilei TOP P2一运头顶标记",
             netRegex: NetRegexes.headMarker({}),
             condition: (data) => {
                 return data.omegaPhase == PHASE_OMEGA_MF;
             },
+            infoText: "",
             preRun: (data, matches) => {
                 const id = getHeadmarkerId(data, matches);
                 const headMarkers = [
@@ -520,6 +407,8 @@ Options.Triggers.push({
                     data.p2_programPT_lowGroup.reverse();
                 }
 
+                data.leileiFL.clearMark();
+
                 data.leileiFL.mark(data.p2_programPT_highGroup[0], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(data.p2_programPT_highGroup[1], data.leileiData.targetMarkers.attack2);
                 data.leileiFL.mark(data.p2_programPT_highGroup[2], data.leileiData.targetMarkers.attack3);
@@ -530,6 +419,8 @@ Options.Triggers.push({
                 data.leileiFL.mark(data.p2_programPT_lowGroup[2], data.leileiData.targetMarkers.bind3);
                 let rightBottomMarker = output.是否用十字代替攻击5() === "true" ? data.leileiData.targetMarkers.cross : data.leileiData.targetMarkers.attack5;
                 data.leileiFL.mark(data.p2_programPT_lowGroup[3], rightBottomMarker);
+
+                data.p2_programPT_marked = true;
             },
             outputStrings: {
                 ps顺序: "circle/cross/triangle/square",
@@ -539,10 +430,135 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p2 final analysis 头顶标记",
+            id: "leilei TOP p2一运 取消标记",
+            //7B26 钢铁
+            netRegex: NetRegexes.startsUsing({ id: "7B26" }),
+            infoText: "",
+            run: (data, matches, output) => {
+                //前半不处理
+                if (!data.p2_programPT_marked) {
+                    return;
+                }
+
+                //干掉之前的标记
+                if (output.取消标记() === "true") {
+                    if (!data.p2_programPT_markCleared) {
+                        data.p2_programPT_markCleared = true;
+                        data.leileiFL.clearMark();
+                    }
+                }
+                return;
+            },
+            outputStrings: {
+                取消标记: "false"
+            }
+        },
+        {
+            id: "leilei TOP Headmarker Tracker",
+            netRegex: NetRegexes.headMarker({}),
+            condition: (data) => undefined === data.leileiDecOffset,
+            run: (data, matches) => {
+                getHeadmarkerId(data, matches);
+            },
+        },
+        {
+            id: "leilei TOP p2 靠近远离",
+            //D63 靠近
+            //D64 远离
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            run: (data, matches) => {
+                data.p2_programPT_markReverse = matches.effectId === "D64";
+            }
+        },
+        {
+            id: "leilei TOP P2一运大眼前远近线提醒",
+            //D63 靠近
+            //D64 远离
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
+            condition: (data, matches) => {
+                return data.omegaPhase == PHASE_OMEGA_MF && matches.target === data.me;
+            },
+            delaySeconds: 8,
+            tts: (data, matches, output) => {
+                return matches.effectId === "D64" ? output.远线() : output.近线();
+            },
+            outputStrings: {
+                远线: "远离远离",
+                近线: "靠近靠近"
+            }
+        },
+        {
+            id: "leilei TOP P2一运击退分摊前远近线提醒",
+            //D63 靠近
+            //D64 远离
+            netRegex: NetRegexes.gainsEffect({ effectId: ["D63", "D64"] }),
+            condition: (data, matches) => {
+                return data.omegaPhase == PHASE_OMEGA_MF && matches.target === data.me;
+            },
+            delaySeconds: 15,
+            tts: (data, matches, output) => {
+                return matches.effectId === "D64" ? output.远线() : output.近线();
+            },
+            outputStrings: {
+                远线: "远离远离",
+                近线: "靠近靠近"
+            }
+        },
+        {
+            id: "leilei TOP p2 二运分摊提醒",
+            netRegex: NetRegexes.ability({ id: "7B28" }),
+            condition: (data) => {
+                return data.omegaPhase == PHASE_OMEGA_MF;
+            },
+            suppressSeconds: 1,
+            tts: (data, matches, output) => {
+                //小队频道提示音
+                if (output.小队频道提示音() === "true") {
+                    data.leileiFL.doTextCommand("/p 分攤<se.4>");
+                }
+
+                //被投盾的人不分摊
+                if (matches.target === data.me && !data.p2_programLB_ignoreStackList.includes(data.me)) {
+                    //如果不是核爆的人被投盾了，提醒一下快跑
+                    return output.被投盾();
+                }
+
+                //核爆的三个人不分摊
+                if (output.核爆逃课() !== "true" && data.p2_programLB_ignoreStackList.includes(data.me)) {
+                    return;
+                }
+
+                return output.分摊();
+            },
+            outputStrings: {
+                分摊: "去分摊",
+                被投盾: "远离M",
+                小队频道提示音: "false",
+                核爆逃课: "false"
+            }
+        },
+        {
+            id: "leilei TOP p2 二运核爆",
+            netRegex: NetRegexes.headMarker({}),
+            run: (data, matches) => {
+                const id = getHeadmarkerId(data, matches);
+                if (id !== headMarker.programLBFlame) {
+                    return;
+                }
+
+                //点核爆的三个人不分摊
+                data.p2_programLB_ignoreStackList.push(matches.target);
+            },
+        },
+        {
+            id: "leilei TOP p2.5 头顶标记",
             //D61 分散
             //D62 分摊
             netRegex: NetRegexes.gainsEffect({ effectId: ["D61", "D62"] }),
+            infoText: "",
             run: (data, matches, output) => {
                 if (output.是否标记() !== "true") {
                     return;
@@ -606,50 +622,17 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p2 二运分摊提醒",
-            netRegex: NetRegexes.ability({ id: "7B28" }),
-            condition: (data) => {
-                return data.omegaPhase == PHASE_OMEGA_MF;
-            },
-            suppressSeconds: 1,
-            tts: (data, matches, output) => {
-                //小队频道提示音
-                if (output.小队频道提示音() === "true") {
-                    data.leileiFL.doTextCommand("/p 分攤<se.4>");
+            id: "leilei TOP p3 hello world 清除2.5标记",
+            netRegex: NetRegexes.startsUsing({ id: "7B55" }),
+            infoText: "",
+            run: (data, matches, output) => {
+                if (output.取消标记() === "true") {
+                    data.leileiFL.clearMark();
                 }
-
-                //被投盾的人不分摊
-                if (matches.target === data.me && !data.p2_programLB_ignoreStackList.includes(data.me)) {
-                    //如果不是核爆的人被投盾了，提醒一下快跑
-                    return output.被投盾();
-                }
-
-                //核爆的三个人不分摊
-                if (output.核爆逃课() !== "true" && data.p2_programLB_ignoreStackList.includes(data.me)) {
-                    return;
-                }
-
-                return output.分摊();
             },
             outputStrings: {
-                分摊: "去分摊",
-                被投盾: "远离M",
-                小队频道提示音: "true",
-                核爆逃课: "false"
+                取消标记: "false"
             }
-        },
-        {
-            id: "leilei TOP p2 二运核爆",
-            netRegex: NetRegexes.headMarker({}),
-            run: (data, matches) => {
-                const id = getHeadmarkerId(data, matches);
-                if (id !== headMarker.programLBFlame) {
-                    return;
-                }
-
-                //点核爆的三个人不分摊
-                data.p2_programLB_ignoreStackList.push(matches.target);
-            },
         },
         {
             id: "leilei TOP p3 hello world buff处理",
@@ -881,18 +864,6 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei TOP p3 hello world 清除2.5标记",
-            netRegex: NetRegexes.startsUsing({ id: "7B55" }),
-            run: (data, matches, output) => {
-                if (output.取消标记() === "true") {
-                    data.leileiFL.clearMark();
-                }
-            },
-            outputStrings: {
-                取消标记: "false"
-            }
-        },
-        {
             id: "leilei TOP p3 小电视屏幕 屏幕点名",
             netRegex: NetRegexes.gainsEffect({ effectId: ["D7C", "D7D"] }),
             condition: (data) => {
@@ -907,6 +878,7 @@ Options.Triggers.push({
             //7B6B 右屏幕
             //7B6C 左屏幕
             netRegex: NetRegexes.startsUsing({ id: ["7B6B", "7B6C"] }),
+            infoText: "",
             run: (data, matches, output) => {
                 if (output.是否标记() !== "true") {
                     return;
@@ -956,6 +928,8 @@ Options.Triggers.push({
                 });
                 finalList = otherList.concat(finalList);
 
+                data.leileiFL.clearMark();
+
                 //点小电视 锁链123
                 data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[0]), data.leileiData.targetMarkers.bind1);
                 data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, data.p3_waveCannonList[1]), data.leileiData.targetMarkers.bind2);
@@ -982,6 +956,7 @@ Options.Triggers.push({
             //7B6C 左屏幕
             netRegex: NetRegexes.startsUsing({ id: ["7B6B", "7B6C"] }),
             delaySeconds: 20,
+            infoText: "",
             run: (data, matches, output) => {
                 if (output.取消标记() !== "true") {
                     return;
