@@ -1326,6 +1326,10 @@ Options.Triggers.push({
                 let otherList = data.party.partyIds_.filter((v) => {
                     return !markedList.includes(v);
                 });
+                otherList.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+
                 data.leileiFL.mark(otherList[0], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.attack2);
                 data.leileiFL.mark(otherList[2], data.leileiData.targetMarkers.attack3);
