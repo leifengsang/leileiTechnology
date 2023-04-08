@@ -58,7 +58,7 @@ Options.Triggers.push({
             p2_programPT_markReverse: false,
             p2_programPT_markCount: 0,
             p2_programPT_markCleared: false,
-            p2_programPT_marked: false,
+            p2_programPT_M_casted: false,
             p2_programPT_groupDic: { "circle": [], "triangle": [], "square": [], "cross": [] },
             p2_programPT_highGroup: [],
             p2_programPT_lowGroup: [],
@@ -419,8 +419,6 @@ Options.Triggers.push({
                 data.leileiFL.mark(data.p2_programPT_lowGroup[2], data.leileiData.targetMarkers.bind3);
                 let rightBottomMarker = output.是否用十字代替攻击5() === "true" ? data.leileiData.targetMarkers.cross : data.leileiData.targetMarkers.attack5;
                 data.leileiFL.mark(data.p2_programPT_lowGroup[3], rightBottomMarker);
-
-                data.p2_programPT_marked = true;
             },
             outputStrings: {
                 ps顺序: "circle/cross/triangle/square",
@@ -431,12 +429,14 @@ Options.Triggers.push({
         },
         {
             id: "leilei TOP p2一运 取消标记",
+            //7B25 月环
             //7B26 钢铁
-            netRegex: NetRegexes.startsUsing({ id: "7B26" }),
+            netRegex: NetRegexes.startsUsing({ id: ["7B25", "7B26"] }),
             infoText: "",
             run: (data, matches, output) => {
                 //前半不处理
-                if (!data.p2_programPT_marked) {
+                if (!data.p2_programPT_M_casted) {
+                    data.p2_programPT_M_casted = true;
                     return;
                 }
 
