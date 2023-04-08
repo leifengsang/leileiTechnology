@@ -1354,6 +1354,7 @@ Options.Triggers.push({
             id: "leilei TOP P5三运 上饼",
             netRegex: NetRegexes.startsUsing({ id: "8015" }),
             delaySeconds: 3,
+            infoText: "",
             run: (data, matches, output) => {
                 let rp = output.带饼职能();
                 if (data.leileiFL.isRPExists(data, rp)) {
@@ -1474,6 +1475,7 @@ Options.Triggers.push({
         {
             id: "leilei TOP P5狂暴读条 取消标记",
             netRegex: NetRegexes.startsUsing({ id: "7B87" }),
+            infoText: "",
             run: (data, matches, output) => {
                 if (output.取消标记() !== "true") {
                     return;
