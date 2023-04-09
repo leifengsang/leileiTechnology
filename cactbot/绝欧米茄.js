@@ -1139,6 +1139,7 @@ Options.Triggers.push({
             condition: (data) => {
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA;
             },
+            infoText: "",
             preRun: (data, matches, output) => {
                 const id = getHeadmarkerId(data, matches);
                 const headMarkers = [
@@ -1272,6 +1273,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
             },
+            infoText: "",
             run: (data, matches, output) => {
                 if (!data.p5_sigmaMarkEnable) {
                     return;
@@ -1370,6 +1372,7 @@ Options.Triggers.push({
             id: "leilei TOP P5三运 前半头顶标记",
             netRegex: NetRegexes.startsUsing({ id: "8015" }),
             delaySeconds: 28,
+            infoText: "",
             run: (data, matches, output) => {
                 if (!data.p5_omegaMarkEnable) {
                     return;
@@ -1433,6 +1436,7 @@ Options.Triggers.push({
             id: "leilei TOP P5三运 后半头顶标记",
             netRegex: NetRegexes.startsUsing({ id: "8015" }),
             delaySeconds: 45,
+            infoText: "",
             run: (data, matches, output) => {
                 if (!data.p5_omegaMarkEnable) {
                     return;
@@ -1469,7 +1473,7 @@ Options.Triggers.push({
             },
             outputStrings: {
                 优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
-                注: "优先级高=>低=攻击1324 务必保证双T优先级最高，避免带易伤吃后续平A"
+                注: "优先级高=>低=攻击1324"
             }
         },
         {
