@@ -73,7 +73,9 @@ Options.Triggers.push({
             p3_helloWorldShareColor: "",
             p3_waveCannonList: [],
             p5_deltaMarkEnable: false,
+            p5_deltaFarHWTransmit2NearGroup: false,
             p5_sigmaMarkEnable: false,
+            p5_sigmaTowerMarkEnable: false,
             p5_omegaMarkEnable: false,
             p5_sigma_TTS_enable: false,
             p5_dynamisPhase: 0,
@@ -972,7 +974,9 @@ Options.Triggers.push({
             netRegex: NetRegexes.startsUsing({ id: ["7B88", "8014", "8015"] }),
             run: (data, matches, output) => {
                 data.p5_deltaMarkEnable = output.p5一运是否标记() === "true";
+                data.p5_deltaFarHWTransmit2NearGroup = output.P5一运是否是近线引导远hw() === "true";
                 data.p5_sigmaMarkEnable = output.p5二运是否标记() === "true";
+                data.p5_sigmaTowerMarkEnable = output.P5二运踩塔是否标记() === "true";
                 data.p5_omegaMarkEnable = output.p5三运是否标记() === "true";
                 data.p5_sigma_TTS_enable = output.p5二运tts() === "true";
 
@@ -985,7 +989,7 @@ Options.Triggers.push({
                         break;
                     case "8014":
                         data.p5_dynamisPhase = DYNAMIS_PHASE_SIGMA;
-                        if (data.p5_sigmaMarkEnable) {
+                        if (data.p5_sigmaMarkEnable || data.p5_sigmaTowerMarkEnable) {
                             data.leileiFL.clearMark();
                         }
                         break;
@@ -1004,7 +1008,9 @@ Options.Triggers.push({
             infoText: "",
             outputStrings: {
                 p5一运是否标记: "false",
+                P5一运是否是近线引导远hw: "false",
                 p5二运是否标记: "false",
+                P5二运踩塔是否标记: "false",
                 p5二运tts: "false",
                 p5三运是否标记: "false",
             }
@@ -1046,13 +1052,16 @@ Options.Triggers.push({
                     return;
                 }
 
-                //处理另外两个无hwbuff的远线
-                const list = data.p5_deltaFarGroup.filter((v) => {
-                    return !data.p5_deltaHWGroup.includes(v);
-                });
+                //远线引导远HW
+                if (!data.p5_deltaFarHWTransmit2NearGroup) {
+                    //处理另外两个无hwbuff的远线
+                    const list = data.p5_deltaFarGroup.filter((v) => {
+                        return !data.p5_deltaHWGroup.includes(v);
+                    });
 
-                data.leileiFL.mark(list[0], data.leileiData.targetMarkers.circle);
-                data.leileiFL.mark(list[1], data.leileiData.targetMarkers.cross);
+                    data.leileiFL.mark(list[0], data.leileiData.targetMarkers.circle);
+                    data.leileiFL.mark(list[1], data.leileiData.targetMarkers.cross);
+                }
             }
         },
         {
@@ -1090,8 +1099,15 @@ Options.Triggers.push({
                     let markType1;
                     let markType2;
                     if (data.p5_deltaNearGroup.length > 2) {
-                        markType1 = data.leileiData.targetMarkers.attack3;
-                        markType2 = data.leileiData.targetMarkers.attack4;
+                        if (data.p5_deltaFarHWTransmit2NearGroup) {
+                            //近线引导远HW
+                            markType1 = data.leileiData.targetMarkers.circle;
+                            markType2 = data.leileiData.targetMarkers.cross;
+                        } else {
+                            //远线引导远HW
+                            markType1 = data.leileiData.targetMarkers.attack3;
+                            markType2 = data.leileiData.targetMarkers.attack4;
+                        }
                     } else {
                         markType1 = data.leileiData.targetMarkers.attack1;
                         markType2 = data.leileiData.targetMarkers.attack2;
@@ -1198,7 +1214,7 @@ Options.Triggers.push({
                 data.p5_sigmaPSMarkerDic[data.p5_sigmaGroupDic[psRuleList[3]][1]] = data.leileiData.targetMarkers.bind3;
             },
             run: (data, matches, output) => {
-                if (!data.p5_sigmaMarkEnable) {
+                if (!data.p5_sigmaTowerMarkEnable) {
                     return;
                 }
 
@@ -1259,7 +1275,7 @@ Options.Triggers.push({
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
             },
             run: (data, matches, output) => {
-                if (!data.p5_sigmaMarkEnable) {
+                if (!data.p5_sigmaTowerMarkEnable) {
                     return;
                 }
 
@@ -1417,7 +1433,7 @@ Options.Triggers.push({
                 data.leileiFL.mark(list[5], data.leileiData.targetMarkers.attack4);
             },
             outputStrings: {
-                优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
+                优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
             }
         },
         {
