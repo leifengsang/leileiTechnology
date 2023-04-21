@@ -158,9 +158,6 @@ Options.Triggers.push({
                 }
                 return delay;
             },
-            tts: (data, matches, output) => {
-                return output.content();
-            },
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -199,9 +196,6 @@ Options.Triggers.push({
                 }
                 return delay;
             },
-            tts: (data, matches, output) => {
-                return output.content();
-            },
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -219,7 +213,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return data.mahjongPhase === MAHJONG_PHASE_P1_1;
             },
-            tts: (data, matches, output) => {
+            infoText: (data, matches, output) => {
                 data.p1_1_mahjongCount++;
                 let mahjongGroup = 0;
                 switch (matches.effectId) {
@@ -272,9 +266,6 @@ Options.Triggers.push({
             delaySeconds: (data, matches) => {
                 return matches.duration - 5;
             },
-            tts: (data, matches, output) => {
-                return output.content();
-            },
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -292,7 +283,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return data.mahjongPhase === MAHJONG_PHASE_P1_2;
             },
-            tts: (data, matches, output) => {
+            infoText: (data, matches, output) => {
                 data.p1_2_mahjongCount++;
                 let mahjongGroup = 0;
                 switch (matches.effectId) {
@@ -493,9 +484,6 @@ Options.Triggers.push({
                 return data.omegaPhase == PHASE_OMEGA_MF && matches.target === data.me;
             },
             delaySeconds: 8,
-            tts: (data, matches, output) => {
-                return matches.effectId === "D64" ? output.远线() : output.近线();
-            },
             infoText: (data, matches, output) => {
                 return matches.effectId === "D64" ? output.远线() : output.近线();
             },
@@ -513,9 +501,6 @@ Options.Triggers.push({
                 return data.omegaPhase == PHASE_OMEGA_MF && matches.target === data.me;
             },
             delaySeconds: 15,
-            tts: (data, matches, output) => {
-                return matches.effectId === "D64" ? output.远线() : output.近线();
-            },
             infoText: (data, matches, output) => {
                 return matches.effectId === "D64" ? output.远线() : output.近线();
             },
@@ -536,20 +521,6 @@ Options.Triggers.push({
                 if (output.小队频道提示音() === "true") {
                     data.leileiFL.doTextCommand("/p 分攤<se.4>");
                 }
-            },
-            tts: (data, matches, output) => {
-                //被投盾的人不分摊
-                if (matches.target === data.me && !data.p2_programLB_ignoreStackList.includes(data.me)) {
-                    //如果不是核爆的人被投盾了，提醒一下快跑
-                    return output.被投盾();
-                }
-
-                //核爆的三个人不分摊
-                if (output.核爆逃课() !== "true" && data.p2_programLB_ignoreStackList.includes(data.me)) {
-                    return;
-                }
-
-                return output.分摊();
             },
             infoText: (data, matches, output) => {
                 //被投盾的人不分摊
@@ -721,7 +692,7 @@ Options.Triggers.push({
                 return data.p3_helloWorldBuffCount == 9;
             },
             delaySeconds: 1,
-            tts: (data, matches, output) => {
+            infoText: (data, matches, output) => {
                 let target;
                 if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
                     target = data.p3_helloWorldBuffDic["share"].find((v) => {
@@ -771,21 +742,6 @@ Options.Triggers.push({
                 return data.p3_helloWorldBuffCount == 9;
             },
             delaySeconds: 6,
-            tts: (data, matches, output) => {
-                if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
-                    //初始分摊
-                    return output.放分摊({ color: data.p3_helloWorldShareColor });
-                } else if (data.p3_helloWorldBuffDic["circle"].includes(data.me)) {
-                    //初始大圈
-                    return output.放大圈({ color: data.p3_helloWorldCircleColor });
-                } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
-                    //初始dna 第一轮吃大圈
-                    return output.吃大圈({ color: data.p3_helloWorldCircleColor });
-                } else {
-                    //初始无点名 第一轮吃分摊
-                    return output.吃分摊({ color: data.p3_helloWorldShareColor });
-                }
-            },
             infoText: (data, matches, output) => {
                 if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
                     //初始分摊
@@ -820,21 +776,6 @@ Options.Triggers.push({
                 return data.p3_helloWorldBuffCount == 9;
             },
             delaySeconds: 27,
-            tts: (data, matches, output) => {
-                if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
-                    //初始分摊 第二轮吃大圈
-                    return output.吃大圈({ color: data.p3_helloWorldCircleColor });
-                } else if (data.p3_helloWorldBuffDic["circle"].includes(data.me)) {
-                    //初始大圈 第二轮吃分摊
-                    return output.吃分摊({ color: data.p3_helloWorldShareColor });
-                } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
-                    //初始dna 第二轮放大圈
-                    return output.放大圈({ color: data.p3_helloWorldCircleColor });
-                } else {
-                    //初始无点名 第二轮放分摊
-                    return output.放分摊({ color: data.p3_helloWorldShareColor });
-                }
-            },
             infoText: (data, matches, output) => {
                 if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
                     //初始分摊 第二轮吃大圈
@@ -869,21 +810,6 @@ Options.Triggers.push({
                 return data.p3_helloWorldBuffCount == 9;
             },
             delaySeconds: 48,
-            tts: (data, matches, output) => {
-                if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
-                    //初始分摊 第三轮放大圈
-                    return output.放大圈({ color: data.p3_helloWorldCircleColor });
-                } else if (data.p3_helloWorldBuffDic["circle"].includes(data.me)) {
-                    //初始大圈 第三轮放分摊
-                    return output.放分摊({ color: data.p3_helloWorldShareColor });
-                } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
-                    //初始dna 第三轮吃分摊
-                    return output.吃分摊({ color: data.p3_helloWorldShareColor });
-                } else {
-                    //初始无点名 第三轮吃大圈
-                    return output.吃大圈({ color: data.p3_helloWorldCircleColor });
-                }
-            },
             infoText: (data, matches, output) => {
                 if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
                     //初始分摊 第三轮放大圈
@@ -918,21 +844,6 @@ Options.Triggers.push({
                 return data.p3_helloWorldBuffCount == 9;
             },
             delaySeconds: 69,
-            tts: (data, matches, output) => {
-                if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
-                    //初始分摊 第四轮吃分摊
-                    return output.吃分摊({ color: data.p3_helloWorldShareColor });
-                } else if (data.p3_helloWorldBuffDic["circle"].includes(data.me)) {
-                    //初始大圈 第四轮去分摊后面最远距离直接拉断
-                    return output.特殊处理的近线({ color: data.p3_helloWorldShareColor });
-                } else if (data.p3_helloWorldBuffDic["dna"].includes(data.me)) {
-                    //初始dna 第四轮放分摊
-                    return output.放分摊({ color: data.p3_helloWorldShareColor });
-                } else {
-                    //初始无点名 第四轮放大圈
-                    return output.放大圈({ color: data.p3_helloWorldCircleColor });
-                }
-            },
             infoText: (data, matches, output) => {
                 if (data.p3_helloWorldBuffDic["share"].includes(data.me)) {
                     //初始分摊 第四轮吃分摊
@@ -1217,9 +1128,6 @@ Options.Triggers.push({
                 return data.omegaPhase == PHASE_DYNAMIS && matches.target === data.me;
             },
             delaySeconds: 10,
-            tts: (data, matches, output) => {
-                return matches.effectId === "D64" ? output.远线() : output.近线();
-            },
             infoText: (data, matches, output) => {
                 return matches.effectId === "D64" ? output.远线() : output.近线();
             },
@@ -1341,12 +1249,6 @@ Options.Triggers.push({
             delaySeconds: 5,
             condition: (data, matches) => {
                 return data.p5_dynamisPhase == DYNAMIS_PHASE_SIGMA && matches.target === data.me;
-            },
-            tts: (data, matches, output) => {
-                if (!data.p5_sigma_TTS_enable) {
-                    return;
-                }
-                return output[`${data.p5_sigmaPSMarkerDic[data.leileiFL.getHexIdByName(data, data.me)]}`]();
             },
             infoText: (data, matches, output) => {
                 if (!data.p5_sigma_TTS_enable) {
