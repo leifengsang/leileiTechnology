@@ -299,6 +299,9 @@ const leileiData = {
         circle: "circle", // 12
         cross: "cross", // 13
         triangle: "triangle", // 14
+        attack6: "attack6", // 15
+        attack7: "attack7", // 16
+        attack8: "attack8", // 17
     },
 };
 let partyUpdateTimer;
