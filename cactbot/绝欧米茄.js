@@ -74,6 +74,7 @@ Options.Triggers.push({
             p3_waveCannonList: [],
             p5_deltaMarkEnable: false,
             p5_deltaFarHWTransmit2NearGroup: false,
+            p5_deltaNearTetherGroup: [],
             p5_sigmaMarkEnable: false,
             p5_sigmaTowerMarkEnable: false,
             p5_omegaMarkEnable: false,
@@ -1097,25 +1098,50 @@ Options.Triggers.push({
 
                 if (data.p5_deltaNearGroup.includes(matches.sourceId)) {
                     //近线组
-                    let markType1;
-                    let markType2;
-                    if (data.p5_deltaNearGroup.length > 2) {
-                        if (data.p5_deltaFarHWTransmit2NearGroup) {
-                            //近线引导远HW
-                            markType1 = data.leileiData.targetMarkers.circle;
-                            markType2 = data.leileiData.targetMarkers.cross;
-                        } else {
-                            //远线引导远HW
-                            markType1 = data.leileiData.targetMarkers.attack3;
-                            markType2 = data.leileiData.targetMarkers.attack4;
-                        }
-                    } else {
-                        markType1 = data.leileiData.targetMarkers.attack1;
-                        markType2 = data.leileiData.targetMarkers.attack2;
+                    data.p5_deltaNearTetherGroup.push([matches.sourceId, matches.targetId]);
+                    //先把两组存下来，后续按逻辑处理
+                    if (data.p5_deltaNearTetherGroup.length < 2) {
+                        return;
                     }
 
-                    data.leileiFL.mark(matches.sourceId, markType1);
-                    data.leileiFL.mark(matches.targetId, markType2);
+                    /**
+                     * 在近线引导远HW的情况下，优先标记某些职能所在的分组
+                     * H1>H2>其他
+                     * @param {*} rp 
+                     * @returns value to compare
+                     */
+                    const rpCompareFunction = (rp) => {
+                        if (rp === "H1") {
+                            return 2;
+                        } else if (rp === "H2") {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    }
+                    if (data.p5_deltaFarHWTransmit2NearGroup) {
+                        //近线引导远HW
+                        let highestRP = -1;
+                        let highestRPIndex;
+                        for (let i = 0; i < data.p5_deltaNearTetherGroup.length; i++) {
+                            let rp = Math.max(rpCompareFunction(data.leileiFL.getRpByHexId(data, data.p5_deltaNearTetherGroup[i][0])),
+                                rpCompareFunction(data.leileiFL.getRpByHexId(data, data.p5_deltaNearTetherGroup[i][1])));
+                            if (rp > highestRP) {
+                                highestRP = rp;
+                                highestRPIndex = i;
+                            }
+                        }
+                        data.leileiFL.mark(data.p5_deltaNearTetherGroup[highestRPIndex][0], data.leileiData.targetMarkers.attack1);
+                        data.leileiFL.mark(data.p5_deltaNearTetherGroup[highestRPIndex][1], data.leileiData.targetMarkers.attack2);
+                        data.leileiFL.mark(data.p5_deltaNearTetherGroup[highestRPIndex ^ 1][0], data.leileiData.targetMarkers.circle);
+                        data.leileiFL.mark(data.p5_deltaNearTetherGroup[highestRPIndex ^ 1][1], data.leileiData.targetMarkers.cross);
+                    } else {
+                        //远线引导远HW
+                        data.leileiFL.mark(data.p5_deltaNearTetherGroup[0][0], data.leileiData.targetMarkers.attack1);
+                        data.leileiFL.mark(data.p5_deltaNearTetherGroup[0][1], data.leileiData.targetMarkers.attack2);
+                        data.leileiFL.mark(data.p5_deltaNearTetherGroup[1][0], data.leileiData.targetMarkers.attack3);
+                        data.leileiFL.mark(data.p5_deltaNearTetherGroup[1][1], data.leileiData.targetMarkers.attack4);
+                    }
                 }
             }
         },
