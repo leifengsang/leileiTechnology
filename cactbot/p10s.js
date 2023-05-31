@@ -5,7 +5,7 @@
 Options.Triggers.push({
     // zoneId: ZoneId.AnabaseiosTheTenthCircleSavage,
     // zoneId: ZoneId.MatchAll,
-    zoneRegex: /Anabaseios The Tenth Circle \(Savage\)/,
+    zoneRegex: /Anabaseios: The Tenth Circle \(Savage\)/,
     initData: () => {
         return {
             bondDic: {}, //key:playerId, value:{sec, count}
