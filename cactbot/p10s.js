@@ -71,12 +71,28 @@ Options.Triggers.push({
                 data.meltdownSpreadList.sort((a, b) => {
                     return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
                 });
+                data.leileiFL.clearMark();
                 data.leileiFL.mark(data.meltdownSpreadList[0], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(data.meltdownSpreadList[1], data.leileiData.targetMarkers.attack2);
             },
             outputStrings: {
                 是否标记: "false",
                 优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
+            }
+        },
+        {
+            id: "leilei p10s 直线分摊 取消分散点名标记",
+            netRegex: NetRegexes.startsUsing({ id: "829D" }),
+            delaySeconds: 10,
+            infoText: (data, matches) => {
+                if (output.取消标记() !== "true") {
+                    return;
+                }
+
+                data.leileiFL.clearMark();
+            },
+            outputStrings: {
+                取消标记: "false"
             }
         },
     ]
