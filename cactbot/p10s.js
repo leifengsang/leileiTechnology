@@ -2,21 +2,17 @@
  * p10s
  */
 
-const headMarker = {
-    meltdownSpread: "0122"
-}
-
-const firstDecimalMarker = parseInt("02B7", 16);
-const getHeadmarkerId = (data, matches) => {
-    if (!data.leileiDecOffset) data.leileiDecOffset = parseInt(matches.id, 16) - firstDecimalMarker;
-    return (parseInt(matches.id, 16) - data.leileiDecOffset).toString(16).toUpperCase().padStart(4, "0");
-};
-
 Options.Triggers.push({
-    zoneId: ZoneId.AnabaseiosTheTenthCircleSavage,
+    // zoneId: ZoneId.AnabaseiosTheTenthCircleSavage,
+    // zoneId: ZoneId.MatchAll,
+    zoneRegex: /Anabaseios The Tenth Circle \(Savage\)/,
     initData: () => {
         return {
-            meltdownSpreadList: []
+            bondDic: {}, //key:playerId, value:{sec, count}
+            bondDone: false,
+            bondContent: "",
+            bondDelay: 0,
+            doneCount: 0,
         }
     },
     triggers: [
@@ -38,64 +34,97 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei p10s Headmarker Tracker",
-            netRegex: NetRegexes.headMarker({}),
-            condition: (data) => undefined === data.leileiDecOffset,
-            run: (data, matches) => {
-                getHeadmarkerId(data, matches);
-            },
-        },
-        {
-            id: "leilei p10s 直线分摊",
-            netRegex: NetRegexes.startsUsing({ id: "829D" }),
-            infoText: "",
-            run: (data, matches, output) => {
-                if (output.是否标记() !== "true") {
-                    return;
-                }
-
-                const rpRuleList = output.优先级().split("/");
-                data.meltdownSpreadList.sort((a, b) => {
-                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+            id: "leilei p10s 上buff",
+            netRegex: NetRegexes.startsUsing({ id: "82A1" }),
+            run: (data) => {
+                data.bondCount++;
+                //初始化数据
+                data.party.partyIds_.forEach(e => {
+                    data.bondDic[e] = [];
                 });
-                data.leileiFL.mark(data.meltdownSpreadList[0], data.leileiData.targetMarkers.attack1);
-                data.leileiFL.mark(data.meltdownSpreadList[1], data.leileiData.targetMarkers.attack2);
+                data.bondDone = false;
+                data.bondContent = "";
+                data.bondDelay = 0;
 
-                //初始化点名列表
-                data.meltdownSpreadList = [];
-            },
-            outputStrings: {
-                是否标记: "false",
-                优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
-            }
-        },
-        {
-            id: "leilei p10s 直线分摊 分散点名",
-            netRegex: NetRegexes.headMarker({}),
-            run: (data, matches) => {
-                const id = getHeadmarkerId(data, matches);
-                //TODO 判断标记id
-                if (id !== headMarker.meltdownSpread) {
-                    return;
-                }
-
-                data.meltdownSpreadList.push(matches.targetId);
             },
         },
         {
-            id: "leilei p10s 直线分摊 取消分散点名标记",
-            netRegex: NetRegexes.startsUsing({ id: "829D" }),
-            delaySeconds: 10,
-            infoText: "",
-            run: (data, matches, output) => {
-                if (output.取消标记() !== "true") {
-                    return;
+            id: "leilei p10s 单/双/四人buff",
+            //DDE 单人
+            //DDF 双人
+            //E70 四人
+            netRegex: NetRegexes.gainsEffect({ effectId: ["DDE", "DDF", "E70"] }),
+            condition: (data) => {
+                return !data.bondDone;
+            },
+            preRun: (data, matches, output) => {
+                const sec = matches.duration;
+                let count;
+                switch (matches.effectId) {
+                    case "DDE":
+                        count = 1;
+                        break;
+                    case "DDF":
+                        count = 2;
+                        break;
+                    case "E70":
+                        count = 4;
+                        break;
+                    default:
+                        break;
                 }
 
-                data.leileiFL.clearMark();
+                let list = data.bondDic[matches.targetId];
+                list.push({ sec: sec, count: count });
+                if (list.length == 2) {
+                    data.bondDone = true;
+
+                    //处理数据
+                    list.sort((a, b) => {
+                        return a.sec < b.sec ? -1 : 1;
+                    });
+                    data.bondDelay = list[0].sec;
+                    const getContent = (count) => {
+                        switch (count) {
+                            case 1:
+                                return output.count1();
+                            case 2:
+                                return output.count2();
+                            case 4:
+                                return output.count4();
+                            default:
+                                return "";
+                        }
+                    }
+                    const content1 = getContent(list[0].count);
+                    const content2 = getContent(list[1].count);
+                    data.bondContent = output.content({ count1: content1, count2: content2 });
+                }
+            },
+            delaySeconds: (data) => {
+                let advanceTime;
+                switch (data.bondCount) {
+                    case 1:
+                    case 4:
+                        //第一次需要提前10秒报，前往左右平台
+                        //第四次 磕头 需要提前10秒报，左右站位击退
+                        advanceTime = 10;
+                        break;
+                    default:
+                        //默认提前5秒报
+                        advanceTime = 5;
+                        break;
+                }
+                return data.bondDelay - advanceTime;
+            },
+            infoText: (data) => {
+                return data.bondContent;
             },
             outputStrings: {
-                取消标记: "false"
+                content: "先${count1}人,再${count2}人",
+                count1: "单",
+                count2: "双",
+                count4: "四",
             }
         },
     ]
