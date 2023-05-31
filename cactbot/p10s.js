@@ -3,6 +3,7 @@
  */
 
 const headMarker = {
+    meltdownSpread: "0122"
 }
 
 const firstDecimalMarker = parseInt("02B7", 16);
@@ -47,33 +48,21 @@ Options.Triggers.push({
         {
             id: "leilei p10s 直线分摊",
             netRegex: NetRegexes.startsUsing({ id: "829D" }),
-            infoText: (data, matches) => {
-                //初始化点名列表
-                data.meltdownSpreadList = [];
-            },
-        },
-        {
-            id: "leilei p10s 直线分摊 分散点名",
-            netRegex: NetRegexes.headMarker({}),
+            infoText: "",
             run: (data, matches, output) => {
                 if (output.是否标记() !== "true") {
                     return;
                 }
-                const id = getHeadmarkerId(data, matches);
-                //TODO 判断标记id
 
-                data.meltdownSpreadList.push(matches.targetId);
-
-                if (data.meltdownSpreadList.length != 2) {
-                    return;
-                }
                 const rpRuleList = output.优先级().split("/");
                 data.meltdownSpreadList.sort((a, b) => {
                     return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
                 });
-                data.leileiFL.clearMark();
                 data.leileiFL.mark(data.meltdownSpreadList[0], data.leileiData.targetMarkers.attack1);
                 data.leileiFL.mark(data.meltdownSpreadList[1], data.leileiData.targetMarkers.attack2);
+
+                //初始化点名列表
+                data.meltdownSpreadList = [];
             },
             outputStrings: {
                 是否标记: "false",
@@ -81,10 +70,24 @@ Options.Triggers.push({
             }
         },
         {
+            id: "leilei p10s 直线分摊 分散点名",
+            netRegex: NetRegexes.headMarker({}),
+            run: (data, matches) => {
+                const id = getHeadmarkerId(data, matches);
+                //TODO 判断标记id
+                if (id !== headMarker.meltdownSpread) {
+                    return;
+                }
+
+                data.meltdownSpreadList.push(matches.targetId);
+            },
+        },
+        {
             id: "leilei p10s 直线分摊 取消分散点名标记",
             netRegex: NetRegexes.startsUsing({ id: "829D" }),
             delaySeconds: 10,
-            infoText: (data, matches) => {
+            infoText: "",
+            run: (data, matches, output) => {
                 if (output.取消标记() !== "true") {
                     return;
                 }
