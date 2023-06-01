@@ -12,7 +12,7 @@ Options.Triggers.push({
             bondDone: false,
             bondContent: "",
             bondDelay: 0,
-            doneCount: 0,
+            bondCount: 0,
         }
     },
     triggers: [
@@ -106,13 +106,13 @@ Options.Triggers.push({
                 switch (data.bondCount) {
                     case 1:
                     case 4:
-                        //第一次需要提前10秒报，前往左右平台
-                        //第四次 磕头 需要提前10秒报，左右站位击退
-                        advanceTime = 10;
+                        //第一次需要提前12秒报，前往左右平台
+                        //第四次 磕头 需要提前12秒报，左右站位击退
+                        advanceTime = 12;
                         break;
                     default:
-                        //默认提前5秒报
-                        advanceTime = 5;
+                        //默认提前8秒报
+                        advanceTime = 8;
                         break;
                 }
                 return data.bondDelay - advanceTime;
