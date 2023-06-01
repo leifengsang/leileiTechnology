@@ -12,11 +12,11 @@ Options.Triggers.push({
     triggers: [
         {
             id: "leilei p11s 光暗八方",
-            //81E6 暗八方
-            //81E7 光八方
+            //81E6 光八方
+            //81E7 暗八方
             netRegex: NetRegexes.startsUsing({ id: ["81E6", "81E7"] }),
             infoText: (data, matches, output) => {
-                if (matches.id === "81E6") {
+                if (matches.id === "81E7") {
                     return output.暗八方();
                 } else {
                     return output.光八方();
@@ -29,11 +29,11 @@ Options.Triggers.push({
         },
         {
             id: "leilei p11s 光暗连线",
-            //87D3 暗连线
-            //87D4 光连线
+            //87D3 光连线
+            //87D4 暗连线
             netRegex: NetRegexes.startsUsing({ id: ["87D3", "87D4"] }),
             infoText: (data, matches, output) => {
-                if (matches.id === "87D3") {
+                if (matches.id === "87D4") {
                     if (matches.target === data.me) {
                         return output.暗连线();
                     } else {
@@ -49,27 +49,27 @@ Options.Triggers.push({
                 光连线: "脚下集合，然后钢铁四人分摊"
             }
         },
-        {
-            id: "leilei p11s 光暗直线",
-            //81EE 光直线
-            //81EF 暗直线
-            netRegex: NetRegexes.startsUsing({ id: ["81EE", "81EF"] }),
-            infoText: (data, matches, output) => {
-                if (matches.id === "81EE") {
-                    return output.光直线();
-                } else {
-                    return output.暗直线();
-                }
-            },
-            outputStrings: {
-                暗直线: "直线AOE，然后进去二人分摊",
-                光直线: "直线AOE，然后远离四人分摊"
-            }
-        },
+        // {
+        //     id: "leilei p11s 光暗直线",
+        //     //81EE 暗直线
+        //     //81EF 光直线
+        //     netRegex: NetRegexes.startsUsing({ id: ["81EE", "81EF"] }),
+        //     infoText: (data, matches, output) => {
+        //         if (matches.id === "81EF") {
+        //             return output.光直线();
+        //         } else {
+        //             return output.暗直线();
+        //         }
+        //     },
+        //     outputStrings: {
+        //         暗直线: "直线AOE，然后进去二人分摊",
+        //         光直线: "直线AOE，然后远离四人分摊"
+        //     }
+        // },
         {
             id: "leilei p11s 光暗击退",
-            //8785 暗击退
-            //8786 光击退
+            //8785 光击退
+            //8786 暗击退
             netRegex: NetRegexes.startsUsing({ id: ["8785", "8786"] }),
             infoText: (data, matches, output) => {
                 if (matches.id === "8785") {
@@ -85,15 +85,15 @@ Options.Triggers.push({
         },
         {
             id: "leilei p11s 光暗魔法阵",
-            //820E 光门魔法阵
-            //820D 暗门魔法阵
+            //820D 光门魔法阵
+            //820E 暗门魔法阵
             //820F 光球魔法阵
             //8210 暗球魔法阵
             netRegex: NetRegexes.startsUsing({ id: ["820E", "820D", "820F", "8210"] }),
             infoText: (data, matches, output) => {
-                if (matches.id === "820E") {
+                if (matches.id === "820D") {
                     return output.光门魔法阵();
-                } else if (matches.id === "820D") {
+                } else if (matches.id === "820E") {
                     return output.暗门魔法阵();
                 } else if (matches.id === "820F") {
                     return output.光球魔法阵();
