@@ -49,23 +49,23 @@ Options.Triggers.push({
                 光连线: "脚下集合，然后钢铁四人分摊"
             }
         },
-        // {
-        //     id: "leilei p11s 光暗直线",
-        //     //81EE 暗直线
-        //     //81EF 光直线
-        //     netRegex: NetRegexes.startsUsing({ id: ["81EE", "81EF"] }),
-        //     infoText: (data, matches, output) => {
-        //         if (matches.id === "81EF") {
-        //             return output.光直线();
-        //         } else {
-        //             return output.暗直线();
-        //         }
-        //     },
-        //     outputStrings: {
-        //         暗直线: "直线AOE，然后进去二人分摊",
-        //         光直线: "直线AOE，然后远离四人分摊"
-        //     }
-        // },
+        {
+            id: "leilei p11s 光暗直线",
+            //81ED 光直线
+            //81EE 暗直线
+            netRegex: NetRegexes.startsUsing({ id: ["81EE", "81ED"] }),
+            infoText: (data, matches, output) => {
+                if (matches.id === "81ED") {
+                    return output.光直线();
+                } else {
+                    return output.暗直线();
+                }
+            },
+            outputStrings: {
+                暗直线: "直线AOE，然后进去二人分摊",
+                光直线: "直线AOE，然后远离四人分摊"
+            }
+        },
         {
             id: "leilei p11s 光暗击退",
             //8785 光击退
