@@ -21,7 +21,7 @@ Options.Triggers.push({
     },
     triggers: [
         {
-            id: "leilei p12s 死刑靠近远离",
+            id: "leilei p12s门神 死刑靠近远离",
             //82FE 人群靠近
             //82FF 人群远离
             netRegex: NetRegexes.startsUsing({ id: ["82FF", "82FE"] }),
@@ -38,7 +38,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei p12s 魂之刻印",
+            id: "leilei p12s门神 魂之刻印",
             netRegex: NetRegexes.startsUsing({ id: "8305" }),
             run: (data) => {
                 data.soulPhase++;
@@ -46,7 +46,7 @@ Options.Triggers.push({
             },
         },
         {
-            id: "leilei p12s 第一次召唤 第二轮播报（左右分摊）",
+            id: "leilei p12s门神 第一次召唤 第二轮播报（左右分摊）",
             //DF8 光易伤
             //DF9 暗易伤
             //DFD 光射线
@@ -77,7 +77,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei p12s 第一次召唤 第三轮播报（放圈、塔） 大圈",
+            id: "leilei p12s门神 第一次召唤 第三轮播报（放圈、塔） 大圈",
             //DFA 大圈
             netRegex: NetRegexes.gainsEffect({ effectId: "DFA" }),
             condition: (data, matches) => {
@@ -94,7 +94,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei p12s 第一次召唤 第三轮播报（放圈、塔） 放塔&踩塔",
+            id: "leilei p12s门神 第一次召唤 第三轮播报（放圈、塔） 放塔&踩塔",
             //DFD 光射线
             //DFE 暗射线
             //DFB 光放塔
@@ -123,7 +123,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei p12s 拆地板 放塔点名",
+            id: "leilei p12s门神 拆地板 放塔点名",
             //DFB 光放塔
             //DFC 暗放塔
             netRegex: NetRegexes.gainsEffect({ effectId: ["DFB", "DFC"] }),
@@ -136,7 +136,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei p12s 拆地板 DPS踩塔&引导",
+            id: "leilei p12s门神 拆地板 DPS踩塔&引导",
             //00EA 光连线
             //00E9 暗连线
             netRegex: NetRegexes.tether({}),
