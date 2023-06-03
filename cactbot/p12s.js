@@ -105,17 +105,21 @@ Options.Triggers.push({
             },
             delaySeconds: 14,
             infoText: (data, matches, output) => {
-                const towerGroup = ["DFB", "DFC"];
-                const laserGroup = ["DFD", "DFE"];
-                if (towerGroup.includes(matches.effectId)) {
-                    return output.放塔();
-                } else if (laserGroup.includes(matches.effectId)) {
-                    return output.踩塔();
+                if (matches.effectId === "DFD") {
+                    return output.光踩塔();
+                } else if (matches.effectId === "DFE") {
+                    return output.暗踩塔();
+                } else if (matches.effectId === "DFB") {
+                    return output.光放塔();
+                } else if (matches.effectId === "DFC") {
+                    return output.暗放塔();
                 }
             },
             outputStrings: {
-                放塔: "去放塔",
-                踩塔: "准备踩塔"
+                光放塔: "去右边放塔",
+                暗放塔: "去左边放塔",
+                光踩塔: "去左边踩塔",
+                暗踩塔: "去右边踩塔"
             }
         },
         {
