@@ -133,9 +133,10 @@ Options.Triggers.push({
         },
         {
             id: "leilei p12s 拆地板 DPS踩塔&引导",
-            //00E9 光连线
-            //00EA 暗连线
+            //00EA 光连线
+            //00E9 暗连线
             netRegex: NetRegexes.tether({}),
+            delaySeconds: 5,
             condition: (data, matches) => {
                 if (matches.id !== "00E9" && matches.id !== "00EA") {
                     return;
@@ -149,7 +150,7 @@ Options.Triggers.push({
             },
             infoText: (data, matches, output) => {
                 data.breakFloorDpsAlerted = true;
-                if (data.breakFloorLightTower != (matches.id === "00EA")) {
+                if (data.breakFloorLightTower != (matches.id === "00E9")) {
                     return output.踩塔();
                 } else {
                     return output.引导();
