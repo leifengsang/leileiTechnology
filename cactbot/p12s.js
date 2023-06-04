@@ -17,6 +17,8 @@ Options.Triggers.push({
             soulStackBuffCount: 0,
             breakFloorLightTower: false,
             breakFloorDpsAlerted: false,
+            unstableFactorDic: {}, //key:playerId, value:count
+            unstableFactorCount: 0,
         }
     },
     triggers: [
@@ -84,7 +86,7 @@ Options.Triggers.push({
                 return data.soulPhase == PHASE_DOUBLE_STACK && matches.target === data.me;
             },
             delaySeconds: (data, matches) => {
-                return matches.duration - 5;
+                return matches.duration - 7;
             },
             infoText: (data, matches, output) => {
                 return output.大圈();
@@ -103,7 +105,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return data.soulPhase == PHASE_DOUBLE_STACK && matches.target === data.me;
             },
-            delaySeconds: 14,
+            delaySeconds: 12,
             infoText: (data, matches, output) => {
                 if (matches.effectId === "DFD") {
                     return output.光踩塔();
@@ -163,6 +165,96 @@ Options.Triggers.push({
             outputStrings: {
                 踩塔: "准备踩塔",
                 引导: "准备引导"
+            }
+        },
+        {
+            id: "leilei p12s本体 踩塔运动会 闲/单buff分组标记",
+            //E09 消层buff 分为1层和2层
+            netRegex: NetRegexes.gainsEffect({ effectId: "E09" }),
+            infoText: "",
+            preRun: (data, matches) => {
+                data.unstableFactorDic[matches.targetId] = parseInt(matches.count);
+                data.unstableFactorCount++;
+            },
+            run: (data, matches, output) => {
+                if (output.是否标记() !== "true") {
+                    return;
+                }
+
+                if (data.unstableFactorCount == 6) {
+                    let singleGroup = []; //单buff
+                    let otherGroup = []; //闲buff
+                    data.party.partyIds_.forEach((e) => {
+                        if (data.unstableFactorDic[e] == 1) {
+                            singleGroup.push(e);
+                        } else if (!data.unstableFactorDic[e]) {
+                            otherGroup.push(e);
+                        }
+                    });
+
+                    /**
+                     * 闲buff 禁止12
+                     * 黑白1层 锁链12
+                     */
+                    const rpRuleList = output.优先级().split("/");
+                    singleGroup.sort((a, b) => {
+                        return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                    });
+                    otherGroup.sort((a, b) => {
+                        return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                    });
+
+                    //闲buff
+                    data.leileiFL.mark(otherGroup[0], data.leileiData.targetMarkers.stop1);
+                    data.leileiFL.mark(otherGroup[1], data.leileiData.targetMarkers.stop2);
+
+                    //黑白1层
+                    data.leileiFL.mark(singleGroup[0], data.leileiData.targetMarkers.bind1);
+                    data.leileiFL.mark(singleGroup[1], data.leileiData.targetMarkers.bind2);
+
+                    //debug
+                    singleGroup.forEach((e) => {
+                        console.log("singleGroup", data.leileiFL.getJobNameByHexId(data, e));
+                    });
+                    otherGroup.forEach((e) => {
+                        console.log("otherGroup", data.leileiFL.getJobNameByHexId(data, e));
+                    });
+                }
+            },
+            outputStrings: {
+                优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
+                是否标记: "false"
+            }
+        },
+        {
+            id: "leilei p12s本体 踩塔运动会 光暗buff",
+            //DF8 暗buff
+            //DF9 光buff
+            netRegex: NetRegexes.gainsEffect({ effectId: ["DF8", "DF9"] }),
+            run: (data, matches) => {
+
+            }
+        },
+        {
+            id: "leilei p12s本体 缩小分散播报",
+            //8329 横排安全区
+            //832B 竖排安全区
+            //832A 环形安全区
+            netRegex: NetRegexes.startsUsing({ id: ["8329", "832A", "832B"] }),
+            infoText: (data, matches, output) => {
+                console.log(matches.id);
+                if (matches.id === "8329") {
+                    return output.横排安全区();
+                } else if (matches.id === "832B") {
+                    return output.竖排安全区();
+                } else if (matches.id === "832A") {
+                    return output.环形安全区();
+                }
+            },
+            outputStrings: {
+                竖排安全区: "横向散开",
+                横排安全区: "竖向散开",
+                环形安全区: "月环散开",
             }
         },
     ]
