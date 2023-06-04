@@ -19,6 +19,8 @@ Options.Triggers.push({
             breakFloorDpsAlerted: false,
             unstableFactorDic: {}, //key:playerId, value:count
             unstableFactorCount: 0,
+            mahjongPhaseEntered: false,
+            whiteFlameCount: 0,
         }
     },
     triggers: [
@@ -165,6 +167,50 @@ Options.Triggers.push({
             outputStrings: {
                 踩塔: "准备踩塔",
                 引导: "准备引导"
+            }
+        },
+        {
+            id: "leilei p12s门神 进入麻将阶段 播报第一轮冲击炮",
+            //有成员收到伤害：アルテマブレイド
+            netRegex: NetRegexes.ability({ id: "82F4" }),
+            suppressSeconds: 1,
+            delaySeconds: 16,
+            preRun: (data, matches, output) => {
+                data.mahjongPhaseEntered = true;
+            },
+            infoText: (data, matches, output) => {
+                return output.第一轮引导();
+            },
+            outputStrings: {
+                第一轮引导: "5号7号引导",
+            }
+        },
+        {
+            id: "leilei p12s门神 播报后三轮麻将冲击炮",
+            netRegex: NetRegexes.ability({ id: "82EF" }),
+            suppressSeconds: 1,
+            condition: (data) => {
+                return data.mahjongPhaseEntered;
+            },
+            run: (data, matches, output) => {
+                data.whiteFlameCount++;
+            },
+            infoText: (data, matches, output) => {
+                switch (data.whiteFlameCount) {
+                    case 1:
+                        return output.第二轮引导();
+                    case 2:
+                        return output.第三轮引导();
+                    case 3:
+                        return output.第四轮引导();
+                    default:
+                        return "";
+                }
+            },
+            outputStrings: {
+                第二轮引导: "6号8号引导",
+                第三轮引导: "1号3号引导",
+                第四轮引导: "2号4号引导",
             }
         },
         {
