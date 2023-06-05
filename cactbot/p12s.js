@@ -21,6 +21,7 @@ Options.Triggers.push({
             unstableFactorCount: 0,
             mahjongPhaseEntered: false,
             whiteFlameCount: 0,
+            towerAlerted: false,
         }
     },
     triggers: [
@@ -269,16 +270,59 @@ Options.Triggers.push({
             },
             outputStrings: {
                 优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
-                是否标记: "false"
+                是否标记: "false",
             }
         },
         {
-            id: "leilei p12s本体 踩塔运动会 光暗buff",
-            //DF8 暗buff
-            //DF9 光buff
+            id: "leilei p12s本体 踩塔运动会 闲/单buff播报",
+            //E09 消层buff 分为1层和2层
+            netRegex: NetRegexes.gainsEffect({ effectId: "E09" }),
+            infoText: (data, matches, output) => {
+                if (data.unstableFactorCount == 6) {
+                    const selfId = data.leileiFL.getHexIdByName(data, data.me);
+                    if (!data.unstableFactorDic[selfId]) {
+                        data.towerAlerted = true;
+                        return output.闲人提示();
+                    } else if (data.unstableFactorDic[selfId] == 1) {
+                        data.towerAlerted = true;
+                        return output.单buff提示();
+                    }
+                }
+            },
+            outputStrings: {
+                闲人提示: "去北边等塔",
+                单buff提示: "去左右踩塔"
+            }
+        },
+        {
+            id: "leilei p12s本体 踩塔运动会 光暗长短播报",
+            //DF8 光buff
+            //DF9 暗buff
             netRegex: NetRegexes.gainsEffect({ effectId: ["DF8", "DF9"] }),
-            run: (data, matches) => {
-
+            condition: (data, matches) => {
+                return matches.target === data.me && !data.towerAlerted;
+            },
+            infoText: (data, matches, output) => {
+                data.towerAlerted = true;
+                if (matches.effectId === "DF9") {
+                    if (parseInt(matches.duration) == 20) {
+                        return output.暗长();
+                    } else {
+                        return output.暗短();
+                    }
+                } else {
+                    if (parseInt(matches.duration) == 20) {
+                        return output.光长();
+                    } else {
+                        return output.光短();
+                    }
+                }
+            },
+            outputStrings: {
+                光长: "去暗南边等塔",
+                暗长: "去光南边等塔",
+                光短: "去踩暗塔",
+                暗短: "去踩光塔",
             }
         },
         {
