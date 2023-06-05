@@ -193,7 +193,7 @@ Options.Triggers.push({
             condition: (data) => {
                 return data.mahjongPhaseEntered;
             },
-            run: (data, matches, output) => {
+            preRun: (data, matches, output) => {
                 data.whiteFlameCount++;
             },
             infoText: (data, matches, output) => {
