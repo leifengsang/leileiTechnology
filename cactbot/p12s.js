@@ -300,7 +300,20 @@ Options.Triggers.push({
             //DF9 暗buff
             netRegex: NetRegexes.gainsEffect({ effectId: ["DF8", "DF9"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && !data.towerAlerted;
+                if (data.towerAlerted) {
+                    return false;
+                }
+
+                if (matches.target !== data.me) {
+                    return false;
+                }
+
+                const selfId = data.leileiFL.getHexIdByName(data, data.me);
+                if (data.unstableFactorDic[selfId] != 2) {
+                    return false;
+                }
+
+                return true;
             },
             infoText: (data, matches, output) => {
                 data.towerAlerted = true;
