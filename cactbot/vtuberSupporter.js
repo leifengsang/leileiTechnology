@@ -15,7 +15,9 @@ Options.Triggers.push({
     id: "vtuberSupporter",
     initData: () => {
         return {
-            weaknessExpiredFlag: false
+            weaknessExpiredFlag: false,
+            damageDownExpiredFlag: false,
+            dead: false,
         };
     },
     triggers: [
@@ -26,6 +28,7 @@ Options.Triggers.push({
                 return matches.target === data.me;
             },
             run: (data, matches, output) => {
+                data.dead = true;
                 send(output.接口());
             },
             outputStrings: {
@@ -39,8 +42,10 @@ Options.Triggers.push({
                 return matches.target === data.me;
             },
             run: (data, matches, output) => {
+                data.dead = false;
                 //获得了新的黑头buff，把黑头过期flag取消掉
                 data.weaknessExpiredFlag = false;
+                data.damageDownExpiredFlag = false;
 
                 send(output.接口());
             },
@@ -61,7 +66,7 @@ Options.Triggers.push({
                  */
                 data.weaknessExpiredFlag = true;
             },
-            delaySeconds: 1,
+            delaySeconds0: 0.1,
             run: (data, matches, output) => {
                 if (data.weaknessExpiredFlag) {
                     send(output.接口());
@@ -78,6 +83,7 @@ Options.Triggers.push({
                 return matches.target === data.me;
             },
             run: (data, matches, output) => {
+                data.damageDownExpiredFlag = false;
                 send(output.接口());
             },
             outputStrings: {
@@ -90,8 +96,18 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
+            preRun: (data) => {
+                /**
+                 * 伤害降低流程：失去上一个伤害降低buff -> 获得新的伤害降低buff
+                 * 所以需要延时异步判断
+                 */
+                data.damageDownExpiredFlag = true;
+            },
+            delaySeconds: 0.1,
             run: (data, matches, output) => {
-                send(output.接口());
+                if (data.damageDownExpiredFlag) {
+                    send(output.接口());
+                }
             },
             outputStrings: {
                 接口: "damageDownExpired"
@@ -105,6 +121,21 @@ Options.Triggers.push({
             },
             outputStrings: {
                 接口: "reset"
+            },
+        },
+        {
+            id: "vtuberSupporter dead expired",
+            regex: /(?<timestamp>^.{14}) UpdateHp (?<type>27):(?<id>[^:]*):(?<name>[^:]*):(?<currentHp>[^:]*):(?<maxHp>[^:]*):(?<currentMp>[^:]*):(?<maxMp>[^:]*)(?::[^:]*){2}:(?<x>[^:]*):(?<y>[^:]*):(?<z>[^:]*):(?<heading>[^:]*)(?:$|:)/,
+            condition: (data, matches) => {
+                return data.dead && matches.name === data.me && parseInt(matches.currentHp) > 0;
+            },
+            run: (data, matches, output) => {
+                //死了，被LB拉起来等没有黑头的情况，手动调用一下
+                data.dead = false;
+                send(output.接口());
+            },
+            outputStrings: {
+                接口: "deadExpired"
             },
         },
     ]
