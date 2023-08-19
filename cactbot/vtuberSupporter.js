@@ -15,7 +15,7 @@ Options.Triggers.push({
     id: "vtuberSupporter",
     initData: () => {
         return {
-
+            weaknessExpiredFlag: false
         };
     },
     triggers: [
@@ -38,17 +38,14 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            preRun: (data, matches, output) => {
-                send(output.死亡过期接口());
-            },
-            //延迟一下 防止请求没收到
-            delaySeconds:1,
             run: (data, matches, output) => {
+                //获得了新的黑头buff，把黑头过期flag取消掉
+                data.weaknessExpiredFlag = false;
+
                 send(output.接口());
             },
             outputStrings: {
-                接口: "weakness",
-                死亡过期接口: "deadExpired"
+                接口: "weakness"
             },
         },
         {
@@ -57,8 +54,18 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
+            preRun: (data) => {
+                /**
+                 * 黑头流程：失去上一个黑头buff -> 获得新的黑头buff
+                 * 所以需要延时异步判断
+                 */
+                data.weaknessExpiredFlag = true;
+            },
+            delaySeconds: 1,
             run: (data, matches, output) => {
-                send(output.接口());
+                if (data.weaknessExpiredFlag) {
+                    send(output.接口());
+                }
             },
             outputStrings: {
                 接口: "weaknessExpired"
