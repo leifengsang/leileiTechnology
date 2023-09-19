@@ -9,8 +9,8 @@ const PHASE_DOUBLE_STACK = 2; //2分钟120后的左右分摊
 const PHASE_BREAK_FLOOR = 3; //拆地板
 
 Options.Triggers.push({
-    // zoneId: ZoneId.AnabaseiosTheTwelfthCircleSavage,
-    zoneRegex: /Anabaseios: The Twelfth Circle \(Savage\)/,
+    zoneId: ZoneId.AnabaseiosTheTwelfthCircleSavage,
+    // zoneRegex: /Anabaseios: The Twelfth Circle \(Savage\)/,
     initData: () => {
         return {
             soulPhase: 0,
