@@ -222,11 +222,6 @@ Options.Triggers.push({
             preRun: (data, matches) => {
                 data.unstableFactorDic[matches.targetId] = parseInt(matches.count);
                 data.unstableFactorCount++;
-            },
-            run: (data, matches, output) => {
-                if (output.是否标记() !== "true") {
-                    return;
-                }
 
                 if (data.unstableFactorCount == 6) {
                     let singleGroup = []; //单buff
@@ -239,25 +234,8 @@ Options.Triggers.push({
                         }
                     });
 
-                    /**
-                     * 闲buff 禁止12
-                     * 黑白1层 锁链12
-                     */
-                    const rpRuleList = output.优先级().split("/");
-                    singleGroup.sort((a, b) => {
-                        return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
-                    });
-                    otherGroup.sort((a, b) => {
-                        return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
-                    });
-
-                    //闲buff
-                    data.leileiFL.mark(otherGroup[0], data.leileiData.targetMarkers.stop1);
-                    data.leileiFL.mark(otherGroup[1], data.leileiData.targetMarkers.stop2);
-
-                    //黑白1层
-                    data.leileiFL.mark(singleGroup[0], data.leileiData.targetMarkers.bind1);
-                    data.leileiFL.mark(singleGroup[1], data.leileiData.targetMarkers.bind2);
+                    data.singleGroup = singleGroup;
+                    data.otherGroup = otherGroup;
 
                     //debug
                     singleGroup.forEach((e) => {
@@ -268,9 +246,46 @@ Options.Triggers.push({
                     });
                 }
             },
+            infoText: (data, matches, output) => {
+                if (data.unstableFactorCount != 6) {
+                    return;
+                }
+
+
+            },
+            run: (data, matches, output) => {
+                if (data.unstableFactorCount != 6) {
+                    return;
+                }
+
+                if (output.是否标记() !== "true") {
+                    return;
+                }
+
+                /**
+                 * 闲buff 禁止12
+                 * 黑白1层 锁链12
+                 */
+                const rpRuleList = output.优先级().split("/");
+                data.singleGroup.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+                data.otherGroup.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+
+                //闲buff
+                data.leileiFL.mark(data.otherGroup[0], data.leileiData.targetMarkers.stop1);
+                data.leileiFL.mark(data.otherGroup[1], data.leileiData.targetMarkers.stop2);
+
+                //黑白1层
+                data.leileiFL.mark(data.singleGroup[0], data.leileiData.targetMarkers.bind1);
+                data.leileiFL.mark(data.singleGroup[1], data.leileiData.targetMarkers.bind2);
+            },
             outputStrings: {
                 优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
                 是否标记: "false",
+                同组职能: "${rp}"
             }
         },
         {
