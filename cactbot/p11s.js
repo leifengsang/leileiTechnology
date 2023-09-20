@@ -3,8 +3,8 @@
  */
 
 Options.Triggers.push({
-    // zoneId: ZoneId.AnabaseiosTheEleventhCircleSavage,
-    zoneRegex: /Anabaseios: The Eleventh Circle \(Savage\)/,
+    zoneId: ZoneId.AnabaseiosTheEleventhCircleSavage,
+    // zoneRegex: /Anabaseios: The Eleventh Circle \(Savage\)/,
     initData: () => {
         return {
         }
