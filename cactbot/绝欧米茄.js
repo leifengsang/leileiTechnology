@@ -96,6 +96,14 @@ Options.Triggers.push({
     },
     triggers: [
         {
+            id: "leilei TOP Headmarker Tracker",
+            netRegex: NetRegexes.headMarker({}),
+            condition: (data) => undefined === data.leileiDecOffset,
+            run: (data, matches) => {
+                getHeadmarkerId(data, matches);
+            },
+        },
+        {
             id: "leilei TOP 控制战斗阶段",
             netRegex: NetRegexes.startsUsing({ id: ["7B03", "7B3E", "7B55", "7B81", "7B88"] }),
             run: (data, matches) => {
@@ -337,7 +345,7 @@ Options.Triggers.push({
                     headMarker.triangle,
                     headMarker.square,
                     headMarker.cross,
-                ]
+                ];
                 if (!headMarkers.includes(id)) {
                     return;
                 }
@@ -455,14 +463,6 @@ Options.Triggers.push({
             outputStrings: {
                 取消标记: "false"
             }
-        },
-        {
-            id: "leilei TOP Headmarker Tracker",
-            netRegex: NetRegexes.headMarker({}),
-            condition: (data) => undefined === data.leileiDecOffset,
-            run: (data, matches) => {
-                getHeadmarkerId(data, matches);
-            },
         },
         {
             id: "leilei TOP p2 靠近远离",
