@@ -8,6 +8,17 @@
 const PHASE_DOUBLE_STACK = 2; //2分钟120后的左右分摊
 const PHASE_BREAK_FLOOR = 3; //拆地板
 
+const headMarker = {
+    palladianGrasp: '01D4',
+    //1风火 火标记
+    caloric1Beacon: '012F',
+}
+
+const getHeadmarkerId = (data, matches) => {
+    if (!data.leileiDecOffset) data.leileiDecOffset = parseInt(matches.id, 16) - data.expectedFirstHeadmarker;
+    return (parseInt(matches.id, 16) - data.leileiDecOffset).toString(16).toUpperCase().padStart(4, "0");
+};
+
 Options.Triggers.push({
     zoneId: ZoneId.AnabaseiosTheTwelfthCircleSavage,
     // zoneRegex: /Anabaseios: The Twelfth Circle \(Savage\)/,
@@ -22,6 +33,11 @@ Options.Triggers.push({
             mahjongPhaseEntered: false,
             whiteFlameCount: 0,
             towerAlerted: false,
+            isDoorBoss: false,
+            caloric1StackGroup: [],
+            caloric1FlameGroup: [],
+            caloric1WindGroup: [],
+            caloric1WindCount: 0,
         }
     },
     triggers: [
@@ -215,7 +231,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei p12s本体 踩塔运动会 闲/单buff分组标记",
+            id: "leilei p12s本体 踩塔运动会 闲/单buff同组播报",
             //E09 消层buff 分为1层和2层
             netRegex: NetRegexes.gainsEffect({ effectId: "E09" }),
             infoText: "",
@@ -236,29 +252,11 @@ Options.Triggers.push({
 
                     data.singleGroup = singleGroup;
                     data.otherGroup = otherGroup;
-
-                    //debug
-                    singleGroup.forEach((e) => {
-                        console.log("singleGroup", data.leileiFL.getJobNameByHexId(data, e));
-                    });
-                    otherGroup.forEach((e) => {
-                        console.log("otherGroup", data.leileiFL.getJobNameByHexId(data, e));
-                    });
                 }
             },
+            durationSeconds: 10,
             infoText: (data, matches, output) => {
                 if (data.unstableFactorCount != 6) {
-                    return;
-                }
-
-
-            },
-            run: (data, matches, output) => {
-                if (data.unstableFactorCount != 6) {
-                    return;
-                }
-
-                if (output.是否标记() !== "true") {
                     return;
                 }
 
@@ -266,26 +264,34 @@ Options.Triggers.push({
                  * 闲buff 禁止12
                  * 黑白1层 锁链12
                  */
-                const rpRuleList = output.优先级().split("/");
-                data.singleGroup.sort((a, b) => {
-                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
-                });
-                data.otherGroup.sort((a, b) => {
-                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
-                });
+                // const rpRuleList = output.优先级().split("/");
+                // data.singleGroup.sort((a, b) => {
+                //     return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                // });
+                // data.otherGroup.sort((a, b) => {
+                //     return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                // });
 
-                //闲buff
-                data.leileiFL.mark(data.otherGroup[0], data.leileiData.targetMarkers.stop1);
-                data.leileiFL.mark(data.otherGroup[1], data.leileiData.targetMarkers.stop2);
+                //闲buff otherGroup
+                const myId = data.leileiFL.getHexIdByName(data, data.me);
+                let otherPlayer = data.otherGroup.filter((v) => {
+                    return v != myId;
+                });
+                if (otherPlayer.length == 1) {
+                    return output.同组职业({ job: data.leileiFL.getJobNameByHexId(data, otherPlayer[0]) });
+                }
 
-                //黑白1层
-                data.leileiFL.mark(data.singleGroup[0], data.leileiData.targetMarkers.bind1);
-                data.leileiFL.mark(data.singleGroup[1], data.leileiData.targetMarkers.bind2);
+                //黑白1层 singleGroup
+                let singlePlayer = data.singleGroup.filter((v) => {
+                    return v != myId;
+                });
+                if (singlePlayer.length == 1) {
+                    return output.同组职业({ job: data.leileiFL.getJobNameByHexId(data, singlePlayer[0]) });
+                }
             },
             outputStrings: {
                 优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
-                是否标记: "false",
-                同组职能: "${rp}"
+                同组职业: "同组：${job}"
             }
         },
         {
@@ -360,7 +366,6 @@ Options.Triggers.push({
             //832A 环形安全区
             netRegex: NetRegexes.startsUsing({ id: ["8329", "832A", "832B"] }),
             infoText: (data, matches, output) => {
-                console.log(matches.id);
                 if (matches.id === "8329") {
                     return output.横排安全区();
                 } else if (matches.id === "832B") {
@@ -373,6 +378,86 @@ Options.Triggers.push({
                 竖排安全区: "横向散开",
                 横排安全区: "竖向散开",
                 环形安全区: "月环散开",
+            }
+        },
+        {
+            id: 'leilei p12s本体 本体检测',
+            // 8682 = Ultima cast
+            netRegex: NetRegexes.startsUsing({ id: "8682" }),
+            run: (data) => {
+                data.isDoorBoss = false;
+                data.expectedFirstHeadmarker = parseInt(headMarker.palladianGrasp, 16);
+            },
+        },
+        {
+            id: 'leilei p12s本体 1风火 火标记',
+            netRegex: NetRegexes.headMarker({}),
+            run: (data, matches) => {
+                const id = getHeadmarkerId(data, matches);
+                if (id === headMarker.caloric1Beacon)
+                    data.caloric1StackGroup.push(matches.targetId);
+            },
+        },
+        {
+            id: "leilei p12s本体 1风火优先级播报",
+            //E07 风
+            netRegex: NetRegexes.gainsEffect({ effectId: "E07" }),
+            preRun: (data, matches, output) => {
+                data.caloric1WindGroup.push(matches.targetId);
+                data.caloric1WindCount++;
+
+                //数据还没有齐
+                if (data.caloric1WindCount != 4) {
+                    return;
+                }
+
+                data.caloric1FlameGroup = data.party.partyIds_.filter((v) => {
+                    return !data.caloric1WindGroup.includes(v);
+                });
+
+                if (output.是否忽略火点名() === "true") {
+                    data.caloric1WindGroup = data.caloric1WindGroup.filter((v) => {
+                        return !data.caloric1StackGroup.includes(v);
+                    });
+                }
+
+                const rpRuleList = output.优先级().split("/");
+                data.caloric1WindGroup.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+                data.caloric1FlameGroup.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+            },
+            durationSeconds: 10,
+            infoText: (data, matches, output) => {
+                //数据还没有齐
+                if (data.caloric1WindCount != 4) {
+                    return;
+                }
+
+                const myId = data.leileiFL.getHexIdByName(data, data.me);
+                const pointList = output.标点优先级().split("/");
+                console.log("myId", myId, data.leileiFL.getRpByHexId(data, myId));
+                if (data.caloric1WindGroup.includes(myId)) {
+                    console.log("风", data.caloric1WindGroup.map((v) => {
+                        return data.leileiFL.getRpByHexId(data, v);
+                    }));
+                    return output.点位({ point: pointList[data.caloric1WindGroup.indexOf(myId) + 2] });
+                }
+
+                if (data.caloric1FlameGroup.includes(myId)) {
+                    console.log("火", data.caloric1FlameGroup.map((v) => {
+                        return data.leileiFL.getRpByHexId(data, v);
+                    }));
+                    return output.点位({ point: pointList[data.caloric1FlameGroup.indexOf(myId)] });
+                }
+            },
+            outputStrings: {
+                优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
+                标点优先级: "A/B/C/D",
+                点位: "去${point}点",
+                是否忽略火点名: "true"
             }
         },
     ]
