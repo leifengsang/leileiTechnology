@@ -438,18 +438,15 @@ Options.Triggers.push({
 
                 const myId = data.leileiFL.getHexIdByName(data, data.me);
                 const pointList = output.标点优先级().split("/");
-                console.log("myId", myId, data.leileiFL.getRpByHexId(data, myId));
                 if (data.caloric1WindGroup.includes(myId)) {
-                    console.log("风", data.caloric1WindGroup.map((v) => {
-                        return data.leileiFL.getRpByHexId(data, v);
-                    }));
-                    return output.点位({ point: pointList[data.caloric1WindGroup.indexOf(myId) + 2] });
+                    let index = pointList[data.caloric1WindGroup.indexOf(myId)];
+                    if (output.是否忽略火点名() === "true") {
+                        index += 2;
+                    }
+                    return output.点位({ point: pointList[index] });
                 }
 
                 if (data.caloric1FlameGroup.includes(myId)) {
-                    console.log("火", data.caloric1FlameGroup.map((v) => {
-                        return data.leileiFL.getRpByHexId(data, v);
-                    }));
                     return output.点位({ point: pointList[data.caloric1FlameGroup.indexOf(myId)] });
                 }
             },
