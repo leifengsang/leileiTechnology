@@ -439,7 +439,7 @@ Options.Triggers.push({
                 const myId = data.leileiFL.getHexIdByName(data, data.me);
                 const pointList = output.标点优先级().split("/");
                 if (data.caloric1WindGroup.includes(myId)) {
-                    let index = pointList[data.caloric1WindGroup.indexOf(myId)];
+                    let index = data.caloric1WindGroup.indexOf(myId);
                     if (output.是否忽略火点名() === "true") {
                         index += 2;
                     }
