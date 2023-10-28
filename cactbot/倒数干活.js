@@ -38,13 +38,17 @@ Options.Triggers.push({
             preRun: (data) => {
                 data.canceled = false;
             },
-            delaySeconds: (data, matches) => {
-                return Math.max(0, parseInt(matches.time) - 5.2);
+            delaySeconds: (data, matches, output) => {
+                return Math.max(0, parseInt(matches.time) - parseFloat(output.预读时间()));
             },
-            run: (data, matches) => {
+            run: (data, matches, output) => {
                 if (!data.canceled) {
-                    data.leileiFL.doTextCommand("/ac 赤暴风");
+                    data.leileiFL.doTextCommand("/ac " + output.技能名字());
                 }
+            },
+            outputStrings: {
+                技能名字: "赤暴风",
+                预读时间: "5.0"
             },
         },
         {
