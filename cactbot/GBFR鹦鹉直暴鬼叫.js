@@ -14,6 +14,8 @@ const getDelaySeconds = (groupList, target) => {
     return parseFloat(valueWeight.split("#")[1]);
 }
 
+var lastShoutingTime = 0;
+
 Options.Triggers.push({
     zoneId: ZoneId.MatchAll,
     id: "leilei GBFR parrot shouting",
@@ -89,6 +91,12 @@ Options.Triggers.push({
                     return false;
                 }
 
+                const now = Date.now();
+                if (now - lastShoutingTime < 100) {
+                    //100毫秒内只喊一次，不然多目标有点吵
+                    return false;
+                }
+
                 const skillList = data.triggerSetConfig.skill_list.split("#");
                 const result = skillList.find((v) => {
                     return v === matches.id;
@@ -101,7 +109,10 @@ Options.Triggers.push({
                 const flags = matches.flags;
                 const code = flags[flags.length - 4];
                 //非不直不爆
-                return code !== "0";
+                if (code !== "0") {
+                    lastShoutingTime = Date.now();
+                    return true;
+                }
             },
             delaySeconds: (data, matches) => {
                 return getDelaySeconds(data.triggerSetConfig.skill_delay_list, matches.id);
