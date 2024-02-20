@@ -150,7 +150,7 @@ Options.Triggers.push({
                 return matches.source === data.me;
             },
             run: (data, matches) => {
-                console.log(matches.id);
+                console.log(matches.ability, matches.id);
             }
         }
     ]
