@@ -23,10 +23,14 @@ Options.Triggers.push({
         {
             id: "ability_test_enable",
             comment: {
-                cn: "开启后，在raidboss悬浮窗控制台输出技能id"
+                cn: "开启后，在raidboss悬浮窗控制台输出技能id",
+                en: "开启后，在raidboss悬浮窗控制台输出技能id",
+                jp: "开启后，在raidboss悬浮窗控制台输出技能id",
             },
             name: {
-                cn: "开启调试模式"
+                cn: "开启调试模式",
+                en: "开启调试模式",
+                jp: "开启调试模式",
             },
             type: "checkbox",
             default: false
@@ -34,10 +38,14 @@ Options.Triggers.push({
         {
             id: "C_or_D_audio_url",
             comment: {
-                cn: "音频路径：ui/raidboss/文件夹的相对路径"
+                cn: "音频路径：ui/raidboss/文件夹的相对路径",
+                en: "音频路径：ui/raidboss/文件夹的相对路径",
+                jp: "音频路径：ui/raidboss/文件夹的相对路径",
             },
             name: {
-                cn: "直or暴音频路径"
+                cn: "直or暴音频路径",
+                en: "直or暴音频路径",
+                jp: "直or暴音频路径",
             },
             type: "string",
             default: "../../user/raidboss/sugoi.mp3"
@@ -45,10 +53,14 @@ Options.Triggers.push({
         {
             id: "C_and_D_audio_url",
             comment: {
-                cn: "音频路径：ui/raidboss/文件夹的相对路径"
+                cn: "音频路径：ui/raidboss/文件夹的相对路径",
+                en: "音频路径：ui/raidboss/文件夹的相对路径",
+                jp: "音频路径：ui/raidboss/文件夹的相对路径",
             },
             name: {
-                cn: "直暴音频路径"
+                cn: "直暴音频路径",
+                en: "直暴音频路径",
+                jp: "直暴音频路径",
             },
             type: "string",
             default: "../../user/raidboss/unbelievable.mp3"
@@ -56,10 +68,14 @@ Options.Triggers.push({
         {
             id: "skill_list",
             comment: {
-                cn: "技能id列表#号分隔，如：1D65#1D66#4092#6502"
+                cn: "技能id列表#号分隔，如：1D65#1D66#4092#6502",
+                en: "技能id列表#号分隔，如：1D65#1D66#4092#6502",
+                jp: "技能id列表#号分隔，如：1D65#1D66#4092#6502",
             },
             name: {
-                cn: "技能id列表"
+                cn: "技能id列表",
+                en: "技能id列表",
+                jp: "技能id列表",
             },
             type: "string",
             default: "1D65#1D66#4092#6502"
@@ -69,10 +85,18 @@ Options.Triggers.push({
             comment: {
                 cn: "有的技能伤害数字出来比较慢，声音延后放可能效果会更好<br>" +
                     "配置方式：技能#延迟（单位：秒），多个配置由‘,’衔接；不配置默认不延后<br>" +
-                    "如：1D65#0.6,1D66#0.6,4092#1,6502#1"
+                    "如：1D65#0.6,1D66#0.6,4092#1,6502#1",
+                en: "有的技能伤害数字出来比较慢，声音延后放可能效果会更好<br>" +
+                    "配置方式：技能#延迟（单位：秒），多个配置由‘,’衔接；不配置默认不延后<br>" +
+                    "如：1D65#0.6,1D66#0.6,4092#1,6502#1",
+                jp: "有的技能伤害数字出来比较慢，声音延后放可能效果会更好<br>" +
+                    "配置方式：技能#延迟（单位：秒），多个配置由‘,’衔接；不配置默认不延后<br>" +
+                    "如：1D65#0.6,1D66#0.6,4092#1,6502#1",
             },
             name: {
-                cn: "技能延迟"
+                cn: "技能延迟",
+                en: "技能延迟",
+                jp: "技能延迟",
             },
             type: "string",
             default: "1D65#1.25,1D66#1.1,4092#1.5,6502#1.25"
@@ -82,7 +106,9 @@ Options.Triggers.push({
         {
             id: "leilei GBFR parrot shouting",
             comment: {
-                cn: "配置的指定技能直/暴时，鬼叫すごい；直暴时，鬼叫アンビリーバボ—"
+                cn: "配置的指定技能直/暴时，鬼叫すごい；直暴时，鬼叫アンビリーバボ—",
+                en: "配置的指定技能直/暴时，鬼叫すごい；直暴时，鬼叫アンビリーバボ—",
+                jp: "配置的指定技能直/暴时，鬼叫すごい；直暴时，鬼叫アンビリーバボ—",
             },
             netRegex: NetRegexes.ability(),
             condition: (data, matches, output) => {
