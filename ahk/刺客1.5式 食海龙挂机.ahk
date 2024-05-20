@@ -89,7 +89,7 @@ collect(){
 	sleep forwardCount * 400
 	send {s up}
 	
-	fightFlag:=true
+	fightFlag:=false
 	return
 }
 
@@ -102,7 +102,7 @@ collectable(){
 ; 判断boss是否存在
 bossExists(){
 	; 血条
-	PixelSearch x1, y1, 1050, 120, 1070, 150, "0x852727", 10, Fast RGB
+	PixelSearch x1, y1, 1050, 110, 1150, 160, "0x852727", 10, Fast RGB
 	return not ErrorLevel
 }
 
