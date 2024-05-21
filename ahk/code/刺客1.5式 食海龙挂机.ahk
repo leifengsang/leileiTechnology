@@ -96,7 +96,7 @@ collect(){
 	}
 	
 	send {s down}
-	sleep forwardCount * 420
+	sleep forwardCount * 450
 	send {s up}
 	
 	fightFlag:=false
