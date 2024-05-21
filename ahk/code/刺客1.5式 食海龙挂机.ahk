@@ -111,10 +111,12 @@ collect(){
 	return
 }
 
-; 我的F改过键位的，建议其他人自己取色F键位的位置
+; 直接全屏检测拾取图标
 collectable(){
 	Text:="|<>*105$48.00000000DzzzzzzwTzzzzzzyTzzzzzzyTzzzzzzyTzzzzw7yTzzzzs3yTzzzzU1yTzzz001yTzzs001yTzzs001yTzzk00DyTzzk00zyTzzU01zyTzz007zyTzz40DzyTzzA0TzyTzy81zzyTzy8zzzyTzyFzzzyTzwVzzzyTzw3zzzyTzsTzTzyTsEDzTzyTs07TzzyTsITDzzyTw/zTzzyTyOdTzxyTzs3zw1yTy47zy1yTy0Tzw3yTy03zs3yTw83zk7yTs23z0ryTk2Dy1zyTk2vw3zyTU3ds3zyTU15k7zyTU11U7zyTU030DzyTU220DzyTk360DzyTzzw0TzyTzzzzzzyTzzzzzzyTzzzzzzyTzzzzzzy00000000U"
-	if(FindText(X, Y, 1544, 848, 1604, 906, 0, 0, Text)){
+	; 全屏好像效率损失也能接受
+	; if(FindText(X, Y, 1544, 848, 1604, 906, 0, 0, Text)){
+	if(FindText(X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0, 0, Text)){
 		return true
 	}else{
 		return false
@@ -123,7 +125,7 @@ collectable(){
 
 ; 判断boss是否存在
 bossExists(){
-	; 血条
+	; 虚的血条颜色和实的血条颜色
 	PixelSearch x1, y1, 1027, 115, 1536, 150, "0x822c2b", 10, Fast RGB
 	flag:= !ErrorLevel
 	PixelSearch x1, y1, 1027, 115, 1536, 150, "0x5e292b", 10, Fast RGB
@@ -133,13 +135,13 @@ bossExists(){
 
 ; 循环
 doLoop(){
-	send {1}
+	send {v}
 	sleep 10
-	send {z}
+	send {1}
 	sleep 10
 	send {4}
 	sleep 10
-	send {v}
+	send {z}
 	sleep 10
 
 	send {t}
