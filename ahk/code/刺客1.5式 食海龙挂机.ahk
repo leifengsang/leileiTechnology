@@ -2,14 +2,6 @@
 CoordMode Mouse, Screen
 CoordMode ToolTip, Screen
 
-6::
-	showTooltip("bossExists:"+bossExists())
-	return
-
-7::
-	showTooltip("collectable:"+collectable())
-	return
-
 8::
 	check()
 	return
