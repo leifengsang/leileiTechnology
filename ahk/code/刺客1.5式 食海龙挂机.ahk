@@ -75,7 +75,7 @@ collect(){
 		
 		forwardCount++
 		
-		sleep 1000
+		sleep 10
 	}
 	
 	; 看到可以捡了
@@ -118,9 +118,9 @@ collectable(){
 ; 判断boss是否存在
 bossExists(){
 	; 虚的血条颜色和实的血条颜色
-	PixelSearch x1, y1, 1027, 115, 1536, 150, "0x822c2b", 10, Fast RGB
+	PixelSearch x1, y1, A_ScreenWidth / 2 - 500, 115, A_ScreenWidth / 2 + 500, 150, "0x822c2b", 10, Fast RGB
 	flag:= !ErrorLevel
-	PixelSearch x1, y1, 1027, 115, 1536, 150, "0x5e292b", 10, Fast RGB
+	PixelSearch x1, y1, A_ScreenWidth / 2 - 500, 115, A_ScreenWidth / 2 + 500, 150, "0x5e292b", 10, Fast RGB
 	flag:= flag or !ErrorLevel
 	return flag
 }
@@ -154,7 +154,7 @@ doLoop(){
 }
 
 showTooltip(text){
-	ToolTip %text%, 1250, 1100
+	ToolTip %text%, A_ScreenWidth / 2 - 25, A_ScreenHeight * 7 / 10
 	SetTimer hideTooltip, -5000
 	return
 }
