@@ -17,7 +17,10 @@ CoordMode ToolTip, Screen
 6-干掉小怪
 7-找到箱子
 8-收集箱子
-9-返回
+9-退回到道路中间
+10-返回
+11-返回左转
+12-跑回门前
 */
 
 global startFlag:=false
@@ -58,6 +61,8 @@ end(){
   SetTimer checkBoss, Off
   SetTimer fight, Off
   SetTimer Checkbox, Off
+  SetTimer turnReturnDir, Off
+  SetTimer turnLeftDir, Off
   Send {w up}
   Send {NumpadLeft up}
   Send {NumpadRight up}
@@ -133,7 +138,9 @@ checkEntered(){
       showTooltip("check entered")
       forwardAndTurnAfterEnter()
       return
-    case 2:
+    case 12:
+      start()
+      return
   }
 }
 
@@ -272,8 +279,11 @@ Checkbox(){
   if(A_TickCount - checkBoxStartTime >= 10000){
     ; 超时，放弃
     showTooltip("give up")
-    actionStatus:=9
+    actionStatus:=10
     SetTimer Checkbox, Off
+    
+    SetTimer turnReturnDir, 10
+    
     return
   }
   
@@ -323,6 +333,99 @@ collect(){
   
   showTooltip("return")
   actionStatus:=9
+  
+  stepBack()
+}
+
+stepBack(){
+  send) {s down}
+  Sleep 2000
+  send {s up}
+  
+  showTooltip("step back succ")
+  actionStatus:=10
+  
+  SetTimer turnReturnDir, 10
+}
+
+; 返回的方向
+turnReturnDir(){
+  if(!startFlag){
+    SetTimer turnReturnDir, Off
+    return
+  }
+  
+  if(checkReturnDir()){
+    showTooltip("turn return dir succ")
+    actionStatus:=11
+    SetTimer turnReturnDir, Off
+    
+    forwardAndTurnLeft()
+    
+    return
+  }
+    
+  Send {NumpadRight down}
+  Sleep 5
+  Send {NumpadRight up}
+  return
+}
+
+; 返回的方向
+checkReturnDir(){
+  ; TODO 抓图
+  Text:="|<>*160$24.zyTzzwTzzwDzzsDzzsDzzk7zzk7zzk3zzU3zzU1zz01zz00zy00zy00Tw00Tw00Dw00Ds007s007k1U3k7s1UDw1Uzz11zzk3zzwU"
+  if(FindText(X, Y, A_ScreenWidth - 750, 0, A_ScreenWidth, 750, 0.18, 0.18, Text)){
+		return true
+	}else{
+		return false
+	}
+}
+
+forwardAndTurnLeft(){
+  Send {w down}
+  Sleep 10
+  Send {LShift down}
+  sleep 10
+  Send {LShift up}
+  sleep 10000
+  Send {w up}
+  
+  
+}
+
+; 返回的方向
+turnLeftDir)(){
+  if(!startFlag){
+    SetTimer turnLeftDir, Off
+    return
+  }
+  
+  if(checkLeftDir()){
+    showTooltip("turn left dir succ")
+    actionStatus:=12
+    SetTimer turnLeftDir, Off
+    
+    enter()
+    
+    return
+  }
+    
+  Send {NumpadLeft down}
+  Sleep 5
+  Send {NumpadLeft up}
+  return
+}
+
+; 返回的方向
+checkLeftDir(){
+  ; TODO 抓图
+  Text:="|<>*160$24.zyTzzwTzzwDzzsDzzsDzzk7zzk7zzk3zzU3zzU1zz01zz00zy00zy00Tw00Tw00Dw00Ds007s007k1U3k7s1UDw1Uzz11zzk3zzwU"
+  if(FindText(X, Y, A_ScreenWidth - 750, 0, A_ScreenWidth, 750, 0.18, 0.18, Text)){
+		return true
+	}else{
+		return false
+	}
 }
 
 ; 循环
@@ -1471,7 +1574,7 @@ CaptureCursor(hDC:=0, zx:=0, zy:=0, zw:=0, zh:=0, get_cursor:=0)
     return
   VarSetCapacity(ni, 40, 0)
   DllCall("GetIconInfo", "Ptr",hCursor, "Ptr",&ni)
-  xCenter:=NumGet(ni, 4, "int")
+  xCenter):=NumGet(ni, 4, "int")
   yCenter:=NumGet(ni, 8, "int")
   hBMMask:=NumGet(ni, (A_PtrSize=8?16:12), "Ptr")
   hBMColor:=NumGet(ni, (A_PtrSize=8?24:16), "Ptr")
