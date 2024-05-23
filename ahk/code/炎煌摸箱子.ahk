@@ -21,6 +21,7 @@ CoordMode ToolTip, Screen
 10-返回
 11-返回左转
 12-跑回门前
+99-debug
 */
 
 global startFlag:=false
@@ -29,7 +30,7 @@ global checkBoxStartTime
 return
 
 7::
-  showTooltip(boxExists())
+  showTooltip(checkLeftDir())
   return
 
 8::
@@ -60,10 +61,13 @@ end(){
   SetTimer turnRightDir, Off
   SetTimer checkBoss, Off
   SetTimer fight, Off
-  SetTimer Checkbox, Off
+  SetTimer delayCheckBox, Off
+  SetTimer checkbox, Off
   SetTimer turnReturnDir, Off
   SetTimer turnLeftDir, Off
   Send {w up}
+  Send {d up}
+  Send {a up}
   Send {NumpadLeft up}
   Send {NumpadRight up}
   Send {LShift up}
@@ -80,6 +84,7 @@ turnEntryDir(){
   if(checkEntryDir()){
     showTooltip("turn entry dir succ")
     actionStatus:=1
+    ; actionStatus:=99
     SetTimer turnEntryDir, Off
     
     enter()
@@ -108,16 +113,15 @@ enter(){
   Send {w down}
   Sleep 10
   Send {LShift down}
-  sleep 10
+  sleep 100
   Send {LShift up}
   
   SetTimer delayCheckEntered, -100
-  SetTimer checkEntered, 10
 }
 
 ; 先让轻功跑起来 延迟检测
 delayCheckEntered(){
-  checkEntered()
+  SetTimer checkEntered, 10
 }
 
 ; 是否跨过了门
@@ -132,6 +136,10 @@ checkEntered(){
     return
   }
   
+  SetTimer checkEntered, Off
+  
+  Send {w up}
+  Sleep 10
   switch actionStatus{
     case 1:
       actionStatus:=2
@@ -141,12 +149,13 @@ checkEntered(){
     case 12:
       start()
       return
+    Case 99:
+      SetTimer turnLeftDir, 10
+      return
   }
 }
 
 forwardAndTurnAfterEnter(){
-  Send {w up}
-  Sleep 10
   Send {w down}
   Sleep 10
   Send {LShift down}
@@ -207,7 +216,7 @@ forward(){
   Send {LShift down}
   sleep 10
   Send {LShift up}
-  sleep 7000
+  sleep 7300
   Send {w up}
   SetTimer checkBoss, 10
 }
@@ -248,8 +257,8 @@ fight(){
     actionStatus:=6
     SetTimer fight, Off
     
-    checkBoxStartTime:=A_TickCount
-    SetTimer Checkbox, 100
+    ; 等尸体倒下，防止挡视线
+    SetTimer delayCheckBox, -5000
     
     return
   }
@@ -258,10 +267,15 @@ fight(){
   return
 }
 
+delayCheckBox(){
+    checkBoxStartTime:=A_TickCount
+    SetTimer checkbox, 10
+}
+
 ; 找箱子
-Checkbox(){
+checkbox(){
   if(!startFlag){
-    SetTimer Checkbox, Off
+    SetTimer checkbox, Off
     return
   }
   
@@ -269,18 +283,18 @@ Checkbox(){
     ; 找到了
     showTooltip("box found")
     actionStatus:=7
-    SetTimer Checkbox, Off
+    SetTimer checkbox, Off
     
     forwardAndCollect()
     
     return
   }
   
-  if(A_TickCount - checkBoxStartTime >= 10000){
+  if(A_TickCount - checkBoxStartTime >= 6000){
     ; 超时，放弃
     showTooltip("give up")
     actionStatus:=10
-    SetTimer Checkbox, Off
+    SetTimer checkbox, Off
     
     SetTimer turnReturnDir, 10
     
@@ -288,7 +302,7 @@ Checkbox(){
   }
   
   Send {NumpadLeft down}
-  Sleep 3
+  Sleep 5
   Send {NumpadLeft up}
   return
 }
@@ -319,6 +333,11 @@ forwardAndCollect(){
       return
     }
   }
+  
+  ; 摸不到，放弃
+  showTooltip("give up")
+  actionStatus:=9
+  stepBack()
 }
 
 
@@ -326,7 +345,7 @@ collect(){
   send {f}
   sleep 5200
   send {f}
-  sleep 200
+  sleep 1000
   ; 可能需要二次确认
   send {y}
   sleep 200
@@ -338,8 +357,8 @@ collect(){
 }
 
 stepBack(){
-  send) {s down}
-  Sleep 2000
+  send {s down}
+  Sleep 4000
   send {s up}
   
   showTooltip("step back succ")
@@ -373,9 +392,9 @@ turnReturnDir(){
 
 ; 返回的方向
 checkReturnDir(){
-  ; TODO 抓图
-  Text:="|<>*160$24.zyTzzwTzzwDzzsDzzsDzzk7zzk7zzk3zzU3zzU1zz01zz00zy00zy00Tw00Tw00Dw00Ds007s007k1U3k7s1UDw1Uzz11zzk3zzwU"
-  if(FindText(X, Y, A_ScreenWidth - 750, 0, A_ScreenWidth, 750, 0.18, 0.18, Text)){
+  Text:="|<>*161$24.Dzzx3zzkUzz1UDk1U003U003k007k007k00Dk00Dk00Ts00Tw00zy00Ty01Ty00zz02zz01zzU1zzk1zzk3zzs7zzsDzzwDzzwTzzwTzU"
+
+  if(FindText(X, Y, A_ScreenWidth - 750, 0, A_ScreenWidth, 750, 0.17, 0.17, Text)){
 		return true
 	}else{
 		return false
@@ -388,14 +407,21 @@ forwardAndTurnLeft(){
   Send {LShift down}
   sleep 10
   Send {LShift up}
-  sleep 10000
+  sleep 5000
+  ; 可能卡边上了 往左右走点
+  send {d down}
+  sleep 2000
+  Send {d up}
+  Send {a down}
+  sleep 2600
+  Send {a up}
   Send {w up}
   
-  
+  SetTimer turnLeftDir, 10
 }
 
-; 返回的方向
-turnLeftDir)(){
+; 返回左转的方向
+turnLeftDir(){
   if(!startFlag){
     SetTimer turnLeftDir, Off
     return
@@ -410,17 +436,17 @@ turnLeftDir)(){
     
     return
   }
-    
+  
   Send {NumpadLeft down}
   Sleep 5
   Send {NumpadLeft up}
   return
 }
 
-; 返回的方向
+; 返回左转的方向
 checkLeftDir(){
-  ; TODO 抓图
-  Text:="|<>*160$24.zyTzzwTzzwDzzsDzzsDzzk7zzk7zzk3zzU3zzU1zz01zz00zy00zy00Tw00Tw00Dw00Ds007s007k1U3k7s1UDw1Uzz11zzk3zzwU"
+  Text:="|<>*160$27.7zzzwDzzzUDzzy0Dzzk0Tzz00Tzw00Tzk00Ly000Ds000z0007w000z000zs00Ty00Tzk0Dzw07zzU1zzs0zzz0TzzkDzzy7zzzXzzzw"
+
   if(FindText(X, Y, A_ScreenWidth - 750, 0, A_ScreenWidth, 750, 0.18, 0.18, Text)){
 		return true
 	}else{
@@ -431,7 +457,7 @@ checkLeftDir(){
 ; 循环
 doLoop(){
 	send {v}
-	sleep 20
+	sleep 40
 	send {1}
 	sleep 20
 	send {4}
@@ -467,14 +493,9 @@ bossExists(){
 	}
 }
 
-boxExists(){
-  Text:="|<>*86$44.zg000D0800001k000003U000000M0000007300006Dww0001ztwU0007y740001ktt0009y7yM002zwxa000jzztU40DbCzs103Pnfy0E0rwttk408bwQT9029yD7Sk0nryXzgUAtj9zzM3glzzzq0TCHzzzj7lkDzzvrCA7zzzznzzzzzzZzzzzzzwzzzzzzyjzzzzzzDzzzzzzXzzzzzzlzzzzzTszzzzzawTzzzzlCDzzzzzl7zzzzwz3zzzzyTlzzzzzgAzzzzzy0Tzzzzzb7zzzzzzbzzzzzzvzzzzzy"
-
-  if(FindText(X, Y, A_ScreenWidth / 2 - 150, 0, A_ScreenWidth / 2 + 150, A_ScreenHeight, 0.1, 0.1, Text)){
-		return true
-	}else{
-		return false
-	}
+boxExists(){  
+  PixelSearch x1, y1, A_ScreenWidth / 2 - 150, 0, A_ScreenWidth / 2 + 150, A_ScreenHeight, "0x1a657e", 1, Fast RGB
+  return !ErrorLevel
 }
 
 collectable(){  
@@ -1574,7 +1595,7 @@ CaptureCursor(hDC:=0, zx:=0, zy:=0, zw:=0, zh:=0, get_cursor:=0)
     return
   VarSetCapacity(ni, 40, 0)
   DllCall("GetIconInfo", "Ptr",hCursor, "Ptr",&ni)
-  xCenter):=NumGet(ni, 4, "int")
+  xCenter:=NumGet(ni, 4, "int")
   yCenter:=NumGet(ni, 8, "int")
   hBMMask:=NumGet(ni, (A_PtrSize=8?16:12), "Ptr")
   hBMColor:=NumGet(ni, (A_PtrSize=8?24:16), "Ptr")
