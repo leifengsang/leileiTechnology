@@ -19,8 +19,12 @@ check(){
 }
 
 global fightFlag
+global lastCollectTime
+return
+
 start(){
 	fightFlag:=false
+  lastCollectTime:=A_TickCount
 	SetTimer, checkFight, 1000
 	return
 }
@@ -34,6 +38,12 @@ end(){
 }
 
 checkFight(){
+  if(A_TickCount - lastCollectTime >= 30000){
+    ; 半小时没捡东西了，基本可以认定已经出问题了，中止挂机
+    check()
+    return
+  }
+  
 	if(fightFlag){
 		return
 	}
@@ -81,6 +91,7 @@ collect(){
 	; 看到可以捡了
 	if(forwardCount < maxCount){
 		showTooltip("开始拾取")
+    lastCollectTime:=A_TickCount
 		
     sendOnActive("{f}")
 		sleep 200
