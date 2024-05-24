@@ -68,9 +68,9 @@ collect(){
 	forwardCount:=0
 	maxCount:=10
 	while(!collectable() and forwardCount < maxCount){
-		send {w down}
+    sendOnActive("{w down}")
 		sleep 200
-		send {w up}
+    sendOnActive("{w up}")
 		sleep 200
 		
 		forwardCount++
@@ -82,22 +82,22 @@ collect(){
 	if(forwardCount < maxCount){
 		showTooltip("开始拾取")
 		
-		send {f}
+    sendOnActive("{f}")
 		sleep 200
-		send {f}
+    sendOnActive("{f}")
 		sleep 200
-		send {f}
+    sendOnActive("{f}")
 		sleep 200
-		send {f}
+    sendOnActive("{f}")
 		sleep 200
 		
 		; 万一是只猪，把他放下来
-		send {4}
+    sendOnActive("{4}")
 	}
 	
-	send {s down}
+  sendOnActive("{s down}")
 	sleep forwardCount * 450
-	send {s up}
+  sendOnActive("{s up}")
 	
 	fightFlag:=false
 	return
@@ -127,30 +127,37 @@ bossExists(){
 
 ; 循环
 doLoop(){
-	send {v}
+  sendOnActive("{v}")
 	sleep 10
-	send {1}
+  sendOnActive("{1}")
 	sleep 10
-	send {4}
+  sendOnActive("{4}")
 	sleep 10
-	send {z}
+  sendOnActive("{4}")
 	sleep 10
 
-	send {t}
+  sendOnActive("{t}")
 	sleep 2
-	send {x down}
+  sendOnActive("{x down}")
 	sleep 2
-	send {x up}
-	send {r}
+  sendOnActive("{x up}")
+  sendOnActive("{r}")
 	sleep 2
-	send {t}
+  sendOnActive("{t}")
 	sleep 1
-	send {r}
+  sendOnActive("{r}")
 	sleep 2
-	send {t}
+  sendOnActive("{t}")
 	sleep 1
 	
 	return
+}
+
+sendOnActive(content){
+  if(!WinActive("《剑灵》")){
+    return
+  }
+  send % content
 }
 
 showTooltip(text){
