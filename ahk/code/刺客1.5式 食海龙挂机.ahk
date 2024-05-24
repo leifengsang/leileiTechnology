@@ -144,7 +144,7 @@ doLoop(){
 	sleep 10
   sendOnActive("{4}")
 	sleep 10
-  sendOnActive("{4}")
+  sendOnActive("{z}")
 	sleep 10
 
   sendOnActive("{t}")
