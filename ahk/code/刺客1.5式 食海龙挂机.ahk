@@ -52,7 +52,7 @@ checkFight(){
 		showTooltip("开始战斗")
 		fightFlag:=true
 		; 等跑过来再开打
-		SetTimer delayStartFight, -3000
+		SetTimer delayStartFight, -2500
 	}
 }
 
