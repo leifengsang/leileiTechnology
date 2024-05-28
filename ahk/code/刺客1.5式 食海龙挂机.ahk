@@ -38,11 +38,11 @@ end(){
 }
 
 checkFight(){
-  if(A_TickCount - lastCollectTime >= 1000 * 60 * 30){
-    ; 半小时没捡东西了，基本可以认定已经出问题了，中止挂机
-    check()
-    return
-  }
+  ; if(A_TickCount - lastCollectTime >= 1000 * 60 * 30){
+    半小时没捡东西了，基本可以认定已经出问题了，中止挂机
+    ; check()
+    ; return
+  ; }
   
 	if(fightFlag){
 		return
@@ -140,8 +140,8 @@ bossExists(){
 doLoop(){
   sendOnActive("{v}")
 	sleep 10
-  sendOnActive("{1}")
-	sleep 10
+  ; sendOnActive("{1}")
+	; sleep 10
   sendOnActive("{4}")
 	sleep 10
   sendOnActive("{z}")
