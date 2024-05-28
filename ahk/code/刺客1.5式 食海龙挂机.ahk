@@ -52,7 +52,7 @@ checkFight(){
 		showTooltip("开始战斗")
 		fightFlag:=true
 		; 等跑过来再开打
-		SetTimer delayStartFight, -2500
+		SetTimer delayStartFight, -1
 	}
 }
 
@@ -67,7 +67,7 @@ fight(){
 		showTooltip("结束战斗")
 		SetTimer fight, Off
 		; 可能一仇的时候被丢到地上的时候死的，先发会呆
-		SetTimer collect, -10000
+		SetTimer collect, -3000
 	}
 	return
 }
@@ -76,11 +76,11 @@ fight(){
 collect(){
 	; 防止捡不到卡死
 	forwardCount:=0
-	maxCount:=10
+	maxCount:=3
 	while(!collectable() and forwardCount < maxCount){
-    sendOnActive("{w down}")
+    sendControl("{w down}")
 		sleep 200
-    sendOnActive("{w up}")
+    sendControl("{w up}")
 		sleep 200
 		
 		forwardCount++
@@ -89,26 +89,26 @@ collect(){
 	}
 	
 	; 看到可以捡了
-	if(forwardCount < maxCount){
+	if(forwardCount < maxCount || collectable()){
 		showTooltip("开始拾取")
     lastCollectTime:=A_TickCount
 		
-    sendOnActive("{f}")
+    sendControl("{f}")
 		sleep 200
-    sendOnActive("{f}")
+    sendControl("{f}")
 		sleep 200
-    sendOnActive("{f}")
+    sendControl("{f}")
 		sleep 200
-    sendOnActive("{f}")
-		sleep 200
+    sendControl("{f}")
+		sleep 2000
 		
 		; 万一是只猪，把他放下来
-    sendOnActive("{4}")
+    sendControl("{4}")
 	}
 	
-  sendOnActive("{s down}")
+  sendControl("{s down}")
 	sleep forwardCount * 450
-  sendOnActive("{s up}")
+  sendControl("{s up}")
 	
 	fightFlag:=false
 	return
@@ -138,37 +138,35 @@ bossExists(){
 
 ; 循环
 doLoop(){
-  sendOnActive("{v}")
+  sendControl("{v}")
 	sleep 10
-  ; sendOnActive("{1}")
+  ; sendControl("{1}")
 	; sleep 10
-  sendOnActive("{4}")
+  sendControl("{4}")
 	sleep 10
-  sendOnActive("{z}")
+  sendControl("{z}")
 	sleep 10
 
-  sendOnActive("{t}")
+  sendControl("{t}")
 	sleep 2
-  sendOnActive("{x down}")
+  sendControl("{x down}")
 	sleep 2
-  sendOnActive("{x up}")
-  sendOnActive("{r}")
+  sendControl("{x up}")
+  sendControl("{r}")
 	sleep 2
-  sendOnActive("{t}")
+  sendControl("{t}")
 	sleep 1
-  sendOnActive("{r}")
+  sendControl("{r}")
 	sleep 2
-  sendOnActive("{t}")
+  sendControl("{t}")
 	sleep 1
 	
 	return
 }
 
-sendOnActive(content){
-  if(!WinActive("《剑灵》")){
-    return
-  }
-  send % content
+sendControl(content, win:="《剑灵》"){
+  controlsend, , % content, % win
+  return
 }
 
 showTooltip(text){
