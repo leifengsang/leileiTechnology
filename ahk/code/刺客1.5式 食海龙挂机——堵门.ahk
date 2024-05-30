@@ -38,11 +38,11 @@ end(){
 }
 
 checkFight(){
-  if(A_TickCount - lastCollectTime >= 1000 * 60 * 30){
+  ; if(A_TickCount - lastCollectTime >= 1000 * 60 * 30){
     ; 半小时没捡东西了，基本可以认定已经出问题了，中止挂机
-    check()
-    return
-  }
+    ; check()
+    ; return
+  ; }
   
 	if(fightFlag){
 		return
@@ -52,7 +52,7 @@ checkFight(){
 		showTooltip("开始战斗")
 		fightFlag:=true
 		; 等跑过来再开打
-		SetTimer delayStartFight, -2300
+		SetTimer delayStartFight, -1
 	}
 }
 
@@ -67,7 +67,7 @@ fight(){
 		showTooltip("结束战斗")
 		SetTimer fight, Off
 		; 可能一仇的时候被丢到地上的时候死的，先发会呆
-		SetTimer collect, -5000
+		SetTimer collect, -3000
 	}
 	return
 }
@@ -76,7 +76,7 @@ fight(){
 collect(){
 	; 防止捡不到卡死
 	forwardCount:=0
-	maxCount:=5
+	maxCount:=3
 	while(!collectable() and forwardCount < maxCount){
     sendControl("{w down}")
 		sleep 200
