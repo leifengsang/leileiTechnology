@@ -7,16 +7,12 @@ CoordMode Pixel, Screen
 CoordMode Mouse, Screen
 CoordMode ToolTip, Screen
 
-global startFlag:=false
-return
-
-7::
-  showTooltip(alertExists())
-  return
-
 8::
 	check()
 	return
+
+global startFlag:=false
+return
 
 check(){
 	if(!startFlag){
@@ -29,10 +25,9 @@ check(){
 	startFlag:=!startFlag
 }
 
-return
-
 start(){
-  openBox()
+  SetTimer delayOpenBox, -1
+    
 	return
 }
 	
@@ -40,18 +35,22 @@ end(){
 	return
 }
 
+delayOpenBox(){
+  openBox()
+}
+
 ; 开箱子
 openBox(){
   result:=findBox()
   if(!result){
     startFlag:=false
-    end()
     showTooltip("没找到箱子，结束")
     return
   }
   
+  showTooltip("开启箱子")
   ; 右键第一个箱子
-  MouseClick R, result[0][0] + 5, result[0][1] + 5
+  MouseClick R, result[1].x, result[1].y
   Sleep 100
   if(alertExists()){
     ; 有多个箱子 需要选择个数
@@ -70,21 +69,65 @@ openBox(){
 
 ; 分解
 breakDown(){
-  ; TODO
+  showTooltip(startFlag)
+  if(!startFlag){
+    return
+  }
+  
+  result:=findBreakDownBtn()
+  if(!result){
+    startFlag:=false
+    showTooltip("没找到分解按钮，结束")
+    return
+  }
+  
+  showTooltip("点击分解按钮")
+  ; 左键分解按钮
+  MouseClick L, result[1].x, result[1].y
+  Sleep 100
+  
+  result:=findItem()
+  if(!result){
+    startFlag:=false
+    showTooltip("没找到装备，结束")
+    return
+  }
+  
+  for i, v in result
+    MouseClick L, v.x, v.y
+    Sleep 100
+    
+  ; 开始分解
+  showTooltip("开始分解")
+  sendControl("{y}")
+  Sleep 5000
+  
+  openBox()
 }
 
 findBox(){
   Text:="|<>*111$31.zznzzzzU7zzrs0Tzatstzy0Qyli07pcU01zzU00Tzk00PUM00DU00000000000c0000Mk00047w000kY000U1001600800000QE"
-  return FindText(X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0.1, 0.1, Text).Length()
+  return FindText(X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0.1, 0.1, Text)
 }
 
 alertExists(){
-  Text:="|<>*77$83.zTzjzvzzrzzzzzwDn0DqTrfk7i07b7o0TiTjHtnNzcvXm1k0D2zvavzQ0Sc1UUSxi0Bo0vyQYntTxUTCPU1k0zBbqrVKyArzzjtw0DhDNZs9g4307piyMyv7p3Pdqvr/hxnxrDParHhkSE1nD/gqrxibP8xc7ASqGjjvRCkwnwAy1VCTS631rzzzzzzzzyzzzy"
+  Text:="|<>*128$62.rzy00znzxdxU100DnDvGTDvyTTttzpU0yzbrwzD0/RzjtxwSswArTvyTTTja1Bryw00TvzB/QDjtwzyzryoDvyzTzjzbVLyzjrzvz0AxzjnxzyzxnDTvxzTzjy9nryyTrzvzsMFsDDxzyzskmzbrzTzjwyTU"
   if(FindText(X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0, 0, Text)){
     return true
   }else{
     return false
   }
+}
+
+findBreakDownBtn(){
+  Text:="|<>*77$25.zwrzzy3zzzXzzzlzzzszztwTDwTT7zDjbzvrjzzzzzzzzy7wTk0A6006301zXzbzzzzzzzzzSxzyTTDyDjXzDXtzzlzzzszzzwTzzw7zzyvzs"
+  return FindText(X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0.1, 0.1, Text)
+}
+
+findItem(){
+  Text:="|<>*116$44.k0STzTzs0610zzy010EDzzk0HYzzzzzz3Dzzw0000DTz00003Vzs0203wDy0000j1zb3AADkDs0713s3y0114y3TU003DUPzk10nk6TySTzs1rzww0M0Szzzzy07jnzzzXUtyTzswTCTb7UTbzrvlk7wztysi7zDuDaRzztz3ssTzzDkzDzzzvsADzzzyS3Vzzzzq0zzzzzwUDzzzzz03zzzzzs0zzzzzy0Dzzzzzk3zkzzzw1zyDzzz0Tznzzzk7zyzzzw1zzzzzz0zzzzzzkDzzzzzw7zzzzzz3zzzzzzVzzzzzzkTzzzzzwTzzzzzyDzzzzzyDzzzzzwDzs"
+
+  return FindText(X, Y, 0, 0, A_ScreenWidth, A_ScreenHeight, 0.2, 0.2, Text)
 }
 
 sendControl(content, win:="《剑灵》"){
