@@ -7,6 +7,9 @@ CoordMode Pixel, Screen
 CoordMode Mouse, Screen
 CoordMode ToolTip, Screen
 
+global startFlag:=false
+return
+
 7::
   showTooltip(alertExists())
   return
@@ -16,8 +19,7 @@ CoordMode ToolTip, Screen
 	return
 
 check(){
-	static startFlag:=true
-	if(startFlag){
+	if(!startFlag){
 		showTooltip("开始")
 		start()
 	}else{
@@ -30,11 +32,45 @@ check(){
 return
 
 start(){
+  openBox()
 	return
 }
 	
 end(){
 	return
+}
+
+; 开箱子
+openBox(){
+  result:=findBox()
+  if(!result){
+    startFlag:=false
+    end()
+    showTooltip("没找到箱子，结束")
+    return
+  }
+  
+  ; 右键第一个箱子
+  MouseClick R, result[0][0] + 5, result[0][1] + 5
+  Sleep 100
+  if(alertExists()){
+    ; 有多个箱子 需要选择个数
+    ; 每次开十个 不足十个系统会自动补到max
+    sendControl("{1}")
+    sendControl("{0}")
+    Sleep 100
+    sendControl("{enter}")
+  }
+  
+  ; 等待系统开完箱子
+  Sleep 5000
+  breakDown()
+  return
+}
+
+; 分解
+breakDown(){
+  ; TODO
 }
 
 findBox(){
