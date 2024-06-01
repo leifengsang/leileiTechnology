@@ -69,7 +69,6 @@ openBox(){
 
 ; 分解
 breakDown(){
-  showTooltip(startFlag)
   if(!startFlag){
     return
   }
