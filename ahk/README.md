@@ -2,6 +2,8 @@
 
 目前主要是给剑灵写点小东西，代码尽量保证抽象出输出接口方便其他职业改动
 
+* 依赖
+  * [AHK v1.1.34+](https://www.autohotkey.com/download/ahk-install.exe)
 * 目录
   * code 保存代码
   * res 保存图片等资源
