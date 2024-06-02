@@ -6,7 +6,7 @@
   * [AHK v1.1.34+](https://www.autohotkey.com/download/ahk-install.exe)
   * 主显示器分辨率为2560*1440
     * 没有取色逻辑的脚本不受影响
-    * findText工具中的截图来源于此分辨率，分辨率不同可能导致部分图标无法检测成功
+    * [findText工具](https://www.autohotkey.com/boards/viewtopic.php?f=6&t=17834)中的截图来源于此分辨率，分辨率不同可能导致部分图标无法检测成功
     * 若新的主显示器分辨率为oW*oH，则图标的缩放百分率为Max(oW/2560, oH/1440)；但是测试中发现即使设置了此参数，在10%的容错百分率下仍然无法检测成功
 * 目录
   * code 保存代码
