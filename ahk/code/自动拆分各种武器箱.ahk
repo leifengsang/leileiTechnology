@@ -7,14 +7,6 @@ CoordMode Pixel, Screen
 CoordMode Mouse, Screen
 CoordMode ToolTip, Screen
 
-6::
-  showTooltip(confirmExists())
-  return
-
-7::
-  showTooltip(findItem().Length())
-  return
-
 8::
 	check()
 	return
@@ -91,7 +83,7 @@ breakDown(again:=true, exitWhenFailed:=true){
       openBox()
     }else{
       startFlag:=false
-    showTooltip("没找到装备，结束")
+      showTooltip("没找到装备，结束")
     }
     return
   }
