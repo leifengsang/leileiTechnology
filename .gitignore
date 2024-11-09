@@ -1,2 +1,3 @@
-cactbot/.vscode/settings.json
+cactbot/.vscode/
+.vscode/
 cactbot/test.js
