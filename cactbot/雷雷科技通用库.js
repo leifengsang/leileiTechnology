@@ -87,6 +87,14 @@ const jobConvert = {
     "SGE": "40",
     "贤": "40",
     "贤者": "40",
+    "VPR": "41",
+    "蛇": "41",
+    "蝰蛇": "41",
+    "蝰蛇剑士": "41",
+    "PCT": "42",
+    "画": "42",
+    "画家": "42",
+    "绘灵法师": "42",
 };
 const regex = /\s*rp\s*set\s*(?<text>.+)\s*/;
 const regex2 = /\s*rp\s*manual\s*set\s*(?<rp>.+?)[:：]\s*(?<player>.+)/;
@@ -120,6 +128,8 @@ const jobs = {
     38: { full: "舞者", single: "舞", simple: "舞者", code: "DNC" },
     39: { full: "钐镰客", single: "镰", simple: "镰刀", code: "RPR" },
     40: { full: "贤者", single: "贤", simple: "贤者", code: "SGE" },
+    41: { full: "蝰蛇剑士", single: "蛇", simple: "蝰蛇", code: "VPR" },
+    42: { full: "绘灵法师", single: "画", simple: "画家", code: "PCT" },
 };
 const tCall = ["MT", "ST", "T3", "T4", "T5", "T6", "T7", "T8"];
 const hCall = ["H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8"];
@@ -128,7 +138,7 @@ const dCall = ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8"];
 const role = {
     tank: [1, 3, 19, 21, 32, 37],
     healer: [6, 24, 28, 33, 40],
-    dps: [2, 4, 5, 7, 20, 22, 23, 25, 26, 27, 29, 30, 31, 34, 35, 36, 38, 39],
+    dps: [2, 4, 5, 7, 20, 22, 23, 25, 26, 27, 29, 30, 31, 34, 35, 36, 38, 39, 41, 42],
 };
 
 function setRP(tarName, tarRP) {
@@ -314,6 +324,7 @@ function createMyParty(party) {
             "39", //钐
             "22", //龙
             "30", //忍
+            "41", //蛇
             "32", //暗
             "37", //枪
             "21", //战
@@ -324,6 +335,7 @@ function createMyParty(party) {
             "25", //黑
             "35", //赤
             "27", //召
+            "42", //画
             "36", //青
             "24", //白
             "33", //占
@@ -333,6 +345,7 @@ function createMyParty(party) {
     }
     const oldLen = Number(leileiData.myParty.length);
     const newLen = Number(party.filter((v) => v.inParty).length);
+
     leileiData.myParty = party
         .filter((v) => {
             if (!sort.includes(v.job.toString())) doTextCommand(`/e get sort rule failed. name:${v.name} job:${v.job}`);
