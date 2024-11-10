@@ -10,6 +10,8 @@
  *  该值会被保存，重启ACT并不会丢失此设置。
  */
 
+const ITEM_RP_DEBUG = "leileiRpDebug";
+
 const isRaidEmulator = location.href.includes("raidemulator.html");
 const jobConvert = {
     "PLD": "19",
@@ -98,6 +100,7 @@ const jobConvert = {
 };
 const regex = /\s*rp\s*set\s*(?<text>.+)\s*/;
 const regex2 = /\s*rp\s*manual\s*set\s*(?<rp>.+?)[:：]\s*(?<player>.+)/;
+const rpDebugRegex = /\s*rp\s*debug\s*(?<text>.+)\s*/;
 const jobs = {
     1: { full: "剑术师", single: "剑", simple: "剑术", code: "" },
     2: { full: "格斗家", single: "格", simple: "格斗", code: "" },
@@ -316,8 +319,11 @@ const leileiData = {
 };
 let partyUpdateTimer;
 function createMyParty(party) {
+    const debug = isRpDebugOpen();
     if (sort === null || sort === undefined || !sort.includes) {
-        doTextCommand("/e get default sort rule");
+        if (debug) {
+            doTextCommand("/e get default sort rule");
+        }
         sort = [
             "34", //侍
             "20", //僧
@@ -348,7 +354,11 @@ function createMyParty(party) {
 
     leileiData.myParty = party
         .filter((v) => {
-            if (!sort.includes(v.job.toString())) doTextCommand(`/e get sort rule failed. name:${v.name} job:${v.job}`);
+            if (!sort.includes(v.job.toString())) {
+                if (debug) {
+                    doTextCommand(`/e get sort rule failed. name:${v.name} job:${v.job}`);
+                }
+            };
             return v.inParty && sort.includes(v.job.toString());
         })
         .sort((a, b) => sort.indexOf(a.job.toString()) - sort.indexOf(b.job.toString()));
@@ -366,10 +376,12 @@ function createMyParty(party) {
     if (newLen >= oldLen && newLen > 0) {
         clearTimeout(partyUpdateTimer);
         partyUpdateTimer = setTimeout(() => {
-            doTextCommand("/e current sort rule:" + sort.map((v) => jobs[v].code).join("/"));
-            doQueueActions(leileiData.myParty.map((v) => {
-                return { c: "DoTextCommand", p: `/e ${v.myRP} ${jobs[v.job].code} ${v.name}`, d: 10 };
-            }));
+            if (debug) {
+                doTextCommand("/e current sort rule:" + sort.map((v) => jobs[v].code).join("/"));
+                doQueueActions(leileiData.myParty.map((v) => {
+                    return { c: "DoTextCommand", p: `/e ${v.myRP} ${jobs[v.job].code} ${v.name}`, d: 10 };
+                }));
+            }
         }, 2000);
     }
 }
@@ -421,6 +433,21 @@ Options.Triggers.push({
                 setRP(r.groups.player.trim(), r.groups.rp.toUpperCase());
             },
         },
+        {
+            id: "leilei 输出职能日志",
+            netRegex: NetRegexes.echo({ line: rpDebugRegex, capture: true }),
+            run: (_data, matches) => {
+                const text = matches.line.match(rpDebugRegex).groups.text;
+                localStorage.setItem(ITEM_RP_DEBUG, text);
+                doTextCommand("/e 输出rpDebug日志：" + isRpDebugOpen() + "<se.9>");
+            },
+        },
     ],
 });
+
+function isRpDebugOpen() {
+    const text = localStorage.getItem(ITEM_RP_DEBUG);
+    return text ? text.toLowerCase() == "true" : false;
+}
+
 addOverlayListener("PartyChanged", (e) => createMyParty(e.party));
