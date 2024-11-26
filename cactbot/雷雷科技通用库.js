@@ -439,7 +439,7 @@ Options.Triggers.push({
             run: (_data, matches) => {
                 const text = matches.line.match(rpDebugRegex).groups.text;
                 localStorage.setItem(ITEM_RP_DEBUG, text);
-                doTextCommand("/e 输出rpDebug日志：" + isRpDebugOpen() + "<se.9>");
+                doTextCommand("/e 輸出rpDebug日志：" + isRpDebugOpen() + "<se.9>");
             },
         },
     ],
