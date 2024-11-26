@@ -15,7 +15,7 @@ function isMarkEnable(data, output) {
 Options.Triggers.push({
     // zoneId: ZoneId.FuturesRewrittenUltimate,
     //TODO 等常量出了再改
-    zoneId: ZoneId.MatchAll,
+    zoneId: 1238,
     id: "leilei futures rewritten ultimate",
     initData: () => {
         return {
@@ -29,7 +29,7 @@ Options.Triggers.push({
             comment: {
                 cn: "",
                 en: "",
-                jp: " ",
+                jp: "",
             },
             name: {
                 cn: "开启全局标记",
@@ -58,11 +58,11 @@ Options.Triggers.push({
                 return;
             }
 
+            data.p1MarkingList.push(matches.target);
+
             if (!isMarkEnable(data, output)) {
                 return;
             }
-
-            data.p1MarkingList.push(matches.target);
             let markType;
             switch (data.markingCount) {
                 case 3:
@@ -106,6 +106,6 @@ Options.Triggers.push({
             优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
             是否标记: "false"
         }
-    }
+    },
     ]
 })
