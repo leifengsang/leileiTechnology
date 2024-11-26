@@ -1,0 +1,15 @@
+/**
+ * 绝伊甸
+ */
+
+Options.Triggers.push({
+    zoneId: ZoneId.FuturesRewrittenUltimate,
+    initData: () => {
+        return {
+        }
+    },
+    triggers: [{
+            
+        }
+    ]
+})
