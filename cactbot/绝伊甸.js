@@ -54,7 +54,37 @@ Options.Triggers.push({
              */
             data.markingCount++;
             if (data.markingCount <= 2) {
-                //前两个是雾龙阶段的两个连线，pass
+                //前两个是雾龙阶段的两个连线
+                data.p1MarkingList.push(matches.target);
+                if (data.p1MarkingList.length < 2) {
+                    return;
+                }
+
+                const target1 = data.p1MarkingList[0];
+                const target2 = data.p1MarkingList[1];
+                data.p1MarkingList = [];
+
+                if (!isMarkEnable(data, output)) {
+                    return;
+                }
+
+                const rpGroup1 = ["MT", "H1", "D1", "D3"];
+                const rpGroup2 = ["ST", "H2", "D2", "D4"];
+                const rp1 = data.leileiFL.getRpByHexId(data, target1);
+                const rp2 = data.leileiFL.getRpByHexId(data, target2);
+                if (rpGroup1.includes(rp1) != rpGroup1.includes(rp2)) {
+                    //不同组 无事发生
+                    return;
+                }
+
+                //随便标一个
+                data.leileiFL.mark(target1, data.leileiData.targetMarkers.attack1);
+                //标另一组的D2/3
+                const targerRp = rpGroup1.includes(rp1) ? "D2" : "D3";
+                data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, targerRp), data.leileiData.targetMarkers.bind1);
+                setTimeout(() => {
+                    data.leileiFL.clearMark();
+                }, 5000);
                 return;
             }
 
@@ -100,6 +130,10 @@ Options.Triggers.push({
                 data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.attack2);
                 data.leileiFL.mark(otherList[2], data.leileiData.targetMarkers.attack3);
                 data.leileiFL.mark(otherList[3], data.leileiData.targetMarkers.attack4);
+
+                setTimeout(() => {
+                    data.leileiFL.clearMark();
+                }, 10000);
             }
         },
         outputStrings: {
