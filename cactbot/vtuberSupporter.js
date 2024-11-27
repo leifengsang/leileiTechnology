@@ -49,7 +49,7 @@ Options.Triggers.push({
             },
             run: (data, matches, output) => {
                 data.dead = true;
-                send(output.接口());
+                send(data, output.接口());
             },
             outputStrings: {
                 接口: "dead"
@@ -89,7 +89,7 @@ Options.Triggers.push({
             delaySeconds0: 0.1,
             run: (data, matches, output) => {
                 if (data.weaknessExpiredFlag) {
-                    send(output.接口());
+                    send(data, output.接口());
                 }
             },
             outputStrings: {
@@ -104,7 +104,7 @@ Options.Triggers.push({
             },
             run: (data, matches, output) => {
                 data.damageDownExpiredFlag = false;
-                send(output.接口());
+                send(data, output.接口());
             },
             outputStrings: {
                 接口: "damageDown"
@@ -137,7 +137,7 @@ Options.Triggers.push({
             id: "vtuberSupporter reset",
             regex: /^.{14} (?:\w+ )21:.{8}:4000000F|任务结束了。|has ended\.|の攻略を終了した。/,
             run: (data, matches, output) => {
-                send(output.接口());
+                send(data, output.接口());
             },
             outputStrings: {
                 接口: "reset"
