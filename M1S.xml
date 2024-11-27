@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="a6ce053a-53bd-4d9f-9fdc-c9fc27a05cd5" Name="M1S" Enabled="true">
+    <Folders />
+    <Triggers>
+      <Trigger Enabled="true" Name="击飞/击晕" Id="328dbee1-132c-451d-8a71-a96518ac7546" RegularExpression="^.{14} (?:\w+ )14:.{8}:[^:]*:(944[68]):" PeriodRefire="Deny" RefirePeriodExpression="100">
+        <Actions>
+          <Action OrderNumber="1" TextAuraFontSize="42" TextAuraForeground="Yellow" TextAuraOutline="Red" TextAuraName="TimeCD" TextAuraExpression="${numeric:7-${_since}}" TextAuraXIniExpression="1289" TextAuraYIniExpression="898" TextAuraWIniExpression="253" TextAuraHIniExpression="64" TextAuraOIniExpression="100" TextAuraTTLTickExpression="7-${_since}" TextAuraFontName="宋体" ActionType="TextAura">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
