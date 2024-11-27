@@ -2,7 +2,10 @@
  * 特定目标达成时，调用皮套动作
  */
 
-const send = (path) => {
+const send = (data, path) => {
+    if(!data.triggerSetConfig.enable){
+        return;
+    }
     var url = "http://127.0.0.1:2077/api/" + path;
     console.log("访问接口", url);
     var httpRequest = new XMLHttpRequest();
@@ -20,6 +23,23 @@ Options.Triggers.push({
             dead: false,
         };
     },
+    config: [
+        {
+            id: "enable",
+            comment: {
+                cn: "",
+                en: "",
+                jp: "",
+            },
+            name: {
+                cn: "开关",
+                en: "开关",
+                jp: "开关",
+            },
+            type: "checkbox",
+            default: false
+        }
+    ],
     triggers: [
         {
             id: "vtuberSupporter dead",
@@ -47,7 +67,7 @@ Options.Triggers.push({
                 data.weaknessExpiredFlag = false;
                 data.damageDownExpiredFlag = false;
 
-                send(output.接口());
+                send(data, output.接口());
             },
             outputStrings: {
                 接口: "weakness"
@@ -106,7 +126,7 @@ Options.Triggers.push({
             delaySeconds: 0.1,
             run: (data, matches, output) => {
                 if (data.damageDownExpiredFlag) {
-                    send(output.接口());
+                    send(data, output.接口());
                 }
             },
             outputStrings: {
@@ -132,7 +152,7 @@ Options.Triggers.push({
             run: (data, matches, output) => {
                 //死了，被LB拉起来等没有黑头的情况，手动调用一下
                 data.dead = false;
-                send(output.接口());
+                send(data, output.接口());
             },
             outputStrings: {
                 接口: "deadExpired"
