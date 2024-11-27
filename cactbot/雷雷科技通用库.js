@@ -209,28 +209,28 @@ function clearMark() {
 function getNameByHexId(data, hexId) {
     if (data === undefined) console.trace(`data为空`);
     if (hexId === undefined) console.trace(`hexId为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return data.party.idToName_[hexId.toUpperCase()];
 }
 
 function getHexIdByName(data, name) {
     if (data === undefined) console.trace(`data为空`);
     if (name === undefined) console.trace(`name为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return data.party.details.find((v) => v.name === name).id;
 }
 
 function getJobNameByHexId(data, hexId, type = "simple") {
     if (data === undefined) console.trace(`data为空`);
     if (hexId === undefined) console.trace(`hexId为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return jobs?.[data.party.details.find((v) => v.name === getNameByHexId(data, hexId))?.job]?.[type] ?? "";
 }
 
 function getJobNameByName(data, name, type = "simple") {
     if (data === undefined) console.trace(`data为空`);
     if (name === undefined) console.trace(`name为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return jobs?.[data.party.details.find((v) => v.name === name)?.job]?.[type] ?? "";
 }
 
@@ -241,42 +241,42 @@ function getJobPriority(job) {
 function getRoleByName(data, name) {
     if (data === undefined) console.trace(`data为空`);
     if (name === undefined) console.trace(`name为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return data.party.nameToRole_[name];
 }
 
 function getRoleById(data, hexId) {
     if (data === undefined) console.trace(`data为空`);
     if (hexId === undefined) console.trace(`hexId为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return getRoleByName(data, getNameByHexId(data, hexId));
 }
 
 function getRpByName(data, name) {
     if (data === undefined) console.trace(`data为空`);
     if (name === undefined) console.trace(`name为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return leileiData.myParty.find((v) => v.name === name)?.myRP;
 }
 
 function getRpByHexId(data, hexId) {
     if (data === undefined) console.trace(`data为空`);
     if (hexId === undefined) console.trace(`hexId为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return getRpByName(data, getNameByHexId(data, hexId));
 }
 
 function getNameByRp(data, rp) {
     if (data === undefined) console.trace(`data为空`);
     if (rp === undefined) console.trace(`rp为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return leileiData.myParty.find((v) => v.myRP === rp)?.name;
 }
 
 function getHexIdByRp(data, rp) {
     if (data === undefined) console.trace(`data为空`);
     if (rp === undefined) console.trace(`rp为空`);
-    if (leileiData.myParty.length === 0) createMyParty(data.party.details);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
     return data.party.partyIds_[data.party.partyNames_.indexOf(getNameByRp(data, rp))];
 }
 
