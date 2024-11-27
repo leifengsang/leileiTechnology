@@ -48,14 +48,10 @@ Options.Triggers.push({
             return data.markingCount <= 6;
         },
         run: (data, matches, output) => {
-            /**
-             * 4个连线，锁链12禁止12
-             * 锁链12去A，禁止12去C
-             */
             data.markingCount++;
             if (data.markingCount <= 2) {
                 //前两个是雾龙阶段的两个连线
-                data.p1MarkingList.push(matches.target);
+                data.p1MarkingList.push(matches.targetId);
                 if (data.p1MarkingList.length < 2) {
                     return;
                 }
@@ -82,27 +78,32 @@ Options.Triggers.push({
                 //标另一组的D2/3
                 const targerRp = rpGroup1.includes(rp1) ? "D2" : "D3";
                 data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, targerRp), data.leileiData.targetMarkers.bind1);
+                console.log("点名：", rp1, rp2, "换位：", rp1, targerRp);
                 setTimeout(() => {
                     data.leileiFL.clearMark();
-                }, 5000);
+                }, 10000);
                 return;
             }
 
-            data.p1MarkingList.push(matches.target);
+            data.p1MarkingList.push(matches.targetId);
 
             if (!isMarkEnable(data, output)) {
                 return;
             }
+            /**
+             * 4个连线，锁链12禁止12
+             * 锁链12去A，禁止12去C
+             */
             let markType;
             switch (data.markingCount) {
                 case 3:
                     markType = data.leileiData.targetMarkers.bind1;
                     break;
                 case 4:
-                    markType = data.leileiData.targetMarkers.bind2;
+                    markType = data.leileiData.targetMarkers.stop1;
                     break;
                 case 5:
-                    markType = data.leileiData.targetMarkers.stop1;
+                    markType = data.leileiData.targetMarkers.bind2;
                     break;
                 case 6:
                     markType = data.leileiData.targetMarkers.stop2;
@@ -133,7 +134,7 @@ Options.Triggers.push({
 
                 setTimeout(() => {
                     data.leileiFL.clearMark();
-                }, 10000);
+                }, 20000);
             }
         },
         outputStrings: {
