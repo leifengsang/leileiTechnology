@@ -142,5 +142,31 @@ Options.Triggers.push({
             是否标记: "false"
         }
     },
+    {
+        id: "leilei FRU p1 乐园绝技",
+        //9CDA 火
+        //9CDB 雷
+        netRegex: NetRegexes.startsUsing({ id: ["9CDA", "9CDB"] }),
+        infoText: (data, matches, output) => {
+            return matches.id === "9CDA" ? output.火() : output.雷();
+        },
+        outputStrings: {
+            雷: "雷雷雷",
+            火: "火火火",
+        }
+    },
+    {
+        id: "leilei FRU p2 DD钢铁月环",
+        //9D0A 钢铁
+        //9D0B 月环
+        netRegex: NetRegexes.startsUsing({ id: ["9D0A", "9D0B"] }),
+        infoText: (data, matches, output) => {
+            return matches.id === "9D0A" ? output.钢铁() : output.月环();
+        },
+        outputStrings: {
+            钢铁: "钢铁钢铁",
+            月环: "月环月环",
+        }
+    },
     ]
 })
