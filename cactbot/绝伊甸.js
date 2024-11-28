@@ -31,6 +31,10 @@ function convertFieldMarker(content) {
     return result;
 }
 
+function checkPosition(x, y, compareX, compareY, offset = 10) {
+    return compareX - offset <= x && x <= compareX + offset && compareY - offset <= y && y < + compareY + offset;
+}
+
 const headMarker = {
     iceNeedle: "007F", //冰花
 }
@@ -129,7 +133,6 @@ Options.Triggers.push({
                     //标另一组的D2/3
                     const targerRp = rpGroup1.includes(rp1) ? "D2" : "D3";
                     data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, targerRp), data.leileiData.targetMarkers.bind1);
-                    console.log("点名：", rp1, rp2, "换位：", rp1, targerRp);
                     setTimeout(() => {
                         data.leileiFL.clearMark();
                     }, 10000);
@@ -211,11 +214,11 @@ Options.Triggers.push({
                         data.leileiFL.doTextCommand("/p " + data.p1TFList.join(" ") + "<se.4>");
 
                         if (data.p1TFList[0] == data.p1TFList[2]) {
-                            data.leileiFL.doTextCommand("/p A点换位");
+                            data.leileiFL.doTextCommand("/p A点換位");
                         }
 
                         if (data.p1TFList[1] == data.p1TFList[3]) {
-                            data.leileiFL.doTextCommand("/p C点换位");
+                            data.leileiFL.doTextCommand("/p C点換位");
                         }
                     }
                 }
@@ -235,7 +238,7 @@ Options.Triggers.push({
             infoText: (data, matches, output) => {
                 return matches.id === "9CDA" ? output.火() : output.雷();
             },
-            durationSeconds: 15,
+            durationSeconds: 20,
             outputStrings: {
                 雷: "雷雷雷",
                 火: "火火火",
@@ -262,7 +265,7 @@ Options.Triggers.push({
                 //只要第一个冰圈的位置，后面的一律不管
                 return data.ddIcicleImpactCount < 1;
             },
-            preRun: (data, matches, output) => {
+            preRun: (data, matches) => {
                 data.ddIcicleImpactCount++;
 
                 /**
@@ -273,16 +276,16 @@ Options.Triggers.push({
                  */
                 const x = matches.x;
                 const y = matches.y;
-                if (x == 100 && y == 84 || x == 100 && y == 116) {
+                if (checkPosition(x, y, 100, 84) || checkPosition(x, y, 100, 116)) {
                     //AC
                     data.ddIcicleImpactPosition = "AC";
-                } else if (x == 84 && y == 100 || x == 116 && y == 100) {
+                } else if (checkPosition(x, y, 84, 100) || checkPosition(x, y, 116, 100)) {
                     //BD
                     data.ddIcicleImpactPosition = "BD";
-                } else if (x == 88.69 && y == 88.69 || x == 111.31 && y == 111.31) {
+                } else if (checkPosition(x, y, 88.69, 88.69) || checkPosition(x, y, 111.31, 111.31)) {
                     //13
                     data.ddIcicleImpactPosition = "13";
-                } else if (x == 88.69 && y == 111.31 || x == 111.31 && y == 88.69) {
+                } else if (checkPosition(x, y, 88.69, 111.31) || checkPosition(x, y, 111.31, 111.31)) {
                     //24
                     data.ddIcicleImpactPosition = "24";
                 }
@@ -294,8 +297,8 @@ Options.Triggers.push({
             outputStrings: {
                 正北正南: "AC击退",
                 正西正东: "BD击退",
-                西北东南: "13击退",
-                东北西南: "24击退",
+                西北东南: "一三击退",
+                东北西南: "二四击退",
             }
         },
         {
