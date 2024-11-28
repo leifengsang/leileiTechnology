@@ -343,17 +343,8 @@ Options.Triggers.push({
                 }
 
                 data.ddIceNeedleCount++;
-                const rp = data.leileiFL.getRpByHexId(data, matches.targetId);
-                let targetIsDps = true;
-                if (rp === "MT" || rp === "ST" || rp === "H1" || rp === "H2") {
-                    targetIsDps = false;
-                }
-
-                const myRp = data.leileiFL.getRpByName(data, data.me);
-                let iAmDps = true;
-                if (myRp === "MT" || myRp === "ST" || myRp === "H1" || myRp === "H2") {
-                    iAmDps = false;
-                }
+                const targetIsDps = data.leileiFL.getRoleById(data, matches.targetId) === "dps";
+                const iAmDps = data.leileiFL.getRoleByName(data, data.me) === "dps";
 
                 //这时候冰圈位置已经有了，直接报[正/斜点][引导/冰花]
                 let pos;
@@ -437,7 +428,8 @@ Options.Triggers.push({
                         }
                     });
 
-                    if (dpsCount !== 3) {
+                    const iAmDps = data.leileiFL.getRoleByName(data, data.me) === "dps";
+                    if (dpsCount === 2 && !iAmDps || dpsCount === 4 && iAmDps) {
                         return output.换位提示();
                     }
                 }
