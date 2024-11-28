@@ -351,11 +351,11 @@ Options.Triggers.push({
         },
         {
             id: "leilei FRU p2 DD闲前静后",
-            //9D01 闲前
-            //9D02 静后
+            //9D01 静后
+            //9D02 闲前
             netRegex: NetRegexes.startsUsing({ id: ["9D01", "9D02"] }),
             infoText: (data, matches, output) => {
-                return matches.id === "9D01" ? output.闲前() : output.静后();
+                return matches.id === "9D02" ? output.闲前() : output.静后();
             },
             outputStrings: {
                 闲前: "先去正面",
