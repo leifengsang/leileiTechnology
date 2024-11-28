@@ -39,6 +39,12 @@ const headMarker = {
     iceNeedle: "007F", //冰花
 }
 
+/**
+ * 战斗阶段
+ */
+const PHASE_FATE_BREAKER = 1; //p1
+const PHASE_USURPER_OF_FROST = 2; //p2
+
 const firstDecimalMarker = parseInt("0000", 16);
 const getHeadmarkerId = (data, matches) => {
     if (!data.leileiDecOffset) data.leileiDecOffset = parseInt(matches.id, 16) - firstDecimalMarker;
@@ -52,6 +58,7 @@ Options.Triggers.push({
     id: "leilei futures rewritten ultimate",
     initData: () => {
         return {
+            phase: 0,
             markingCount: 0,
             p1MarkingList: [],
             p1TFList: [], //p1雷火线
@@ -59,6 +66,7 @@ Options.Triggers.push({
             ddIcicleImpactPosition: "",
             ddIceNeedleCount: 0,
             ddActionContent: "",
+            p2_tetherList: [],
         }
     },
     config: [
@@ -96,6 +104,26 @@ Options.Triggers.push({
             },
         },
         {
+            id: "leilei FRU 控制战斗阶段",
+            netRegex: NetRegexes.startsUsing({ id: ["9CDA", "9CDB", "9D05"] }),
+            run: (data, matches) => {
+                switch (matches.id) {
+                    case "9CDA":
+                    case "9CDB":
+                        //樂園絕技
+                        data.phase = PHASE_FATE_BREAKER;
+                        break;
+                    case "9D05":
+                        //DD
+                        data.phase = PHASE_USURPER_OF_FROST;
+                        break;
+                    default:
+                        break;
+                }
+                console.log("phase", data.phase);
+            }
+        },
+        {
             id: "leilei FRU p1 4连雷火线 标记",
             netRegex: NetRegexes.gainsEffect({ effectId: "41B" }),
             infoText: "",
@@ -123,7 +151,7 @@ Options.Triggers.push({
                     const rpGroup2 = ["ST", "H2", "D2", "D4"];
                     const rp1 = data.leileiFL.getRpByHexId(data, target1);
                     const rp2 = data.leileiFL.getRpByHexId(data, target2);
-                    if (rpGroup1.includes(rp1) != rpGroup1.includes(rp2)) {
+                    if (rpGroup1.includes(rp1) !== rpGroup1.includes(rp2)) {
                         //不同组 无事发生
                         return;
                     }
@@ -166,7 +194,7 @@ Options.Triggers.push({
 
                 data.leileiFL.mark(matches.targetId, markType);
 
-                if (data.p1MarkingList.length == 4) {
+                if (data.p1MarkingList.length === 4) {
                     /**
                      * 4个无点名，攻击1234
                      * 攻击12去A，攻击34去C
@@ -209,15 +237,15 @@ Options.Triggers.push({
                 return len + data.p1TFList[len - 1];
             },
             run: (data, matches, output) => {
-                if (data.p1TFList.length == 4) {
+                if (data.p1TFList.length === 4) {
                     if (isMarkEnable(data, output)) {
                         data.leileiFL.doTextCommand("/p " + data.p1TFList.join(" ") + "<se.4>");
 
-                        if (data.p1TFList[0] == data.p1TFList[2]) {
+                        if (data.p1TFList[0] === data.p1TFList[2]) {
                             data.leileiFL.doTextCommand("/p A点換位");
                         }
 
-                        if (data.p1TFList[1] == data.p1TFList[3]) {
+                        if (data.p1TFList[1] === data.p1TFList[3]) {
                             data.leileiFL.doTextCommand("/p C点換位");
                         }
                     }
@@ -376,6 +404,74 @@ Options.Triggers.push({
             outputStrings: {
                 分摊: "分摊分摊",
                 分散: "分散分散",
+            }
+        },
+        {
+            id: "leilei FRU p2光爆连线",
+            netRegex: NetRegexes.tether({}),
+            condition: (data) => {
+                return data.phase === PHASE_USURPER_OF_FROST && data.p2_tetherList.length < 6;
+            },
+            preRun: (data, matches) => {
+                [matches.sourceId, matches.targetId].forEach(v => {
+                    if (!data.p2_tetherList.includes(v)) {
+                        data.p2_tetherList.push(v);
+                    }
+                });
+            },
+            infoText: (data, matches, output) => {
+                if (data.p2_tetherList.length < 6) {
+                    return;
+                }
+
+                //考虑是否换位
+                const myRp = data.leileiFL.getRpByName(data, data.me);
+                const isChangeRole = output.换位成员().split("/").filter(v => {
+                    return v === myRp;
+                }).length > 0;
+                if (isChangeRole) {
+                    let dpsCount = 0;
+                    data.p2_tetherList.forEach(v => {
+                        if (data.leileiFL.getRoleById(data, v) === "dps") {
+                            dpsCount++;
+                        }
+                    });
+
+                    if (dpsCount !== 3) {
+                        return output.换位提示();
+                    }
+                }
+            },
+            run: (data, matches, output) => {
+                if (!isMarkEnable(data, output)) {
+                    return;
+                }
+
+                if (data.p2_tetherList.length < 6) {
+                    return;
+                }
+
+                //闲人
+                const otherList = data.party.partyIds_.filter(v => {
+                    return !data.p2_tetherList.includes(v);
+                });
+                const rpRuleList = output.优先级().split("/");
+                otherList.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+
+                /**
+                 * 高优先级闲人锁链1
+                 * 低优先级闲人锁链2
+                 */
+                data.leileiFL.mark(otherList[0], data.leileiData.targetMarkers.bind1);
+                data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.bind2);
+            },
+            outputStrings: {
+                优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
+                换位成员: "D4/H2",
+                换位提示: "换位",
+                是否标记: "false"
             }
         },
     ]
