@@ -466,6 +466,10 @@ Options.Triggers.push({
                  */
                 data.leileiFL.mark(otherList[0], data.leileiData.targetMarkers.bind1);
                 data.leileiFL.mark(otherList[1], data.leileiData.targetMarkers.bind2);
+
+                setTimeout(() => {
+                    data.leileiFL.clearMark();
+                }, 8000);
             },
             outputStrings: {
                 优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
