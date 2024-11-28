@@ -357,7 +357,6 @@ Options.Triggers.push({
             infoText: (data, matches, output) => {
                 return matches.id === "9D01" ? output.闲前() : output.静后();
             },
-            durationSeconds: 15,
             outputStrings: {
                 闲前: "先去正面",
                 静后: "先去背面",
@@ -371,7 +370,6 @@ Options.Triggers.push({
             infoText: (data, matches, output) => {
                 return matches.id === "9D1C" ? output.分摊() : output.分散();
             },
-            durationSeconds: 15,
             outputStrings: {
                 分摊: "分摊分摊",
                 分散: "分散分散",
