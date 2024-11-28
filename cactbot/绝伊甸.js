@@ -363,5 +363,19 @@ Options.Triggers.push({
                 静后: "先去背面",
             }
         },
+        {
+            id: "leilei FRU p2 强放逐",
+            //9D1C 分摊
+            //9D1D 分散
+            netRegex: NetRegexes.startsUsing({ id: ["9D1C", "9D1D"] }),
+            infoText: (data, matches, output) => {
+                return matches.id === "9D1C" ? output.分摊() : output.分散();
+            },
+            durationSeconds: 15,
+            outputStrings: {
+                分摊: "分摊分摊",
+                分散: "分散分散",
+            }
+        },
     ]
 })
