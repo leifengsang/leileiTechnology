@@ -12,6 +12,25 @@ function isMarkEnable(data, output) {
     return data.triggerSetConfig.globalMarkConfig && output.是否标记().toLowerCase() === "true";
 }
 
+function convertFieldMarker(content) {
+    let result;
+    switch (content) {
+        case "AC":
+            result = "正北正南";
+            break;
+        case "BD":
+            result = "正西正东";
+            break;
+        case "13":
+            result = "西北东南";
+            break;
+        case "24":
+            result = "东北西南";
+            break;
+    }
+    return result;
+}
+
 const headMarker = {
     iceNeedle: "007F", //冰花
 }
@@ -31,6 +50,7 @@ Options.Triggers.push({
         return {
             markingCount: 0,
             p1MarkingList: [],
+            p1TFList: [], //p1雷火线
             ddIcicleImpactCount: 0,
             ddIcicleImpactPosition: "",
             ddIceNeedleCount: 0,
@@ -72,7 +92,7 @@ Options.Triggers.push({
             },
         },
         {
-            id: "leilei FRU p1 4连连线",
+            id: "leilei FRU p1 4连雷火线 标记",
             netRegex: NetRegexes.gainsEffect({ effectId: "41B" }),
             infoText: "",
             condition: (data) => {
@@ -173,6 +193,41 @@ Options.Triggers.push({
             }
         },
         {
+            id: "leilei FRU p1 4连雷火线 小队播报",
+            //9CC9 火
+            //9CCC 雷
+            netRegex: NetRegexes.startsUsing({ id: ["9CC9", "9CCC"] }),
+            preRun: (data, matches, output) => {
+                const result = matches.id === "9CC9" ? output.火() : output.雷();
+                data.p1TFList.push(result);
+            },
+            infoText: (data) => {
+                const len = data.p1TFList.length;
+                return len + data.p1TFList[len - 1];
+            },
+            run: (data, matches, output) => {
+                if (data.p1TFList.length == 4) {
+                    if (isMarkEnable(data, output)) {
+                        data.leileiFL.doTextCommand("/p " + data.p1TFList.join(" ") + "<se.4>");
+
+                        if (data.p1TFList[0] == data.p1TFList[2]) {
+                            data.leileiFL.doTextCommand("/p A点换位");
+                        }
+
+                        if (data.p1TFList[1] == data.p1TFList[3]) {
+                            data.leileiFL.doTextCommand("/p C点换位");
+                        }
+                    }
+                }
+            },
+            durationSeconds: 15,
+            outputStrings: {
+                雷: "雷",
+                火: "火",
+                是否标记: "false"
+            }
+        },
+        {
             id: "leilei FRU p1 乐园绝技",
             //9CDA 火
             //9CDB 雷
@@ -191,12 +246,13 @@ Options.Triggers.push({
             //9D0A 钢铁
             //9D0B 月环
             netRegex: NetRegexes.startsUsing({ id: ["9D0A", "9D0B"] }),
-            infoText: (data, matches, output) => {
-                return matches.id === "9D0A" ? output.钢铁() : output.月环();
+            infoText: "",
+            run: (data, matches, output) => {
+                data.ddActionContent = matches.id === "9D0A" ? output.钢铁() : output.月环();
             },
             outputStrings: {
-                钢铁: "钢铁钢铁",
-                月环: "月环月环",
+                钢铁: "钢铁",
+                月环: "月环",
             }
         },
         {
@@ -232,14 +288,14 @@ Options.Triggers.push({
                 }
             },
             infoText: (data, matches, output) => {
-                return output[`${data.ddIcicleImpactPosition}`]();
+                return output[`${convertFieldMarker(data.ddIcicleImpactPosition)}`]();
             },
             delaySeconds: 8,
             outputStrings: {
-                AC: "AC击退",
-                BD: "BD击退",
-                13: "13击退",
-                24: "24击退",
+                正北正南: "AC击退",
+                正西正东: "BD击退",
+                西北东南: "13击退",
+                东北西南: "24击退",
             }
         },
         {
@@ -249,7 +305,7 @@ Options.Triggers.push({
                 //只要随便拿一个就行了
                 return data.ddIceNeedleCount < 1;
             },
-            preRun: (data, matches, output) => {
+            infoText: (data, matches, output) => {
                 const id = getHeadmarkerId(data, matches);
                 if (id !== headMarker.iceNeedle) {
                     return;
@@ -283,17 +339,28 @@ Options.Triggers.push({
                     action = "放冰花";
                 }
 
-                data.ddActionContent = output.content({
+                data.ddActionContent += "," + output.content({
                     pos: pos,
                     action: action
                 });
-            },
-            delaySeconds: 2, //先让钢铁月环报完
-            infoText: (data) => {
                 return data.ddActionContent;
             },
             outputStrings: {
                 content: "${pos}点${action}"
+            }
+        },
+        {
+            id: "leilei FRU p2 DD闲前静后",
+            //9D01 闲前
+            //9D02 静后
+            netRegex: NetRegexes.startsUsing({ id: ["9D01", "9D02"] }),
+            infoText: (data, matches, output) => {
+                return matches.id === "9D01" ? output.闲前() : output.静后();
+            },
+            durationSeconds: 15,
+            outputStrings: {
+                闲前: "先去正面",
+                静后: "先去背面",
             }
         },
     ]
