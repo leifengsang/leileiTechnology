@@ -65,6 +65,7 @@ Options.Triggers.push({
             ddIcicleImpactCount: 0,
             ddIcicleImpactPosition: "",
             ddIceNeedleCount: 0,
+            ddIceNeedleFinished: false,
             ddActionContent: "",
             p2_tetherList: [],
         }
@@ -300,7 +301,7 @@ Options.Triggers.push({
 
                 if (data.ddIcicleImpactPosition !== "") {
                     //一般来说第一次就已经拿到数据了，但是可能会有误差特别大的（比如10）拿不到数据，这时候尝试拿第二个
-                    return;
+                    return false;
                 }
 
                 //只要前两个冰圈的位置，后面的一律不管
@@ -332,6 +333,11 @@ Options.Triggers.push({
                 }
             },
             infoText: (data, matches, output) => {
+                if (data.ddIceNeedleFinished) {
+                    return;
+                }
+
+                data.ddIceNeedleFinished = true;
                 return output[`${convertFieldMarker(data.ddIcicleImpactPosition)}`]();
             },
             delaySeconds: 8,
