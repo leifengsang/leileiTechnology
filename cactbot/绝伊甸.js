@@ -31,7 +31,7 @@ function convertFieldMarker(content) {
     return result;
 }
 
-function checkPosition(x, y, compareX, compareY, offset = 10) {
+function checkPosition(x, y, compareX, compareY, offset = 7) {
     return compareX - offset <= x && x <= compareX + offset && compareY - offset <= y && y < + compareY + offset;
 }
 
@@ -240,14 +240,18 @@ Options.Triggers.push({
                 if (data.p1TFList.length === 4) {
                     if (isMarkEnable(data, output)) {
                         data.leileiFL.doTextCommand("/p " + data.p1TFList.join(" ") + "<se.4>");
+                        data.leileiFL.doTextCommand("/p A:" + data.p1TFList[0] + "" + data.p1TFList[2]);
+                        data.leileiFL.doTextCommand("/p C:" + data.p1TFList[1] + "" + data.p1TFList[3]);
 
-                        if (data.p1TFList[0] === data.p1TFList[2]) {
-                            data.leileiFL.doTextCommand("/p A点換位");
-                        }
+                        setTimeout(() => {
+                            if (data.p1TFList[0] === data.p1TFList[2]) {
+                                data.leileiFL.doTextCommand("/p A点換位");
+                            }
 
-                        if (data.p1TFList[1] === data.p1TFList[3]) {
-                            data.leileiFL.doTextCommand("/p C点換位");
-                        }
+                            if (data.p1TFList[1] === data.p1TFList[3]) {
+                                data.leileiFL.doTextCommand("/p C点換位");
+                            }
+                        }, 1000);
                     }
                 }
             },
@@ -289,9 +293,18 @@ Options.Triggers.push({
         {
             id: "leilei FRU p2 DD初始冰圈位置",
             netRegex: NetRegexes.startsUsing({ id: "9D06" }),
-            condition: (data) => {
-                //只要第一个冰圈的位置，后面的一律不管
-                return data.ddIcicleImpactCount < 1;
+            condition: (data, matches) => {
+                const x = matches.x;
+                const y = matches.y;
+                console.log(x, y);
+
+                if (data.ddIcicleImpactPosition !== "") {
+                    //一般来说第一次就已经拿到数据了，但是可能会有误差特别大的（比如10）拿不到数据，这时候尝试拿第二个
+                    return;
+                }
+
+                //只要前两个冰圈的位置，后面的一律不管
+                return data.ddIcicleImpactCount < 2;
             },
             preRun: (data, matches) => {
                 data.ddIcicleImpactCount++;
@@ -322,6 +335,7 @@ Options.Triggers.push({
                 return output[`${convertFieldMarker(data.ddIcicleImpactPosition)}`]();
             },
             delaySeconds: 8,
+            durationSeconds: 5,
             outputStrings: {
                 正北正南: "AC击退",
                 正西正东: "BD击退",
