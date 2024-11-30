@@ -31,6 +31,25 @@ function convertFieldMarker(content) {
     return result;
 }
 
+function convertFateBreakerMarker(content) {
+    let result;
+    switch (content) {
+        case "04":
+            result = "东北西南";
+            break;
+        case "15":
+            result = "正北正南";
+            break;
+        case "26":
+            result = "西北东南";
+            break;
+        case "37":
+            result = "正西正东";
+            break;
+    }
+    return result;
+};
+
 function checkPosition(x, y, compareX, compareY, offset = 7) {
     return compareX - offset <= x && x <= compareX + offset && compareY - offset <= y && y < + compareY + offset;
 }
@@ -58,6 +77,9 @@ Options.Triggers.push({
     id: "leilei futures rewritten ultimate",
     initData: () => {
         return {
+            p1cloneIdList: [],
+            p1fateBreakerPosList: [0, 1, 2, 3, 4, 5, 6, 7],
+            p1deleteIndexList: [],
             phase: 0,
             markingCount: 0,
             p1MarkingList: [],
@@ -123,6 +145,68 @@ Options.Triggers.push({
                 }
                 console.log("phase", data.phase);
             }
+        },
+        {
+            id: "leilei FRU P1 雾龙阶段分身列表",
+            /**
+             * 分身生成规律
+             * 生成16个分身
+             * 先生成一个场中(100,100,)分身，id为0，再从场地西南方开始逆时针依次场外8方的分身
+             * 生成中场分身，id为0，生成西南分身，id为1
+             * 生成中场分身，id为2，生成南分身，id为3
+             * 生成中场分身，id为4，生成东南分身，id为5
+             * 生成中场分身，id为6，生成东分身，id为7
+             * 生成中场分身，id为8，生成东北分身，id为9
+             * 生成中场分身，id为10，生成北分身，id为11
+             * 生成中场分身，id为12，生成西北分身，id为13
+             * 生成中场分身，id为14，生成西分身，id为15
+             * 顺序：西南-南-东南-东-东北-北-西北-西
+             * 
+             * 索引a分身读条控制索引a + 1分身释放直线aoe爆破领域
+             */
+
+            netRegex: NetRegexes.gainsEffect({ effectId: "655" }),
+            run: (data, matches) => {
+                data.p1cloneIdList.push(parseInt(matches.targetId, 16));
+                data.p1cloneIdList.push(parseInt(matches.targetId, 16) - 1);
+
+                if (data.p1cloneIdList.length === 16) {
+                    data.p1cloneIdList = data.p1cloneIdList.sort((a, b) => a - b).map(item => item.toString(16).toUpperCase());
+                }
+            },
+        },
+        {
+            id: "leilei FRU P1 雾龙安全点",
+            netRegex: NetRegexes.startsUsing({ id: "9CDE" }),
+
+            preRun: (data, matches) => {
+                let index = data.p1cloneIdList.indexOf(matches.sourceId);
+                if (index < 8) {
+                    data.p1deleteIndexList.push(index / 2);
+                    data.p1deleteIndexList.push(index / 2 + 4);
+                } else {
+                    data.p1deleteIndexList.push(index / 2);
+                    data.p1deleteIndexList.push(index / 2 - 4);
+                }
+
+                if (data.p1deleteIndexList.length === 6) {
+                    data.p1deleteIndexList.sort((a, b) => b - a).forEach(index => {
+                        data.p1fateBreakerPosList.splice(index, 1);
+                    });
+                }
+            },
+
+            infoText: (data, matches, output) => {
+                if (data.p1fateBreakerPosList.length === 2) {
+                    return output[`${convertFateBreakerMarker(data.p1fateBreakerPosList.map(item => item.toString()).join(''))}`]();
+                }
+            },
+            outputStrings: {
+                正北正南: "AC安全",
+                西北东南: "24安全",
+                正西正东: "BD安全",
+                东北西南: "13安全",
+            },
         },
         {
             id: "leilei FRU p1 4连雷火线 标记",
@@ -418,7 +502,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei FRU p2光爆连线",
+            id: "leilei FRU p2 光爆连线",
             netRegex: NetRegexes.tether({}),
             condition: (data) => {
                 return data.phase === PHASE_USURPER_OF_FROST && data.p2_tetherList.length < 6;
