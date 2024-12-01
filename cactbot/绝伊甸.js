@@ -543,7 +543,6 @@ Options.Triggers.push({
                         }
                     });
 
-                    const iAmDps = data.leileiFL.getRoleByName(data, data.me) === "dps";
                     if (dpsCount !== 3) {
                         return output.换位提示({ rp: dpsCount === 2 ? tnRp : dpsRp });
                     }
