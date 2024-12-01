@@ -38,13 +38,13 @@ function convertFateBreakerMarker(content) {
             result = "东北西南";
             break;
         case "15":
-            result = "正北正南";
+            result = "正西正东";
             break;
         case "26":
             result = "西北东南";
             break;
         case "37":
-            result = "正西正东";
+            result = "正北正南";
             break;
     }
     return result;
@@ -203,9 +203,9 @@ Options.Triggers.push({
             },
             outputStrings: {
                 正北正南: "AC安全",
-                西北东南: "24安全",
+                西北东南: "二四安全",
                 正西正东: "BD安全",
-                东北西南: "13安全",
+                东北西南: "一三安全",
             },
         },
         {
@@ -366,7 +366,9 @@ Options.Triggers.push({
             //9D0A 钢铁
             //9D0B 月环
             netRegex: NetRegexes.startsUsing({ id: ["9D0A", "9D0B"] }),
-            infoText: "",
+            infoText: (data, matches, output) => {
+                return matches.id === "9D0A" ? output.钢铁() : output.月环();
+            },
             run: (data, matches, output) => {
                 data.ddActionContent = matches.id === "9D0A" ? output.钢铁() : output.月环();
             },
@@ -377,11 +379,12 @@ Options.Triggers.push({
         },
         {
             id: "leilei FRU p2 DD初始冰圈位置",
+            disabled: true, //误差太大了，不报了
             netRegex: NetRegexes.startsUsing({ id: "9D06" }),
             condition: (data, matches) => {
                 const x = matches.x;
                 const y = matches.y;
-                console.log(x, y);
+                console.log(data.ddIcicleImpactCount, x, y);
 
                 if (data.ddIcicleImpactPosition !== "") {
                     //一般来说第一次就已经拿到数据了，但是可能会有误差特别大的（比如10）拿不到数据，这时候尝试拿第二个
@@ -435,6 +438,7 @@ Options.Triggers.push({
         },
         {
             id: "leilei FRU p2 DD冰花点名",
+            disabled: true, //误差太大了，不报了
             netRegex: NetRegexes.headMarker({}),
             condition: (data) => {
                 //只要随便拿一个就行了
@@ -521,7 +525,14 @@ Options.Triggers.push({
 
                 //考虑是否换位
                 const myRp = data.leileiFL.getRpByName(data, data.me);
+                let dpsRp;
+                let tnRp;
                 const isChangeRole = output.换位成员().split("/").filter(v => {
+                    if (v === "D1" || v === "D2" || v === "D3" || v === "D4") {
+                        dpsRp = v;
+                    } else {
+                        tnRp = v;
+                    }
                     return v === myRp;
                 }).length > 0;
                 if (isChangeRole) {
@@ -533,8 +544,8 @@ Options.Triggers.push({
                     });
 
                     const iAmDps = data.leileiFL.getRoleByName(data, data.me) === "dps";
-                    if (dpsCount === 2 && !iAmDps || dpsCount === 4 && iAmDps) {
-                        return output.换位提示();
+                    if (dpsCount !== 3) {
+                        return output.换位提示({ rp: dpsCount === 2 ? tnRp : dpsRp });
                     }
                 }
             },
@@ -570,8 +581,22 @@ Options.Triggers.push({
             outputStrings: {
                 优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
                 换位成员: "D4/H2",
-                换位提示: "换位",
+                换位提示: "${rp}换位",
                 是否标记: "false"
+            }
+        },
+        {
+            id: "leilei FRU p2.5 暗水晶引导",
+            netRegex: NetRegexes.startsUsing({ id: "9D46" }),
+            condition: (data) => {
+                return data.leileiFL.isRanged(data.leileiFL.getRpByName(data, data.me));
+            },
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            suppressSeconds: 1,
+            outputStrings: {
+                content: "动动动",
             }
         },
     ]
