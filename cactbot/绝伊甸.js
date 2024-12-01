@@ -63,6 +63,9 @@ const headMarker = {
  */
 const PHASE_FATE_BREAKER = 1; //p1
 const PHASE_USURPER_OF_FROST = 2; //p2
+const PHASE_ORACLE_OF_DARKNESS = 3; //p3
+const PHASE_ENTER_THE_DRAGON = 4; //p4
+const PHASE_PANDORA = 5; //p5
 
 const firstDecimalMarker = parseInt("0000", 16);
 const getHeadmarkerId = (data, matches) => {
@@ -92,6 +95,9 @@ Options.Triggers.push({
             p2_tetherList: [],
             p3_dpsFireList: [],
             p3_tnFireList: [],
+            p3_stackGroupDic: { 0: [], 1: [], 2: [], 3: [] },
+            p3_stackCount: 0,
+            p3_stackFinished: false,
         }
     },
     config: [
@@ -130,7 +136,7 @@ Options.Triggers.push({
         },
         {
             id: "leilei FRU 控制战斗阶段",
-            netRegex: NetRegexes.startsUsing({ id: ["9CDA", "9CDB", "9D05"] }),
+            netRegex: NetRegexes.startsUsing({ id: ["9CDA", "9CDB", "9D05", "9D4A"] }),
             run: (data, matches) => {
                 switch (matches.id) {
                     case "9CDA":
@@ -141,6 +147,10 @@ Options.Triggers.push({
                     case "9D05":
                         //DD
                         data.phase = PHASE_USURPER_OF_FROST;
+                        break;
+                    case "9D4A":
+                        //p3一运
+                        data.phase = PHASE_ORACLE_OF_DARKNESS;
                         break;
                     default:
                         break;
@@ -384,6 +394,10 @@ Options.Triggers.push({
             disabled: true, //误差太大了，不报了
             netRegex: NetRegexes.startsUsing({ id: "9D06" }),
             condition: (data, matches) => {
+                if (data.ddIceNeedleFinished) {
+                    return false;
+                }
+
                 const x = matches.x;
                 const y = matches.y;
                 console.log(data.ddIcicleImpactCount, x, y);
@@ -422,10 +436,6 @@ Options.Triggers.push({
                 }
             },
             infoText: (data, matches, output) => {
-                if (data.ddIceNeedleFinished) {
-                    return;
-                }
-
                 data.ddIceNeedleFinished = true;
                 return output[`${convertFieldMarker(data.ddIcicleImpactPosition)}`]();
             },
@@ -606,13 +616,14 @@ Options.Triggers.push({
              */
             id: "leilei FRU p3 灰九式一运 优先级标记",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            infoText: "",
             run: (data, matches, output) => {
                 if (!isMarkEnable(data, output)) {
                     return;
                 }
 
                 const rpRuleList = output.优先级().split("/");
-                if (matches.duration === 11 && data.isDpsByHexId(data, matches.targetId)) {
+                if (matches.duration == 11 && data.leileiFL.isDpsByHexId(data, matches.targetId)) {
                     //DPS 短火
                     data.p3_dpsFireList.push(matches.targetId);
                     if (data.p3_dpsFireList.length === 2) {
@@ -623,7 +634,7 @@ Options.Triggers.push({
                         data.leileiFL.mark(data.p3_dpsFireList[0], data.leileiData.targetMarkers.bind1);
                         data.leileiFL.mark(data.p3_dpsFireList[1], data.leileiData.targetMarkers.bind2);
                     }
-                } else if (matches.duration === 31 && data.getRpByHexId(data, matches.targetId) !== "dps") {
+                } else if (matches.duration == 31 && !data.leileiFL.isDpsByHexId(data, matches.targetId)) {
                     data.p3_tnFireList.push(matches.targetId);
                     if (data.p3_tnFireList.length === 2) {
                         data.p3_tnFireList.sort((a, b) => {
@@ -634,7 +645,7 @@ Options.Triggers.push({
                         data.leileiFL.mark(data.p3_tnFireList[1], data.leileiData.targetMarkers.stop2);
 
                         setTimeout(() => {
-                           data.leileiFL.clearMark(); 
+                            data.leileiFL.clearMark();
                         }, 35000);
                     }
                 }
@@ -991,6 +1002,115 @@ Options.Triggers.push({
             },
             outputStrings: {
                 分散: "面向场外分散"
+            }
+        },
+        {
+            id: "leilei FRU p3 地火分组 标记",
+            netRegex: NetRegexes.gainsEffect({ effectId: "99D" }),
+            condition: (data, matches) => {
+                if (data.p3_stackFinished) {
+                    return false;
+                }
+                return matches.duration == 10 || matches.duration == 29 || matches.duration == 38;
+            },
+            infoText: "",
+            preRun: (data, matches, output) => {
+                let group;
+                switch (parseInt(matches.duration)) {
+                    case 10:
+                        group = 1;
+                        break;
+                    case 29:
+                        group = 2;
+                        break;
+                    case 38:
+                        group = 3;
+                        break;
+                    default:
+                        break;
+                }
+
+                data.p3_stackCount++;
+                data.p3_stackGroupDic[group].push(matches.targetId);
+
+                if (data.p3_stackCount === 6) {
+                    //无分摊
+                    const stackList = data.p3_stackGroupDic[1].concat(data.p3_stackGroupDic[2]).concat(data.p3_stackGroupDic[3]);
+                    data.p3_stackGroupDic[0] = data.party.partyIds_.filter(v => {
+                        return !stackList.includes(v);
+                    });
+                }
+            },
+            run: (data, matches, output) => {
+                if (data.p3_stackCount < 6) {
+                    return;
+                }
+
+                if (!isMarkEnable(data, output)) {
+                    return;
+                }
+
+                let rpRuleList = output.左右分组优先级().split("/");
+                //tn组左，dps组右
+                let group1 = [];
+                let group2 = [];
+                for (let group = 0; group < 4; group++) {
+                    const list = data.p3_stackGroupDic[group];
+                    const id1 = list[0];
+                    const id2 = list[1];
+                    const isDps1 = data.leileiFL.isDpsByHexId(data, id1);
+                    const isDps2 = data.leileiFL.isDpsByHexId(data, id2);
+
+                    if (isDps1 === isDps2) {
+                        list.sort((a, b) => {
+                            return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                        });
+                        //优先级高的去对面
+                        if (data.leileiFL.isDpsByHexId(data, list[0])) {
+                            //dps组，高的左低的右
+                            group1.push(list[0]);
+                            group2.push(list[1]);
+                        } else {
+                            //tn组，高的右低的左
+                            group2.push(list[0]);
+                            group1.push(list[1]);
+                        }
+                    } else {
+                        group1.push(!isDps1 ? id1 : id2);
+                        group2.push(isDps1 ? id1 : id2);
+                    }
+                }
+
+                rpRuleList = output.组内优先级().split("/");
+                group1.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+                group2.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+
+                //左边组
+                data.leileiFL.mark(group1[0], data.leileiData.targetMarkers.bind1);
+                data.leileiFL.mark(group1[1], data.leileiData.targetMarkers.bind2);
+                data.leileiFL.mark(group1[2], data.leileiData.targetMarkers.stop1);
+                data.leileiFL.mark(group1[3], data.leileiData.targetMarkers.stop2);
+
+                //右边组
+                data.leileiFL.mark(group2[0], data.leileiData.targetMarkers.attack1);
+                data.leileiFL.mark(group2[1], data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(group2[2], data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(group2[3], data.leileiData.targetMarkers.attack4);
+
+                setTimeout(() => {
+                    data.leileiFL.clearMark();
+                }, 38000);
+
+                data.p3_stackFinished = true;
+            },
+            outputStrings: {
+                左右分组优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
+                组内优先级: "D1/D2/MT/ST/H1/H2/D3/D4",
+                是否标记: "false"
             }
         },
     ]
