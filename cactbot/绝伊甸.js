@@ -632,6 +632,10 @@ Options.Triggers.push({
 
                         data.leileiFL.mark(data.p3_tnFireList[0], data.leileiData.targetMarkers.stop1);
                         data.leileiFL.mark(data.p3_tnFireList[1], data.leileiData.targetMarkers.stop2);
+
+                        setTimeout(() => {
+                           data.leileiFL.clearMark(); 
+                        }, 35000);
                     }
                 }
             },
