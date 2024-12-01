@@ -90,6 +90,8 @@ Options.Triggers.push({
             ddIceNeedleFinished: false,
             ddActionContent: "",
             p2_tetherList: [],
+            p3_dpsFireList: [],
+            p3_tnFireList: [],
         }
     },
     config: [
@@ -451,8 +453,8 @@ Options.Triggers.push({
                 }
 
                 data.ddIceNeedleCount++;
-                const targetIsDps = data.leileiFL.getRoleById(data, matches.targetId) === "dps";
-                const iAmDps = data.leileiFL.getRoleByName(data, data.me) === "dps";
+                const targetIsDps = data.leileiFL.isDpsByHexId(data, matches.targetId);
+                const iAmDps = data.leileiFL.isDpsByName(data, data.me);
 
                 //这时候冰圈位置已经有了，直接报[正/斜点][引导/冰花]
                 let pos;
@@ -538,7 +540,7 @@ Options.Triggers.push({
                 if (isChangeRole) {
                     let dpsCount = 0;
                     data.p2_tetherList.forEach(v => {
-                        if (data.leileiFL.getRoleById(data, v) === "dps") {
+                        if (data.leileiFL.isDpsByHexId(data, v)) {
                             dpsCount++;
                         }
                     });
@@ -596,6 +598,395 @@ Options.Triggers.push({
             suppressSeconds: 1,
             outputStrings: {
                 content: "动动动",
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 优先级标记",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            run: (data, matches, output) => {
+                if (!isMarkEnable(data, output)) {
+                    return;
+                }
+
+                const rpRuleList = output.优先级().split("/");
+                if (matches.duration === 11 && data.isDpsByHexId(data, matches.targetId)) {
+                    //DPS 短火
+                    data.p3_dpsFireList.push(matches.targetId);
+                    if (data.p3_dpsFireList.length === 2) {
+                        data.p3_dpsFireList.sort((a, b) => {
+                            return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                        });
+
+                        data.leileiFL.mark(data.p3_dpsFireList[0], data.leileiData.targetMarkers.bind1);
+                        data.leileiFL.mark(data.p3_dpsFireList[1], data.leileiData.targetMarkers.bind2);
+                    }
+                } else if (matches.duration === 31 && data.getRpByHexId(data, matches.targetId) !== "dps") {
+                    data.p3_tnFireList.push(matches.targetId);
+                    if (data.p3_tnFireList.length === 2) {
+                        data.p3_tnFireList.sort((a, b) => {
+                            return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                        });
+
+                        data.leileiFL.mark(data.p3_tnFireList[0], data.leileiData.targetMarkers.stop1);
+                        data.leileiFL.mark(data.p3_tnFireList[1], data.leileiData.targetMarkers.stop2);
+                    }
+                }
+            },
+            outputStrings: {
+                优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
+                是否标记: "false"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 10s火 方位播报",
+            durationSeconds: 35,
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 11;
+            },
+            infoText: (data, matches, output) => {
+                return data.leileiFL.isDpsByName(data, data.me) ? output.dps() : output.tn();
+            },
+            outputStrings: {
+                dps: "左上右上",
+                tn: "正下"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 10s火 action1",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 11;
+            },
+            delaySeconds: 3,
+            infoText: (data, matches, output) => {
+                return output.放火();
+            },
+            outputStrings: {
+                放火: "出去放火"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 10s火 action2",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 11;
+            },
+            delaySeconds: 11,
+            infoText: (data, matches, output) => {
+                return output.回溯();
+            },
+            outputStrings: {
+                回溯: "去灯下放回溯"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 10s火 action3",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 11;
+            },
+            delaySeconds: 16,
+            infoText: (data, matches, output) => {
+                return output.分摊();
+            },
+            outputStrings: {
+                分摊: "去中间分摊"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 10s火 action4",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 11;
+            },
+            delaySeconds: 21,
+            infoText: (data, matches, output) => {
+                return output.引导();
+            },
+            outputStrings: {
+                引导: "去灯边引导"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 10s火 action5",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 11;
+            },
+            delaySeconds: 26,
+            infoText: (data, matches, output) => {
+                return output.分摊();
+            },
+            outputStrings: {
+                分摊: "去中间分摊"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 10s火 action6",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 11;
+            },
+            delaySeconds: 36,
+            infoText: (data, matches, output) => {
+                return output.分散();
+            },
+            outputStrings: {
+                分散: "面向场外分散"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 20s火 方位播报",
+            durationSeconds: 35,
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 21;
+            },
+            infoText: (data, matches, output) => {
+                return data.leileiFL.isDpsByName(data, data.me) ? output.dps() : output.tn();
+            },
+            outputStrings: {
+                dps: "正右",
+                tn: "正左"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 20s火 action1",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 21;
+            },
+            delaySeconds: 11,
+            infoText: (data, matches, output) => {
+                return output.回溯();
+            },
+            outputStrings: {
+                回溯: "去灯下放回溯"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 20s火 action2",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 21;
+            },
+            delaySeconds: 16,
+            infoText: (data, matches, output) => {
+                return output.放火();
+            },
+            outputStrings: {
+                放火: "出去放火"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 20s火 action3",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 21;
+            },
+            delaySeconds: 21,
+            infoText: (data, matches, output) => {
+                return output.分摊();
+            },
+            outputStrings: {
+                分摊: "去中间分摊"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 20s火 action4",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 21;
+            },
+            delaySeconds: 31,
+            infoText: (data, matches, output) => {
+                return output.引导();
+            },
+            outputStrings: {
+                引导: "去灯边引导"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 20s火 action5",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 21;
+            },
+            delaySeconds: 36,
+            infoText: (data, matches, output) => {
+                return output.分散();
+            },
+            outputStrings: {
+                分散: "回场中，面向场外分散"
+            }
+        },
+        {
+            /**
+             * 997 火
+             * 99E 冰
+             */
+            id: "leilei FRU p3 灰九式一运 30s火&冰 方位播报",
+            durationSeconds: 35,
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+            },
+            infoText: (data, matches, output) => {
+                return data.leileiFL.isDpsByName(data, data.me) ? output.dps() : output.tn();
+            },
+            outputStrings: {
+                dps: "正上",
+                tn: "左下右下"
+            }
+        },
+        {
+            /**
+             * 997 火
+             * 99E 冰
+             */
+            id: "leilei FRU p3 灰九式一运 30s火&冰 action1",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+            },
+            delaySeconds: 11,
+            infoText: (data, matches, output) => {
+                return output.引导();
+            },
+            outputStrings: {
+                引导: "去灯边引导"
+            }
+        },
+        {
+            /**
+             * 997 火
+             * 99E 冰
+             */
+            id: "leilei FRU p3 灰九式一运 30s火&冰 action2",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+            },
+            delaySeconds: 16,
+            infoText: (data, matches, output) => {
+                return output.分摊();
+            },
+            outputStrings: {
+                分摊: "去中间分摊"
+            }
+        },
+        {
+            /**
+             * 997 火
+             * 99E 冰
+             */
+            id: "leilei FRU p3 灰九式一运 30s火&冰 action3",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+            },
+            delaySeconds: 21,
+            infoText: (data, matches, output) => {
+                return output.回溯();
+            },
+            outputStrings: {
+                回溯: "往场外走一步放回溯"
+            }
+        },
+        {
+            /**
+             * 997 火
+             */
+            id: "leilei FRU p3 灰九式一运 30s火&冰 action4",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 31;
+            },
+            delaySeconds: 26,
+            infoText: (data, matches, output) => {
+                return output.放火();
+            },
+            outputStrings: {
+                放火: "出去放火"
+            }
+        },
+        {
+            /**
+             * 997 火
+             * 99E 冰
+             */
+            id: "leilei FRU p3 灰九式一运 30s火&冰 action5",
+            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && matches.duration == 31;
+            },
+            delaySeconds: 31,
+            infoText: (data, matches, output) => {
+                return output.待机();
+            },
+            outputStrings: {
+                待机: "回场中"
+            }
+        },
+        {
+            /**
+             * 997 火
+             * 99E 冰
+             */
+            id: "leilei FRU p3 灰九式一运 30s火&冰 action6",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+            },
+            delaySeconds: 36,
+            infoText: (data, matches, output) => {
+                return output.分散();
+            },
+            outputStrings: {
+                分散: "面向场外分散"
             }
         },
     ]
