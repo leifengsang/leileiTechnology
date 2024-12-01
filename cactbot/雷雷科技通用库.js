@@ -299,11 +299,15 @@ function isRanged(rp) {
 
 function isDpsByHexId(data, hexId) {
     if (hexId === undefined) console.trace(`hexId为空`);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
+    if (isRaidEmulator) tempData = data;
     return getRoleById(data, hexId) === "dps";
 }
 
 function isDpsByName(data, name) {
     if (name === undefined) console.trace(`name为空`);
+    if (leileiData.myParty.length === 0 || isRaidEmulator) createMyParty(data.party.details);
+    if (isRaidEmulator) tempData = data;
     return getRoleByName(data, name) === "dps";
 }
 
