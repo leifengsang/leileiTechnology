@@ -297,6 +297,16 @@ function isRanged(rp) {
     return ["H1", "H2", "D3", "D4"].includes(rp);
 }
 
+function isDpsByHexId(data, hexId) {
+    if (hexId === undefined) console.trace(`hexId为空`);
+    return getRoleById(data, hexId) === "dps";
+}
+
+function isDpsByName(data, name) {
+    if (name === undefined) console.trace(`name为空`);
+    return getRoleByName(data, name) === "dps";
+}
+
 function isRPExists(data, rp) {
     data.party.partyIds_.forEach((v) => {
         if (rp === getRpByHexId(data, v)) {
@@ -419,6 +429,8 @@ Options.Triggers.push({
                 getHexIdByRp,
                 isRanged,
                 isRPExists,
+                isDpsByHexId,
+                isDpsByName,
             },
             leileiData,
         };
