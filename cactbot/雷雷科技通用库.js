@@ -459,7 +459,7 @@ Options.Triggers.push({
 
 function isRpDebugOpen() {
     const text = localStorage.getItem(ITEM_RP_DEBUG);
-    return text ? text.toLowerCase() == "true" : false;
+    return text ? text.toLowerCase() == "true" : true;
 }
 
 addOverlayListener("PartyChanged", (e) => createMyParty(e.party));
