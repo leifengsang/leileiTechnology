@@ -817,7 +817,7 @@ Options.Triggers.push({
             },
             delaySeconds: 11,
             infoText: (data, matches, output) => {
-                return data.leileiFL.isDpsByName(data.me) ? output.dps() : output.tn();
+                return data.leileiFL.isDpsByName(data, data.me) ? output.dps() : output.tn();
             },
             outputStrings: {
                 dps: "往场外走一步放回溯",
