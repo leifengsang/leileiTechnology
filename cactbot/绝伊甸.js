@@ -9,7 +9,7 @@
  * @returns 
  */
 function isMarkEnable(data, output) {
-    return data.triggerSetConfig.globalMarkConfig && output.是否标记().toLowerCase() === "true";
+    return data.triggerSetConfig.globalMarkEnable && output.是否标记().toLowerCase() === "true";
 }
 
 function convertFieldMarker(content) {
@@ -102,7 +102,7 @@ Options.Triggers.push({
     },
     config: [
         {
-            id: "globalMarkConfig",
+            id: "globalMarkEnable",
             comment: {
                 cn: "",
                 en: "",
@@ -269,6 +269,12 @@ Options.Triggers.push({
                 if (!isMarkEnable(data, output)) {
                     return;
                 }
+
+
+                if (!data.triggerSetConfig.globalMarkEnable) {
+                    return;
+                }
+
                 /**
                  * 4个连线，锁链12禁止12
                  * 锁链12去A，禁止12去C
@@ -289,9 +295,15 @@ Options.Triggers.push({
                         break;
                 }
 
-                data.leileiFL.mark(matches.targetId, markType);
+                if (output.是否标记连线().toLowerCase() === "true") {
+                    data.leileiFL.mark(matches.targetId, markType);
+                }
 
                 if (data.p1MarkingList.length === 4) {
+                    if (output.是否标记闲人().toLowerCase() !== "true") {
+                        return;
+                    }
+
                     /**
                      * 4个无点名，攻击1234
                      * 攻击12去A，攻击34去C
@@ -317,7 +329,8 @@ Options.Triggers.push({
             },
             outputStrings: {
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
-                是否标记: "false"
+                是否标记连线: "false",
+                是否标记闲人: "false",
             }
         },
         {
