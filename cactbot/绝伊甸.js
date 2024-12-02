@@ -804,10 +804,11 @@ Options.Triggers.push({
             },
             delaySeconds: 11,
             infoText: (data, matches, output) => {
-                return output.回溯();
+                return data.leileiData.isDpsByName(data.me) ? output.dps() : output.tn();
             },
             outputStrings: {
-                回溯: "去灯下放回溯"
+                dps: "往场外走一步放回溯",
+                tn: "去灯下放回溯",
             }
         },
         {
