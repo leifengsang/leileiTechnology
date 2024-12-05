@@ -1213,5 +1213,73 @@ Options.Triggers.push({
                 是否标记: "false"
             }
         },
+        {
+            id: "leilei FRU p4 二运 蓝buff播报",
+            /**
+             * 99C 暗火分散
+             * CC0 蓝buff
+             */
+            netRegex: NetRegexes.gainsEffect({ effectId: ["99C", "CC0"] }),
+            condition: (data, matches) => {
+                return data.phase === PHASE_ENTER_THE_DRAGON;
+            },
+            infoText: (data, matches, output) => {
+                if (data.p4_blueBuffList.length < 4 || data.p4_darkFlame === 0) {
+                    //数据还没收集齐
+                    return;
+                }
+
+                const myId = data.leileiFL.getHexIdByName(data, data.me);
+                if (!data.p4_blueBuffList.includes(myId)) {
+                    //自己是红buff
+                    return null;
+                }
+
+                if (data.p4_darkFlame === myId) {
+                    return output.暗火();
+                } else {
+                    return output.非暗火();
+                }
+            },
+            durationSeconds: 30,
+            outputStrings: {
+                暗火: "去北边找蓝灯，分摊后往A点跑，最后去自己点位吃圈",
+                非暗火: "去南边找蓝灯，分摊后往A点跑，最后去自己点位吃圈",
+            }
+        },
+        {
+            id: "leilei FRU p4 二运 短红buff播报",
+            /**
+             * CBF 红buff
+             */
+            netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && parseInt(matches.duration) !== 40;
+            },
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            durationSeconds: 30,
+            outputStrings: {
+                content: "去左右撞龙头，然后往蓝灯跑，最后往AC跑"
+            }
+        },
+        {
+            id: "leilei FRU p4 二运 长红buff播报",
+            /**
+             * CBF 红buff
+             */
+            netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && parseInt(matches.duration) === 40;
+            },
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            durationSeconds: 30,
+            outputStrings: {
+                content: "去南边放风，然后往三四点撞龙头，最后往AC跑"
+            }
+        },
     ]
 })
