@@ -98,6 +98,10 @@ Options.Triggers.push({
             p3_stackGroupDic: { 0: [], 1: [], 2: [], 3: [] },
             p3_stackCount: 0,
             p3_stackFinished: false,
+            p4_redBuffShortList: [],
+            p4_redBuffLongList: [],
+            p4_blueBuffList: [],
+            p4_darkFlame: 0,
         }
     },
     config: [
@@ -136,7 +140,7 @@ Options.Triggers.push({
         },
         {
             id: "leilei FRU 控制战斗阶段",
-            netRegex: NetRegexes.startsUsing({ id: ["9CDA", "9CDB", "9D05", "9D4A"] }),
+            netRegex: NetRegexes.startsUsing({ id: ["9CDA", "9CDB", "9D05", "9D4A", "9D36"] }),
             run: (data, matches) => {
                 switch (matches.id) {
                     case "9CDA":
@@ -151,6 +155,10 @@ Options.Triggers.push({
                     case "9D4A":
                         //p3一运
                         data.phase = PHASE_ORACLE_OF_DARKNESS;
+                        break;
+                    case "9D36":
+                        //p4具现化
+                        data.phase = PHASE_ENTER_THE_DRAGON;
                         break;
                     default:
                         break;
@@ -256,8 +264,8 @@ Options.Triggers.push({
                     //随便标一个
                     data.leileiFL.mark(target1, data.leileiData.targetMarkers.attack1);
                     //标另一组的D2/3
-                    const targerRp = rpGroup1.includes(rp1) ? "D2" : "D3";
-                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, targerRp), data.leileiData.targetMarkers.bind1);
+                    const targetRp = rpGroup1.includes(rp1) ? "D2" : "D3";
+                    data.leileiFL.mark(data.leileiFL.getHexIdByRp(data, targetRp), data.leileiData.targetMarkers.bind1);
                     setTimeout(() => {
                         data.leileiFL.clearMark();
                     }, 10000);
@@ -1123,7 +1131,85 @@ Options.Triggers.push({
             },
             outputStrings: {
                 左右分组优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
-                组内优先级: "D1/D2/MT/ST/H1/H2/D3/D4",
+                组内优先级: "D1/D2/MT/ST/D3/D4/H1/H2",
+                是否标记: "false"
+            }
+        },
+        {
+            id: "leilei FRU p4 二运 红蓝buff标记",
+            /**
+             * CC0 蓝buff
+             * CBF 红buff
+             * 99C 暗火分散
+             */
+            netRegex: NetRegexes.gainsEffect({ effectId: ["CC0", "CBF", "99C"] }),
+            infoText: "",
+            condition: (data) => {
+                return data.phase === PHASE_ENTER_THE_DRAGON;
+            },
+            preRun: (data, matches, output) => {
+                if (matches.effectId === "CC0") {
+                    data.p4_blueBuffList.push(matches.targetId);
+                } else if (matches.effectId === "CBF") {
+                    if (parseInt(matches.duration) === 40) {
+                        data.p4_redBuffLongList.push(matches.targetId);
+                    } else {
+                        data.p4_redBuffShortList.push(matches.targetId);
+                    }
+                } else if (matches.effectId === "99C") {
+                    data.p4_darkFlame = matches.targetId;
+                }
+            },
+            run: (data, matches, output) => {
+                /**
+                 * 短红锁链12,
+                 * 长红禁止12
+                 * 暗火蓝攻击1
+                 * 剩下蓝234
+                 * 攻击1234吃BD34
+                 */
+                if (!isMarkEnable(data, output)) {
+                    return;
+                }
+
+                if (data.p4_blueBuffList.length < 4 || data.p4_redBuffLongList.length < 2 || data.p4_redBuffShortList.length < 2 || data.p4_darkFlame === 0) {
+                    //数据还没收集齐
+                    return;
+                }
+
+                //暗火蓝buff固定点1
+                data.p4_blueBuffList = data.p4_blueBuffList.filter(v => {
+                    return v !== data.p4_darkFlame;
+                });
+
+                const rpRuleList = output.优先级().split("/");
+                data.p4_redBuffLongList.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+                data.p4_redBuffShortList.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+                data.p4_blueBuffList.sort((a, b) => {
+                    return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                });
+
+                data.leileiFL.mark(data.p4_darkFlame, data.leileiData.targetMarkers.attack1);
+                data.leileiFL.mark(data.p4_blueBuffList[0], data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(data.p4_blueBuffList[1], data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(data.p4_blueBuffList[2], data.leileiData.targetMarkers.attack4);
+
+                data.leileiFL.mark(data.p4_redBuffShortList[0], data.leileiData.targetMarkers.bind1);
+                data.leileiFL.mark(data.p4_redBuffShortList[1], data.leileiData.targetMarkers.bind2);
+
+                data.leileiFL.mark(data.p4_redBuffLongList[0], data.leileiData.targetMarkers.stop1);
+                data.leileiFL.mark(data.p4_redBuffLongList[1], data.leileiData.targetMarkers.stop2);
+
+                setTimeout(() => {
+                    data.leileiFL.clearMark();
+                }, 45000);
+            },
+            outputStrings: {
+                优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
                 是否标记: "false"
             }
         },
