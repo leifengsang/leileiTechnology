@@ -67,6 +67,9 @@ const PHASE_ORACLE_OF_DARKNESS = 3; //p3
 const PHASE_ENTER_THE_DRAGON = 4; //p4
 const PHASE_PANDORA = 5; //p5
 
+const P4_PHASE_DRAGON_SONG = 1; //冰光龙诗
+const P4_PHASE_CRISTALLIZE_TIME = 2; //二运
+
 const firstDecimalMarker = parseInt("0000", 16);
 const getHeadmarkerId = (data, matches) => {
     if (!data.leileiDecOffset) data.leileiDecOffset = parseInt(matches.id, 16) - firstDecimalMarker;
@@ -80,10 +83,11 @@ Options.Triggers.push({
     id: "leilei futures rewritten ultimate",
     initData: () => {
         return {
+            phase: 0,
+            p4_phase: 0,
             p1cloneIdList: [],
             p1fateBreakerPosList: [0, 1, 2, 3, 4, 5, 6, 7],
             p1deleteIndexList: [],
-            phase: 0,
             markingCount: 0,
             p1MarkingList: [],
             p1TFList: [], //p1雷火线
@@ -98,6 +102,7 @@ Options.Triggers.push({
             p3_stackGroupDic: { 0: [], 1: [], 2: [], 3: [] },
             p3_stackCount: 0,
             p3_stackFinished: false,
+            p4_stackList: [],
             p4_redBuffShortList: [],
             p4_redBuffLongList: [],
             p4_blueBuffList: [],
@@ -140,7 +145,7 @@ Options.Triggers.push({
         },
         {
             id: "leilei FRU 控制战斗阶段",
-            netRegex: NetRegexes.startsUsing({ id: ["9CDA", "9CDB", "9D05", "9D4A", "9D36"] }),
+            netRegex: NetRegexes.startsUsing({ id: ["9CDA", "9CDB", "9D05", "9D4A", "9D2F", "9D6A"] }),
             run: (data, matches) => {
                 switch (matches.id) {
                     case "9CDA":
@@ -156,9 +161,14 @@ Options.Triggers.push({
                         //p3一运
                         data.phase = PHASE_ORACLE_OF_DARKNESS;
                         break;
-                    case "9D36":
-                        //p4具现化
+                    case "9D2F":
+                        //p4 冰光龙诗
                         data.phase = PHASE_ENTER_THE_DRAGON;
+                        data.p4_phase = P4_PHASE_DRAGON_SONG;
+                        break;
+                    case "9D6A":
+                        //p4 二运
+                        data.p4_phase = P4_PHASE_CRISTALLIZE_TIME;
                         break;
                     default:
                         break;
@@ -1030,6 +1040,10 @@ Options.Triggers.push({
             id: "leilei FRU p3 地火分组 标记",
             netRegex: NetRegexes.gainsEffect({ effectId: "99D" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
+
                 if (data.p3_stackFinished) {
                     return false;
                 }
@@ -1132,6 +1146,39 @@ Options.Triggers.push({
             outputStrings: {
                 左右分组优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
                 组内优先级: "D1/D2/MT/ST/D3/D4/H1/H2",
+                是否标记: "false"
+            }
+        },
+        {
+            id: "leilei FRU p4 光暗龙诗 水分摊标记",
+            /**
+             * 99D 水分摊
+             */
+            netRegex: NetRegexes.gainsEffect({ effectId: "99D" }),
+            infoText: "",
+            condition: (data) => {
+                return data.p4_phase === P4_PHASE_DRAGON_SONG;
+            },
+            preRun: (data, matches) => {
+                data.p4_stackList.push(matches.targetId);
+            },
+            run: (data, matches, output) => {
+                if (!isMarkEnable(data, output)) {
+                    return;
+                }
+
+                if (data.p4_stackList.length < 2) {
+                    return;
+                }
+
+                data.leileiFL.mark(data.p4_stackList[0], data.leileiData.targetMarkers.stop1);
+                data.leileiFL.mark(data.p4_stackList[1], data.leileiData.targetMarkers.stop2);
+
+                setTimeout(() => {
+                    data.leileiFL.clearMark();
+                }, 20000);
+            },
+            outputStrings: {
                 是否标记: "false"
             }
         },
