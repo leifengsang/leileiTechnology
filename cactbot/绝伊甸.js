@@ -689,12 +689,14 @@ Options.Triggers.push({
         {
             /**
              * 997 火
+             * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 10s火 方位播报",
+            id: "leilei FRU p3 灰九式一运 10s火&tn冰 方位播报",
             durationSeconds: 35,
-            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && matches.duration == 11;
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && !data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 11));
             },
             infoText: (data, matches, output) => {
                 return data.leileiFL.isDpsByName(data, data.me) ? output.dps() : output.tn();
@@ -707,8 +709,9 @@ Options.Triggers.push({
         {
             /**
              * 997 火
+             * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 10s火 action1",
+            id: "leilei FRU p3 灰九式一运 10s火&tn冰 action1",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
                 return matches.target === data.me && matches.duration == 11;
@@ -724,11 +727,13 @@ Options.Triggers.push({
         {
             /**
              * 997 火
+             * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 10s火 action2",
-            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            id: "leilei FRU p3 灰九式一运 10s火&tn冰 action2",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && matches.duration == 11;
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && !data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 11));
             },
             delaySeconds: 11,
             infoText: (data, matches, output) => {
@@ -741,11 +746,13 @@ Options.Triggers.push({
         {
             /**
              * 997 火
+             * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 10s火 action3",
-            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            id: "leilei FRU p3 灰九式一运 10s火&tn冰 action3",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && matches.duration == 11;
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && !data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 11));
             },
             delaySeconds: 16,
             infoText: (data, matches, output) => {
@@ -758,11 +765,13 @@ Options.Triggers.push({
         {
             /**
              * 997 火
+             * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 10s火 action4",
-            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            id: "leilei FRU p3 灰九式一运 10s火&tn冰 action4",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && matches.duration == 11;
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && !data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 11));
             },
             delaySeconds: 21,
             infoText: (data, matches, output) => {
@@ -775,11 +784,13 @@ Options.Triggers.push({
         {
             /**
              * 997 火
+             * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 10s火 action5",
-            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            id: "leilei FRU p3 灰九式一运 10s火&tn冰 action5",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && matches.duration == 11;
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && !data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 11));
             },
             delaySeconds: 26,
             infoText: (data, matches, output) => {
@@ -792,11 +803,13 @@ Options.Triggers.push({
         {
             /**
              * 997 火
+             * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 10s火 action6",
-            netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
+            id: "leilei FRU p3 灰九式一运 10s火&tn冰 action6",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && matches.duration == 11;
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && !data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 11));
             },
             delaySeconds: 36,
             infoText: (data, matches, output) => {
@@ -915,11 +928,12 @@ Options.Triggers.push({
              * 997 火
              * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 30s火&冰 方位播报",
+            id: "leilei FRU p3 灰九式一运 30s火&dps冰 方位播报",
             durationSeconds: 35,
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 31));
             },
             infoText: (data, matches, output) => {
                 return data.leileiFL.isDpsByName(data, data.me) ? output.dps() : output.tn();
@@ -934,10 +948,11 @@ Options.Triggers.push({
              * 997 火
              * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 30s火&冰 action1",
+            id: "leilei FRU p3 灰九式一运 30s火&dps冰 action1",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 31));
             },
             delaySeconds: 11,
             infoText: (data, matches, output) => {
@@ -952,10 +967,11 @@ Options.Triggers.push({
              * 997 火
              * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 30s火&冰 action2",
+            id: "leilei FRU p3 灰九式一运 30s火&dps冰 action2",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 31));
             },
             delaySeconds: 16,
             infoText: (data, matches, output) => {
@@ -970,10 +986,11 @@ Options.Triggers.push({
              * 997 火
              * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 30s火&冰 action3",
+            id: "leilei FRU p3 灰九式一运 30s火&dps冰 action3",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 31));
             },
             delaySeconds: 21,
             infoText: (data, matches, output) => {
@@ -987,7 +1004,7 @@ Options.Triggers.push({
             /**
              * 997 火
              */
-            id: "leilei FRU p3 灰九式一运 30s火&冰 action4",
+            id: "leilei FRU p3 灰九式一运 30s火&dps冰 action4",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
                 return matches.target === data.me && matches.duration == 31;
@@ -1005,10 +1022,11 @@ Options.Triggers.push({
              * 997 火
              * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 30s火&冰 action5",
+            id: "leilei FRU p3 灰九式一运 30s火&dps冰 action5",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                return matches.target === data.me && matches.duration == 31;
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 31));
             },
             delaySeconds: 31,
             infoText: (data, matches, output) => {
@@ -1023,10 +1041,11 @@ Options.Triggers.push({
              * 997 火
              * 99E 冰
              */
-            id: "leilei FRU p3 灰九式一运 30s火&冰 action6",
+            id: "leilei FRU p3 灰九式一运 30s火&dps冰 action6",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
+                return matches.target === data.me
+                    && ((matches.effectId === "99E" && data.leileiFL.isDpsByName(data, data.me)) || (matches.effectId === "997" && matches.duration == 31));
             },
             delaySeconds: 36,
             infoText: (data, matches, output) => {
