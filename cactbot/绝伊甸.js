@@ -1305,7 +1305,7 @@ Options.Triggers.push({
                 }
 
                 //暗火蓝buff固定点1
-                data.p4_blueBuffList = data.p4_blueBuffList.filter(v => {
+                const list = data.p4_blueBuffList.filter(v => {
                     return v !== data.p4_darkFlame;
                 });
 
@@ -1321,9 +1321,9 @@ Options.Triggers.push({
                 });
 
                 data.leileiFL.mark(data.p4_darkFlame, data.leileiData.targetMarkers.attack1);
-                data.leileiFL.mark(data.p4_blueBuffList[0], data.leileiData.targetMarkers.attack2);
-                data.leileiFL.mark(data.p4_blueBuffList[1], data.leileiData.targetMarkers.attack3);
-                data.leileiFL.mark(data.p4_blueBuffList[2], data.leileiData.targetMarkers.attack4);
+                data.leileiFL.mark(list[0], data.leileiData.targetMarkers.attack2);
+                data.leileiFL.mark(list[1], data.leileiData.targetMarkers.attack3);
+                data.leileiFL.mark(list[2], data.leileiData.targetMarkers.attack4);
 
                 data.leileiFL.mark(data.p4_redBuffShortList[0], data.leileiData.targetMarkers.bind1);
                 data.leileiFL.mark(data.p4_redBuffShortList[1], data.leileiData.targetMarkers.bind2);
@@ -1340,70 +1340,70 @@ Options.Triggers.push({
                 是否标记: "false"
             }
         },
-        // {
-        //     id: "leilei FRU p4 二运 蓝buff播报",
-        //     /**
-        //      * 99C 暗火分散
-        //      * CC0 蓝buff
-        //      */
-        //     netRegex: NetRegexes.gainsEffect({ effectId: ["99C", "CC0"] }),
-        //     condition: (data, matches) => {
-        //         return data.phase === PHASE_ENTER_THE_DRAGON;
-        //     },
-        //     infoText: (data, matches, output) => {
-        //         if (data.p4_blueBuffList.length < 4 || data.p4_darkFlame === 0) {
-        //             //数据还没收集齐
-        //             return;
-        //         }
+        {
+            id: "leilei FRU p4 二运 蓝buff播报",
+            /**
+             * 99C 暗火分散
+             * CC0 蓝buff
+             */
+            netRegex: NetRegexes.gainsEffect({ effectId: ["99C", "CC0"] }),
+            condition: (data, matches) => {
+                return data.phase === PHASE_ENTER_THE_DRAGON;
+            },
+            infoText: (data, matches, output) => {
+                if (data.p4_blueBuffList.length < 4 || data.p4_darkFlame === 0) {
+                    //数据还没收集齐
+                    return;
+                }
 
-        //         const myId = data.leileiFL.getHexIdByName(data, data.me);
-        //         if (!data.p4_blueBuffList.includes(myId)) {
-        //             //自己是红buff
-        //             return null;
-        //         }
+                const myId = data.leileiFL.getHexIdByName(data, data.me);
+                if (!data.p4_blueBuffList.includes(myId)) {
+                    //自己是红buff
+                    return null;
+                }
 
-        //         if (data.p4_darkFlame === myId) {
-        //             return output.暗火();
-        //         } else {
-        //             return output.非暗火();
-        //         }
-        //     },
-        //     outputStrings: {
-        //         暗火: "去北边找蓝灯",
-        //         非暗火: "去南边找蓝灯",
-        //     }
-        // },
-        // {
-        //     id: "leilei FRU p4 二运 短红buff播报",
-        //     /**
-        //      * CBF 红buff
-        //      */
-        //     netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
-        //     condition: (data, matches) => {
-        //         return matches.target === data.me && parseInt(matches.duration) !== 40;
-        //     },
-        //     infoText: (data, matches, output) => {
-        //         return output.content();
-        //     },
-        //     outputStrings: {
-        //         content: "去左右撞龙头"
-        //     }
-        // },
-        // {
-        //     id: "leilei FRU p4 二运 长红buff播报",
-        //     /**
-        //      * CBF 红buff
-        //      */
-        //     netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
-        //     condition: (data, matches) => {
-        //         return matches.target === data.me && parseInt(matches.duration) === 40;
-        //     },
-        //     infoText: (data, matches, output) => {
-        //         return output.content();
-        //     },
-        //     outputStrings: {
-        //         content: "去南边放风"
-        //     }
-        // },
+                if (data.p4_darkFlame === myId) {
+                    return output.暗火();
+                } else {
+                    return output.非暗火();
+                }
+            },
+            outputStrings: {
+                暗火: "去北边找蓝灯",
+                非暗火: "去南边找蓝灯",
+            }
+        },
+        {
+            id: "leilei FRU p4 二运 短红buff播报",
+            /**
+             * CBF 红buff
+             */
+            netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && parseInt(matches.duration) !== 40;
+            },
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                content: "去左右撞龙头"
+            }
+        },
+        {
+            id: "leilei FRU p4 二运 长红buff播报",
+            /**
+             * CBF 红buff
+             */
+            netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
+            condition: (data, matches) => {
+                return matches.target === data.me && parseInt(matches.duration) === 40;
+            },
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                content: "去南边放风"
+            }
+        },
     ]
 })
