@@ -694,6 +694,9 @@ Options.Triggers.push({
             durationSeconds: 35,
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 11;
             },
             infoText: (data, matches, output) => {
@@ -711,6 +714,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火 action1",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 11;
             },
             delaySeconds: 3,
@@ -728,6 +734,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火 action2",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 11;
             },
             delaySeconds: 11,
@@ -745,6 +754,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火 action3",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 11;
             },
             delaySeconds: 16,
@@ -762,6 +774,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火 action4",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 11;
             },
             delaySeconds: 21,
@@ -779,6 +794,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火 action5",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 11;
             },
             delaySeconds: 26,
@@ -796,6 +814,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火 action6",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 11;
             },
             delaySeconds: 36,
@@ -814,6 +835,9 @@ Options.Triggers.push({
             durationSeconds: 35,
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 21;
             },
             infoText: (data, matches, output) => {
@@ -831,6 +855,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action1",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 21;
             },
             delaySeconds: 11,
@@ -849,6 +876,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action2",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 21;
             },
             delaySeconds: 16,
@@ -866,6 +896,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action3",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 21;
             },
             delaySeconds: 21,
@@ -883,6 +916,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action4",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 21;
             },
             delaySeconds: 31,
@@ -900,6 +936,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action5",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 21;
             },
             delaySeconds: 36,
@@ -919,6 +958,9 @@ Options.Triggers.push({
             durationSeconds: 35,
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
             },
             infoText: (data, matches, output) => {
@@ -937,6 +979,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&冰 action1",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
             },
             delaySeconds: 11,
@@ -955,6 +1000,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&冰 action2",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
             },
             delaySeconds: 16,
@@ -973,6 +1021,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&冰 action3",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
             },
             delaySeconds: 21,
@@ -990,6 +1041,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&冰 action4",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 31;
             },
             delaySeconds: 26,
@@ -1008,6 +1062,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&冰 action5",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && matches.duration == 31;
             },
             delaySeconds: 31,
@@ -1026,6 +1083,9 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&冰 action6",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
+                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                    return false;
+                }
                 return matches.target === data.me && (matches.effectId === "99E" || (matches.effectId === "997" && matches.duration == 31));
             },
             delaySeconds: 36,
@@ -1260,73 +1320,70 @@ Options.Triggers.push({
                 是否标记: "false"
             }
         },
-        {
-            id: "leilei FRU p4 二运 蓝buff播报",
-            /**
-             * 99C 暗火分散
-             * CC0 蓝buff
-             */
-            netRegex: NetRegexes.gainsEffect({ effectId: ["99C", "CC0"] }),
-            condition: (data, matches) => {
-                return data.phase === PHASE_ENTER_THE_DRAGON;
-            },
-            infoText: (data, matches, output) => {
-                if (data.p4_blueBuffList.length < 4 || data.p4_darkFlame === 0) {
-                    //数据还没收集齐
-                    return;
-                }
+        // {
+        //     id: "leilei FRU p4 二运 蓝buff播报",
+        //     /**
+        //      * 99C 暗火分散
+        //      * CC0 蓝buff
+        //      */
+        //     netRegex: NetRegexes.gainsEffect({ effectId: ["99C", "CC0"] }),
+        //     condition: (data, matches) => {
+        //         return data.phase === PHASE_ENTER_THE_DRAGON;
+        //     },
+        //     infoText: (data, matches, output) => {
+        //         if (data.p4_blueBuffList.length < 4 || data.p4_darkFlame === 0) {
+        //             //数据还没收集齐
+        //             return;
+        //         }
 
-                const myId = data.leileiFL.getHexIdByName(data, data.me);
-                if (!data.p4_blueBuffList.includes(myId)) {
-                    //自己是红buff
-                    return null;
-                }
+        //         const myId = data.leileiFL.getHexIdByName(data, data.me);
+        //         if (!data.p4_blueBuffList.includes(myId)) {
+        //             //自己是红buff
+        //             return null;
+        //         }
 
-                if (data.p4_darkFlame === myId) {
-                    return output.暗火();
-                } else {
-                    return output.非暗火();
-                }
-            },
-            durationSeconds: 30,
-            outputStrings: {
-                暗火: "去北边找蓝灯，分摊后往A点跑，最后去自己点位吃圈",
-                非暗火: "去南边找蓝灯，分摊后往A点跑，最后去自己点位吃圈",
-            }
-        },
-        {
-            id: "leilei FRU p4 二运 短红buff播报",
-            /**
-             * CBF 红buff
-             */
-            netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
-            condition: (data, matches) => {
-                return matches.target === data.me && parseInt(matches.duration) !== 40;
-            },
-            infoText: (data, matches, output) => {
-                return output.content();
-            },
-            durationSeconds: 30,
-            outputStrings: {
-                content: "去左右撞龙头，然后往蓝灯跑，最后往AC跑"
-            }
-        },
-        {
-            id: "leilei FRU p4 二运 长红buff播报",
-            /**
-             * CBF 红buff
-             */
-            netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
-            condition: (data, matches) => {
-                return matches.target === data.me && parseInt(matches.duration) === 40;
-            },
-            infoText: (data, matches, output) => {
-                return output.content();
-            },
-            durationSeconds: 30,
-            outputStrings: {
-                content: "去南边放风，然后往三四点撞龙头，最后往AC跑"
-            }
-        },
+        //         if (data.p4_darkFlame === myId) {
+        //             return output.暗火();
+        //         } else {
+        //             return output.非暗火();
+        //         }
+        //     },
+        //     outputStrings: {
+        //         暗火: "去北边找蓝灯",
+        //         非暗火: "去南边找蓝灯",
+        //     }
+        // },
+        // {
+        //     id: "leilei FRU p4 二运 短红buff播报",
+        //     /**
+        //      * CBF 红buff
+        //      */
+        //     netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
+        //     condition: (data, matches) => {
+        //         return matches.target === data.me && parseInt(matches.duration) !== 40;
+        //     },
+        //     infoText: (data, matches, output) => {
+        //         return output.content();
+        //     },
+        //     outputStrings: {
+        //         content: "去左右撞龙头"
+        //     }
+        // },
+        // {
+        //     id: "leilei FRU p4 二运 长红buff播报",
+        //     /**
+        //      * CBF 红buff
+        //      */
+        //     netRegex: NetRegexes.gainsEffect({ effectId: "CBF" }),
+        //     condition: (data, matches) => {
+        //         return matches.target === data.me && parseInt(matches.duration) === 40;
+        //     },
+        //     infoText: (data, matches, output) => {
+        //         return output.content();
+        //     },
+        //     outputStrings: {
+        //         content: "去南边放风"
+        //     }
+        // },
     ]
 })
