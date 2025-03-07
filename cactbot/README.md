@@ -6,7 +6,7 @@
 * 通用职能位置设置 手动默语宏修正
   * 在不改变优先级的前提下修改职能位置
   * 更改职能位置方式：/e rp manual set 职能位置:玩家全称（如：/e rp manual set D1:Libearated Flame）
-  * 改完职能后如果不想在默语频道显示可以使用：/e rp debug [true/false]（true开启，false关闭）
+  * 改完职能后如果不想在默语频道显示可以使用：/e rp debug [true/false]（如：/e rp debug true;true开启，false关闭）
 
 # 绝欧米茄
 
