@@ -6,6 +6,7 @@
 * 通用职能位置设置 手动默语宏修正
   * 在不改变优先级的前提下修改职能位置
   * 更改职能位置方式：/e rp manual set 职能位置:玩家全称（如：/e rp manual set D1:Libearated Flame）
+  * 改完职能后如果不想在默语频道显示可以使用：/e rp debug [true/false]（true开启，false关闭）
 
 # 绝欧米茄
 
@@ -88,3 +89,6 @@
     * 优先级高=>低=攻击1324 ~~务必保证双T优先级最高，避免带易伤吃后续平A~~ update：已经修了
 * 狂暴读条 取消三运标记（触发器id：leilei TOP P5狂暴读条 取消标记）
   * 默认关闭，需要配置**取消标记**为true开启
+
+# 绝伊甸
+详见[队内攻略](https://docs.qq.com/doc/DWVRMY1hiZ2N0SE1X)
