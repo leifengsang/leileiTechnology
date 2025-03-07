@@ -464,10 +464,13 @@ Options.Triggers.push({
         {
             id: "leilei 输出职能日志",
             netRegex: NetRegexes.echo({ line: rpDebugRegex, capture: true }),
-            run: (_data, matches) => {
+            run: (data, matches) => {
                 const text = matches.line.match(rpDebugRegex).groups.text;
                 localStorage.setItem(ITEM_RP_DEBUG, text);
                 doTextCommand("/e 輸出rpDebug日志：" + isRpDebugOpen() + "<se.9>");
+                if (isRpDebugOpen()) {
+                    createMyParty(data.party.details);
+                }
             },
         },
     ],
