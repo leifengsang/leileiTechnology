@@ -366,24 +366,23 @@ Options.Triggers.push({
             },
             run: (data, matches, output) => {
                 if (data.p1TFList.length === 4) {
-                    if (isMarkEnable(data, output)) {
-                        data.leileiFL.doTextCommand("/p " + data.p1TFList.join(" ") + "<se.4>");
-                        data.leileiFL.doTextCommand("/p A:" + data.p1TFList[0] + "" + data.p1TFList[2]);
-                        data.leileiFL.doTextCommand("/p C:" + data.p1TFList[1] + "" + data.p1TFList[3]);
+                    const channel = isMarkEnable(data, output) ? "/p" : "/e";
+                    data.leileiFL.doTextCommand(channel + " " + data.p1TFList.join(" ") + "<se.4>");
+                    data.leileiFL.doTextCommand(channel + " A:" + data.p1TFList[0] + "" + data.p1TFList[2]);
+                    data.leileiFL.doTextCommand(channel + " C:" + data.p1TFList[1] + "" + data.p1TFList[3]);
 
-                        setTimeout(() => {
-                            if (data.p1TFList[0] === data.p1TFList[2]) {
-                                data.leileiFL.doTextCommand("/p A点換位");
-                            }
+                    setTimeout(() => {
+                        if (data.p1TFList[0] === data.p1TFList[2]) {
+                            data.leileiFL.doTextCommand(channel + " A点換位");
+                        }
 
-                            if (data.p1TFList[1] === data.p1TFList[3]) {
-                                data.leileiFL.doTextCommand("/p C点換位");
-                            }
-                        }, 1000);
-                    }
+                        if (data.p1TFList[1] === data.p1TFList[3]) {
+                            data.leileiFL.doTextCommand(channel + " C点換位");
+                        }
+                    }, 1000);
                 }
             },
-            durationSeconds: 15,
+            durationSeconds: 25,
             outputStrings: {
                 雷: "雷",
                 火: "火",
