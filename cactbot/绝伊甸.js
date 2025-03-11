@@ -151,19 +151,19 @@ Options.Triggers.push({
                     case "9CDA":
                     case "9CDB":
                         //樂園絕技
-                        data.phase = PHASE_FATE_BREAKER;
+                        data._phase = PHASE_FATE_BREAKER;
                         break;
                     case "9D05":
                         //DD
-                        data.phase = PHASE_USURPER_OF_FROST;
+                        data._phase = PHASE_USURPER_OF_FROST;
                         break;
                     case "9D4A":
                         //p3一运
-                        data.phase = PHASE_ORACLE_OF_DARKNESS;
+                        data._phase = PHASE_ORACLE_OF_DARKNESS;
                         break;
                     case "9D2F":
                         //p4 冰光龙诗
-                        data.phase = PHASE_ENTER_THE_DRAGON;
+                        data._phase = PHASE_ENTER_THE_DRAGON;
                         data.p4_phase = P4_PHASE_DRAGON_SONG;
                         break;
                     case "9D6A":
@@ -173,7 +173,7 @@ Options.Triggers.push({
                     default:
                         break;
                 }
-                console.log("phase", data.phase);
+                console.log("phase", data._phase);
             }
         },
         {
@@ -552,7 +552,7 @@ Options.Triggers.push({
             id: "leilei FRU p2 光爆连线",
             netRegex: NetRegexes.tether({}),
             condition: (data) => {
-                return data.phase === PHASE_USURPER_OF_FROST && data.p2_tetherList.length < 6;
+                return data._phase === PHASE_USURPER_OF_FROST && data.p2_tetherList.length < 6;
             },
             preRun: (data, matches) => {
                 [matches.sourceId, matches.targetId].forEach(v => {
@@ -695,7 +695,7 @@ Options.Triggers.push({
             durationSeconds: 35,
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -717,7 +717,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火&tn冰 action1",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me && matches.duration == 11;
@@ -738,7 +738,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火&tn冰 action2",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -760,7 +760,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火&tn冰 action3",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -782,7 +782,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火&tn冰 action4",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -804,7 +804,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火&tn冰 action5",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -826,7 +826,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 10s火&tn冰 action6",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -848,7 +848,7 @@ Options.Triggers.push({
             durationSeconds: 35,
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me && matches.duration == 21;
@@ -868,7 +868,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action1",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me && matches.duration == 21;
@@ -889,7 +889,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action2",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me && matches.duration == 21;
@@ -909,7 +909,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action3",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me && matches.duration == 21;
@@ -929,7 +929,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action4",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me && matches.duration == 21;
@@ -949,7 +949,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 20s火 action5",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me && matches.duration == 21;
@@ -971,7 +971,7 @@ Options.Triggers.push({
             durationSeconds: 35,
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -993,7 +993,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&dps冰 action1",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -1015,7 +1015,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&dps冰 action2",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -1037,7 +1037,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&dps冰 action3",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -1058,7 +1058,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&dps冰 action4",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me && matches.duration == 31;
@@ -1079,7 +1079,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&dps冰 action5",
             netRegex: NetRegexes.gainsEffect({ effectId: "997" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
                 return matches.target === data.me
@@ -1101,7 +1101,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 灰九式一运 30s火&dps冰 action6",
             netRegex: NetRegexes.gainsEffect({ effectId: ["997", "99E"] }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
 
@@ -1120,7 +1120,7 @@ Options.Triggers.push({
             id: "leilei FRU p3 地火分组 标记",
             netRegex: NetRegexes.gainsEffect({ effectId: "99D" }),
             condition: (data, matches) => {
-                if (data.phase !== PHASE_ORACLE_OF_DARKNESS) {
+                if (data._phase !== PHASE_ORACLE_OF_DARKNESS) {
                     return false;
                 }
 
@@ -1194,6 +1194,32 @@ Options.Triggers.push({
                     } else {
                         group1.push(!isDps1 ? id1 : id2);
                         group2.push(isDps1 ? id1 : id2);
+                    }
+                }
+
+                //过一下组内职能，不是双近的情况下调整远程位置
+                let meleeCount = 0;
+                for (let i = 0; i < 4; i++) {
+                    if (!data.leileiFL.isRanged(data.leileiFL.getRpByHexId(data, group1[i]))) {
+                        meleeCount++;
+                    }
+                }
+                if (meleeCount != 2) {
+                    //从远程组随便抓一个远程换去对面
+                    let meleeGroup = meleeCount == 3 ? group1 : group2;
+                    let rangedGroup = meleeCount == 1 ? group1 : group2;
+                    for (let i = 0; i < 4; i++) {
+                        let meleeGroupIsRanged = data.leileiFL.isRanged(data.leileiFL.getRpByHexId(data, meleeGroup[i]));
+                        if (meleeGroupIsRanged) {
+                            continue;
+                        }
+                        let rangedGroupIsRanged = data.leileiFL.isRanged(data.leileiFL.getRpByHexId(data, rangedGroup[i]));
+                        if (meleeGroupIsRanged != rangedGroupIsRanged) {
+                            let temp = meleeGroup[i];
+                            meleeGroup[i] = rangedGroup[i];
+                            rangedGroup[i] = temp;
+                            break;
+                        }
                     }
                 }
 
@@ -1272,7 +1298,7 @@ Options.Triggers.push({
             netRegex: NetRegexes.gainsEffect({ effectId: ["CC0", "CBF", "99C"] }),
             infoText: "",
             condition: (data) => {
-                return data.phase === PHASE_ENTER_THE_DRAGON;
+                return data._phase === PHASE_ENTER_THE_DRAGON;
             },
             preRun: (data, matches, output) => {
                 if (matches.effectId === "CC0") {
@@ -1348,7 +1374,7 @@ Options.Triggers.push({
              */
             netRegex: NetRegexes.gainsEffect({ effectId: ["99C", "CC0"] }),
             condition: (data, matches) => {
-                return data.phase === PHASE_ENTER_THE_DRAGON;
+                return data._phase === PHASE_ENTER_THE_DRAGON;
             },
             infoText: (data, matches, output) => {
                 if (data.p4_blueBuffList.length < 4 || data.p4_darkFlame === 0) {
