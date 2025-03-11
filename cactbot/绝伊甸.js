@@ -1196,6 +1196,32 @@ Options.Triggers.push({
                     }
                 }
 
+                //过一下组内职能，不是双近的情况下调整远程位置
+                let meleeCount = 0;
+                for (let i = 0; i < 4; i++) {
+                    if (!data.leileiFL.isRanged(data.leileiFL.getRpByHexId(data, group1[i]))) {
+                        meleeCount++;
+                    }
+                }
+                if (meleeCount != 2) {
+                    //从远程组随便抓一个远程换去对面
+                    let meleeGroup = meleeCount == 3 ? group1 : group2;
+                    let rangedGroup = meleeCount == 1 ? group1 : group2;
+                    for (let i = 0; i < 4; i++) {
+                        let meleeGroupIsRanged = data.leileiFL.isRanged(data.leileiFL.getRpByHexId(data, meleeGroup[i]));
+                        if (meleeGroupIsRanged) {
+                            continue;
+                        }
+                        let rangedGroupIsRanged = data.leileiFL.isRanged(data.leileiFL.getRpByHexId(data, rangedGroup[i]));
+                        if (meleeGroupIsRanged != rangedGroupIsRanged) {
+                            let temp = meleeGroup[i];
+                            meleeGroup[i] = rangedGroup[i];
+                            rangedGroup[i] = temp;
+                            break;
+                        }
+                    }
+                }
+
                 rpRuleList = output.组内优先级().split("/");
                 group1.sort((a, b) => {
                     return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
