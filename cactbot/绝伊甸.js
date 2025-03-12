@@ -9,7 +9,7 @@
  * @returns 
  */
 function isMarkEnable(data, output) {
-    return data.triggerSetConfig.globalMarkEnable && output.是否标记().toLowerCase() === "true";
+    return data.triggerSetConfig.globalMarkEnable && (!output.hasOwnProperty("是否标记") || output.是否标记().toLowerCase() === "true");
 }
 
 function convertFieldMarker(content) {
@@ -284,12 +284,11 @@ Options.Triggers.push({
 
                 data.p1MarkingList.push(matches.targetId);
 
-                if (!isMarkEnable(data, output)) {
-                    return;
+                if (data.p1MarkingList.length === 4) {
+                    //TODO 双竖排播报
                 }
 
-
-                if (!data.triggerSetConfig.globalMarkEnable) {
+                if (!isMarkEnable(data, output)) {
                     return;
                 }
 
@@ -348,8 +347,7 @@ Options.Triggers.push({
             outputStrings: {
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
                 是否标记连线: "false",
-                是否标记闲人: "false",
-                是否标记: "false"
+                是否标记闲人: "false"
             }
         },
         {
