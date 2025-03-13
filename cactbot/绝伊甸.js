@@ -124,6 +124,35 @@ Options.Triggers.push({
             },
             type: "checkbox",
             default: false
+        },
+        {
+            id: "p2LightRampant",
+            comment: {
+                cn: "",
+                en: "",
+                jp: "",
+            },
+            name: {
+                cn: "p2光爆打法",
+                en: "p2光爆打法",
+                jp: "p2光爆打法",
+            },
+            options: {
+                cn: {
+                    "六芒星/田园郡": "idyll",
+                    "灰九": "gray9",
+                },
+                en: {
+                    "六芒星/田园郡": "idyll",
+                    "灰九": "gray9",
+                },
+                jp: {
+                    "六芒星/田园郡": "idyll",
+                    "灰九": "gray9",
+                },
+            },
+            type: "select",
+            default: "idyll"
         }
     ],
     triggers: [
@@ -228,7 +257,7 @@ Options.Triggers.push({
 
             infoText: (data, matches, output) => {
                 if (data.p1fateBreakerPosList.length === 2) {
-                    return output[`${convertFateBreakerMarker(data.p1fateBreakerPosList.map(item => item.toString()).join(''))}`]();
+                    return output[`${convertFateBreakerMarker(data.p1fateBreakerPosList.map(item => item.toString()).join(""))}`]();
                 }
             },
             outputStrings: {
@@ -564,30 +593,68 @@ Options.Triggers.push({
                     return;
                 }
 
-                //考虑是否换位
+                //田园郡
                 const myRp = data.leileiFL.getRpByName(data, data.me);
-                let dpsRp;
-                let tnRp;
-                const isChangeRole = output.换位成员().split("/").filter(v => {
-                    if (v === "D1" || v === "D2" || v === "D3" || v === "D4") {
-                        dpsRp = v;
-                    } else {
-                        tnRp = v;
-                    }
-                    return v === myRp;
-                }).length > 0;
-                if (isChangeRole) {
-                    let dpsCount = 0;
-                    data.p2_tetherList.forEach(v => {
-                        if (data.leileiFL.isDpsByHexId(data, v)) {
-                            dpsCount++;
+                if (data.triggerSetConfig.p2LightRampant === "idyll") {
+                    //考虑是否换位
+                    let dpsRp;
+                    let tnRp;
+                    const isChangeRole = output.换位成员().split("/").filter(v => {
+                        if (v === "D1" || v === "D2" || v === "D3" || v === "D4") {
+                            dpsRp = v;
+                        } else {
+                            tnRp = v;
                         }
+                        return v === myRp;
+                    }).length > 0;
+                    if (isChangeRole) {
+                        let dpsCount = 0;
+                        data.p2_tetherList.forEach(v => {
+                            if (data.leileiFL.isDpsByHexId(data, v)) {
+                                dpsCount++;
+                            }
+                        });
+
+                        if (dpsCount !== 3) {
+                            return output.换位提示({ rp: dpsCount === 2 ? tnRp : dpsRp });
+                        }
+                    }
+                } else if (data.triggerSetConfig.p2LightRampant === "gray9") {
+                    //闲人
+                    const otherList = data.party.partyIds_.filter(v => {
+                        return !data.p2_tetherList.includes(v);
+                    }).map(v => {
+                        return data.leileiFL.getRpByHexId(data, v);
                     });
 
-                    if (dpsCount !== 3) {
-                        return output.换位提示({ rp: dpsCount === 2 ? tnRp : dpsRp });
+                    if (otherList.includes(myRp)) {
+                        //点了放圈
+                        return;
                     }
+
+                    const rpList = ["MT", "D4", "ST", "D2", "H2", "D1", "H1", "D3"];
+                    let count = 0;
+                    for (let i = 0; i < 8; i++) {
+                        let rp = rpList[i];
+                        if (rp === myRp) {
+                            break;
+                        }
+
+                        if (otherList.includes(rp)) {
+                            count++;
+                        }
+                    }
+
+                    const positions = [
+                        ["C", "1", "2", "4", "3", "A", "", ""],
+                        ["", "C", "1", "2", "4", "3", "A", ""],
+                        ["", "", "C", "1", "2", "4", "3", "A"],
+                    ];
+                    const index = rpList.indexOf(myRp);
+                    return output.灰九提示文本({ pos: positions[count][index] });
                 }
+
+
             },
             run: (data, matches, output) => {
                 if (!isMarkEnable(data, output)) {
@@ -622,6 +689,7 @@ Options.Triggers.push({
                 优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
                 换位成员: "D4/H2",
                 换位提示: "${rp}换位",
+                灰九提示文本: "去${pos}点",
                 是否标记: "false"
             }
         },
