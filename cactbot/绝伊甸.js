@@ -274,11 +274,13 @@ Options.Triggers.push({
             condition: (data) => {
                 return data.markingCount < 6;
             },
-            run: (data, matches, output) => {
+            preRun: (data, matches, output) => {
                 data.markingCount++;
+                data.p1MarkingList.push(matches.targetId);
+            },
+            run: (data, matches, output) => {
                 if (data.markingCount <= 2) {
                     //前两个是雾龙阶段的两个连线
-                    data.p1MarkingList.push(matches.targetId);
                     if (data.p1MarkingList.length < 2) {
                         return;
                     }
@@ -309,12 +311,6 @@ Options.Triggers.push({
                         data.leileiFL.clearMark();
                     }, 10000);
                     return;
-                }
-
-                data.p1MarkingList.push(matches.targetId);
-
-                if (data.p1MarkingList.length === 4) {
-                    //TODO 双竖排播报
                 }
 
                 if (!isMarkEnable(data, output)) {
@@ -372,6 +368,18 @@ Options.Triggers.push({
                         data.leileiFL.clearMark();
                     }, 20000);
                 }
+            },
+            infoText: (data, matches, output) => {
+                if (data.p1MarkingList.length < 4) {
+                    return;
+                }
+
+                if (isMarkEnable(data, output)) {
+                    //已经走标记了，不用报了
+                    return;
+                }
+
+                //TODO 根据不同的打法播报闲人位置
             },
             outputStrings: {
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
