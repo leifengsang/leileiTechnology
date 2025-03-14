@@ -113,9 +113,9 @@ Options.Triggers.push({
         {
             id: "globalMarkEnable",
             comment: {
-                cn: "",
-                en: "",
-                jp: "",
+                cn: "需同时选择此处以及配置对应设置为true才能标记",
+                en: "需同时选择此处以及配置对应设置为true才能标记",
+                jp: "需同时选择此处以及配置对应设置为true才能标记",
             },
             name: {
                 cn: "开启全局标记",
@@ -153,7 +153,7 @@ Options.Triggers.push({
             },
             type: "select",
             default: "idyll"
-        }
+        },
     ],
     triggers: [
         {
@@ -1315,10 +1315,36 @@ Options.Triggers.push({
 
                 data.p3_stackFinished = true;
             },
+            infoText: (data, matches, output) => {
+                if (data.p3_stackCount < 6) {
+                    return;
+                }
+
+                if (isMarkEnable(data, output)) {
+                    //已经走标记了，不用报了
+                    return;
+                }
+
+                const myId = data.leileiFL.getHexIdByName(data, data.me);
+                for (let group = 0; group < 4; group++) {
+                    const list = data.p3_stackGroupDic[group];
+                    if (!list.includes(myId)) {
+                        continue;
+                    }
+
+                    const target = list.find((v) => {
+                        return v !== myId;
+                    });
+                    return output.对位提示({ rp: data.leileiFL.getRpByHexId(data, target) });
+                }
+
+                return null;
+            },
             outputStrings: {
                 左右分组优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
                 组内优先级: "D1/D2/MT/ST/D3/D4/H1/H2",
-                是否标记: "false"
+                是否标记: "false",
+                对位提示: "对位：${rp}"
             }
         },
         {
