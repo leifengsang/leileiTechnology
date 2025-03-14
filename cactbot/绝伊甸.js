@@ -91,6 +91,7 @@ Options.Triggers.push({
             markingCount: 0,
             p1MarkingList: [],
             p1TFList: [], //p1雷火线
+            p1FallOfFaithContent: "", //p1雷火线闲人播报
             ddIcicleImpactCount: 0,
             ddIcicleImpactPosition: "",
             ddIceNeedleCount: 0,
@@ -153,6 +154,38 @@ Options.Triggers.push({
             },
             type: "select",
             default: "idyll"
+        },
+        {
+            id: "p1FallOfFaith",
+            comment: {
+                cn: "仅在非标记模式下播报",
+                en: "仅在非标记模式下播报",
+                jp: "仅在非标记模式下播报",
+            },
+            name: {
+                cn: "p1雷火剑打法",
+                en: "p1雷火剑打法",
+                jp: "p1雷火剑打法",
+            },
+            options: {
+                cn: {
+                    "单排THD": "thd",
+                    "单排HTDH": "htdh",
+                    "双竖排": "doubleLine",
+                },
+                en: {
+                    "单排THD": "thd",
+                    "单排HTDH": "htdh",
+                    "双竖排": "doubleLine",
+                },
+                jp: {
+                    "单排THD": "thd",
+                    "单排HTDH": "htdh",
+                    "双竖排": "doubleLine",
+                },
+            },
+            type: "select",
+            default: "doubleLine"
         },
     ],
     triggers: [
@@ -277,6 +310,70 @@ Options.Triggers.push({
             preRun: (data, matches, output) => {
                 data.markingCount++;
                 data.p1MarkingList.push(matches.targetId);
+
+                if (data.p1MarkingList.length < 4) {
+                    return;
+                }
+
+                if (isMarkEnable(data, output)) {
+                    //已经走标记了，不用报了
+                    return;
+                }
+
+                //预处理播报文本 根据不同的打法播报闲人位置
+                let otherList = data.party.partyIds_.filter((v) => {
+                    return !data.p1MarkingList.includes(v);
+                });
+                const myId = data.leileiFL.getHexIdByName(data, data.me);
+                if (otherList.includes(myId)) {
+                    //自己是闲人
+                    if (data.triggerSetConfig.p1FallOfFaith === "thd" || data.triggerSetConfig.p1FallOfFaith === "htdh") {
+                        let rpRuleList;
+                        switch (data.triggerSetConfig.p1FallOfFaith) {
+                            case "thd":
+                                rpRuleList = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
+                                break;
+                            case "htdh":
+                                rpRuleList = ["H1", "MT", "ST", "D1", "D2", "D3", "D4", "H2"];
+                                break;
+                            default:
+                                return;
+                        }
+
+                        const result = ["A", "A", "C", "C"];
+                        otherList.sort((a, b) => {
+                            return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                        });
+                        data.p1FallOfFaithContent = output.闲人播报({ point: result[otherList.indexOf(myId)] });
+                    } else if (data.triggerSetConfig.p1FallOfFaith === "doubleLine") {
+                        let rpRuleList;
+                        const isDps = data.leileiFL.isDpsByHexId(data, myId);
+                        let highPoint;
+                        let lowPoint;
+                        if (isDps) {
+                            rpRuleList = ["D1", "D2", "D3", "D4"];
+                            highPoint = "C";
+                            lowPoint = "A";
+                        } else {
+                            rpRuleList = ["H1", "H2", "MT", "ST"];
+                            highPoint = "A";
+                            lowPoint = "C";
+                        }
+
+                        otherList = otherList.filter((v) => {
+                            return data.leileiFL.isDpsByHexId(data, v) === isDps;
+                        });
+                        otherList.sort((a, b) => {
+                            return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                        });
+
+                        if (otherList.length > 2 && otherList.indexOf(myId) < otherList.length - 2) {
+                            data.p1FallOfFaithContent = output.闲人播报({ point: lowPoint });
+                        } else {
+                            data.p1FallOfFaithContent = output.闲人播报({ point: highPoint });
+                        }
+                    }
+                }
             },
             run: (data, matches, output) => {
                 if (data.markingCount <= 2) {
@@ -369,22 +466,11 @@ Options.Triggers.push({
                     }, 20000);
                 }
             },
-            infoText: (data, matches, output) => {
-                if (data.p1MarkingList.length < 4) {
-                    return;
-                }
-
-                if (isMarkEnable(data, output)) {
-                    //已经走标记了，不用报了
-                    return;
-                }
-
-                //TODO 根据不同的打法播报闲人位置
-            },
             outputStrings: {
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
                 是否标记连线: "false",
-                是否标记闲人: "false"
+                是否标记闲人: "false",
+                闲人播报: "去${point}点"
             }
         },
         {
@@ -398,7 +484,11 @@ Options.Triggers.push({
             },
             infoText: (data) => {
                 const len = data.p1TFList.length;
-                return len + data.p1TFList[len - 1];
+                let content = len + data.p1TFList[len - 1];
+                if (len === 4 && data.p1FallOfFaithContent) {
+                    content += "," + data.p1FallOfFaithContent;
+                }
+                return content;
             },
             run: (data, matches, output) => {
                 if (data.p1TFList.length === 4) {
@@ -1352,7 +1442,7 @@ Options.Triggers.push({
                 左右分组优先级: "MT/ST/H1/H2/D1/D2/D3/D4",
                 组内优先级: "D1/D2/MT/ST/D3/D4/H1/H2",
                 是否标记: "false",
-                对位提示: "对位：${rp}"
+                对位提示: "${rp}"
             }
         },
         {
