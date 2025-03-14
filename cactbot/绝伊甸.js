@@ -169,19 +169,22 @@ Options.Triggers.push({
             },
             options: {
                 cn: {
-                    "单排THD": "thd",
-                    "单排HTDH": "htdh",
-                    "双竖排": "doubleLine",
+                    "AC单排THD": "thd",
+                    "DB闲固": "thdBD",
+                    "AC单排HTDH": "htdh",
+                    "AC双竖排": "doubleLine",
                 },
                 en: {
-                    "单排THD": "thd",
-                    "单排HTDH": "htdh",
-                    "双竖排": "doubleLine",
+                    "AC单排THD": "thd",
+                    "DB闲固": "thdBD",
+                    "AC单排HTDH": "htdh",
+                    "AC双竖排": "doubleLine",
                 },
                 jp: {
-                    "单排THD": "thd",
-                    "单排HTDH": "htdh",
-                    "双竖排": "doubleLine",
+                    "AC单排THD": "thd",
+                    "DB闲固": "thdBD",
+                    "AC单排HTDH": "htdh",
+                    "AC双竖排": "doubleLine",
                 },
             },
             type: "select",
@@ -327,37 +330,48 @@ Options.Triggers.push({
                 const myId = data.leileiFL.getHexIdByName(data, data.me);
                 if (otherList.includes(myId)) {
                     //自己是闲人
-                    if (data.triggerSetConfig.p1FallOfFaith === "thd" || data.triggerSetConfig.p1FallOfFaith === "htdh") {
+                    if (data.triggerSetConfig.p1FallOfFaith === "thd" || data.triggerSetConfig.p1FallOfFaith === "htdh" || data.triggerSetConfig.p1FallOfFaith === "thdBD") {
                         let rpRuleList;
+                        let points;
+                        const sides = ["左", "右", "左", "右"];;
                         switch (data.triggerSetConfig.p1FallOfFaith) {
                             case "thd":
                                 rpRuleList = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
+                                points = ["A", "A", "C", "C"];
+                                break;
+                            case "thdBD":
+                                rpRuleList = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
+                                points = ["D", "D", "B", "B"];
                                 break;
                             case "htdh":
                                 rpRuleList = ["H1", "MT", "ST", "D1", "D2", "D3", "D4", "H2"];
+                                points = ["A", "A", "C", "C"];
                                 break;
                             default:
                                 return;
                         }
 
-                        const result = ["A", "A", "C", "C"];
                         otherList.sort((a, b) => {
                             return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
                         });
-                        data.p1FallOfFaithContent = output.闲人播报({ point: result[otherList.indexOf(myId)] });
+                        const index = otherList.indexOf(myId);
+                        data.p1FallOfFaithContent = output.闲人播报({ point: points[index], side: sides[index] });
                     } else if (data.triggerSetConfig.p1FallOfFaith === "doubleLine") {
                         let rpRuleList;
                         const isDps = data.leileiFL.isDpsByHexId(data, myId);
                         let highPoint;
                         let lowPoint;
+                        let lowSide; //DPS补去另外一组一定是低顺位，TN补去另外一组一定是高顺位
                         if (isDps) {
                             rpRuleList = ["D1", "D2", "D3", "D4"];
                             highPoint = "C";
                             lowPoint = "A";
+                            lowSide = "右";
                         } else {
                             rpRuleList = ["H1", "H2", "MT", "ST"];
                             highPoint = "A";
                             lowPoint = "C";
+                            lowSide = "左";
                         }
 
                         otherList = otherList.filter((v) => {
@@ -367,10 +381,17 @@ Options.Triggers.push({
                             return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
                         });
 
-                        if (otherList.length > 2 && otherList.indexOf(myId) < otherList.length - 2) {
-                            data.p1FallOfFaithContent = output.闲人播报({ point: lowPoint });
+                        const index = otherList.indexOf(myId);
+                        if (otherList.length > 2 && index < otherList.length - 2) {
+                            data.p1FallOfFaithContent = output.闲人播报({ point: lowPoint, side: lowSide });
                         } else {
-                            data.p1FallOfFaithContent = output.闲人播报({ point: highPoint });
+                            let side;
+                            if (otherList.length === 1) {
+                                side = lowSide;
+                            } else {
+                                side = (index - (otherList.length - 2)) === 0 ? "左" : "右";
+                            }
+                            data.p1FallOfFaithContent = output.闲人播报({ point: highPoint, side: side });
                         }
                     }
                 }
@@ -470,7 +491,7 @@ Options.Triggers.push({
                 优先级: "H1/MT/ST/D1/D2/D3/D4/H2",
                 是否标记连线: "false",
                 是否标记闲人: "false",
-                闲人播报: "去${point}点"
+                闲人播报: "去${point}${side}"
             }
         },
         {
@@ -744,9 +765,9 @@ Options.Triggers.push({
                     }
 
                     const positions = [
-                        ["C", "1", "2", "4", "3", "A", "", ""],
-                        ["", "C", "1", "2", "4", "3", "A", ""],
-                        ["", "", "C", "1", "2", "4", "3", "A"],
+                        ["C", "一", "二", "四", "三", "A", "", ""],
+                        ["", "C", "一", "二", "四", "三", "A", ""],
+                        ["", "", "C", "一", "二", "四", "三", "A"],
                     ];
                     const index = rpList.indexOf(myRp);
                     return output.灰九提示文本({ pos: positions[count][index] });
