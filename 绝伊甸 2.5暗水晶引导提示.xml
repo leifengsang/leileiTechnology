@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<TriggernometryExport PluginVersion="1.2.0.7">
+  <ExportedTrigger Enabled="true" Name="2.5 暗水晶引导" Id="3c1305d5-4e47-4a2a-b483-624b433d13cd" RegularExpression="(?&lt;timestamp&gt;^.{14}) StartsCasting (?&lt;type&gt;14):(?&lt;sourceId&gt;[^:]*):(?&lt;source&gt;[^:]*):(?&lt;id&gt;9D46):(?&lt;ability&gt;(?:[^:]|: )*?):(?&lt;targetId&gt;[^:]*):(?&lt;target&gt;[^:]*):(?&lt;castTime&gt;[^:]*):(?&lt;x&gt;[^:]*):(?&lt;y&gt;[^:]*):(?&lt;z&gt;[^:]*):(?&lt;heading&gt;[^:]*)(?:$|:)" PeriodRefire="Deny" RefirePeriodExpression="100">
+    <Actions>
+      <Action OrderNumber="1" SoundRouting="None" TTSRouting="None" TextAuraFontSize="42" TextAuraForeground="Yellow" TextAuraOutline="Red" TextAuraName="TimeCD" TextAuraExpression="${numeric:5-${_since}}" TextAuraXIniExpression="1289" TextAuraYIniExpression="898" TextAuraWIniExpression="253" TextAuraHIniExpression="64" TextAuraOIniExpression="100" TextAuraTTLTickExpression="5-${_since}" TextAuraFontName="宋体" ActionType="TextAura">
+        <Condition Enabled="false" Grouping="Or" />
+      </Action>
+    </Actions>
+    <Condition Enabled="false" Grouping="Or" />
+  </ExportedTrigger>
+</TriggernometryExport>
