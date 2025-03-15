@@ -333,7 +333,7 @@ Options.Triggers.push({
                     if (data.triggerSetConfig.p1FallOfFaith === "thd" || data.triggerSetConfig.p1FallOfFaith === "htdh" || data.triggerSetConfig.p1FallOfFaith === "thdBD") {
                         let rpRuleList;
                         let points;
-                        const sides = ["左", "右", "左", "右"];;
+                        const sides = ["左", "右", "左", "右"];
                         switch (data.triggerSetConfig.p1FallOfFaith) {
                             case "thd":
                                 rpRuleList = ["MT", "ST", "H1", "H2", "D1", "D2", "D3", "D4"];
