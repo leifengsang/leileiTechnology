@@ -1642,5 +1642,20 @@ Options.Triggers.push({
                 content: "去南边放风"
             }
         },
+        {
+            id: "leilei FRU p5 左右刀",
+            /**
+             * 9D29 暗刀 左
+             * 9D79 光刀 右
+             */
+            netRegex: NetRegexes.startsUsing({ id: ["9D29", "9D79"] }),
+            infoText: (data, matches, output) => {
+                return matches.id === "9D29" ? output.暗() : output.光();
+            },
+            outputStrings: {
+                光: "去右边",
+                暗: "去左边",
+            }
+        },
     ]
 })
