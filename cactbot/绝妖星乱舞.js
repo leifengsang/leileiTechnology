@@ -90,8 +90,8 @@ Options.Triggers.push({
         {
             id: "leilei MDU p2 遗弃末世头标提醒",
             netRegex: NetRegexes.headMarker({}),
-            //时间丢长一点，防止忘记
-            durationSeconds: 20,
+            //1234会持续好多轮，先设置个60秒吧
+            durationSeconds: 60,
             condition: (data, matches) => {
                 if (data._phase !== PHASE_FORSAKEN_KEFKA) {
                     return false;
@@ -123,7 +123,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei DMU P2 过去/未来终结",
+            id: "leilei DMU p2 过去/未来终结",
             //"BAD2":未来终结, "BAD3":过去终结
             netRegex: NetRegexes.startsUsing({ id: ["BAD2", "BAD3"] }),
             //读条结束后播报
