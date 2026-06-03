@@ -13,9 +13,9 @@ function isMarkEnable(data, output) {
 }
 
 const headMarker = {
-    P2_STACK: "02CB", //分摊
-    P2_CIRCLE: "02CC", //大圈
-    P2_SECTOR: "02CD", //扇形
+    P2_STACK: "0102", //分摊
+    P2_CIRCLE: "0103", //大圈
+    P2_SECTOR: "0104", //扇形
 }
 
 /**
@@ -55,7 +55,7 @@ Options.Triggers.push({
             netRegex: NetRegexes.headMarker({}),
             run: (data, matches) => {
                 const id = getHeadmarkerId(data, matches);
-                console.log("DMU headmarker:" + id, "originalId:" + matches.id, "firstDecimalMarker:", firstDecimalMarker);
+                console.log("DMU headmarker:" + id, "originalId:" + matches.id, "firstDecimalMarker:", firstDecimalMarker.toString(16).toUpperCase().padStart(4, "0"));
             },
         },
         {
@@ -81,7 +81,7 @@ Options.Triggers.push({
             id: "leilei MDU p2 咏唱危机层数",
             netRegex: NetRegexes.gainsEffect({ effectId: "13DB" }),
             condition: (data, matches) => {
-                return data._phase === PHASE_FORSAKEN_KEFKA;
+                return data.phase === PHASE_FORSAKEN_KEFKA;
             },
             run: (data, matches, output) => {
                 data.p2_spellsTroubleCountDic[matches.target] = parseInt(matches.count);
@@ -93,7 +93,7 @@ Options.Triggers.push({
             //1234会持续好多轮，先设置个60秒吧
             durationSeconds: 60,
             condition: (data, matches) => {
-                if (data._phase !== PHASE_FORSAKEN_KEFKA) {
+                if (data.phase !== PHASE_FORSAKEN_KEFKA) {
                     return false;
                 }
                 return matches.target === data.me;
