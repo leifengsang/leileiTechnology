@@ -13,9 +13,9 @@ function isMarkEnable(data, output) {
 }
 
 const headMarker = {
-    P2_STACK: "0102", //分摊
-    P2_CIRCLE: "0103", //大圈
-    P2_SECTOR: "0104", //扇形
+    P2_STACK: "02CB", //分摊
+    P2_CIRCLE: "02CC", //大圈
+    P2_SECTOR: "02CD", //扇形
 }
 
 /**
@@ -26,7 +26,7 @@ const PHASE_FORSAKEN_KEFKA = 2; //p2
 
 const firstDecimalMarker = parseInt("00DA", 16);
 const getHeadmarkerId = (data, matches) => {
-    if (!data.leileiDecOffset) data.leileiDecOffset = parseInt(matches.id, 16) - firstDecimalMarker;
+    if (data.leileiDecOffset === undefined) data.leileiDecOffset = parseInt(matches.id, 16) - firstDecimalMarker;
     return (parseInt(matches.id, 16) - data.leileiDecOffset).toString(16).toUpperCase().padStart(4, "0");
 };
 
@@ -87,41 +87,41 @@ Options.Triggers.push({
                 data.p2_spellsTroubleCountDic[matches.target] = parseInt(matches.count);
             }
         },
-        // {
-        //     id: "leilei MDU p2 遗弃末世头标提醒",
-        //     netRegex: NetRegexes.headMarker({}),
-        //     //1234会持续好多轮，先设置个60秒吧
-        //     durationSeconds: 60,
-        //     condition: (data, matches) => {
-        //         if (data.phase !== PHASE_FORSAKEN_KEFKA) {
-        //             return false;
-        //         }
-        //         return matches.target === data.me;
-        //     },
-        //     infoText: (data, matches, output) => {
-        //         const id = getHeadmarkerId(data, matches);
-        //         if (id !== headMarker.P2_STACK && id !== headMarker.P2_CIRCLE && id !== headMarker.P2_SECTOR) {
-        //             return;
-        //         }
+        {
+            id: "leilei MDU p2 遗弃末世头标提醒",
+            netRegex: NetRegexes.headMarker({}),
+            //1234会持续好多轮，先设置个60秒吧
+            durationSeconds: 60,
+            condition: (data, matches) => {
+                if (data.phase !== PHASE_FORSAKEN_KEFKA) {
+                    return false;
+                }
+                return matches.target === data.me;
+            },
+            infoText: (data, matches, output) => {
+                const id = getHeadmarkerId(data, matches);
+                if (id !== headMarker.P2_STACK && id !== headMarker.P2_CIRCLE && id !== headMarker.P2_SECTOR) {
+                    return;
+                }
 
-        //         /**
-        //          * 可以写细点，根据data.p2_spellsTroubleCountDic获得对应的咏唱危机层数，提示对应轮次的走法
-        //          * 我们前排进度比较快，攻略随时改，这里只提醒最基础的内容
-        //          */
-        //         if (id === headMarker.P2_STACK) {
-        //             return output.分摊();
-        //         } else if (id === headMarker.P2_CIRCLE) {
-        //             return output.大圈();
-        //         } else if (id === headMarker.P2_SECTOR) {
-        //             return output.扇形();
-        //         }
-        //     },
-        //     outputStrings: {
-        //         "分摊": "分摊，看优先级",
-        //         "大圈": "大圈去右",
-        //         "扇形": "扇形去左",
-        //     }
-        // },
+                /**
+                 * 可以写细点，根据data.p2_spellsTroubleCountDic获得对应的咏唱危机层数，提示对应轮次的走法
+                 * 我们前排进度比较快，攻略随时改，这里只提醒最基础的内容
+                 */
+                if (id === headMarker.P2_STACK) {
+                    return output.分摊();
+                } else if (id === headMarker.P2_CIRCLE) {
+                    return output.大圈();
+                } else if (id === headMarker.P2_SECTOR) {
+                    return output.扇形();
+                }
+            },
+            outputStrings: {
+                "分摊": "分摊，看优先级",
+                "大圈": "大圈去右",
+                "扇形": "扇形去左",
+            }
+        },
         {
             id: "leilei DMU p2 过去/未来终结",
             //"BAD2":未来终结, "BAD3":过去终结
