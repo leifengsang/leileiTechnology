@@ -32,7 +32,6 @@ const getHeadmarkerId = (data, matches) => {
 
 Options.Triggers.push({
     zoneId: ZoneId.DancingMadUltimate,
-    // zoneId: 1363,
     id: "leilei dancing mad ultimate",
     initData: () => {
         return {
@@ -118,16 +117,17 @@ Options.Triggers.push({
             },
             outputStrings: {
                 "分摊": "分摊，看优先级",
-                "大圈": "大圈去右",
-                "扇形": "扇形去左",
+                "大圈": "大圈大圈",
+                "扇形": "扇形扇形",
             }
         },
         {
             id: "leilei DMU p2 过去/未来终结",
             //"BAD2":未来终结, "BAD3":过去终结
             netRegex: NetRegexes.startsUsing({ id: ["BAD2", "BAD3"] }),
-            //读条结束后播报
-            delaySeconds: 6.1,
+            //读条快结束时播报
+            delaySeconds: 4,
+            durationSeconds: 5,
             infoText: (data, matches, output) => {
                 if (matches.id === "BAD2") {
                     return output.未来终结();
