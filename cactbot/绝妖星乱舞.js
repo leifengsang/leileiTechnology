@@ -130,18 +130,22 @@ Options.Triggers.push({
         },
         {
             id: "leilei MDU p2 遗弃末世 轮次提醒 第八轮",
-            //"BAD2":未来终结, "BAD3":过去终结
-            netRegex: NetRegexes.startsUsing({ id: ["BAD2", "BAD3"] }),
-            //第七轮结束没有给新的头标，在第四次过去未来读条八秒后播报第八轮
-            delaySeconds: 8,
-            condition: (data) => {
-                return data.phase === PHASE_FORSAKEN_KEFKA;
-            },
-            run: (data) => {
-                data.p2_endCount++;
+            netRegex: NetRegexes.headMarker({}),
+            suppressSeconds: 1,
+            delaySeconds: 13,
+            condition: (data, matches) => {
+                if (data.phase !== PHASE_FORSAKEN_KEFKA) {
+                    return false;
+                }
+
+                const id = getHeadmarkerId(data, matches);
+                if (id !== headMarker.P2_STACK && id !== headMarker.P2_CIRCLE && id !== headMarker.P2_SECTOR) {
+                    return false;
+                }
+                return true;
             },
             infoText: (data, matches, output) => {
-                if (data.p2_endCount === 4) {
+                if (data.p2_round === 7) {
                     return output.content({ round: 8 });
                 }
             },
@@ -281,15 +285,26 @@ Options.Triggers.push({
             delaySeconds: 4,
             durationSeconds: 10,
             infoText: (data, matches, output) => {
-                if (matches.id === "BAD2") {
-                    return output.未来终结();
-                } else if (matches.id === "BAD3") {
-                    return output.过去终结();
+                if (data.p2_endCount < 4) {
+                    if (matches.id === "BAD2") {
+                        return output.未来终结();
+                    } else if (matches.id === "BAD3") {
+                        return output.过去终结();
+                    }
+                } else {
+                    //第四轮直接播报原地/穿
+                    if (matches.id === "BAD2") {
+                        return output.第四轮未来终结();
+                    } else if (matches.id === "BAD3") {
+                        return output.第四轮过去终结();
+                    }
                 }
             },
             outputStrings: {
                 "未来终结": "塔对侧引导",
                 "过去终结": "塔同侧引导",
+                "第四轮未来终结": "穿过boss",
+                "第四轮过去终结": "原地不动",
             }
         },
     ]
