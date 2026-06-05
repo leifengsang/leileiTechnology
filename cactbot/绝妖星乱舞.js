@@ -284,6 +284,9 @@ Options.Triggers.push({
             //读条快结束时播报
             delaySeconds: 4,
             durationSeconds: 10,
+            preRun: (data) => {
+                data.p2_endCount++;
+            },
             infoText: (data, matches, output) => {
                 if (data.p2_endCount < 4) {
                     if (matches.id === "BAD2") {
