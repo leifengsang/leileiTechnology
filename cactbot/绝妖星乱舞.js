@@ -85,6 +85,22 @@ Options.Triggers.push({
             }
         },
         {
+            id: "leilei DMU 真假冰",
+            //BA9E:假冰, BA98:真冰
+            netRegex: NetRegexes.startsUsing({ id: ["BA9E", "BA98"] }),
+            run: (data, matches) => {
+                //TODO
+            }
+        },
+        {
+            id: "leilei DMU 真假雷",
+            //BAA0:假雷, BA9F:真雷
+            netRegex: NetRegexes.startsUsing({ id: ["BAA0", "BA9F"] }),
+            run: (data, matches) => {
+                //TODO
+            }
+        },
+        {
             id: "leilei MDU p2 咏唱危机层数",
             netRegex: NetRegexes.gainsEffect({ effectId: "13DB" }),
             condition: (data) => {
@@ -282,7 +298,7 @@ Options.Triggers.push({
             //"BAD2":未来终结, "BAD3":过去终结
             netRegex: NetRegexes.startsUsing({ id: ["BAD2", "BAD3"] }),
             //读条快结束时播报
-            delaySeconds: 4,
+            delaySeconds: 3,
             durationSeconds: 10,
             preRun: (data) => {
                 data.p2_endCount++;
@@ -308,6 +324,23 @@ Options.Triggers.push({
                 "过去终结": "塔同侧引导",
                 "第四轮未来终结": "穿过boss",
                 "第四轮过去终结": "原地不动",
+            }
+        },
+        {
+            id: "leilei DMU p3 经/纬度聚爆",
+            //"BAFD":经度聚爆, "BAFE":纬度聚爆
+            netRegex: NetRegexes.startsUsing({ id: ["BAFD", "BAFE"] }),
+            //读条快结束时播报
+            infoText: (data, matches, output) => {
+                if (matches.id === "BAFD") {
+                    return output.经度聚爆();
+                } else if (matches.id === "BAFE") {
+                    return output.纬度聚爆();
+                }
+            },
+            outputStrings: {
+                "经度聚爆": "去左右",
+                "纬度聚爆": "去前后",
             }
         },
     ]
