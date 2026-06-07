@@ -17,10 +17,17 @@ function getDist(x1, y1, x2, y2) {
 }
 
 const headMarker = {
+    KEFKA_FAKE: "02A1", //假分摊分散
+    KEFKA_TRUE: "02A2", //真分摊分散
+    KEFKA_CIRCLE: "007F", //P1&P4分散
+    KEFKA_STACK: "0080", //P1&P4分摊
     P2_STACK: "02CB", //分摊
     P2_CIRCLE: "02CC", //大圈
     P2_SECTOR: "02CD", //扇形
 }
+
+const P3_STAGE1_BUFF_TYPE_SHORT = 1; //短buff
+const P3_STAGE1_BUFF_TYPE_LONG = 2; //长buff
 
 /**
  * 战斗阶段
@@ -45,6 +52,7 @@ Options.Triggers.push({
             p2_headMarkerInfoList: [],
             p2_round: 0,
             p2_endCount: 0,
+            p3_stage1_buffType: 0,
         }
     },
     config: [],
@@ -100,6 +108,14 @@ Options.Triggers.push({
                 //TODO
             }
         },
+        /**
+         * TODO
+         * cast BA94:玄乎乎魔法
+         * headMarker 007F 分散
+         * headMarker 0080 分摊
+         * headMarker 02A1 假
+         * headMarker 02A2 真
+         */
         {
             id: "leilei MDU p2 咏唱危机层数",
             netRegex: NetRegexes.gainsEffect({ effectId: "13DB" }),
@@ -180,7 +196,7 @@ Options.Triggers.push({
                 }
                 return true;
             },
-            infoText: (data, matches, output) => {
+            alertText: (data, matches, output) => {
                 if (matches.target !== data.me) {
                     return;
                 }
@@ -330,7 +346,6 @@ Options.Triggers.push({
             id: "leilei DMU p3 经/纬度聚爆",
             //"BAFD":经度聚爆, "BAFE":纬度聚爆
             netRegex: NetRegexes.startsUsing({ id: ["BAFD", "BAFE"] }),
-            //读条快结束时播报
             infoText: (data, matches, output) => {
                 if (matches.id === "BAFD") {
                     return output.经度聚爆();
@@ -341,6 +356,127 @@ Options.Triggers.push({
             outputStrings: {
                 "经度聚爆": "去左右",
                 "纬度聚爆": "去前后",
+            }
+        },
+        {
+            id: "leilei DMU p3 混沌之水 第一轮",
+            netRegex: NetRegexes.gainsEffect({ effectId: "641" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            infoText: (data, matches, output) => {
+                const duration = parseInt(matches.duration);
+                if (duration == 19) {
+                    //短水
+                    return output.短水();
+                } else {
+                    return output.长水();
+                }
+            },
+            outputStrings: {
+                "短水": "去水水晶就位",
+                "长水": "去火水晶远离火"
+            }
+        },
+        {
+            id: "leilei DMU p3 混沌之炎 第一轮",
+            netRegex: NetRegexes.gainsEffect({ effectId: "640" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            infoText: (data, matches, output) => {
+                const duration = parseInt(matches.duration);
+                if (duration == 19) {
+                    //短火
+                    return output.短火();
+                } else {
+                    return output.长火();
+                }
+            },
+            outputStrings: {
+                "短火": "去火水晶就位",
+                "长火": "去水水晶靠近水"
+            }
+        },
+        {
+            id: "leilei DMU p3 混沌之水 第二轮",
+            netRegex: NetRegexes.gainsEffect({ effectId: "641" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 41,
+            infoText: (data, matches, output) => {
+                const duration = parseInt(matches.duration);
+                if (duration == 19) {
+                    //短水
+                    return output.短水();
+                } else {
+                    return output.长水();
+                }
+            },
+            outputStrings: {
+                "短水": "去火水晶远离火",
+                "长水": "去水水晶就位"
+            }
+        },
+        {
+            id: "leilei DMU p3 混沌之炎 第二轮",
+            netRegex: NetRegexes.gainsEffect({ effectId: "640" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 41,
+            infoText: (data, matches, output) => {
+                const duration = parseInt(matches.duration);
+                if (duration == 19) {
+                    //短火
+                    return output.短火();
+                } else {
+                    return output.长火();
+                }
+            },
+            outputStrings: {
+                "短火": "去水水晶靠近水",
+                "长火": "去火水晶就位"
+            }
+        },
+        {
+            id: "leilei DMU p3 混沌buff类型",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["640", "641"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            data: (data, matches) => {
+                const duration = parseInt(matches.duration);
+                data.p3_stage1_buffType = duration === 19 ? P3_STAGE1_BUFF_TYPE_SHORT : P3_STAGE1_BUFF_TYPE_LONG;
+            },
+        },
+        {
+            id: "leilei DMU p3 混沌之风/逆风",
+            //642:风(背对), 643:逆风(正对)
+            netRegex: NetRegexes.gainsEffect({ effectId: ["642", "643"] }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: (data, matches) => {
+                if (data.p3_stage1_buffType === P3_STAGE1_BUFF_TYPE_SHORT) {
+                    return 44;
+                } else if (data.p3_stage1_buffType === P3_STAGE1_BUFF_TYPE_LONG) {
+                    return 17;
+                } else {
+                    return 56;
+                }
+            },
+            infoText: (data, matches, output) => {
+                if (matches.effectId === "642") {
+                    return output.背对();
+                } else {
+                    return output.正对();
+                }
+            },
+            outputStrings: {
+                正对: "正对击退",
+                背对: "背对击退"
             }
         },
     ]
