@@ -34,6 +34,9 @@ const P3_STAGE1_BUFF_TYPE_LONG = 2; //长buff
  */
 const PHASE_KEFKA = 1; //p1
 const PHASE_FORSAKEN_KEFKA = 2; //p2
+const PHASE_EXDEATH_AND_CHAOS = 3; //p3
+const PHASE_KEFKA_SAYS = 4; //p4
+const PHASE_ULTIMA_KEFKA = 5; //p5
 
 const firstDecimalMarker = parseInt("00DA", 16);
 const getHeadmarkerId = (data, matches) => {
@@ -120,7 +123,7 @@ Options.Triggers.push({
         },
         {
             id: "leilei DMU 控制战斗阶段",
-            netRegex: NetRegexes.startsUsing({ id: ["BCF2", "BABC"] }),
+            netRegex: NetRegexes.startsUsing({ id: ["BCF2", "BABC", "BAE2"] }),
             run: (data, matches) => {
                 switch (matches.id) {
                     case "BCF2":
@@ -130,6 +133,10 @@ Options.Triggers.push({
                     case "BABC":
                         //遗弃末世
                         data.phase = PHASE_FORSAKEN_KEFKA;
+                        break;
+                    case "BAE2":
+                        //重构
+                        data.phase = PHASE_EXDEATH_AND_CHAOS;
                         break;
                     default:
                         break;
@@ -548,6 +555,208 @@ Options.Triggers.push({
             },
             outputStrings: {
                 "content": "去卡奥斯背后"
+            }
+        },
+        /**
+         * TODO
+         * BBC 1号
+         * BBD 2号
+         * BBE 3号
+         */
+        {
+            id: "leilei MDU p3 二运麻将1号 黑洞1-1",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 19,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "攻击一接线"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将1号 黑洞1-2",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 26,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "攻击一二接线"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将1号 黑洞2-1",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 49,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "攻击一二三接线"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将1号 黑洞2-2",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 54,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "攻击一回人群"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将1号 黑洞2-3",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 59,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "攻击二回人群"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将2号 黑洞2-2",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 54,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "锁链一接攻击一"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将2号 黑洞2-3",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 59,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "锁链二接攻击二"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将2号 黑洞3-1",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 83,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "锁链一二三接线"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将2号 黑洞3-2",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 88,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "锁链一回人群"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将2号 黑洞3-3",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 95,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "锁链二回人群"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将3号 黑洞3-2",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBE" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 88,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "禁止一接锁链一"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将3号 黑洞3-3",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBE" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 95,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "禁止二接锁链二"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将3号 黑洞4-1",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBE" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 118,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "禁止一二接线"
+            }
+        },
+        {
+            id: "leilei MDU p3 二运麻将3号 黑洞4-1",
+            netRegex: NetRegexes.gainsEffect({ effectId: "BBE" }),
+            condition: (data, matches) => {
+                return matches.target === data.me;
+            },
+            delaySeconds: 125,
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "禁止二接两根线"
             }
         },
     ]
