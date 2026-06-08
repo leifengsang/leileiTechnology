@@ -746,7 +746,7 @@ Options.Triggers.push({
             }
         },
         {
-            id: "leilei MDU p3 二运麻将3号 黑洞4-1",
+            id: "leilei MDU p3 二运麻将3号 黑洞4-2",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBE" }),
             condition: (data, matches) => {
                 return matches.target === data.me;
