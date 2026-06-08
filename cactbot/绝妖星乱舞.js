@@ -55,7 +55,52 @@ Options.Triggers.push({
             p3_stage1_buffType: 0,
         }
     },
-    config: [],
+    config: [
+        {
+            id: "globalMarkEnable",
+            comment: {
+                cn: "需同时选择此处以及配置对应设置为true才能标记",
+                en: "需同时选择此处以及配置对应设置为true才能标记",
+                jp: "需同时选择此处以及配置对应设置为true才能标记",
+            },
+            name: {
+                cn: "开启全局标记",
+                en: "开启全局标记",
+                jp: "开启全局标记",
+            },
+            type: "checkbox",
+            default: false
+        },
+        {
+            id: "p3_stage1",
+            comment: {
+                cn: "",
+                en: "",
+                jp: "",
+            },
+            name: {
+                cn: "p3一运打法",
+                en: "p3一运打法",
+                jp: "p3一运打法",
+            },
+            options: {
+                cn: {
+                    "MMW（正攻）": "mmw",
+                    "CCHH（TLB逃课）": "cchh",
+                },
+                en: {
+                    "MMW（正攻）": "mmw",
+                    "CCHH（TLB逃课）": "cchh",
+                },
+                jp: {
+                    "MMW（正攻）": "mmw",
+                    "CCHH（TLB逃课）": "cchh",
+                },
+            },
+            type: "select",
+            default: "cchh"
+        },
+    ],
     triggers: [
         {
             id: "leilei DMU Headmarker Tracker",
@@ -362,7 +407,7 @@ Options.Triggers.push({
             id: "leilei DMU p3 混沌之水 第一轮",
             netRegex: NetRegexes.gainsEffect({ effectId: "641" }),
             condition: (data, matches) => {
-                return matches.target === data.me;
+                return data.triggerSetConfig.p3_stage1 === "mmw" && matches.target === data.me;
             },
             infoText: (data, matches, output) => {
                 const duration = parseInt(matches.duration);
@@ -382,7 +427,7 @@ Options.Triggers.push({
             id: "leilei DMU p3 混沌之炎 第一轮",
             netRegex: NetRegexes.gainsEffect({ effectId: "640" }),
             condition: (data, matches) => {
-                return matches.target === data.me;
+                return data.triggerSetConfig.p3_stage1 === "mmw" && matches.target === data.me;
             },
             infoText: (data, matches, output) => {
                 const duration = parseInt(matches.duration);
@@ -402,7 +447,7 @@ Options.Triggers.push({
             id: "leilei DMU p3 混沌之水 第二轮",
             netRegex: NetRegexes.gainsEffect({ effectId: "641" }),
             condition: (data, matches) => {
-                return matches.target === data.me;
+                return data.triggerSetConfig.p3_stage1 === "mmw" && matches.target === data.me;
             },
             delaySeconds: 41,
             infoText: (data, matches, output) => {
@@ -423,7 +468,7 @@ Options.Triggers.push({
             id: "leilei DMU p3 混沌之炎 第二轮",
             netRegex: NetRegexes.gainsEffect({ effectId: "640" }),
             condition: (data, matches) => {
-                return matches.target === data.me;
+                return data.triggerSetConfig.p3_stage1 === "mmw" && matches.target === data.me;
             },
             delaySeconds: 41,
             infoText: (data, matches, output) => {
@@ -459,9 +504,9 @@ Options.Triggers.push({
                 return matches.target === data.me;
             },
             delaySeconds: (data, matches) => {
-                if (data.p3_stage1_buffType === P3_STAGE1_BUFF_TYPE_SHORT) {
+                if (data.triggerSetConfig.p3_stage1 === "mmw" && data.p3_stage1_buffType === P3_STAGE1_BUFF_TYPE_SHORT) {
                     return 44;
-                } else if (data.p3_stage1_buffType === P3_STAGE1_BUFF_TYPE_LONG) {
+                } else if (data.triggerSetConfig.p3_stage1 === "mmw" && data.p3_stage1_buffType === P3_STAGE1_BUFF_TYPE_LONG) {
                     return 17;
                 } else {
                     return 56;
