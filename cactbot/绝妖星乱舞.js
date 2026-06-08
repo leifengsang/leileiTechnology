@@ -524,5 +524,31 @@ Options.Triggers.push({
                 背对: "背对击退"
             }
         },
+        {
+            id: "leilei DMU p3 响亮亮耳光",
+            //"BAE6":右侧安全, "BAE7":左侧安全
+            netRegex: NetRegexes.startsUsing({ id: ["BAE6", "BAE7"] }),
+            infoText: (data, matches, output) => {
+                if (matches.id === "BAE6") {
+                    return output.右侧安全();
+                } else {
+                    return output.左侧安全();
+                }
+            },
+            outputStrings: {
+                "左侧安全": "去左边职能刀",
+                "右侧安全": "去右边分摊",
+            }
+        },
+        {
+            id: "leilei DMU p3 诅咒敕令",
+            netRegex: NetRegexes.startsUsing({ id: "BB01" }),
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "去卡奥斯背后"
+            }
+        },
     ]
 })
