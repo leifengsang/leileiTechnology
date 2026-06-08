@@ -759,5 +759,15 @@ Options.Triggers.push({
                 "content": "禁止二接两根线"
             }
         },
+        {
+            id: "leilei DMU p3 强化冰封",
+            netRegex: NetRegexes.startsUsing({ id: "BB11" }),
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                "content": "动动动"
+            }
+        },
     ]
 })
