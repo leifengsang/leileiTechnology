@@ -770,7 +770,7 @@ Options.Triggers.push({
                 return output.content();
             },
             outputStrings: {
-                "content": "禁止二接两根线"
+                "content": "禁止二接线"
             }
         },
         {
