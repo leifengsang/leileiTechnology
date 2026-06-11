@@ -566,6 +566,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将1号 黑洞1-1",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -580,10 +581,11 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将1号 黑洞1-2",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 26,
+            delaySeconds: 24,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -594,6 +596,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将1号 黑洞2-1",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -608,6 +611,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将1号 黑洞2-2",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -622,6 +626,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将1号 黑洞2-3",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -636,6 +641,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将2号 黑洞2-2",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -650,6 +656,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将2号 黑洞2-3",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -664,6 +671,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将2号 黑洞3-1",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -678,6 +686,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将2号 黑洞3-2",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -692,6 +701,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将2号 黑洞3-3",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBD" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -706,6 +716,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将3号 黑洞3-2",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBE" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -720,6 +731,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将3号 黑洞3-3",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBE" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -734,6 +746,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将3号 黑洞4-1",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBE" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
@@ -748,6 +761,7 @@ Options.Triggers.push({
         {
             id: "leilei MDU p3 二运麻将3号 黑洞4-2",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBE" }),
+            durationSeconds: 10,
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
