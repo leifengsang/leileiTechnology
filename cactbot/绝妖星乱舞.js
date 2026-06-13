@@ -103,6 +103,35 @@ Options.Triggers.push({
             type: "select",
             default: "cchh"
         },
+        {
+            id: "p3_stage2",
+            comment: {
+                cn: "",
+                en: "",
+                jp: "",
+            },
+            name: {
+                cn: "p3二运打法",
+                en: "p3二运打法",
+                jp: "p3二运打法",
+            },
+            options: {
+                cn: {
+                    "盗火": "steal fire",
+                    "抓大猪特化": "sp"
+                },
+                en: {
+                    "盗火": "steal fire",
+                    "抓大猪特化": "sp"
+                },
+                jp: {
+                    "盗火": "steal fire",
+                    "抓大猪特化": "sp"
+                },
+            },
+            type: "select",
+            default: "steal fire"
+        },
     ],
     triggers: [
         {
@@ -123,7 +152,7 @@ Options.Triggers.push({
         },
         {
             id: "leilei DMU 控制战斗阶段",
-            netRegex: NetRegexes.startsUsing({ id: ["BCF2", "BABC", "BAE2"] }),
+            netRegex: NetRegexes.startsUsing({ id: ["BCF2", "BABC", "BAE2", "C2D2"] }),
             run: (data, matches) => {
                 switch (matches.id) {
                     case "BCF2":
@@ -137,6 +166,10 @@ Options.Triggers.push({
                     case "BAE2":
                         //重构
                         data.phase = PHASE_EXDEATH_AND_CHAOS;
+                        break;
+                    case "C2D2":
+                        //闹哄哄魂击
+                        data.phase = PHASE_KEFKA_SAYS;
                         break;
                     default:
                         break;
@@ -367,7 +400,7 @@ Options.Triggers.push({
             netRegex: NetRegexes.startsUsing({ id: ["BAD2", "BAD3"] }),
             //读条快结束时播报
             delaySeconds: 3,
-            durationSeconds: 10,
+            durationSeconds: 12,
             preRun: (data) => {
                 data.p2_endCount++;
             },
@@ -570,12 +603,17 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 19,
+            delaySeconds: 17,
             infoText: (data, matches, output) => {
-                return output.content();
+                if (data.triggerSetConfig.p3_stage2 === "sp") {
+                    return output.抓大猪特化();
+                } else {
+                    return output.content();
+                }
             },
             outputStrings: {
-                "content": "攻击一接线"
+                "content": "攻击一接线",
+                "抓大猪特化": "攻击二接线"
             }
         },
         {
@@ -587,10 +625,15 @@ Options.Triggers.push({
             },
             delaySeconds: 24,
             infoText: (data, matches, output) => {
-                return output.content();
+                if (data.triggerSetConfig.p3_stage2 === "sp") {
+                    return output.抓大猪特化();
+                } else {
+                    return output.content();
+                }
             },
             outputStrings: {
-                "content": "攻击一二接线"
+                "content": "攻击一二接线",
+                "抓大猪特化": "攻击一接两根线"
             }
         },
         {
@@ -600,7 +643,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 49,
+            delaySeconds: 47,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -615,7 +658,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 54,
+            delaySeconds: 52,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -630,7 +673,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 59,
+            delaySeconds: 57,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -645,7 +688,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 54,
+            delaySeconds: 52,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -660,7 +703,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 59,
+            delaySeconds: 57,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -675,7 +718,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 83,
+            delaySeconds: 81,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -690,7 +733,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 88,
+            delaySeconds: 86,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -705,7 +748,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 95,
+            delaySeconds: 91,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -720,7 +763,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 88,
+            delaySeconds: 86,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -735,7 +778,7 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 95,
+            delaySeconds: 91,
             infoText: (data, matches, output) => {
                 return output.content();
             },
@@ -750,12 +793,17 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 118,
+            delaySeconds: 114,
             infoText: (data, matches, output) => {
-                return output.content();
+                if (data.triggerSetConfig.p3_stage2 === "sp") {
+                    return output.抓大猪特化();
+                } else {
+                    return output.content();
+                }
             },
             outputStrings: {
-                "content": "禁止一二接线"
+                "content": "禁止一二接线",
+                "抓大猪特化": "禁止二接线"
             }
         },
         {
@@ -765,12 +813,17 @@ Options.Triggers.push({
             condition: (data, matches) => {
                 return matches.target === data.me;
             },
-            delaySeconds: 125,
+            delaySeconds: 121,
             infoText: (data, matches, output) => {
-                return output.content();
+                if (data.triggerSetConfig.p3_stage2 === "sp") {
+                    return output.抓大猪特化();
+                } else {
+                    return output.content();
+                }
             },
             outputStrings: {
-                "content": "禁止二接线"
+                "content": "禁止二接线",
+                "抓大猪特化": "禁止一接两根线"
             }
         },
         {
@@ -783,5 +836,21 @@ Options.Triggers.push({
                 "content": "动动动"
             }
         },
+        // {
+        //     id: "leilei MDU p4 水buff",
+        //     netRegex: NetRegexes.gainsEffect({ effectId: "15A9" }),
+        //     delaySeconds: (data, matches) => {
+        //         return parseInt(matches.duration) - 5;
+        //     },
+        //     condition: (data, matches) => {
+        //         return matches.target === data.me;
+        //     },
+        //     infoText: (data, matches, output) => {
+        //         return output.content();
+        //     },
+        //     outputStrings: {
+        //         "假": "出人群",
+        //     }
+        // },
     ]
 })
