@@ -949,11 +949,13 @@ Options.Triggers.push({
             },
             run: (data, matches, output) => {
                 const round = parseInt(matches.duration) === 60 ? 1 : 2;
-                const option = data.p4_exdeathStatus ? "石化出, 背对" : "石化进, 正对";
+                const option = data.p4_exdeathStatus ? output.背对() : output.正对();
                 data.leileiFL.doTextCommand(output.content({ round: round, option: option }));
             },
             outputStrings: {
-                content: "/p 第${round}轮${option}<se.1>"
+                content: "/p 第${round}轮${option}<se.1>",
+                背对: "石化出, 背对",
+                正对: "石化进, 正对",
             }
         },
         {
@@ -964,14 +966,11 @@ Options.Triggers.push({
             },
             durationSeconds: 10,
             preRun: (data, matches, output) => {
-                let option;
                 if (matches.target === data.me) {
-                    option = data.p4_exdeathStatus ? "去人群背后背对另外一人" : "去人群前面看另外一人";
-                    data.p4_eyesTip[matches.duration] = output.content({ option: option });
+                    data.p4_eyesTip[matches.duration] = data.p4_exdeathStatus ? output.自己背对() : output.自己正对();
                 }
                 if (!data.p4_eyesTip[matches.duration]) {
-                    option = data.p4_exdeathStatus ? "背对，石化出" : "正对，石化进";
-                    data.p4_eyesTip[matches.duration] = output.content({ option: option });
+                    data.p4_eyesTip[matches.duration] = data.p4_exdeathStatus ? output.非自己背对() : output.非自己正对();
                 }
             },
             infoText: (data, matches) => {
@@ -983,7 +982,10 @@ Options.Triggers.push({
                 return data.p4_eyesTip[matches.duration];
             },
             outputStrings: {
-                content: "${option}"
+                非自己背对: "石化出, 背对",
+                非自己正对: "石化进, 正对",
+                自己背对: "去人群背后背对另外一人",
+                自己正对: "去人群前面看另外一人",
             }
         },
         {
