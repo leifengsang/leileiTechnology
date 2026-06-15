@@ -1001,7 +1001,7 @@ Options.Triggers.push({
             preRun: (data, matches, output) => {
                 data.p4_moveTip = data.p4_exdeathStatus ? output.真() : output.假();
             },
-            infoText: (data) => {
+            alertText: (data) => {
                 return data.p4_moveTip;
             },
             outputStrings: {
@@ -1104,34 +1104,46 @@ Options.Triggers.push({
                 data.p4_manaCharged = true;
             }
         },
-        // {
-        //     id: "leilei DMU p4 记录最后真假冰",
-        //     //BA9E:假冰, BA98:真冰
-        //     netRegex: NetRegexes.startsUsing({ id: ["BA9E", "BA98"] }),
-        //     suppressSeconds: 1,
-        //     condition: (data) => {
-        //         return data.p4_manaCharged;
-        //     },
-        //     run: (data, matches) => {
-        //         data.p4_iceStatus = matches.id === "BA98";
-        //     }
-        // },
-        // {
-        //     id: "leilei DMU p4 记录最后真假雷",
-        //     //BAA0:假雷, BA9F:真雷
-        //     netRegex: NetRegexes.startsUsing({ id: ["BAA0", "BA9F"] }),
-        //     suppressSeconds: 1,
-        //     condition: (data) => {
-        //         return data.p4_manaCharged;
-        //     },
-        //     run: (data, matches) => {
-        //         data.p4_thunderStatus = matches.id === "BA9F";
-        //     }
-        // },
+        {
+            id: "leilei DMU p4 记录最后真假冰",
+            //BA9E:假冰, BA98:真冰
+            netRegex: NetRegexes.startsUsing({ id: ["BA9E", "BA98"] }),
+            suppressSeconds: 1,
+            condition: (data) => {
+                return data.p4_manaCharged && !data.p4_manaReleased;
+            },
+            run: (data, matches, output) => {
+                if (data.triggerSetConfig.p4_show_party) {
+                    const content = matches.id === "BA98" ? "真冰" : "假冰";
+                    data.leileiFL.doTextCommand(output.content({ content: content }));
+                }
+            },
+            outputStrings: {
+                content: "/p ${content}<se.1>"
+            }
+        },
+        {
+            id: "leilei DMU p4 记录最后真假雷",
+            //BAA0:假雷, BA9F:真雷
+            netRegex: NetRegexes.startsUsing({ id: ["BAA0", "BA9F"] }),
+            suppressSeconds: 1,
+            condition: (data) => {
+                return data.p4_manaCharged && !data.p4_manaReleased;
+            },
+            run: (data, matches, output) => {
+                if (data.triggerSetConfig.p4_show_party) {
+                    const content = matches.id === "BA9F" ? "真雷" : "假雷";
+                    data.leileiFL.doTextCommand(output.content({ content: content }));
+                }
+            },
+            outputStrings: {
+                content: "/p ${content}<se.1>"
+            }
+        },
         {
             id: "leilei MDU p4 魔法放出",
             netRegex: NetRegexes.startsUsing({ id: "BAA5" }),
-            delaySeconds: 8,
+            delaySeconds: 7.5,
             preRun: (data) => {
                 data.p4_manaReleased = true;
             },
