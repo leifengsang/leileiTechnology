@@ -1104,30 +1104,30 @@ Options.Triggers.push({
                 data.p4_manaCharged = true;
             }
         },
-        {
-            id: "leilei DMU p4 记录最后真假冰",
-            //BA9E:假冰, BA98:真冰
-            netRegex: NetRegexes.startsUsing({ id: ["BA9E", "BA98"] }),
-            suppressSeconds: 1,
-            condition: (data) => {
-                return data.p4_manaCharged;
-            },
-            run: (data, matches) => {
-                data.p4_iceStatus = matches.id === "BA98";
-            }
-        },
-        {
-            id: "leilei DMU p4 记录最后真假雷",
-            //BAA0:假雷, BA9F:真雷
-            netRegex: NetRegexes.startsUsing({ id: ["BAA0", "BA9F"] }),
-            suppressSeconds: 1,
-            condition: (data) => {
-                return data.p4_manaCharged;
-            },
-            run: (data, matches) => {
-                data.p4_thunderStatus = matches.id === "BA9F";
-            }
-        },
+        // {
+        //     id: "leilei DMU p4 记录最后真假冰",
+        //     //BA9E:假冰, BA98:真冰
+        //     netRegex: NetRegexes.startsUsing({ id: ["BA9E", "BA98"] }),
+        //     suppressSeconds: 1,
+        //     condition: (data) => {
+        //         return data.p4_manaCharged;
+        //     },
+        //     run: (data, matches) => {
+        //         data.p4_iceStatus = matches.id === "BA98";
+        //     }
+        // },
+        // {
+        //     id: "leilei DMU p4 记录最后真假雷",
+        //     //BAA0:假雷, BA9F:真雷
+        //     netRegex: NetRegexes.startsUsing({ id: ["BAA0", "BA9F"] }),
+        //     suppressSeconds: 1,
+        //     condition: (data) => {
+        //         return data.p4_manaCharged;
+        //     },
+        //     run: (data, matches) => {
+        //         data.p4_thunderStatus = matches.id === "BA9F";
+        //     }
+        // },
         {
             id: "leilei MDU p4 魔法放出",
             netRegex: NetRegexes.startsUsing({ id: "BAA5" }),
@@ -1162,9 +1162,7 @@ Options.Triggers.push({
                 return data.p4_manaReleased;
             },
             run: (data, matches) => {
-                if (matches.id === "BA9E") {
-                    data.p4_iceStatus = !data.p4_iceStatus;
-                }
+                data.p4_iceStatus = matches.id === "BA98";
             }
         },
         {
@@ -1176,9 +1174,7 @@ Options.Triggers.push({
                 return data.p4_manaReleased;
             },
             run: (data, matches) => {
-                if (matches.id === "BAA0") {
-                    data.p4_thunderStatus = !data.p4_thunderStatus;
-                }
+                data.p4_thunderStatus = matches.id === "BA9F";
             }
         },
     ]
