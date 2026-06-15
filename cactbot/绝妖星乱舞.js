@@ -895,7 +895,7 @@ Options.Triggers.push({
             id: "leilei MDU p4 假水buff 判定前播报",
             netRegex: NetRegexes.gainsEffect({ effectId: "15A9" }),
             delaySeconds: (data, matches) => {
-                return parseInt(matches.duration) - 5;
+                return parseInt(matches.duration) - 7;
             },
             durationSeconds: 10,
             condition: (data, matches) => {
@@ -927,7 +927,7 @@ Options.Triggers.push({
             id: "leilei MDU p4 真雷buff 判定前播报",
             netRegex: NetRegexes.gainsEffect({ effectId: "15A8" }),
             delaySeconds: (data, matches) => {
-                return parseInt(matches.duration) - 5;
+                return parseInt(matches.duration) - 7;
             },
             durationSeconds: 10,
             condition: (data, matches) => {
@@ -962,7 +962,7 @@ Options.Triggers.push({
             id: "leilei MDU p4 石化buff 判定前播报",
             netRegex: NetRegexes.gainsEffect({ effectId: "15A7" }),
             delaySeconds: (data, matches) => {
-                return parseInt(matches.duration) - 5;
+                return parseInt(matches.duration) - 7;
             },
             durationSeconds: 10,
             preRun: (data, matches, output) => {
@@ -1036,7 +1036,7 @@ Options.Triggers.push({
             //15AB:混沌之炎, 15AC:混沌之水
             netRegex: NetRegexes.gainsEffect({ effectId: ["15AB", "15AC"] }),
             delaySeconds: (data, matches) => {
-                return parseInt(matches.duration) - 5;
+                return parseInt(matches.duration) - 7;
             },
             durationSeconds: 10,
             suppressSeconds: 1,
