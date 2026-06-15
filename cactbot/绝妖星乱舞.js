@@ -63,6 +63,10 @@ Options.Triggers.push({
             p4_eyesTip: {},
             p4_stayTip: {},
             p4_eyesSolved: {},
+            p4_manaCharged: false,
+            p4_manaReleased: false,
+            p4_iceStatus: false,
+            p4_thunderStatus: false,
         }
     },
     config: [
@@ -1089,6 +1093,90 @@ Options.Triggers.push({
             },
             outputStrings: {
                 content: "去${color}"
+            }
+        },
+        {
+            id: "leilei MDU p4 魔法储存",
+            netRegex: NetRegexes.startsUsing({ id: "BAA4" }),
+            run: (data) => {
+                data.p4_manaCharged = true;
+            }
+        },
+        {
+            id: "leilei DMU p4 记录最后真假冰",
+            //BA9E:假冰, BA98:真冰
+            netRegex: NetRegexes.startsUsing({ id: ["BA9E", "BA98"] }),
+            suppressSeconds: 1,
+            condition: (data) => {
+                return data.p4_manaCharged;
+            },
+            run: (data, matches) => {
+                data.p4_iceStatus = matches.id === "BA98";
+            }
+        },
+        {
+            id: "leilei DMU p4 记录最后真假雷",
+            //BAA0:假雷, BA9F:真雷
+            netRegex: NetRegexes.startsUsing({ id: ["BAA0", "BA9F"] }),
+            suppressSeconds: 1,
+            condition: (data) => {
+                return data.p4_manaCharged;
+            },
+            run: (data, matches) => {
+                data.p4_thunderStatus = matches.id === "BA9F";
+            }
+        },
+        {
+            id: "leilei MDU p4 魔法放出",
+            netRegex: NetRegexes.startsUsing({ id: "BAA5" }),
+            delaySeconds: 8,
+            preRun: (data) => {
+                data.p4_manaReleased = true;
+            },
+            infoText: (data, matches, output) => {
+                if (data.p4_iceStatus && data.p4_thunderStatus) {
+                    return output.全真();
+                } else if (!data.p4_iceStatus && !data.p4_thunderStatus) {
+                    return output.全假();
+                } else if (!data.p4_iceStatus && data.p4_thunderStatus) {
+                    return output.假冰真雷();
+                } else if (data.p4_iceStatus && !data.p4_thunderStatus) {
+                    return output.真冰假雷();
+                }
+            },
+            outputStrings: {
+                "全真": "去安全区",
+                "全假": "去重叠危险区",
+                "真冰假雷": "吃直条",
+                "假冰真雷": "吃扇形",
+            }
+        },
+        {
+            id: "leilei DMU p4 释放最后真假冰",
+            //BA9E:假冰, BA98:真冰
+            netRegex: NetRegexes.startsUsing({ id: ["BA9E", "BA98"] }),
+            suppressSeconds: 1,
+            condition: (data) => {
+                return data.p4_manaReleased;
+            },
+            run: (data, matches) => {
+                if (matches.id === "BA9E") {
+                    data.p4_iceStatus = !data.p4_iceStatus;
+                }
+            }
+        },
+        {
+            id: "leilei DMU p4 释放最后真假雷",
+            //BAA0:假雷, BA9F:真雷
+            netRegex: NetRegexes.startsUsing({ id: ["BAA0", "BA9F"] }),
+            suppressSeconds: 1,
+            condition: (data) => {
+                return data.p4_manaReleased;
+            },
+            run: (data, matches) => {
+                if (matches.id === "BAA0") {
+                    data.p4_thunderStatus = !data.p4_thunderStatus;
+                }
             }
         },
     ]
