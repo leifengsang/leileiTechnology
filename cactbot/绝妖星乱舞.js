@@ -1189,5 +1189,22 @@ Options.Triggers.push({
                 data.p4_thunderStatus = matches.id === "BA9F";
             }
         },
+        {
+            id: "leilei DMU p5 二选一的灾祟",
+            //C24E:钢铁, C24F:月环
+            netRegex: NetRegexes.startsUsing({ id: ["C24E", "C24F"] }),
+
+            infoText: (data, matches, output) => {
+                if (matches.id === "C24E") {
+                    return output.钢铁();
+                } else {
+                    return output.月环();
+                }
+            },
+            outputStrings: {
+                "钢铁": "钢铁",
+                "月环": "月环",
+            }
+        },
     ]
 })
