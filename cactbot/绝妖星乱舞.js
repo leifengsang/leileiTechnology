@@ -884,7 +884,7 @@ Options.Triggers.push({
             },
             durationSeconds: 10,
             infoText: (data, matches, output) => {
-                const round = parseInt(matches.duration) === 51 ? 1 : 2;
+                const round = parseInt(matches.duration) === 51 || parseInt(matches.duration) === 36 ? 1 : 2;
                 return output.content({ round: round });
             },
             outputStrings: {
