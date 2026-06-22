@@ -144,15 +144,15 @@ Options.Triggers.push({
             options: {
                 cn: {
                     "盗火": "steal fire",
-                    "抓大猪特化": "sp"
+                    "接线优化": "sp"
                 },
                 en: {
                     "盗火": "steal fire",
-                    "抓大猪特化": "sp"
+                    "接线优化": "sp"
                 },
                 jp: {
                     "盗火": "steal fire",
-                    "抓大猪特化": "sp"
+                    "接线优化": "sp"
                 },
             },
             type: "select",
@@ -632,14 +632,14 @@ Options.Triggers.push({
             delaySeconds: 17,
             infoText: (data, matches, output) => {
                 if (data.triggerSetConfig.p3_stage2 === "sp") {
-                    return output.抓大猪特化();
+                    return output.接线优化();
                 } else {
                     return output.content();
                 }
             },
             outputStrings: {
                 "content": "攻击一接线",
-                "抓大猪特化": "攻击二接线"
+                "接线优化": "攻击二接线"
             }
         },
         {
@@ -652,14 +652,14 @@ Options.Triggers.push({
             delaySeconds: 24,
             infoText: (data, matches, output) => {
                 if (data.triggerSetConfig.p3_stage2 === "sp") {
-                    return output.抓大猪特化();
+                    return output.接线优化();
                 } else {
                     return output.content();
                 }
             },
             outputStrings: {
                 "content": "攻击一二接线",
-                "抓大猪特化": "攻击一接两根线"
+                "接线优化": "攻击一接两根线"
             }
         },
         {
@@ -822,14 +822,14 @@ Options.Triggers.push({
             delaySeconds: 114,
             infoText: (data, matches, output) => {
                 if (data.triggerSetConfig.p3_stage2 === "sp") {
-                    return output.抓大猪特化();
+                    return output.接线优化();
                 } else {
                     return output.content();
                 }
             },
             outputStrings: {
                 "content": "禁止一二接线",
-                "抓大猪特化": "禁止二接线"
+                "接线优化": "禁止二接线"
             }
         },
         {
@@ -842,14 +842,14 @@ Options.Triggers.push({
             delaySeconds: 121,
             infoText: (data, matches, output) => {
                 if (data.triggerSetConfig.p3_stage2 === "sp") {
-                    return output.抓大猪特化();
+                    return output.接线优化();
                 } else {
                     return output.content();
                 }
             },
             outputStrings: {
                 "content": "禁止二接线",
-                "抓大猪特化": "禁止一接两根线"
+                "接线优化": "禁止一接两根线"
             }
         },
         {
