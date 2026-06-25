@@ -955,10 +955,10 @@ Options.Triggers.push({
             netRegex: NetRegexes.abilityExtra({ id: "BAE3" }),
             duration: 20,
             preRun: (data, matches) => {
-                data.p3_blasterDirs.push(matches.heading);
+                data.p3_blasterDirs.push(parseFloat(matches.heading));
             },
             infoText: (data, matches, output) => {
-                if (data.p3_blasterDirs.length != 2) {
+                if (data.p3_blasterDirs.length !== 2) {
                     return;
                 }
 
