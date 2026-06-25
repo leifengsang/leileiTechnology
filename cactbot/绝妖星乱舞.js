@@ -994,7 +994,7 @@ Options.Triggers.push({
                 const indexOp = isClockwise ? -1 : 1;
 
                 const id = getHeadmarkerId(data, matches);
-                const mahjongIndex = MAHJONG_LIST.includes(id);
+                const mahjongIndex = MAHJONG_LIST.indexOf(id);
                 const firstMarker = markerList[(BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4 + mahjongIndex * indexOp + 8) % 8];
                 const secondMarker = markerList[(BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4 + (mahjongIndex + 1) * indexOp + 8) % 8];
                 return output.content({ first: firstMarker, second: secondMarker });
