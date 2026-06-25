@@ -24,7 +24,80 @@ const headMarker = {
     P2_STACK: "02CB", //分摊
     P2_CIRCLE: "02CC", //大圈
     P2_SECTOR: "02CD", //扇形
+    MAHJONG_1: "0150", //麻将1号
+    MAHJONG_2: "0151", //麻将2号
+    MAHJONG_3: "0152", //麻将3号
+    MAHJONG_4: "0153", //麻将4号
+    MAHJONG_5: "01B5", //麻将5号
+    MAHJONG_6: "01B6", //麻将6号
+    MAHJONG_7: "01B7", //麻将7号
+    MAHJONG_8: "01B8", //麻将8号
 }
+
+/**
+ * 麻将头标列表
+ */
+const MAHJONG_LIST = [
+    headMarker.MAHJONG_1,
+    headMarker.MAHJONG_2,
+    headMarker.MAHJONG_3,
+    headMarker.MAHJONG_4,
+    headMarker.MAHJONG_5,
+    headMarker.MAHJONG_6,
+    headMarker.MAHJONG_7,
+    headMarker.MAHJONG_8
+];
+
+/**
+ * 究极冲击波冲锋方向列表
+ * 从上冲下，顺时针开始
+ */
+const BLASTER_DIR_LIST = [
+    0,          //上冲下
+    -0.785,     //右上冲左下
+    -1.571,     //右冲左
+    -2.356,     //右下冲左上
+    3.142,      //下冲上
+    2.356,      //左下冲右上
+    1.571,      //左冲右
+    0.785       //左上冲右下
+];
+
+/**
+ * 标点
+ */
+const MARKER_LIST_1A2 = [
+    "A",
+    "2",
+    "B",
+    "3",
+    "C",
+    "4",
+    "D",
+    "1",
+];
+
+const MARKER_LIST_4A1 = [
+    "A",
+    "1",
+    "B",
+    "2",
+    "C",
+    "3",
+    "D",
+    "4",
+];
+
+const MAHJONG_DIR_LIST = [
+    "上偏右",
+    "右偏上",
+    "右偏下",
+    "下偏右",
+    "下偏左",
+    "左偏下",
+    "左偏上",
+    "上偏左"
+];
 
 const P3_STAGE1_BUFF_TYPE_SHORT = 1; //短buff
 const P3_STAGE1_BUFF_TYPE_LONG = 2; //长buff
@@ -56,6 +129,7 @@ Options.Triggers.push({
             p2_round: 0,
             p2_endCount: 0,
             p3_stage1_buffType: 0,
+            p3_blasterDirs: [],
             p4_exdeathStatus: true,
             p4_chaosStatus: true,
             p4_isAllagan: true,
@@ -101,12 +175,31 @@ Options.Triggers.push({
             default: false
         },
         {
-            id: "p3_stage1",
-            comment: {
-                cn: "",
-                en: "",
-                jp: "",
+            id: "marker_type",
+            name: {
+                cn: "标点类型",
+                en: "标点类型",
+                jp: "标点类型",
             },
+            options: {
+                cn: {
+                    "1A2": "1A2",
+                    "4A1": "4A1",
+                },
+                en: {
+                    "1A2": "1A2",
+                    "4A1": "4A1",
+                },
+                jp: {
+                    "1A2": "1A2",
+                    "4A1": "4A1",
+                },
+            },
+            type: "select",
+            default: "1A2"
+        },
+        {
+            id: "p3_stage1",
             name: {
                 cn: "p3一运打法",
                 en: "p3一运打法",
@@ -131,11 +224,6 @@ Options.Triggers.push({
         },
         {
             id: "p3_stage2",
-            comment: {
-                cn: "",
-                en: "",
-                jp: "",
-            },
             name: {
                 cn: "p3二运打法",
                 en: "p3二运打法",
@@ -860,6 +948,60 @@ Options.Triggers.push({
             },
             outputStrings: {
                 "content": "动动动"
+            }
+        },
+        //TODO p3麻将
+        {
+            id: "leilei DMU p3 究极真空波 记录&预播报",
+            netRegex: NetRegexes.abilityExtra({ id: "BAE3" }),
+            duration: 20,
+            preRun: (data, matches) => {
+                data.p3_blasterDirs.push(matches.heading);
+            },
+            infoText: (data, matches, output) => {
+                if (data.p3_blasterDirs.length != 2) {
+                    return false;
+                }
+
+                const isClockwise = BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) === 1;
+                const markerList = data.triggerSetConfig.marker_type === "1A2" ? MARKER_LIST_1A2 : MARKER_LIST_4A1;
+                const startMarker = markerList[(BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4) % 8];
+                //起点对面的标点的顺逆反方向
+                return output.content({ marker: startMarker, rotation: isClockwise ? "逆" : "顺" });
+            },
+            outputStrings: {
+                "content": "从${marker}${rotation}开始引导"
+            }
+        },
+        {
+            id: "leilei MDU p3 麻将播报",
+            netRegex: NetRegexes.headMarker({}),
+            condition: (data, matches) => {
+                if (data.phase !== PHASE_EXDEATH_AND_CHAOS) {
+                    return false;
+                }
+
+                if (matches.target !== data.me) {
+                    return false;
+                }
+
+                const id = getHeadmarkerId(data, matches);
+                return MAHJONG_LIST.includes(id);
+            },
+            alertText: (data, matches, output) => {
+                const isClockwise = BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) === 1;
+                const markerList = data.triggerSetConfig.marker_type === "1A2" ? MARKER_LIST_1A2 : MARKER_LIST_4A1;
+                //起点对面的标点的顺逆反方向
+                const indexOp = isClockwise ? -1 : 1;
+
+                const id = getHeadmarkerId(data, matches);
+                const mahjongIndex = MAHJONG_LIST.includes(id);
+                const firstMarker = markerList[(BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4 + mahjongIndex * indexOp + 8) % 8];
+                const secondMarker = markerList[(BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4 + (mahjongIndex + 1) * indexOp + 8) % 8];
+                return output.content({ first: firstMarker, second: secondMarker });
+            },
+            outputStrings: {
+                "content": "去${first}${second}中间引导"
             }
         },
         {
