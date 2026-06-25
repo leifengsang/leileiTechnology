@@ -950,7 +950,6 @@ Options.Triggers.push({
                 "content": "动动动"
             }
         },
-        //TODO p3麻将
         {
             id: "leilei DMU p3 究极真空波 记录&预播报",
             netRegex: NetRegexes.abilityExtra({ id: "BAE3" }),
@@ -960,7 +959,7 @@ Options.Triggers.push({
             },
             infoText: (data, matches, output) => {
                 if (data.p3_blasterDirs.length != 2) {
-                    return false;
+                    return;
                 }
 
                 const isClockwise = BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) === 1;
