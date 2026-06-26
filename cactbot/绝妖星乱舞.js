@@ -88,17 +88,6 @@ const MARKER_LIST_4A1 = [
     "4",
 ];
 
-const MAHJONG_DIR_LIST = [
-    "上偏右",
-    "右偏上",
-    "右偏下",
-    "下偏右",
-    "下偏左",
-    "左偏下",
-    "左偏上",
-    "上偏左"
-];
-
 const P3_STAGE1_BUFF_TYPE_SHORT = 1; //短buff
 const P3_STAGE1_BUFF_TYPE_LONG = 2; //长buff
 
