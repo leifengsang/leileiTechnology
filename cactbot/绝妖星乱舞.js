@@ -951,7 +951,7 @@ Options.Triggers.push({
                     return;
                 }
 
-                const isClockwise = BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) === 1;
+                const isClockwise = (BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 8) % 8 === 1;
                 const markerList = data.triggerSetConfig.marker_type === "1A2" ? MARKER_LIST_1A2 : MARKER_LIST_4A1;
                 const startMarker = markerList[(BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4) % 8];
                 //起点对面的标点的顺逆反方向
@@ -977,7 +977,7 @@ Options.Triggers.push({
                 return MAHJONG_LIST.includes(id);
             },
             alertText: (data, matches, output) => {
-                const isClockwise = BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) === 1;
+                const isClockwise = (BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 8) % 8 === 1;
                 const markerList = data.triggerSetConfig.marker_type === "1A2" ? MARKER_LIST_1A2 : MARKER_LIST_4A1;
                 //起点对面的标点的顺逆反方向
                 const indexOp = isClockwise ? -1 : 1;
