@@ -49,21 +49,6 @@ const MAHJONG_LIST = [
 ];
 
 /**
- * 究极冲击波冲锋方向列表
- * 从上冲下，顺时针开始
- */
-const BLASTER_DIR_LIST = [
-    0,          //上冲下
-    -0.785,     //右上冲左下
-    -1.571,     //右冲左
-    -2.356,     //右下冲左上
-    3.142,      //下冲上
-    2.356,      //左下冲右上
-    1.571,      //左冲右
-    0.785       //左上冲右下
-];
-
-/**
  * 标点
  */
 const MARKER_LIST_1A2 = [
@@ -86,6 +71,39 @@ const MARKER_LIST_4A1 = [
     "3",
     "D",
     "4",
+];
+
+/**
+ * 究极冲击波冲锋方向列表
+ * 从上冲下，顺时针开始
+ */
+const P3_BLASTER_DIR_LIST = [
+    0,          //上冲下
+    -0.785,     //右上冲左下
+    -1.571,     //右冲左
+    -2.356,     //右下冲左上
+    3.142,      //下冲上
+    2.356,      //左下冲右上
+    1.571,      //左冲右
+    0.785       //左上冲右下
+];
+
+/**
+ * 地水坐标
+ * 列表逆时针
+ */
+const P5_WATER_LIST = [
+    "124.743#96.452",   //右、下安全
+    "96.452#75.242",    //右、上安全
+    "117.662#89.372",   //左、上安全
+    "89.372#82.292"     //左、下安全
+];
+
+const P5_WATER_SAFE_LIST = [
+    ["右", "下"],
+    ["右", "上"],
+    ["左", "上"],
+    ["左", "下"]
 ];
 
 const P3_STAGE1_BUFF_TYPE_SHORT = 1; //短buff
@@ -130,6 +148,7 @@ Options.Triggers.push({
             p4_manaReleased: false,
             p4_iceStatus: false,
             p4_thunderStatus: false,
+            p5_waterList: [],
         }
     },
     config: [
@@ -951,9 +970,9 @@ Options.Triggers.push({
                     return;
                 }
 
-                const isClockwise = (BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 8) % 8 === 1;
+                const isClockwise = (P3_BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - P3_BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 8) % 8 === 1;
                 const markerList = data.triggerSetConfig.marker_type === "1A2" ? MARKER_LIST_1A2 : MARKER_LIST_4A1;
-                const startMarker = markerList[(BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4) % 8];
+                const startMarker = markerList[(P3_BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4) % 8];
                 //起点对面的标点的顺逆反方向
                 return output.content({ marker: startMarker, rotation: isClockwise ? "逆" : "顺" });
             },
@@ -977,15 +996,15 @@ Options.Triggers.push({
                 return MAHJONG_LIST.includes(id);
             },
             alertText: (data, matches, output) => {
-                const isClockwise = (BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 8) % 8 === 1;
+                const isClockwise = (P3_BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[1]) - P3_BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 8) % 8 === 1;
                 const markerList = data.triggerSetConfig.marker_type === "1A2" ? MARKER_LIST_1A2 : MARKER_LIST_4A1;
                 //起点对面的标点的顺逆反方向
                 const indexOp = isClockwise ? -1 : 1;
 
                 const id = getHeadmarkerId(data, matches);
                 const mahjongIndex = MAHJONG_LIST.indexOf(id);
-                const firstMarker = markerList[(BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4 + mahjongIndex * indexOp + 8) % 8];
-                const secondMarker = markerList[(BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4 + (mahjongIndex + 1) * indexOp + 8) % 8];
+                const firstMarker = markerList[(P3_BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4 + mahjongIndex * indexOp + 8) % 8];
+                const secondMarker = markerList[(P3_BLASTER_DIR_LIST.indexOf(data.p3_blasterDirs[0]) + 4 + (mahjongIndex + 1) * indexOp + 8) % 8];
                 return output.content({ first: firstMarker, second: secondMarker });
             },
             outputStrings: {
@@ -1334,6 +1353,31 @@ Options.Triggers.push({
             outputStrings: {
                 "钢铁": "钢铁",
                 "月环": "月环",
+            }
+        },
+        {
+            id: "leilei DMU p5 洪水",
+            netRegex: NetRegexes.startsUsingExtra({ id: "C183" }),
+            suppressSeconds: 0.5,
+            durationSeconds: 10,
+            preRun: (data, matches) => {
+                data.p5_waterList.push(matches.x + "#" + matches.y);
+            },
+            infoText: (data, matches, output) => {
+                if (data.p5_waterList.length !== 2) {
+                    return;
+                }
+
+                const firstIndex = P5_WATER_LIST.indexOf(data.p5_waterList[0]);
+                const secondIndex = P5_WATER_LIST.indexOf(data.p5_waterList[1]);
+                const safeDir = P5_WATER_SAFE_LIST[firstIndex].find((v) => {
+                    return P5_WATER_SAFE_LIST[secondIndex].includes(v);
+                });
+                const rotation = (secondIndex - firstIndex + 4) % 4 === 1 ? "右逆" : "左顺";
+                return output.content({ dir: safeDir, rotation: rotation });
+            },
+            outputStrings: {
+                content: "${dir}侧集合，向${rotation}跑"
             }
         },
     ]
