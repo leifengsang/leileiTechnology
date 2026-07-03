@@ -360,6 +360,7 @@ Options.Triggers.push({
             preRun: (data) => {
                 data.magicCount++;
             },
+            delaySeconds: 0.1,
             infoText: (data, matches, output) => {
                 let stack;
                 switch (data.magicCount) {
