@@ -19,11 +19,11 @@ function getDist(x1, y1, x2, y2) {
 const headMarker = {
     KEFKA_FAKE: "02A1", //假分摊分散
     KEFKA_TRUE: "02A2", //真分摊分散
-    KEFKA_CIRCLE: "007F", //P1&P4分散
-    KEFKA_STACK: "0080", //P1&P4分摊
-    P2_STACK: "02CB", //分摊
-    P2_CIRCLE: "02CC", //大圈
-    P2_SECTOR: "02CD", //扇形
+    KEFKA_SPREAD: "007F", //P1分散
+    KEFKA_STACK: "0080", //P1分摊
+    P2_STACK: "02CB", //P2分摊
+    P2_CIRCLE: "02CC", //P2大圈
+    P2_SECTOR: "02CD", //P2扇形
     MAHJONG_1: "0150", //麻将1号
     MAHJONG_2: "0151", //麻将2号
     MAHJONG_3: "0152", //麻将3号
@@ -130,6 +130,9 @@ Options.Triggers.push({
     initData: () => {
         return {
             phase: 0,
+            flameStatus: false,
+            flameStack: false,
+            magicCount: 0,
             iceStatus: false,
             thunderStatus: false,
             p2_spellsTroubleCountDic: {},
@@ -325,6 +328,88 @@ Options.Triggers.push({
          * headMarker 02A1 假
          * headMarker 02A2 真
          */
+        {
+            id: "leilei MDU 真假火头标",
+            netRegex: NetRegexes.headMarker({}),
+            suppressSeconds: 1,
+            condition: (data, matches) => {
+                const id = getHeadmarkerId(data, matches);
+                return id === headMarker.KEFKA_FAKE || id === headMarker.KEFKA_TRUE;
+            },
+            run: (data, matches, output) => {
+                const id = getHeadmarkerId(data, matches);
+                data.flameStatus = id === headMarker.KEFKA_TRUE;
+            }
+        },
+        {
+            id: "leilei MDU 真假火分摊分散",
+            netRegex: NetRegexes.headMarker({}),
+            suppressSeconds: 1,
+            condition: (data, matches) => {
+                const id = getHeadmarkerId(data, matches);
+                return id === headMarker.KEFKA_SPREAD || id === headMarker.KEFKA_STACK;
+            },
+            run: (data, matches, output) => {
+                const id = getHeadmarkerId(data, matches);
+                data.flameStack = id === headMarker.KEFKA_STACK;
+            }
+        },
+        {
+            id: "leilei MDU 玄乎乎魔法",
+            netRegex: NetRegexes.startsUsing({ id: "BA94" }),
+            preRun: (data) => {
+                data.magicCount++;
+            },
+            infoText: (data, matches, output) => {
+                let stack;
+                switch (data.magicCount) {
+                    case 1:
+                        //冰+火
+                        stack = data.flameStack;
+                        if (!data.flameStatus) {
+                            //假头标
+                            stack = !stack;
+                        }
+
+                        return (data.iceStatus ? output.真冰雷() : output.假冰雷()) + (stack ? output.分摊() : output.分散());
+                    case 2:
+                    case 4:
+                    case 5:
+                    case 6:
+                        //冰+雷
+                        if (data.iceStatus && data.thunderStatus) {
+                            return output.全真();
+                        } else if (!data.iceStatus && !data.thunderStatus) {
+                            return output.全假();
+                        } else if (!data.iceStatus && data.thunderStatus) {
+                            return output.假冰真雷();
+                        } else if (data.iceStatus && !data.thunderStatus) {
+                            return output.真冰假雷();
+                        }
+                    case 3:
+                        //雷+火
+                        stack = data.flameStack;
+                        if (!data.flameStatus) {
+                            //假头标
+                            stack = !stack;
+                        }
+
+                        return (data.thunderStatus ? output.真冰雷() : output.假冰雷()) + (stack ? output.分摊() : output.分散());
+                    default:
+                        return;
+                }
+            },
+            outputStrings: {
+                "真冰雷": "去安全区",
+                "假冰雷": "去危险区",
+                "分摊": "分摊",
+                "分散": "分散",
+                "全真": "去安全区",
+                "全假": "去重叠危险区",
+                "真冰假雷": "吃直条",
+                "假冰真雷": "吃扇形",
+            }
+        },
         {
             id: "leilei MDU p2 咏唱危机层数",
             netRegex: NetRegexes.gainsEffect({ effectId: "13DB" }),
