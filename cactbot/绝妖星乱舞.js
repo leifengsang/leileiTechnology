@@ -1421,18 +1421,27 @@ Options.Triggers.push({
         {
             id: "leilei DMU p5 洪水",
             netRegex: NetRegexes.startsUsingExtra({ id: "C183" }),
-            suppressSeconds: 0.5,
             durationSeconds: 10,
             preRun: (data, matches) => {
                 data.p5_waterList.push(matches.x + "#" + matches.y);
             },
             infoText: (data, matches, output) => {
-                if (data.p5_waterList.length !== 2) {
+                if (data.p5_waterList.length !== 4) {
                     return;
                 }
 
-                const firstIndex = P5_WATER_LIST.indexOf(data.p5_waterList[0]);
-                const secondIndex = P5_WATER_LIST.indexOf(data.p5_waterList[1]);
+                let firstIndex = P5_WATER_LIST.indexOf(data.p5_waterList[0]);
+                let secondIndex = P5_WATER_LIST.indexOf(data.p5_waterList[2]);
+                //也有可能是另外一组水先出现
+                if (firstIndex === -1) {
+                    firstIndex = P5_WATER_LIST.indexOf(data.p5_waterList[1]);
+                }
+                if (secondIndex === -1) {
+                    secondIndex = P5_WATER_LIST.indexOf(data.p5_waterList[3]);
+                }
+                firstIndex = Math.floor(firstIndex / 2);
+                secondIndex = Math.floor(secondIndex / 2);
+
                 const safeDir = P5_WATER_SAFE_LIST[firstIndex].find((v) => {
                     return P5_WATER_SAFE_LIST[secondIndex].includes(v);
                 });
