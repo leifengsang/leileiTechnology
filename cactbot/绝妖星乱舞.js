@@ -130,6 +130,8 @@ Options.Triggers.push({
     initData: () => {
         return {
             phase: 0,
+            iceStatus: false,
+            thunderStatus: false,
             p2_spellsTroubleCountDic: {},
             p2_spellsTroublePosDic: {},
             p2_headMarkerInfoList: [],
@@ -146,8 +148,6 @@ Options.Triggers.push({
             p4_eyesSolved: {},
             p4_manaCharged: false,
             p4_manaReleased: false,
-            p4_iceStatus: false,
-            p4_thunderStatus: false,
             p5_waterList: [],
         }
     },
@@ -303,16 +303,18 @@ Options.Triggers.push({
             id: "leilei DMU 真假冰",
             //BA9E:假冰, BA98:真冰
             netRegex: NetRegexes.startsUsing({ id: ["BA9E", "BA98"] }),
+            suppressSeconds: 1,
             run: (data, matches) => {
-                //TODO
+                data.iceStatus = matches.id === "BA98";
             }
         },
         {
             id: "leilei DMU 真假雷",
             //BAA0:假雷, BA9F:真雷
             netRegex: NetRegexes.startsUsing({ id: ["BAA0", "BA9F"] }),
+            suppressSeconds: 1,
             run: (data, matches) => {
-                //TODO
+                data.thunderStatus = matches.id === "BA9F";
             }
         },
         /**
@@ -713,7 +715,6 @@ Options.Triggers.push({
             }
         },
         /**
-         * TODO
          * BBC 1号
          * BBD 2号
          * BBE 3号
@@ -1297,13 +1298,13 @@ Options.Triggers.push({
                 data.p4_manaReleased = true;
             },
             infoText: (data, matches, output) => {
-                if (data.p4_iceStatus && data.p4_thunderStatus) {
+                if (data.iceStatus && data.thunderStatus) {
                     return output.全真();
-                } else if (!data.p4_iceStatus && !data.p4_thunderStatus) {
+                } else if (!data.iceStatus && !data.thunderStatus) {
                     return output.全假();
-                } else if (!data.p4_iceStatus && data.p4_thunderStatus) {
+                } else if (!data.iceStatus && data.thunderStatus) {
                     return output.假冰真雷();
-                } else if (data.p4_iceStatus && !data.p4_thunderStatus) {
+                } else if (data.iceStatus && !data.thunderStatus) {
                     return output.真冰假雷();
                 }
             },
@@ -1312,30 +1313,6 @@ Options.Triggers.push({
                 "全假": "去重叠危险区",
                 "真冰假雷": "吃直条",
                 "假冰真雷": "吃扇形",
-            }
-        },
-        {
-            id: "leilei DMU p4 释放最后真假冰",
-            //BA9E:假冰, BA98:真冰
-            netRegex: NetRegexes.startsUsing({ id: ["BA9E", "BA98"] }),
-            suppressSeconds: 1,
-            condition: (data) => {
-                return data.p4_manaReleased;
-            },
-            run: (data, matches) => {
-                data.p4_iceStatus = matches.id === "BA98";
-            }
-        },
-        {
-            id: "leilei DMU p4 释放最后真假雷",
-            //BAA0:假雷, BA9F:真雷
-            netRegex: NetRegexes.startsUsing({ id: ["BAA0", "BA9F"] }),
-            suppressSeconds: 1,
-            condition: (data) => {
-                return data.p4_manaReleased;
-            },
-            run: (data, matches) => {
-                data.p4_thunderStatus = matches.id === "BA9F";
             }
         },
         {
