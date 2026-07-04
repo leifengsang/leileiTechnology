@@ -1522,8 +1522,6 @@ Options.Triggers.push({
                 if (secondIndex === -1) {
                     secondIndex = P5_WATER_LIST.indexOf(data.p5_waterList[3]);
                 }
-                firstIndex = Math.floor(firstIndex / 2);
-                secondIndex = Math.floor(secondIndex / 2);
 
                 const safeDir = P5_WATER_SAFE_LIST[firstIndex].find((v) => {
                     return P5_WATER_SAFE_LIST[secondIndex].includes(v);
