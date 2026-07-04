@@ -9,7 +9,7 @@
  * @returns 
  */
 function isMarkEnable(data, output) {
-    return data.triggerSetConfig.globalMarkEnable && (!output.hasOwnProperty("是否标记") || output.是否标记().toLowerCase() === "true");
+    return data.triggerSetConfig.globalMarkEnable && output.是否标记().toLowerCase() === "true";
 }
 
 function getDist(x1, y1, x2, y2) {
@@ -142,6 +142,8 @@ Options.Triggers.push({
             p2_endCount: 0,
             p3_stage1_buffType: 0,
             p3_blasterDirs: [],
+            p3_mahjongDic: {},
+            p3_mahjongCount: 0,
             p4_exdeathStatus: true,
             p4_chaosStatus: true,
             p4_isAllagan: true,
@@ -242,20 +244,44 @@ Options.Triggers.push({
             },
             options: {
                 cn: {
-                    "盗火": "steal fire",
-                    "接线优化": "sp"
+                    "盗火（一根）": "steal fire",
+                    "接线优化（两根）": "sp"
                 },
                 en: {
-                    "盗火": "steal fire",
-                    "接线优化": "sp"
+                    "盗火（一根）": "steal fire",
+                    "接线优化（两根）": "sp"
                 },
                 jp: {
-                    "盗火": "steal fire",
-                    "接线优化": "sp"
+                    "盗火（一根）": "steal fire",
+                    "接线优化（两根）": "sp"
                 },
             },
             type: "select",
             default: "steal fire"
+        },
+        {
+            id: "p3_stage2_marker",
+            name: {
+                cn: "p3二运标记顺位",
+                en: "p3二运标记顺位",
+                jp: "p3二运标记顺位",
+            },
+            options: {
+                cn: {
+                    "TND": "TND",
+                    "TDN": "TDN"
+                },
+                en: {
+                    "TND": "TND",
+                    "TDN": "TDN"
+                },
+                jp: {
+                    "TND": "TND",
+                    "TDN": "TDN"
+                },
+            },
+            type: "select",
+            default: "TND"
         },
     ],
     triggers: [
@@ -805,6 +831,63 @@ Options.Triggers.push({
          * BBD 2号
          * BBE 3号
          */
+        {
+            id: "leilei MDU p3 二运麻将头标",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["BBC", "BBD", "BBE"] }),
+            run: (data, matches, output) => {
+                if (!isMarkEnable(data, output)) {
+                    return;
+                }
+
+                let list = data.p3_mahjongDic[matches.effectId];
+                if (!list) {
+                    list = [];
+                    data.p3_mahjongDic[matches.effectId] = list;
+                }
+                list.push(matches.targetId);
+                data.p3_mahjongCount++;
+
+                if (data.p3_mahjongCount === 8) {
+                    /**
+                     * 麻将1攻击
+                     * 麻将2锁链
+                     * 麻将3禁止
+                     */
+                    let rpRuleList;
+                    if (data.triggerSetConfig.p3_stage2_marker === "TND") {
+                        rpRuleList = "MT/ST/H1/H2/D1/D2/D3/D4";
+                    } else if (data.triggerSetConfig.p3_stage2_marker === "TDN") {
+                        rpRuleList = "MT/ST/D1/D2/D3/D4/H1/H2";
+                    }
+
+
+                    for (const key in data.p3_mahjongDic) {
+                        list = data.p3_mahjongDic[key];
+                        list.sort((a, b) => {
+                            return rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, a)) - rpRuleList.indexOf(data.leileiFL.getRpByHexId(data, b));
+                        })
+                    }
+
+                    //麻将1
+                    data.leileiFL.mark(data.p3_mahjongDic["BBC"][0], data.leileiData.targetMarkers.attack1);
+                    data.leileiFL.mark(data.p3_mahjongDic["BBC"][1], data.leileiData.targetMarkers.attack2);
+                    data.leileiFL.mark(data.p3_mahjongDic["BBC"][2], data.leileiData.targetMarkers.attack3);
+
+                    //麻将2
+                    data.leileiFL.mark(data.p3_mahjongDic["BBD"][0], data.leileiData.targetMarkers.bind1);
+                    data.leileiFL.mark(data.p3_mahjongDic["BBD"][1], data.leileiData.targetMarkers.bind2);
+                    data.leileiFL.mark(data.p3_mahjongDic["BBD"][2], data.leileiData.targetMarkers.bind3);
+
+                    //麻将3
+                    data.leileiFL.mark(data.p3_mahjongDic["BBE"][0], data.leileiData.targetMarkers.stop1);
+                    data.leileiFL.mark(data.p3_mahjongDic["BBE"][1], data.leileiData.targetMarkers.stop2);
+                }
+            },
+            infoText: "",
+            outputStrings: {
+                是否标记: "false"
+            }
+        },
         {
             id: "leilei MDU p3 二运麻将1号 黑洞1-1",
             netRegex: NetRegexes.gainsEffect({ effectId: "BBC" }),
