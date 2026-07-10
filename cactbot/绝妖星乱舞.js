@@ -269,15 +269,18 @@ Options.Triggers.push({
             options: {
                 cn: {
                     "TND": "TND",
-                    "TDN": "TDN"
+                    "TDN": "TDN",
+                    "NDT": "NDT",
                 },
                 en: {
                     "TND": "TND",
-                    "TDN": "TDN"
+                    "TDN": "TDN",
+                    "NDT": "NDT",
                 },
                 jp: {
                     "TND": "TND",
-                    "TDN": "TDN"
+                    "TDN": "TDN",
+                    "NDT": "NDT",
                 },
             },
             type: "select",
@@ -858,6 +861,8 @@ Options.Triggers.push({
                         rpRuleList = "MT/ST/H1/H2/D1/D2/D3/D4";
                     } else if (data.triggerSetConfig.p3_stage2_marker === "TDN") {
                         rpRuleList = "MT/ST/D1/D2/D3/D4/H1/H2";
+                    } else if (data.triggerSetConfig.p3_stage2_marker === "NDT") {
+                        rpRuleList = "H1/H2/D1/D2/D3/D4/MT/ST";
                     }
 
 
