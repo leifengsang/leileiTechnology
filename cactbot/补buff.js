@@ -25,5 +25,37 @@ Options.Triggers.push({
                 content: "补buff",
             }
         },
+        {
+            id: "leilei 补buff 诗人-风dot",
+            netRegex: NetRegexes.gainsEffect({ effectId: "4B1" }),
+            condition: (data, matches) => {
+                return matches.source === data.me;
+            },
+            delaySeconds: (data, matches) => {
+                return parseInt(matches.duration) - 5;
+            },
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                content: "补buff",
+            }
+        },
+        {
+            id: "leilei 补buff 诗人-毒dot",
+            netRegex: NetRegexes.gainsEffect({ effectId: "4B0" }),
+            condition: (data, matches) => {
+                return matches.source === data.me;
+            },
+            delaySeconds: (data, matches) => {
+                return parseInt(matches.duration) - 5;
+            },
+            infoText: (data, matches, output) => {
+                return output.content();
+            },
+            outputStrings: {
+                content: "补buff",
+            }
+        },
     ]
 })
