@@ -153,6 +153,8 @@ Options.Triggers.push({
             p4_eyesSolved: {},
             p4_manaCharged: false,
             p4_manaReleased: false,
+            p4_thunderPlayerList: [],
+            p4_eyesPlayerDic: {},
             p5_waterList: [],
         }
     },
@@ -269,18 +271,15 @@ Options.Triggers.push({
             options: {
                 cn: {
                     "TND": "TND",
-                    "TDN": "TDN",
-                    "NDT": "NDT",
+                    "TDN": "TDN"
                 },
                 en: {
                     "TND": "TND",
-                    "TDN": "TDN",
-                    "NDT": "NDT",
+                    "TDN": "TDN"
                 },
                 jp: {
                     "TND": "TND",
-                    "TDN": "TDN",
-                    "NDT": "NDT",
+                    "TDN": "TDN"
                 },
             },
             type: "select",
@@ -308,6 +307,7 @@ Options.Triggers.push({
             id: "leilei DMU 控制战斗阶段",
             netRegex: NetRegexes.startsUsing({ id: ["BCF2", "BABC", "BAE2", "C2DC"] }),
             run: (data, matches) => {
+                let clearMark = false;
                 switch (matches.id) {
                     case "BCF2":
                         //众神之像
@@ -320,15 +320,21 @@ Options.Triggers.push({
                     case "BAE2":
                         //重构
                         data.phase = PHASE_EXDEATH_AND_CHAOS;
+                        clearMark = true;
                         break;
                     case "C2DC":
                         //闹哄哄魂击
                         data.phase = PHASE_KEFKA_SAYS;
+                        clearMark = true;
                         break;
                     default:
                         break;
                 }
                 console.log("phase", data.phase);
+
+                if (clearMark && data.triggerSetConfig.globalMarkEnable) {
+                    data.leileiFL.clearMark();
+                }
             }
         },
         {
@@ -861,8 +867,6 @@ Options.Triggers.push({
                         rpRuleList = "MT/ST/H1/H2/D1/D2/D3/D4";
                     } else if (data.triggerSetConfig.p3_stage2_marker === "TDN") {
                         rpRuleList = "MT/ST/D1/D2/D3/D4/H1/H2";
-                    } else if (data.triggerSetConfig.p3_stage2_marker === "NDT") {
-                        rpRuleList = "H1/H2/D1/D2/D3/D4/MT/ST";
                     }
 
 
@@ -1244,7 +1248,32 @@ Options.Triggers.push({
                 return output.content({ round: round });
             },
             outputStrings: {
-                content: "第${round}轮出人群"
+                content: "第${round}轮出人群",
+            }
+        },
+        {
+            id: "leilei MDU p4 雷出 小队播报",
+            netRegex: NetRegexes.gainsEffect({ effectId: ["15A8", "15A9"] }),
+            condition: (data, matches) => {
+                return data.triggerSetConfig.p4_show_party && ((matches.effectId === "15A8" && data.p4_exdeathStatus)
+                    || (matches.effectId === "15A9" && !data.p4_exdeathStatus));
+            },
+            run: (data, matches, output) => {
+                data.p4_thunderPlayerList.push(matches.targetId);
+                if (data.p4_thunderPlayerList.length !== 2) {
+                    return;
+                }
+
+                const round = parseInt(matches.duration) === 51 ? 1 : 2;
+                const player1 = data.leileiFL.getJobNameByHexId(data, data.p4_thunderPlayerList[0]);
+                const player2 = data.leileiFL.getJobNameByHexId(data, data.p4_thunderPlayerList[1]);
+                //后面还有一轮，清空
+                data.p4_thunderPlayerList = [];
+                return output.content({ round: round, player1: player1, player2: player2 });
+
+            },
+            outputStrings: {
+                content: "/p 第${round}出人群：${player1}, ${player2}<se.1>"
             }
         },
         {
@@ -1280,6 +1309,37 @@ Options.Triggers.push({
                 content: "/p 第${round}轮${option}<se.1>",
                 背对: "石化出, 背对",
                 正对: "石化进, 正对",
+            }
+        },
+        {
+            id: "leilei MDU p4 石化buff 头标",
+            netRegex: NetRegexes.gainsEffect({ effectId: "15A7" }),
+            condition: (data, matches, output) => {
+                return isMarkEnable(data, output);
+            },
+            infoText: "",
+            run: (data, matches, output) => {
+                const round = parseInt(matches.duration) === 60 ? 1 : 2;
+                let list = data.p4_eyesPlayerDic[round];
+                if (!list) {
+                    list = [];
+                    data.p4_eyesPlayerDic[round] = list;
+                }
+                list.push(matches.targetId);
+                if (list.length !== 2) {
+                    return;
+                }
+
+                if (round === 1) {
+                    data.leileiFL.mark(list[0], data.leileiData.targetMarkers.attack1);
+                    data.leileiFL.mark(list[1], data.leileiData.targetMarkers.attack2);
+                } else {
+                    data.leileiFL.mark(list[0], data.leileiData.targetMarkers.stop1);
+                    data.leileiFL.mark(list[1], data.leileiData.targetMarkers.stop2);
+                }
+            },
+            outputStrings: {
+                是否标记: "false"
             }
         },
         {
