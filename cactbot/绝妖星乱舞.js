@@ -1269,7 +1269,7 @@ Options.Triggers.push({
                 const player2 = data.leileiFL.getJobNameByHexId(data, data.p4_thunderPlayerList[1]);
                 //后面还有一轮，清空
                 data.p4_thunderPlayerList = [];
-                return output.content({ round: round, player1: player1, player2: player2 });
+                data.leileiFL.doTextCommand(output.content({ round: round, player1: player1, player2: player2 }));
 
             },
             outputStrings: {
